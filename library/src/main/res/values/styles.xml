@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Material Design theme. -->
+    <style name="Theme.MaterialDialog" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
+        <!-- Primary brand color. -->
+        <item name="colorPrimary">@color/design_default_color_primary</item>
+        <item name="colorPrimaryVariant">@color/design_default_color_primary_dark</item>
+        <item name="colorOnPrimary">@android:color/white</item>
+        <!-- Secondary brand color. -->
+        <item name="colorSecondary">@color/design_default_color_secondary</item>
+        <item name="colorSecondaryVariant">@color/design_default_color_secondary_variant</item>
+        <item name="colorOnSecondary">@android:color/black</item>
+        <item name="android:fontFamily">@font/montserrat_regular</item>
+    </style>
+
+    <!-- Theme for BottomSheetDialog -->
+    <style name="BottomSheet" parent="@style/Widget.Design.BottomSheet.Modal">
+        <item name="android:background">@drawable/bottom_sheet_back</item>
+        <item name="android:layout_margin">8dp</item>
+    </style>
+
+    <style name="BaseBottomSheetDialog" parent="@style/Theme.MaterialComponents.BottomSheetDialog">
+        <item name="android:windowIsFloating">false</item>
+        <item name="bottomSheetStyle">@style/BottomSheet</item>
+    </style>
+
+    <style name="BottomSheetDialogTheme" parent="BaseBottomSheetDialog">
+    </style>
+
+    <!-- Theme for Dialog Title -->
+    <style name="Theme.MaterialDialog.Title">
+        <item name="android:gravity">center</item>
+        <item name="android:textColor">@color/material_dialog_title_text_color</item>
+        <item name="android:fontFamily">@font/montserrat_bold</item>
+        <item name="android:layout_marginTop">@dimen/radiusTop</item>
+        <item name="android:textSize">@dimen/text_title_size</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <!-- Theme for Dialog Message -->
+    <style name="Theme.MaterialDialog.Message">
+        <item name="android:textSize">@dimen/text_message_size</item>
+        <item name="android:layout_marginTop">@dimen/radiusTop</item>
+        <item name="android:fontFamily">@font/montserrat_semi_bold</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textColor">@color/material_dialog_message_text_color</item>
+    </style>
+
+    <!-- Theme for Dialog Details -->
+    <style name="Theme.MaterialDialog.Details">
+        <item name="android:textSize">@dimen/text_message_size</item>
+        <item name="android:layout_marginTop">@dimen/radiusTop</item>
+        <item name="android:fontFamily">@font/montserrat_extra_light</item>
+        <item name="android:gravity">start</item>
+        <item name="android:textColor">@color/material_dialog_message_text_color</item>
+    </style>
+
+    <!-- Theme for Dialog Positive Button -->
+    <style name="MaterialDialog.PositiveButton" parent="@style/Widget.MaterialComponents.Button.Icon">
+        <item name="android:layout_margin">4dp</item>
+        <item name="android:letterSpacing">0.025</item>
+        <item name="android:fontFamily">@font/montserrat_bold</item>
+    </style>
+
+    <!-- Theme for Dialog Negative Button -->
+    <style name="MaterialDialog.NegativeButton" parent="Widget.MaterialComponents.Button.OutlinedButton.Icon">
+        <item name="android:layout_margin">4dp</item>
+        <item name="android:letterSpacing">0.025</item>
+        <item name="android:fontFamily">@font/montserrat_semi_bold</item>
+    </style>
+
+    <!-- Theme for Dialog Negative Button -->
+    <style name="MaterialDialog.NeutralButton" parent="Widget.MaterialComponents.Button.OutlinedButton.Icon">
+        <item name="android:layout_margin">4dp</item>
+        <item name="android:letterSpacing">0.025</item>
+        <item name="android:fontFamily">@font/montserrat_semi_bold</item>
+    </style>
+
+    <!-- Theme for Input Layout Cut -->
+    <style name="CutInputLayout" parent="ShapeAppearance.MaterialComponents.MediumComponent">
+        <item name="cornerFamily">cut</item>
+        <item name="cornerSize">12dp</item>
+    </style>
+</resources>

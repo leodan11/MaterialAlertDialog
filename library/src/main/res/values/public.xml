@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <public name="ic_error" type="drawable" />
+    <public name="ic_header_default_preset_custom" type="drawable" />
+    <public name="ic_help" type="drawable" />
+    <public name="ic_information" type="drawable" />
+    <public name="ic_loader_default" type="drawable" />
+    <public name="ic_security" type="drawable" />
+    <public name="ic_shield_key" type="drawable" />
+    <public name="ic_success" type="drawable" />
+    <public name="ic_warning" type="drawable" />
+
+    <public name="text_value_username" type="string"/>
+    <public name="text_value_username_helper" type="string"/>
+    <public name="text_value_username_error" type="string"/>
+    <public name="text_value_password" type="string"/>
+    <public name="text_value_password_helper" type="string"/>
+    <public name="text_value_password_error" type="string"/>
+    <public name="text_value_login" type="string"/>
+    <public name="text_value_login_in" type="string"/>
+    <public name="text_value_sign_in_value" type="string"/>
+    <public name="text_value_error" type="string"/>
+    <public name="text_value_help" type="string"/>
+    <public name="text_value_information" type="string"/>
+    <public name="text_value_success" type="string"/>
+    <public name="text_value_warning" type="string"/>
+    <public name="text_value_yes" type="string"/>
+    <public name="text_value_not" type="string"/>
+    <public name="text_value_cancel" type="string"/>
+    <public name="text_value_accept" type="string"/>
+    <public name="text_value_later" type="string"/>
+    <public name="text_value_decline" type="string"/>
+    <public name="text_value_discard" type="string"/>
+    <public name="text_value_got_it" type="string"/>
+    <public name="text_value_more" type="string"/>
+    <public name="text_value_less" type="string"/>
+    <public name="text_value_charging" type="string"/>
+    <public name="text_value_charging_please" type="string"/>
+    <public name="text_value_code" type="string"/>
+    <public name="text_value_this_field_is_required" type="string"/>
+    <public name="text_value_reason_hint" type="string"/>
+    <public name="text_value_reason_helper" type="string"/>
+    <public name="text_value_reason_error" type="string"/>
+    <public name="text_value_code_error" type="string"/>
+    <public name="text_value_unknown_error" type="string"/>
+    <public name="button_positive_speakable_text_value" type="string"/>
+    <public name="button_neutral_speakable_text_value" type="string"/>
+    <public name="button_negative_speakable_text_value" type="string"/>
+</resources>

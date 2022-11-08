@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="text_value_error">Error</string>
+    <string name="text_value_help">Ayuda</string>
+    <string name="text_value_information">Información</string>
+    <string name="text_value_success">Éxito</string>
+    <string name="text_value_warning">Advertencia</string>
+    <string name="text_value_yes">Si</string>
+    <string name="text_value_not">No</string>
+    <string name="text_value_cancel">Cancelar</string>
+    <string name="text_value_accept">Aceptar</string>
+    <string name="text_value_later">Luego</string>
+    <string name="text_value_decline">Rechazar</string>
+    <string name="text_value_discard">Desechar</string>
+    <string name="text_value_got_it">Entendido</string>
+    <string name="text_value_charging">Cargando…</string>
+    <string name="text_value_charging_please">Cargando. Espere por favor…</string>
+    <string name="button_positive_speakable_text_value">Opción positiva del diálogo</string>
+    <string name="button_neutral_speakable_text_value">Opción neutral del diálogo</string>
+    <string name="button_negative_speakable_text_value">Opción negativa del diálogo</string>
+    <string name="text_value_code">Ingrese el código a continuación</string>
+    <string name="text_value_reason_helper">Especifique los motivos por los que se realiza esta acción</string>
+    <string name="text_value_reason_hint">Comparte detalles adicionales</string>
+    <string name="text_value_this_field_is_required">El campo es obligatorio</string>
+    <string name="text_value_username">Nombre de usuario</string>
+    <string name="text_value_password">Contraseña</string>
+    <string name="text_value_login">Inicio de sesión</string>
+    <string name="text_value_login_in">Acceder</string>
+    <string name="text_value_sign_in_value">Iniciar sesión en %1$s</string>
+    <string name="text_value_username_error">Introduzca un nombre de usuario</string>
+    <string name="text_value_password_error">Ingrese una contraseña</string>
+    <string name="text_value_username_helper">Nombre de usuario proporcionado por Aldea (<b>por ejemplo, Joe00</b>)</string>
+    <string name="text_value_password_helper">Clave que puede contener letras, números y símbolos</string>
+    <string name="text_value_reason_error">No puede dejar este campo vacío</string>
+    <string name="text_value_code_error">Debes ingresar o completar el código</string>
+    <string name="text_value_unknown_error">Tipo de entrada desconocido</string>
+</resources>

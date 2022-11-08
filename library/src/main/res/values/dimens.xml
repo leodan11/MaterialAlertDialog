@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="radius_min">5dp</dimen>
+    <dimen name="margin_spacing_min">8dp</dimen>
+    <dimen name="radiusTop">16dp</dimen>
+    <dimen name="paddingTop">16dp</dimen>
+    <dimen name="app_icon_size_min">34dp</dimen>
+    <dimen name="spacing_edit_text">48dp</dimen>
+
+    <dimen name="text_title_size">16sp</dimen>
+    <dimen name="text_message_size">14sp</dimen>
+</resources>

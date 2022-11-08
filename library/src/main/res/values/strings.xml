@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="text_value_screenplay" translatable="false">-</string>
+
+    <string name="text_value_username">Username</string>
+    <string name="text_value_username_helper">Username provided by Aldea (<b>e.g., Joe00</b>)</string>
+    <string name="text_value_username_error">Enter a username</string>
+    <string name="text_value_password">Password</string>
+    <string name="text_value_password_helper">Key that can contain letters, numbers and symbols</string>
+    <string name="text_value_password_error">Enter a password</string>
+    <string name="text_value_login">Login</string>
+    <string name="text_value_login_in">Login In</string>
+    <string name="text_value_sign_in_value">Sign in to %1$s</string>
+
+    <string name="text_value_error">Error</string>
+    <string name="text_value_help">Help</string>
+    <string name="text_value_information">Information</string>
+    <string name="text_value_success">Success</string>
+    <string name="text_value_warning">Warning</string>
+
+    <string name="text_value_yes">Yes</string>
+    <string name="text_value_not">Not</string>
+    <string name="text_value_cancel">Cancel</string>
+    <string name="text_value_accept">Accept</string>
+    <string name="text_value_later">Later</string>
+    <string name="text_value_decline">Decline</string>
+    <string name="text_value_discard">Discard</string>
+    <string name="text_value_got_it">Got It</string>
+    <string name="text_value_charging">Charging…</string>
+    <string name="text_value_charging_please">Charging. Please wait…</string>
+
+    <string name="text_value_code">Enter the code below</string>
+    <string name="text_value_this_field_is_required">The field is required</string>
+    <string name="text_value_reason_hint">Share additional details</string>
+    <string name="text_value_reason_helper">Specify the reasons why this action is performed</string>
+    <string name="text_value_reason_error">You cannot leave this field empty</string>
+    <string name="text_value_code_error">You must enter or complete the code</string>
+    <string name="text_value_unknown_error">Unknown input type</string>
+
+    <string name="button_positive_speakable_text_value">Positive choice of dialogue</string>
+    <string name="button_neutral_speakable_text_value">Dialogue neutral option</string>
+    <string name="button_negative_speakable_text_value">Negative option of the dialogue</string>
+
+</resources>

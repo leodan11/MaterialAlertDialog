@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="material_dialog_background">@android:color/white</color>
+    <color name="material_dialog_header_background_error">#D50000</color>
+    <color name="material_dialog_header_background_help">#888888</color>
+    <color name="material_dialog_header_background_information">#4FC3F7</color>
+    <color name="material_dialog_header_background_success">#4CAF50</color>
+    <color name="material_dialog_header_background_warning">#FDD835</color>
+
+    <color name="material_dialog_title_text_color">@android:color/primary_text_light</color>
+    <color name="material_dialog_message_text_color">@android:color/secondary_text_light</color>
+
+    <color name="material_dialog_positive_button_text_color">@color/design_default_color_on_primary</color>
+    <color name="material_dialog_negative_button_text_color">@color/design_default_color_primary</color>
+
+    <color name="material_dialog_positive_button_color">@color/design_default_color_primary_dark</color>
+
+    <color name="material_dialog_progress_circular">@color/design_default_color_primary_dark</color>
+    <color name="material_dialog_color_primary_dark">@color/design_default_color_primary_dark</color>
+</resources>
