@@ -189,7 +189,3 @@ dialog.show()
 dialog.dismiss()
 ```
 
-## Next version
-
-* Implementation of lambda functions.
-
