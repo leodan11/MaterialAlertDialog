@@ -104,7 +104,7 @@ abstract class VectorAlertDialog(
      * Note that you should not override this method to do initialization when the dialog is shown.
      *
      */
-    override fun show() {
+    fun show() {
         if (mDialog != null) mDialog?.show()
         else throwNullDialog()
     }
@@ -126,7 +126,7 @@ abstract class VectorAlertDialog(
      */
     open fun setOnDismissListener(onDismissListener: AlertDialogInterface.OnDismissListener){
         this.mOnDismissListener = onDismissListener
-        mDialog?.setOnCancelListener{ dismissCallback() }
+        mDialog?.setOnDismissListener{ dismissCallback() }
     }
 
     /**
@@ -136,7 +136,7 @@ abstract class VectorAlertDialog(
      */
     open fun setOnShowListener(onShowListener: AlertDialogInterface.OnShowListener){
         this.mOnShowListener = onShowListener
-        mDialog?.setOnCancelListener{ showCallback() }
+        mDialog?.setOnShowListener{ showCallback() }
     }
 
     private fun cancelCallback() {
