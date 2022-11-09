@@ -26,7 +26,7 @@ allprojects {
 
 ```gradle
 dependencies {
-  implementation 'com.github.leodan11:MaterialAlertDialog:1.0.0'
+  implementation 'com.github.leodan11:MaterialAlertDialog:1.0.1'
 }
 ```
 
@@ -47,7 +47,7 @@ dependencies {
 <dependency>
   <groupId>com.github.leodan11</groupId>
     <artifactId>MaterialAlertDialog</artifactId>
-    <version>1.0.0</version>
+    <version>1.0.1</version>
  </dependency>
 ```
 
