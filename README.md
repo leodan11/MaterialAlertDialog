@@ -184,8 +184,12 @@ val dialog = MaterialProgressAlertDialog.Builder(this)
               .setTitle("Example")
               .setMessage("Example Message")
               .create()
-              .show()
               
 dialog.show()
 dialog.dismiss()
 ```
+
+## Next version
+
+* Implementation of lambda functions.
+
