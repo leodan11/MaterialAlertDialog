@@ -29,7 +29,7 @@
     <string name="text_value_sign_in_value">Iniciar sesión en %1$s</string>
     <string name="text_value_username_error">Introduzca un nombre de usuario</string>
     <string name="text_value_password_error">Ingrese una contraseña</string>
-    <string name="text_value_username_helper">Nombre de usuario proporcionado por Aldea (<b>por ejemplo, Joe00</b>)</string>
+    <string name="text_value_username_helper">Nombre de usuario proporcionado por la entidad corporativa (<b>por ejemplo, Joe00</b>)</string>
     <string name="text_value_password_helper">Clave que puede contener letras, números y símbolos</string>
     <string name="text_value_reason_error">No puede dejar este campo vacío</string>
     <string name="text_value_code_error">Debes ingresar o completar el código</string>

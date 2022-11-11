@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <public name="ic_animated_default" type="drawable" />
     <public name="ic_error" type="drawable" />
     <public name="ic_header_default_preset_custom" type="drawable" />
     <public name="ic_help" type="drawable" />
     <public name="ic_information" type="drawable" />
-    <public name="ic_loader_default" type="drawable" />
     <public name="ic_security" type="drawable" />
     <public name="ic_shield_key" type="drawable" />
     <public name="ic_success" type="drawable" />
