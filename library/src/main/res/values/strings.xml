@@ -5,9 +5,10 @@
 
     <string name="text_value_username">Username</string>
     <string name="text_value_username_helper">Username provided by the corporate entity (<b>e.g., Joe00</b>)</string>
+    <string name="text_value_username_helper_with_args">Username provided by %1$s (<b>e.g., Joe00</b>)</string>
     <string name="text_value_username_error">Enter a username</string>
     <string name="text_value_password">Password</string>
-    <string name="text_value_password_helper">Key that can contain letters, numbers and symbols</string>
+    <string name="text_value_password_helper">Six or more characters, with at least one lowercase and one uppercase letter</string>
     <string name="text_value_password_error">Enter a password</string>
     <string name="text_value_login">Login</string>
     <string name="text_value_login_in">Login In</string>

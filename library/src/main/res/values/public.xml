@@ -12,6 +12,7 @@
 
     <public name="text_value_username" type="string"/>
     <public name="text_value_username_helper" type="string"/>
+    <public name="text_value_username_helper_with_args" type="string" />
     <public name="text_value_username_error" type="string"/>
     <public name="text_value_password" type="string"/>
     <public name="text_value_password_helper" type="string"/>
