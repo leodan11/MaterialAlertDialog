@@ -1,8 +1,12 @@
 package com.github.leodan11.alertdialog.dist.helpers
 
+import android.app.Activity
+import android.content.Context
 import android.graphics.drawable.AnimatedVectorDrawable
 import android.graphics.drawable.Drawable
 import android.text.TextUtils
+import android.view.View
+import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import android.widget.ImageView
 import androidx.core.widget.addTextChangedListener
@@ -42,6 +46,15 @@ object AlertDialog {
     fun onCallbackRequestFocus(editTextOrigen: EditText, editTextDestiny: EditText, lengthCounter: Int = 1){
         editTextOrigen.addTextChangedListener{
             if (it?.length == lengthCounter) editTextDestiny.requestFocus()
+        }
+    }
+
+    private fun hideInputKeyboardView(activity: Activity) {
+        val view: View? = activity.currentFocus
+        view?.clearFocus()
+        if (view != null){
+            val input = activity.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+            input.hideSoftInputFromWindow(view.windowToken, 0)
         }
     }
 
