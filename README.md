@@ -47,7 +47,7 @@ dependencies {
 <dependency>
   <groupId>com.github.leodan11</groupId>
     <artifactId>MaterialAlertDialog</artifactId>
-    <version>1.1.0</version>
+    <version>latest</version>
  </dependency>
 ```
 
