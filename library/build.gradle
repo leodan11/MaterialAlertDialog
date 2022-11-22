@@ -1,7 +1,11 @@
 plugins {
     id 'com.android.library'
     id 'org.jetbrains.kotlin.android'
+    id 'maven-publish'
 }
+
+group = 'com.github.leodan11'
+version = '1.2.8'
 
 android {
     namespace 'com.github.leodan11.alertdialog'
@@ -31,6 +35,12 @@ android {
     lintOptions {
         abortOnError false
     }
+    publishing {
+        singleVariant('release') {
+            withSourcesJar()
+            withJavadocJar()
+        }
+    }
 }
 
 dependencies {
@@ -44,8 +54,15 @@ dependencies {
     implementation 'com.github.leodan11:ReadMoreOptions:1.0.0'
 }
 
-ext {
-    PUBLISH_GROUP_ID = 'com.github.leodan11.alertdialog'
-    PUBLISH_ARTIFACT_ID = 'alertdialog'
-    PUBLISH_VERSION = '1.1.0'
+afterEvaluate {
+    publishing {
+        publications {
+            // Creates a Maven publication called "release".
+            maven(MavenPublication) {
+                groupId = 'com.github.leodan11'
+                artifactId = 'MaterialAlertDialog'
+                version = '1.2.8'
+            }
+        }
+    }
 }
