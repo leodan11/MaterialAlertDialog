@@ -26,7 +26,7 @@ allprojects {
 
 ```gradle
 dependencies {
-  implementation 'com.github.leodan11:MaterialAlertDialog:{latest version}''
+  implementation 'com.github.leodan11:MaterialAlertDialog:{latest version}'
 }
 ```
 
