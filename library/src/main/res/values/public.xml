@@ -29,6 +29,7 @@
     <public name="text_value_not" type="string"/>
     <public name="text_value_cancel" type="string"/>
     <public name="text_value_accept" type="string"/>
+    <public name="text_value_close" type="string"/>
     <public name="text_value_later" type="string"/>
     <public name="text_value_decline" type="string"/>
     <public name="text_value_discard" type="string"/>

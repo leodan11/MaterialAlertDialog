@@ -35,4 +35,5 @@
     <string name="text_value_reason_error">No puede dejar este campo vacío</string>
     <string name="text_value_code_error">Debes ingresar o completar el código</string>
     <string name="text_value_unknown_error">Tipo de entrada desconocido</string>
+    <string name="text_value_close">Cerrar</string>
 </resources>

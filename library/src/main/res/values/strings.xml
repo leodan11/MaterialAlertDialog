@@ -24,6 +24,7 @@
     <string name="text_value_not">Not</string>
     <string name="text_value_cancel">Cancel</string>
     <string name="text_value_accept">Accept</string>
+    <string name="text_value_close">Close</string>
     <string name="text_value_later">Later</string>
     <string name="text_value_decline">Decline</string>
     <string name="text_value_discard">Discard</string>

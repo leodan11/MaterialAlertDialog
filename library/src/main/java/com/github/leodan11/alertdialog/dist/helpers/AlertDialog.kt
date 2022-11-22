@@ -49,7 +49,7 @@ object AlertDialog {
         }
     }
 
-    private fun hideInputKeyboardView(activity: Activity) {
+    fun hideInputKeyboardView(activity: Activity) {
         val view: View? = activity.currentFocus
         view?.clearFocus()
         if (view != null){
