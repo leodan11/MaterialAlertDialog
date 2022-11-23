@@ -58,10 +58,18 @@ afterEvaluate {
     publishing {
         publications {
             // Creates a Maven publication called "release".
-            maven(MavenPublication) {
+            release(MavenPublication) {
+                from components.release
                 groupId = 'com.github.leodan11'
                 artifactId = 'MaterialAlertDialog'
                 version = '1.2.8'
+
+                pom {
+                    name = "MaterialAlertDialog"
+                    description = "A beautiful, fluid, and extensible dialogs API for Kotlin & Android"
+                    url = "https://github.com/leodan11/MaterialAlertDialog"
+                }
+
             }
         }
     }
