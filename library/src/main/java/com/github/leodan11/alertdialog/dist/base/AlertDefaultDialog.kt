@@ -283,7 +283,7 @@ abstract class AlertDefaultDialog(
          * [DIALOG_STYLE_ERROR], [DIALOG_STYLE_HELP], [DIALOG_STYLE_INFORMATION],
          * [DIALOG_STYLE_SUCCESS], [DIALOG_STYLE_WARNING], [DIALOG_STYLE_CUSTOM].
          *
-         * @param dialogType By default it is used [DIALOG_STYLE_SUCCESS].
+         * @param dialogType By default it is used [DIALOG_STYLE_CUSTOM].
          * @return This Builder object to allow for chaining of calls to set methods
          */
         fun setType(dialogType: Int): Builder<D> {
