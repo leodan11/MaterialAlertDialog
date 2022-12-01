@@ -15,4 +15,4 @@ dependencyResolutionManagement {
 }
 rootProject.name = "MaterialAlertDialog"
 include ':app'
-include ':library'
+include ':AlertDialog'

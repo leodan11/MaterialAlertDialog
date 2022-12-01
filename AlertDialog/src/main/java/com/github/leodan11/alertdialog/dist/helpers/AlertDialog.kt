@@ -5,6 +5,7 @@ import android.content.Context
 import android.graphics.drawable.AnimatedVectorDrawable
 import android.graphics.drawable.Drawable
 import android.text.TextUtils
+import android.util.TypedValue
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
@@ -31,6 +32,31 @@ object AlertDialog {
 
     const val INPUT_TYPE_PERCENTAGE: Int = 9433
     const val INPUT_TYPE_DECIMAL_NUMBER: Int = 5234
+
+
+    fun getColorDefaultPrimaryTheme(context: Context): Int {
+        val typedValue = TypedValue()
+        context.theme.resolveAttribute(com.google.android.material.R.attr.colorPrimary, typedValue, true)
+        return typedValue.data
+    }
+
+    fun getColorDefaultBackgroundTheme(context: Context): Int {
+        val typedValue = TypedValue()
+        context.theme.resolveAttribute(com.google.android.material.R.attr.backgroundColor, typedValue, true)
+        return typedValue.data
+    }
+
+    fun getColorDefaultOnSurfaceTheme(context: Context): Int {
+        val typedValue = TypedValue()
+        context.theme.resolveAttribute(com.google.android.material.R.attr.colorOnSurface, typedValue, true)
+        return typedValue.data
+    }
+
+    fun getColorDefaultSurfaceTheme(context: Context): Int {
+        val typedValue = TypedValue()
+        context.theme.resolveAttribute(com.google.android.material.R.attr.colorSurface, typedValue, true)
+        return typedValue.data
+    }
 
     fun onAnimatedVectorDrawable(view: ImageView){
         val d : Drawable = view.drawable

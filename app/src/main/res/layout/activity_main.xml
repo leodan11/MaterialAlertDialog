@@ -6,15 +6,66 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <Button
-        android:id="@+id/buttonAction"
+    <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Example!"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:padding="@dimen/paddingTop"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="HardcodedText" />
+        app:layout_constraintTop_toTopOf="parent" >
+
+        <Button
+            android:id="@+id/buttonActionAlert"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/radius_min"
+            android:text="Example Alert Dialog!"
+            tools:ignore="HardcodedText" />
+
+        <Button
+            android:id="@+id/buttonActionAlertPlus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/radius_min"
+            android:text="Example Alert Dialog !!"
+            tools:ignore="HardcodedText" />
+
+        <Button
+            android:id="@+id/buttonActionLogin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/radius_min"
+            android:text="Example Login Dialog!"
+            tools:ignore="HardcodedText" />
+
+        <Button
+            android:id="@+id/buttonActionCode"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/radius_min"
+            android:text="Example Code Dialog!"
+            tools:ignore="HardcodedText" />
+
+        <Button
+            android:id="@+id/buttonActionProgress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/radius_min"
+            android:text="Example Progress Dialog!"
+            tools:ignore="HardcodedText" />
+
+        <Button
+            android:id="@+id/buttonActionCircularProgress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/radius_min"
+            android:text="Example Circular Progress Dialog!"
+            tools:ignore="HardcodedText" />
+
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

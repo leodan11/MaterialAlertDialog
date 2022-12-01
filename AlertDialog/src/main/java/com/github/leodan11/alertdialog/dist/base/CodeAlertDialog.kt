@@ -3,7 +3,6 @@ package com.github.leodan11.alertdialog.dist.base
 import android.app.Dialog
 import android.content.Context
 import android.content.res.ColorStateList
-import android.content.res.TypedArray
 import android.graphics.Color
 import android.text.Spanned
 import android.text.TextUtils
@@ -14,21 +13,22 @@ import android.widget.*
 import androidx.annotation.*
 import androidx.annotation.IntRange
 import androidx.core.content.ContextCompat
-import com.github.leodan11.alertdialog.R
 import com.github.leodan11.alertdialog.MaterialCodeAlertDialog
+import com.github.leodan11.alertdialog.R
+import com.github.leodan11.alertdialog.databinding.MAlertDialogInputCodeBinding
 import com.github.leodan11.alertdialog.dist.base.source.AlertDialogInterface
 import com.github.leodan11.alertdialog.dist.helpers.AlertDialog.BUTTON_NEGATIVE
 import com.github.leodan11.alertdialog.dist.helpers.AlertDialog.BUTTON_POSITIVE
 import com.github.leodan11.alertdialog.dist.helpers.AlertDialog.INPUT_TYPE_DECIMAL_NUMBER
 import com.github.leodan11.alertdialog.dist.helpers.AlertDialog.INPUT_TYPE_PERCENTAGE
 import com.github.leodan11.alertdialog.dist.helpers.AlertDialog.NOT_ICON
+import com.github.leodan11.alertdialog.dist.helpers.AlertDialog.getColorDefaultOnSurfaceTheme
+import com.github.leodan11.alertdialog.dist.helpers.AlertDialog.getColorDefaultPrimaryTheme
+import com.github.leodan11.alertdialog.dist.helpers.AlertDialog.getColorDefaultSurfaceTheme
 import com.github.leodan11.alertdialog.dist.helpers.AlertDialog.onCallbackRequestFocus
 import com.github.leodan11.alertdialog.dist.helpers.AlertDialog.onValidateTextField
 import com.github.leodan11.alertdialog.dist.helpers.TextAlignment
 import com.github.leodan11.alertdialog.dist.models.*
-import com.google.android.material.button.MaterialButton
-import com.google.android.material.textfield.TextInputEditText
-import com.google.android.material.textfield.TextInputLayout
 
 @RestrictTo(RestrictTo.Scope.LIBRARY)
 abstract class CodeAlertDialog(
@@ -51,26 +51,27 @@ abstract class CodeAlertDialog(
     protected open fun createView(layoutInflater: LayoutInflater, container: ViewGroup? = null): View {
         // Inflate and set the layout for the dialog
         // Pass null as the parent view because its going in the dialog layout
-        val dialogView = layoutInflater.inflate(R.layout.m_alert_dialog_input_code, container, false)
+        val binding: MAlertDialogInputCodeBinding = MAlertDialogInputCodeBinding.inflate(layoutInflater)
         // Initialize Views
-        val mIconView: ImageView = dialogView.findViewById(R.id.image_view_icon_code_alert_dialog)
-        val mTitleView: TextView = dialogView.findViewById(R.id.text_view_title_dialog_code_alert)
-        val mMessageView: TextView = dialogView.findViewById(R.id.text_view_message_dialog_code_alert)
-        val mHeaderLayout: RelativeLayout = dialogView.findViewById(R.id.layout_content_header_code_alert_dialog)
-        val mEditTextOne: EditText = dialogView.findViewById(R.id.edit_text_text_value_one)
-        val mEditTextTwo: EditText = dialogView.findViewById(R.id.edit_text_text_value_two)
-        val mEditTextThree: EditText = dialogView.findViewById(R.id.edit_text_text_value_three)
-        val mEditTextFour: EditText = dialogView.findViewById(R.id.edit_text_text_value_four)
-        val mEditTextFive: EditText = dialogView.findViewById(R.id.edit_text_text_value_five)
-        val mEditTextSix: EditText = dialogView.findViewById(R.id.edit_text_text_value_six)
-        val mEditTextReasonLayout: TextInputLayout = dialogView.findViewById(R.id.text_input_layout_code_reason)
-        val mEditTextReasonInfo: TextInputEditText = dialogView.findViewById(R.id.text_input_edit_text_code_reason)
-        val mEditTextDecimalNumberLayout: TextInputLayout = dialogView.findViewById(R.id.text_input_layout_code_decimal_number)
-        val mEditTextDecimalNumberInfo: TextInputEditText = dialogView.findViewById(R.id.text_input_edit_text_code_decimal_number)
-        val mEditTextPercentageLayout: TextInputLayout = dialogView.findViewById(R.id.text_input_layout_code_percentage)
-        val mEditTextPercentageInfo: TextInputEditText = dialogView.findViewById(R.id.text_input_edit_text_code_percentage)
-        val mPositiveButtonView: MaterialButton = dialogView.findViewById(R.id.button_action_positive_alert_dialog_code)
-        val mNegativeButtonView: MaterialButton = dialogView.findViewById(R.id.button_action_negative_alert_dialog_code)
+        val mIconView = binding.imageViewIconCodeAlertDialog
+        val mTitleView = binding.textViewTitleDialogCodeAlert
+        val mTitleCodeView = binding.textViewTitleCodeDialogCodeAlert
+        val mMessageView = binding.textViewMessageDialogCodeAlert
+        val mHeaderLayout = binding.layoutContentHeaderCodeAlertDialog
+        val mEditTextOne = binding.editTextTextValueOne
+        val mEditTextTwo = binding.editTextTextValueTwo
+        val mEditTextThree = binding.editTextTextValueThree
+        val mEditTextFour = binding.editTextTextValueFour
+        val mEditTextFive = binding.editTextTextValueFive
+        val mEditTextSix = binding.editTextTextValueSix
+        val mEditTextReasonLayout = binding.textInputLayoutCodeReason
+        val mEditTextReasonInfo = binding.textInputEditTextCodeReason
+        val mEditTextDecimalNumberLayout = binding.textInputLayoutCodeDecimalNumber
+        val mEditTextDecimalNumberInfo = binding.textInputEditTextCodeDecimalNumber
+        val mEditTextPercentageLayout = binding.textInputLayoutCodePercentage
+        val mEditTextPercentageInfo = binding.textInputEditTextCodePercentage
+        val mPositiveButtonView = binding.buttonActionPositiveAlertDialogCode
+        val mNegativeButtonView = binding.buttonActionNegativeAlertDialogCode
 
         // Set Icon
         if (icon != null) icon?.let { mIconView.setImageResource(it.mDrawableResId) }
@@ -175,36 +176,41 @@ abstract class CodeAlertDialog(
             mNegativeButtonView.setOnClickListener { mNegativeButton?.onClickListener?.onClick(this, BUTTON_NEGATIVE) }
         }else mNegativeButtonView.visibility = View.GONE
         // Apply Styles
-        val typeArray: TypedArray = mContext.theme.obtainStyledAttributes(R.styleable.MaterialDialog)
         try {
             // Set Icon Color
             if (tintColor != null){
                 if (tintColor?.iconColorRes != null) mIconView.setColorFilter(ContextCompat.getColor(mContext.applicationContext, tintColor?.iconColorRes!!))
                 else if (tintColor?.iconColorInt != null) mIconView.setColorFilter(tintColor?.iconColorInt!!)
-            }else mIconView.setColorFilter(typeArray.getColor(R.styleable.MaterialDialog_material_dialog_color_primary_dark, mContext.getColor(R.color.material_dialog_color_primary_dark)))
+            }
             // Set Title Text Color
-            mTitleView.setTextColor(typeArray.getColor(
-                R.styleable.MaterialDialog_material_dialog_title_text_color, mContext.getColor(R.color.material_dialog_title_text_color)))
+            mTitleView.setTextColor(getColorDefaultOnSurfaceTheme(mContext))
+            // Set Title Code Text Color
+            mTitleCodeView.setTextColor(getColorDefaultOnSurfaceTheme(mContext))
             // Set Message Text Color
-            mMessageView.setTextColor(typeArray.getColor(
-                R.styleable.MaterialDialog_material_dialog_message_text_color, mContext.getColor(R.color.material_dialog_message_text_color)))
+            mMessageView.setTextColor(getColorDefaultOnSurfaceTheme(mContext))
+            // Set InputLayout Decimal Number Color
+            mEditTextDecimalNumberLayout.boxStrokeColor = getColorDefaultPrimaryTheme(mContext)
+            mEditTextDecimalNumberLayout.hintTextColor = ColorStateList.valueOf(getColorDefaultPrimaryTheme(mContext))
+            // Set InputLayout Percentage Color
+            mEditTextPercentageLayout.boxStrokeColor = getColorDefaultPrimaryTheme(mContext)
+            mEditTextPercentageLayout.hintTextColor = ColorStateList.valueOf(getColorDefaultPrimaryTheme(mContext))
+            // Set InputLayout Reason Color
+            mEditTextReasonLayout.boxStrokeColor = getColorDefaultPrimaryTheme(mContext)
+            mEditTextReasonLayout.hintTextColor = ColorStateList.valueOf(getColorDefaultPrimaryTheme(mContext))
             // Set Positive Button Icon Tint
-            var mPositiveButtonTint: ColorStateList? = typeArray.getColorStateList(R.styleable.MaterialDialog_material_dialog_positive_button_text_color)
-            if (mPositiveButtonTint == null) mPositiveButtonTint = ContextCompat.getColorStateList(mContext.applicationContext, R.color.material_dialog_positive_button_text_color)
+            val mPositiveButtonTint: ColorStateList = ColorStateList.valueOf(getColorDefaultSurfaceTheme(mContext))
             mPositiveButtonView.setTextColor(mPositiveButtonTint)
             mPositiveButtonView.iconTint = mPositiveButtonTint
             // Set Negative Button Icon & Text Tint
-            var mNegativeButtonTint: ColorStateList? = typeArray.getColorStateList(R.styleable.MaterialDialog_material_dialog_negative_button_text_color)
-            if (mNegativeButtonTint == null) mNegativeButtonTint = ContextCompat.getColorStateList(mContext.applicationContext, R.color.material_dialog_negative_button_text_color)
+            val mNegativeButtonTint: ColorStateList = ColorStateList.valueOf(getColorDefaultPrimaryTheme(mContext))
             mNegativeButtonView.setTextColor(mNegativeButtonTint)
             mNegativeButtonView.iconTint = mNegativeButtonTint
             // Set Positive Button Background Tint
-            var mBackgroundTint: ColorStateList? = typeArray.getColorStateList(R.styleable.MaterialDialog_material_dialog_positive_button_color)
-            if (mBackgroundTint == null) mBackgroundTint = ContextCompat.getColorStateList(mContext.applicationContext, R.color.material_dialog_positive_button_color)
+            val mBackgroundTint: ColorStateList = ColorStateList.valueOf(getColorDefaultPrimaryTheme(mContext))
             mPositiveButtonView.backgroundTintList = mBackgroundTint
-            if (mBackgroundTint != null) mNegativeButtonView.rippleColor = mBackgroundTint.withAlpha(75)
-        }catch (e: Exception){ e.printStackTrace() } finally { typeArray.recycle() }
-        return dialogView
+            mNegativeButtonView.rippleColor = mBackgroundTint.withAlpha(75)
+        }catch (e: Exception){ e.printStackTrace() }
+        return binding.root
     }
 
     /**

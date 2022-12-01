@@ -65,8 +65,8 @@
         </RelativeLayout>
 
         <com.google.android.material.button.MaterialButton
+            style="@style/MaterialDialog.NegativeButton"
             android:id="@+id/buttonActionNegativeCircularProgressIndicator"
-            style="@style/Widget.MaterialComponents.Button.OutlinedButton.Icon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="end"

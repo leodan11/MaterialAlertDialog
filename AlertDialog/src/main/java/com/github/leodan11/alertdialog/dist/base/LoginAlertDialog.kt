@@ -3,26 +3,26 @@ package com.github.leodan11.alertdialog.dist.base
 import android.app.Dialog
 import android.content.Context
 import android.content.res.ColorStateList
-import android.content.res.TypedArray
 import android.graphics.Color
 import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.TextView
 import androidx.annotation.*
 import androidx.annotation.IntRange
 import androidx.core.content.ContextCompat
-import com.github.leodan11.alertdialog.R
 import com.github.leodan11.alertdialog.MaterialLoginAlertDialog
+import com.github.leodan11.alertdialog.R
+import com.github.leodan11.alertdialog.databinding.MAlertDialogLoginBinding
 import com.github.leodan11.alertdialog.dist.base.source.AlertDialogInterface
 import com.github.leodan11.alertdialog.dist.helpers.AlertDialog.BUTTON_NEGATIVE
 import com.github.leodan11.alertdialog.dist.helpers.AlertDialog.BUTTON_POSITIVE
 import com.github.leodan11.alertdialog.dist.helpers.AlertDialog.NOT_ICON
+import com.github.leodan11.alertdialog.dist.helpers.AlertDialog.getColorDefaultOnSurfaceTheme
+import com.github.leodan11.alertdialog.dist.helpers.AlertDialog.getColorDefaultPrimaryTheme
+import com.github.leodan11.alertdialog.dist.helpers.AlertDialog.getColorDefaultSurfaceTheme
 import com.github.leodan11.alertdialog.dist.helpers.TextAlignment
 import com.github.leodan11.alertdialog.dist.models.*
-import com.google.android.material.button.MaterialButton
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
 
@@ -49,16 +49,16 @@ abstract class LoginAlertDialog(
     protected open fun createView(layoutInflater: LayoutInflater, container: ViewGroup? = null): View {
         // Inflate and set the layout for the dialog
         // Pass null as the parent view because its going in the dialog layout
-        val dialogView = layoutInflater.inflate(R.layout.m_alert_dialog_login, container, false)
+        val binding: MAlertDialogLoginBinding = MAlertDialogLoginBinding.inflate(layoutInflater)
         // Initialize Views
-        val mIconView: ImageView = dialogView.findViewById(R.id.image_view_icon_login_dialog)
-        val mTitleView: TextView = dialogView.findViewById(R.id.text_view_title_dialog_login)
-        mTextInputLayoutUsername = dialogView.findViewById(R.id.text_input_layout_username)
-        mTextInputEditTextUsername = dialogView.findViewById(R.id.text_input_edit_text_username)
-        mTextInputLayoutPassword = dialogView.findViewById(R.id.text_input_layout_password)
-        mTextInputEditTextPassword = dialogView.findViewById(R.id.text_input_edit_text_password)
-        val mPositiveButtonView: MaterialButton = dialogView.findViewById(R.id.button_action_positive_login_dialog)
-        val mNegativeButtonView: MaterialButton = dialogView.findViewById(R.id.button_action_negative_login_dialog)
+        val mIconView= binding.imageViewIconLoginDialog
+        val mTitleView = binding.textViewTitleDialogLogin
+        mTextInputLayoutUsername = binding.textInputLayoutUsername
+        mTextInputEditTextUsername = binding.textInputEditTextUsername
+        mTextInputLayoutPassword = binding.textInputLayoutPassword
+        mTextInputEditTextPassword = binding.textInputEditTextPassword
+        val mPositiveButtonView = binding.buttonActionPositiveLoginDialog
+        val mNegativeButtonView = binding.buttonActionNegativeLoginDialog
         // Set Icon
         if (icon != null) icon?.let { mIconView.setImageResource(it.mDrawableResId) }
         // Set Title
@@ -86,32 +86,34 @@ abstract class LoginAlertDialog(
             mNegativeButtonView.setOnClickListener { mNegativeButton?.onClickListener?.onClick(this, BUTTON_NEGATIVE) }
         }else mNegativeButtonView.visibility = View.GONE
         // Apply Styles
-        val typeArray: TypedArray = mContext.theme.obtainStyledAttributes(R.styleable.MaterialDialog)
         try {
             // Set Icon Color
             if (tintColor != null){
                 if (tintColor?.iconColorRes != null) mIconView.setColorFilter(ContextCompat.getColor(mContext.applicationContext, tintColor?.iconColorRes!!))
                 else if (tintColor?.iconColorInt != null) mIconView.setColorFilter(tintColor?.iconColorInt!!)
-            }else mIconView.setColorFilter(typeArray.getColor(R.styleable.MaterialDialog_material_dialog_color_primary_dark, mContext.getColor(R.color.material_dialog_color_primary_dark)))
+            }
             // Set Title Text Color
-            mTitleView.setTextColor(typeArray.getColor(R.styleable.MaterialDialog_material_dialog_title_text_color, mContext.getColor(R.color.material_dialog_title_text_color)))
+            mTitleView.setTextColor(getColorDefaultOnSurfaceTheme(mContext))
+            // Set InputLayout Username Color
+            mTextInputLayoutUsername.boxStrokeColor = getColorDefaultPrimaryTheme(mContext)
+            mTextInputLayoutUsername.hintTextColor = ColorStateList.valueOf(getColorDefaultPrimaryTheme(mContext))
+            // Set InputLayout Password Color
+            mTextInputLayoutPassword.boxStrokeColor = getColorDefaultPrimaryTheme(mContext)
+            mTextInputLayoutPassword.hintTextColor = ColorStateList.valueOf(getColorDefaultPrimaryTheme(mContext))
             // Set Positive Button Icon Tint
-            var mPositiveButtonTint: ColorStateList? = typeArray.getColorStateList(R.styleable.MaterialDialog_material_dialog_positive_button_text_color)
-            if (mPositiveButtonTint == null) mPositiveButtonTint = ContextCompat.getColorStateList(mContext.applicationContext, R.color.material_dialog_positive_button_text_color)
+            val mPositiveButtonTint: ColorStateList = ColorStateList.valueOf(getColorDefaultSurfaceTheme(mContext))
             mPositiveButtonView.setTextColor(mPositiveButtonTint)
             mPositiveButtonView.iconTint = mPositiveButtonTint
             // Set Negative Button Icon & Text Tint
-            var mNegativeButtonTint: ColorStateList? = typeArray.getColorStateList(R.styleable.MaterialDialog_material_dialog_negative_button_text_color)
-            if (mNegativeButtonTint == null) mNegativeButtonTint = ContextCompat.getColorStateList(mContext.applicationContext, R.color.material_dialog_negative_button_text_color)
+            val mNegativeButtonTint: ColorStateList = ColorStateList.valueOf(getColorDefaultPrimaryTheme(mContext))
             mNegativeButtonView.setTextColor(mNegativeButtonTint)
             mNegativeButtonView.iconTint = mNegativeButtonTint
             // Set Positive Button Background Tint
-            var mBackgroundTint: ColorStateList? = typeArray.getColorStateList(R.styleable.MaterialDialog_material_dialog_positive_button_color)
-            if (mBackgroundTint == null) mBackgroundTint = ContextCompat.getColorStateList(mContext.applicationContext, R.color.material_dialog_positive_button_color)
+            val mBackgroundTint: ColorStateList = ColorStateList.valueOf(getColorDefaultPrimaryTheme(mContext))
             mPositiveButtonView.backgroundTintList = mBackgroundTint
-            if (mBackgroundTint != null) mNegativeButtonView.rippleColor = mBackgroundTint.withAlpha(75)
-        }catch (e: Exception){ e.printStackTrace() }finally { typeArray.recycle() }
-        return dialogView
+            mNegativeButtonView.rippleColor = mBackgroundTint.withAlpha(75)
+        }catch (e: Exception){ e.printStackTrace() }
+        return binding.root
     }
 
     /**
