@@ -1,16 +1,31 @@
-<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- Material Design theme. -->
-    <style name="Theme.MaterialDialog" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
-        <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/design_default_color_primary</item>
-        <item name="colorPrimaryVariant">@color/design_default_color_primary_dark</item>
-        <item name="colorOnPrimary">@android:color/white</item>
-        <!-- Secondary brand color. -->
-        <item name="colorSecondary">@color/design_default_color_secondary</item>
-        <item name="colorSecondaryVariant">@color/design_default_color_secondary_variant</item>
-        <item name="colorOnSecondary">@android:color/black</item>
-        <item name="android:fontFamily">@font/montserrat_regular</item>
+    <style name="Theme.MaterialDialog" parent="Theme.Material3.Light.NoActionBar">
+        <item name="colorPrimary">@color/md_theme_light_primary</item>
+        <item name="colorOnPrimary">@color/md_theme_light_onPrimary</item>
+        <item name="colorPrimaryContainer">@color/md_theme_light_primaryContainer</item>
+        <item name="colorOnPrimaryContainer">@color/md_theme_light_onPrimaryContainer</item>
+        <item name="colorSecondary">@color/md_theme_light_secondary</item>
+        <item name="colorOnSecondary">@color/md_theme_light_onSecondary</item>
+        <item name="colorSecondaryContainer">@color/md_theme_light_secondaryContainer</item>
+        <item name="colorOnSecondaryContainer">@color/md_theme_light_onSecondaryContainer</item>
+        <item name="colorTertiary">@color/md_theme_light_tertiary</item>
+        <item name="colorOnTertiary">@color/md_theme_light_onTertiary</item>
+        <item name="colorTertiaryContainer">@color/md_theme_light_tertiaryContainer</item>
+        <item name="colorOnTertiaryContainer">@color/md_theme_light_onTertiaryContainer</item>
+        <item name="colorError">@color/md_theme_light_error</item>
+        <item name="colorOnError">@color/md_theme_light_onError</item>
+        <item name="colorErrorContainer">@color/md_theme_light_errorContainer</item>
+        <item name="colorOnErrorContainer">@color/md_theme_light_onErrorContainer</item>
+        <item name="colorOutline">@color/md_theme_light_outline</item>
+        <item name="android:colorBackground">@color/md_theme_light_background</item>
+        <item name="colorOnBackground">@color/md_theme_light_onBackground</item>
+        <item name="colorSurface">@color/md_theme_light_surface</item>
+        <item name="colorOnSurface">@color/md_theme_light_onSurface</item>
+        <item name="colorSurfaceVariant">@color/md_theme_light_surfaceVariant</item>
+        <item name="colorOnSurfaceVariant">@color/md_theme_light_onSurfaceVariant</item>
+        <item name="colorSurfaceInverse">@color/md_theme_light_inverseSurface</item>
+        <item name="colorOnSurfaceInverse">@color/md_theme_light_inverseOnSurface</item>
+        <item name="colorPrimaryInverse">@color/md_theme_light_inversePrimary</item>
     </style>
 
     <!-- Theme for BottomSheetDialog -->
@@ -30,7 +45,6 @@
     <!-- Theme for Dialog Title -->
     <style name="Theme.MaterialDialog.Title">
         <item name="android:gravity">center</item>
-        <item name="android:textColor">@color/material_dialog_title_text_color</item>
         <item name="android:fontFamily">@font/montserrat_bold</item>
         <item name="android:layout_marginTop">@dimen/radiusTop</item>
         <item name="android:textSize">@dimen/text_title_size</item>
@@ -43,7 +57,6 @@
         <item name="android:layout_marginTop">@dimen/radiusTop</item>
         <item name="android:fontFamily">@font/montserrat_semi_bold</item>
         <item name="android:gravity">center</item>
-        <item name="android:textColor">@color/material_dialog_message_text_color</item>
     </style>
 
     <!-- Theme for Dialog Details -->
@@ -52,32 +65,31 @@
         <item name="android:layout_marginTop">@dimen/radiusTop</item>
         <item name="android:fontFamily">@font/montserrat_extra_light</item>
         <item name="android:gravity">start</item>
-        <item name="android:textColor">@color/material_dialog_message_text_color</item>
     </style>
 
     <!-- Theme for Dialog Positive Button -->
-    <style name="MaterialDialog.PositiveButton" parent="@style/Widget.MaterialComponents.Button.Icon">
+    <style name="MaterialDialog.PositiveButton" parent="@style/Widget.Material3.Button.Icon">
         <item name="android:layout_margin">4dp</item>
         <item name="android:letterSpacing">0.025</item>
         <item name="android:fontFamily">@font/montserrat_bold</item>
     </style>
 
     <!-- Theme for Dialog Negative Button -->
-    <style name="MaterialDialog.NegativeButton" parent="Widget.MaterialComponents.Button.OutlinedButton.Icon">
+    <style name="MaterialDialog.NegativeButton" parent="Widget.Material3.Button.OutlinedButton.Icon">
         <item name="android:layout_margin">4dp</item>
         <item name="android:letterSpacing">0.025</item>
         <item name="android:fontFamily">@font/montserrat_semi_bold</item>
     </style>
 
     <!-- Theme for Dialog Negative Button -->
-    <style name="MaterialDialog.NeutralButton" parent="Widget.MaterialComponents.Button.OutlinedButton.Icon">
+    <style name="MaterialDialog.NeutralButton" parent="Widget.Material3.Button.OutlinedButton.Icon">
         <item name="android:layout_margin">4dp</item>
         <item name="android:letterSpacing">0.025</item>
         <item name="android:fontFamily">@font/montserrat_semi_bold</item>
     </style>
 
     <!-- Theme for Input Layout Cut -->
-    <style name="CutInputLayout" parent="ShapeAppearance.MaterialComponents.MediumComponent">
+    <style name="CutInputLayout" parent="ShapeAppearance.Material3.MediumComponent">
         <item name="cornerFamily">cut</item>
         <item name="cornerSize">12dp</item>
     </style>
