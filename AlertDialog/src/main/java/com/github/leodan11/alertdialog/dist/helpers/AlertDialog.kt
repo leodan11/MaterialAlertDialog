@@ -33,22 +33,33 @@ object AlertDialog {
     const val INPUT_TYPE_PERCENTAGE: Int = 9433
     const val INPUT_TYPE_DECIMAL_NUMBER: Int = 5234
 
-
-    fun getColorDefaultPrimaryTheme(context: Context): Int {
-        val typedValue = TypedValue()
-        context.theme.resolveAttribute(com.google.android.material.R.attr.colorPrimary, typedValue, true)
-        return typedValue.data
-    }
-
     fun getColorDefaultBackgroundTheme(context: Context): Int {
         val typedValue = TypedValue()
         context.theme.resolveAttribute(com.google.android.material.R.attr.backgroundColor, typedValue, true)
         return typedValue.data
     }
 
+    fun getColorDefaultErrorTheme(context: Context): Int {
+        val typedValue = TypedValue()
+        context.theme.resolveAttribute(com.google.android.material.R.attr.colorError, typedValue, true)
+        return typedValue.data
+    }
+
+    fun getColorDefaultNeutralTheme(context: Context): Int {
+        val typedValue = TypedValue()
+        context.theme.resolveAttribute(com.google.android.material.R.attr.colorOutline, typedValue, true)
+        return typedValue.data
+    }
+
     fun getColorDefaultOnSurfaceTheme(context: Context): Int {
         val typedValue = TypedValue()
         context.theme.resolveAttribute(com.google.android.material.R.attr.colorOnSurface, typedValue, true)
+        return typedValue.data
+    }
+
+    fun getColorDefaultPrimaryTheme(context: Context): Int {
+        val typedValue = TypedValue()
+        context.theme.resolveAttribute(com.google.android.material.R.attr.colorPrimary, typedValue, true)
         return typedValue.data
     }
 

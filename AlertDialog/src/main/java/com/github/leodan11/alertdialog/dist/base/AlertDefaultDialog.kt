@@ -27,6 +27,8 @@ import com.github.leodan11.alertdialog.dist.helpers.AlertDialog.DIALOG_STYLE_SUC
 import com.github.leodan11.alertdialog.dist.helpers.AlertDialog.DIALOG_STYLE_WARNING
 import com.github.leodan11.alertdialog.dist.helpers.AlertDialog.NOT_ICON
 import com.github.leodan11.alertdialog.dist.helpers.AlertDialog.getColorDefaultBackgroundTheme
+import com.github.leodan11.alertdialog.dist.helpers.AlertDialog.getColorDefaultErrorTheme
+import com.github.leodan11.alertdialog.dist.helpers.AlertDialog.getColorDefaultNeutralTheme
 import com.github.leodan11.alertdialog.dist.helpers.AlertDialog.getColorDefaultOnSurfaceTheme
 import com.github.leodan11.alertdialog.dist.helpers.AlertDialog.getColorDefaultPrimaryTheme
 import com.github.leodan11.alertdialog.dist.helpers.AlertDialog.getColorDefaultSurfaceTheme
@@ -78,8 +80,8 @@ abstract class AlertDefaultDialog(
         }
         // Set Icon BackgroundTint
         binding.coordinatorLayoutContainerAlertDialog.backgroundTintList = when(type.typeDialog){
-            DIALOG_STYLE_ERROR -> { ColorStateList.valueOf(mContext.getColor(R.color.material_dialog_header_background_error)) }
-            DIALOG_STYLE_HELP -> { ColorStateList.valueOf(mContext.getColor(R.color.material_dialog_header_background_help)) }
+            DIALOG_STYLE_ERROR -> { ColorStateList.valueOf(getColorDefaultErrorTheme(mContext)) }
+            DIALOG_STYLE_HELP -> { ColorStateList.valueOf(getColorDefaultNeutralTheme(mContext)) }
             DIALOG_STYLE_INFORMATION -> { ColorStateList.valueOf(mContext.getColor(R.color.material_dialog_header_background_information)) }
             DIALOG_STYLE_SUCCESS -> { ColorStateList.valueOf(mContext.getColor(R.color.material_dialog_header_background_success)) }
             DIALOG_STYLE_WARNING -> { ColorStateList.valueOf(mContext.getColor(R.color.material_dialog_header_background_warning)) }
