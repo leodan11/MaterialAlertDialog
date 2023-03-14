@@ -109,8 +109,8 @@ abstract class AlertDefaultDialog(
                 .labelUnderLine(true)
                 .expandAnimation(true)
                 .build()
+            readMoreOption.addReadMoreTo(mDetailsView, details?.getText().toString())
             mDetailsView.visibility = View.VISIBLE
-            readMoreOption.addReadMoreTo(mDetailsView, details?.getText()!!)
         }else mDetailsView.visibility = View.GONE
         // Set Positive Button
         if (mPositiveButton != null){
