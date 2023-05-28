@@ -1,97 +1,127 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:contentDescription="@string/text_value_information"
-    android:scrollbars="none"
+    android:orientation="vertical"
     android:theme="@style/Theme.MaterialDialog">
 
-    <LinearLayout
-        android:layout_width="match_parent"
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardViewContainerHeader"
+        android:layout_width="@dimen/shapeable_image_view_notification_icon_width"
+        android:layout_height="@dimen/shapeable_image_view_notification_icon_height"
+        app:cardCornerRadius="@dimen/corners_shape"
+        app:cardBackgroundColor="@color/design_dialog_box_stroke_color_success"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/imageViewIconAlertDialog"
+            android:layout_width="@dimen/notification_icon_width"
+            android:layout_height="@dimen/notification_icon_height"
+            android:layout_gravity="center"
+            tools:ignore="ImageContrastCheck"
+            tools:src="@drawable/ic_success" />
+
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardViewContainerBody"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:translationY="@dimen/translation_y"
+        app:cardCornerRadius="@dimen/margin_spacing"
+        app:cardElevation="0dp"
+        app:layout_constraintTop_toBottomOf="@id/cardViewContainerHeader"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
 
-        <androidx.coordinatorlayout.widget.CoordinatorLayout
-            android:id="@+id/coordinatorLayoutContainerAlertDialog"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="@dimen/paddingTop"
-            android:background="@drawable/ic_header_default">
+            android:orientation="vertical"
+            android:layout_marginTop="@dimen/translation_y_invested">
 
-            <androidx.appcompat.widget.AppCompatImageView
-                android:id="@+id/imageViewIconAlertDialog"
-                android:layout_width="@android:dimen/notification_large_icon_width"
-                android:layout_height="@android:dimen/notification_large_icon_height"
-                android:layout_gravity="center"
-                android:src="@drawable/ic_success"
-                tools:ignore="ImageContrastCheck" />
-
-        </androidx.coordinatorlayout.widget.CoordinatorLayout>
-
-        <TextView
-            style="@style/Theme.MaterialDialog.Title"
-            android:id="@+id/textViewTitleAlertDialog"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/margin_spacing_min"
-            android:layout_marginEnd="@dimen/margin_spacing_min"/>
-
-        <TextView
-            style="@style/Theme.MaterialDialog.Message"
-            android:id="@+id/textViewMessageAlertDialog"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/margin_spacing_min"
-            android:layout_marginEnd="@dimen/margin_spacing_min"/>
-
-        <TextView
-            style="@style/Theme.MaterialDialog.Details"
-            android:id="@+id/textViewDetailsAlertDialog"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/margin_spacing_min"
-            android:layout_marginEnd="@dimen/margin_spacing_min"
-            android:layout_marginBottom="@dimen/margin_spacing_min"/>
-
-        <androidx.appcompat.widget.LinearLayoutCompat
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_margin="@dimen/margin_spacing_min">
-
-            <com.google.android.material.button.MaterialButton
-                style="@style/MaterialDialog.NegativeButton"
-                android:id="@+id/buttonActionNegativeAlertDialog"
-                android:layout_width="wrap_content"
+            <TextView
+                style="@style/Theme.MaterialDialog.Title"
+                android:id="@+id/textViewTitleAlertDialog"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:layout_gravity="center"
-                android:contentDescription="@string/button_negative_speakable_text_value"
-                tools:ignore="VisualLintButtonSize" />
+                android:layout_marginStart="@dimen/margin_spacing_min"
+                android:layout_marginEnd="@dimen/margin_spacing_min"/>
 
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/buttonActionNeutralAlertDialog"
-                style="@style/MaterialDialog.NeutralButton"
-                android:layout_width="wrap_content"
+            <TextView
+                style="@style/Theme.MaterialDialog.Message"
+                android:id="@+id/textViewMessageAlertDialog"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:layout_gravity="center"
-                android:contentDescription="@string/button_neutral_speakable_text_value"
-                tools:ignore="VisualLintButtonSize" />
+                android:layout_marginStart="@dimen/margin_spacing_min"
+                android:layout_marginEnd="@dimen/margin_spacing_min"/>
 
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/buttonActionPositiveAlertDialog"
-                style="@style/MaterialDialog.PositiveButton"
-                android:layout_width="wrap_content"
+            <androidx.core.widget.NestedScrollView
+                android:id="@+id/nestedScrollViewContainerDetails"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:layout_gravity="center"
-                android:contentDescription="@string/button_positive_speakable_text_value"
-                tools:ignore="VisualLintButtonSize" />
+                android:contentDescription="@string/text_value_information"
+                android:scrollbars="none"
+                android:visibility="gone"
+                android:layout_marginTop="@dimen/paddingTop"
+                android:layout_marginStart="@dimen/margin_spacing_min"
+                android:layout_marginEnd="@dimen/margin_spacing_min"
+                android:layout_marginBottom="@dimen/margin_spacing_min"
+                tools:visibility="visible">
 
-        </androidx.appcompat.widget.LinearLayoutCompat>
+                <TextView
+                    style="@style/Theme.MaterialDialog.Details"
+                    android:id="@+id/textViewDetailsAlertDialog"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="0dp"/>
 
-    </LinearLayout>
+            </androidx.core.widget.NestedScrollView>
 
-</androidx.core.widget.NestedScrollView>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_margin="@dimen/margin_spacing_min">
+
+                <com.google.android.material.button.MaterialButton
+                    style="@style/MaterialDialog.NegativeButton"
+                    android:id="@+id/buttonActionNegativeAlertDialog"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_gravity="center"
+                    android:contentDescription="@string/button_negative_speakable_text_value"
+                    tools:ignore="VisualLintButtonSize" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/buttonActionNeutralAlertDialog"
+                    style="@style/MaterialDialog.NeutralButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_gravity="center"
+                    android:contentDescription="@string/button_neutral_speakable_text_value"
+                    tools:ignore="VisualLintButtonSize" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/buttonActionPositiveAlertDialog"
+                    style="@style/MaterialDialog.PositiveButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_gravity="center"
+                    android:contentDescription="@string/button_positive_speakable_text_value"
+                    tools:ignore="VisualLintButtonSize" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

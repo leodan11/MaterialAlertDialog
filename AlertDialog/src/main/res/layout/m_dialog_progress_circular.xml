@@ -7,7 +7,7 @@
     android:padding="@dimen/radiusTop"
     android:theme="@style/Theme.MaterialDialog">
 
-    <androidx.appcompat.widget.LinearLayoutCompat
+    <LinearLayout
         android:id="@+id/container_circular_progress_indicator"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -65,7 +65,7 @@
         </RelativeLayout>
 
         <com.google.android.material.button.MaterialButton
-            style="@style/MaterialDialog.NegativeButton"
+            style="@style/Widget.Material3.Button.TextButton.Icon"
             android:id="@+id/buttonActionNegativeCircularProgressIndicator"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -75,6 +75,6 @@
             android:text="@string/text_value_cancel"
             tools:ignore="TextContrastCheck" />
 
-    </androidx.appcompat.widget.LinearLayoutCompat>
+    </LinearLayout>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

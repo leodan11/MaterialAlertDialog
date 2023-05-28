@@ -2,6 +2,7 @@ package com.github.leodan11.alertdialog.dist.helpers
 
 import android.app.Activity
 import android.content.Context
+import android.graphics.Rect
 import android.graphics.drawable.AnimatedVectorDrawable
 import android.graphics.drawable.Drawable
 import android.text.TextUtils
@@ -10,6 +11,7 @@ import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import android.widget.ImageView
+import android.widget.TextView
 import androidx.annotation.AttrRes
 import androidx.core.widget.addTextChangedListener
 import androidx.vectordrawable.graphics.drawable.AnimatedVectorDrawableCompat
@@ -33,6 +35,8 @@ object AlertDialog {
 
     const val INPUT_TYPE_PERCENTAGE: Int = 9433
     const val INPUT_TYPE_DECIMAL_NUMBER: Int = 5234
+
+    const val DEFAULT_DETAILS_SCROLL_HEIGHT_SPAN : Int = 400
 
     /**
      * Get Background Color Default Theme Material Design
@@ -334,6 +338,13 @@ object AlertDialog {
             val input = activity.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
             input.hideSoftInputFromWindow(view.windowToken, 0)
         }
+    }
+
+    fun onTextViewTextSize(view: TextView, textString: String): Rect {
+        val bounds = Rect()
+        val paint = view.paint
+        paint.getTextBounds(textString, 0, textString.length, bounds)
+        return bounds
     }
 
     fun onValidateTextField(textInputLayout: TextInputLayout, textInputEditText: TextInputEditText, error: String): Boolean{

@@ -3,6 +3,7 @@ package com.github.leodan11.alertdialog.dist.base
 import android.app.Dialog
 import android.content.Context
 import android.content.res.ColorStateList
+import android.graphics.Color
 import android.text.Spanned
 import android.view.LayoutInflater
 import android.view.View
@@ -12,6 +13,7 @@ import androidx.annotation.DrawableRes
 import androidx.annotation.RestrictTo
 import androidx.annotation.StringRes
 import androidx.core.content.ContextCompat
+import androidx.core.widget.addTextChangedListener
 import com.github.leodan11.alertdialog.MaterialAlertDialog
 import com.github.leodan11.alertdialog.R
 import com.github.leodan11.alertdialog.databinding.MAlertDialogBinding
@@ -19,6 +21,7 @@ import com.github.leodan11.alertdialog.dist.base.source.AlertDialogInterface
 import com.github.leodan11.alertdialog.dist.helpers.AlertDialog.BUTTON_NEGATIVE
 import com.github.leodan11.alertdialog.dist.helpers.AlertDialog.BUTTON_NEUTRAL
 import com.github.leodan11.alertdialog.dist.helpers.AlertDialog.BUTTON_POSITIVE
+import com.github.leodan11.alertdialog.dist.helpers.AlertDialog.DEFAULT_DETAILS_SCROLL_HEIGHT_SPAN
 import com.github.leodan11.alertdialog.dist.helpers.AlertDialog.DIALOG_STYLE_CUSTOM
 import com.github.leodan11.alertdialog.dist.helpers.AlertDialog.DIALOG_STYLE_ERROR
 import com.github.leodan11.alertdialog.dist.helpers.AlertDialog.DIALOG_STYLE_HELP
@@ -26,12 +29,12 @@ import com.github.leodan11.alertdialog.dist.helpers.AlertDialog.DIALOG_STYLE_INF
 import com.github.leodan11.alertdialog.dist.helpers.AlertDialog.DIALOG_STYLE_SUCCESS
 import com.github.leodan11.alertdialog.dist.helpers.AlertDialog.DIALOG_STYLE_WARNING
 import com.github.leodan11.alertdialog.dist.helpers.AlertDialog.NOT_ICON
-import com.github.leodan11.alertdialog.dist.helpers.AlertDialog.getColorDefaultBackgroundTheme
 import com.github.leodan11.alertdialog.dist.helpers.AlertDialog.getColorDefaultErrorTheme
-import com.github.leodan11.alertdialog.dist.helpers.AlertDialog.getColorDefaultOutlineTheme
 import com.github.leodan11.alertdialog.dist.helpers.AlertDialog.getColorDefaultOnSurfaceTheme
 import com.github.leodan11.alertdialog.dist.helpers.AlertDialog.getColorDefaultPrimaryTheme
+import com.github.leodan11.alertdialog.dist.helpers.AlertDialog.getColorDefaultSecondaryTheme
 import com.github.leodan11.alertdialog.dist.helpers.AlertDialog.getColorDefaultSurfaceTheme
+import com.github.leodan11.alertdialog.dist.helpers.AlertDialog.onTextViewTextSize
 import com.github.leodan11.alertdialog.dist.helpers.TextAlignment
 import com.github.leodan11.alertdialog.dist.models.*
 import com.leodan.readmoreoption.ReadMoreOption
@@ -42,6 +45,7 @@ abstract class AlertDefaultDialog(
     protected open var icon: IconAlertDialog,
     protected open var type: TypeAlertDialog,
     protected open var backgroundColorSpan: Int,
+    protected open var detailsScrollHeightSpan: Int,
     protected open var title: TitleAlertDialog?,
     protected open var message: MessageAlertDialog<*>?,
     protected open var details: DetailsAlertDialog<*>?,
@@ -49,14 +53,17 @@ abstract class AlertDefaultDialog(
     protected open var mPositiveButton: ButtonAlertDialog?,
     protected open var mNeutralButton: ButtonAlertDialog?,
     protected open var mNegativeButton: ButtonAlertDialog?
-): AlertDialogInterface {
+) : AlertDialogInterface {
 
     protected open var mDialog: Dialog? = null
     protected open var mOnDismissListener: AlertDialogInterface.OnDismissListener? = null
     protected open var mOnCancelListener: AlertDialogInterface.OnCancelListener? = null
     protected open var mOnShowListener: AlertDialogInterface.OnShowListener? = null
 
-    protected open fun createView(layoutInflater: LayoutInflater, container: ViewGroup? = null): View {
+    protected open fun createView(
+        layoutInflater: LayoutInflater,
+        container: ViewGroup? = null
+    ): View {
         // Inflate and set the layout for the dialog
         // Pass null as the parent view because its going in the dialog layout
         val binding: MAlertDialogBinding = MAlertDialogBinding.inflate(layoutInflater)
@@ -64,13 +71,14 @@ abstract class AlertDefaultDialog(
         val mIconView = binding.imageViewIconAlertDialog
         val mTitleView = binding.textViewTitleAlertDialog
         val mMessageView = binding.textViewMessageAlertDialog
+        val mDetailsViewContainer = binding.nestedScrollViewContainerDetails
         val mDetailsView = binding.textViewDetailsAlertDialog
         val mPositiveButtonView = binding.buttonActionPositiveAlertDialog
         val mNeutralButtonView = binding.buttonActionNeutralAlertDialog
         val mNegativeButtonView = binding.buttonActionNegativeAlertDialog
 
         // Set Icon
-        when(type.typeDialog){
+        when (type.typeDialog) {
             DIALOG_STYLE_ERROR -> mIconView.setImageResource(R.drawable.ic_error)
             DIALOG_STYLE_HELP -> mIconView.setImageResource(R.drawable.ic_help)
             DIALOG_STYLE_INFORMATION -> mIconView.setImageResource(R.drawable.ic_information)
@@ -79,64 +87,108 @@ abstract class AlertDefaultDialog(
             else -> mIconView.setImageResource(icon.mDrawableResId)
         }
         // Set Icon BackgroundTint
-        binding.coordinatorLayoutContainerAlertDialog.backgroundTintList = when(type.typeDialog){
-            DIALOG_STYLE_ERROR -> { ColorStateList.valueOf(getColorDefaultErrorTheme(mContext)) }
-            DIALOG_STYLE_HELP -> { ColorStateList.valueOf(getColorDefaultOutlineTheme(mContext)) }
-            DIALOG_STYLE_INFORMATION -> { ColorStateList.valueOf(mContext.getColor(R.color.material_dialog_header_background_information)) }
-            DIALOG_STYLE_SUCCESS -> { ColorStateList.valueOf(mContext.getColor(R.color.material_dialog_header_background_success)) }
-            DIALOG_STYLE_WARNING -> { ColorStateList.valueOf(mContext.getColor(R.color.material_dialog_header_background_warning)) }
-            else -> { ColorStateList.valueOf(mContext.getColor(backgroundColorSpan)) }
-        }
+        binding.cardViewContainerHeader.setCardBackgroundColor(
+            when (type.typeDialog) {
+                DIALOG_STYLE_ERROR -> {
+                    getColorDefaultErrorTheme(mContext)
+                }
+
+                DIALOG_STYLE_HELP -> {
+                    getColorDefaultSecondaryTheme(mContext)
+                }
+
+                DIALOG_STYLE_INFORMATION -> {
+                    getColorDefaultPrimaryTheme(mContext)
+                }
+
+                DIALOG_STYLE_SUCCESS -> {
+                    mContext.getColor(R.color.design_dialog_box_stroke_color_success)
+                }
+
+                DIALOG_STYLE_WARNING -> {
+                    mContext.getColor(R.color.design_dialog_box_stroke_color_warning)
+                }
+
+                else -> {
+                    mContext.getColor(backgroundColorSpan)
+                }
+            }
+        )
         // Set Title
-        if (title != null){
+        if (title != null) {
             mTitleView.visibility = View.VISIBLE
             mTitleView.text = title?.title
             mTitleView.textAlignment = title?.textAlignment!!.alignment
-        }else mTitleView.visibility = View.GONE
+        } else mTitleView.visibility = View.GONE
         // Set Message
-        if (message != null){
+        if (message != null) {
             mMessageView.visibility = View.VISIBLE
             mMessageView.text = message?.getText()
             mMessageView.textAlignment = message?.textAlignment!!.alignment
-        }else mMessageView.visibility = View.GONE
+        } else mMessageView.visibility = View.GONE
         // Set Details
-        if (details != null){
+        details?.let {
             val readMoreOption: ReadMoreOption = ReadMoreOption.Builder(mContext.applicationContext)
-                .textLength(3)
+                .textLength(4)
                 .textLengthType(ReadMoreOption.TYPE_LINE)
                 .moreLabelColor(getColorDefaultPrimaryTheme(mContext))
                 .lessLabelColor(getColorDefaultPrimaryTheme(mContext))
                 .labelUnderLine(true)
                 .expandAnimation(true)
                 .build()
-            readMoreOption.addReadMoreTo(mDetailsView, details?.getText().toString())
-            mDetailsView.visibility = View.VISIBLE
-        }else mDetailsView.visibility = View.GONE
+            readMoreOption.addReadMoreTo(mDetailsView, it.getText().toString())
+            mDetailsView.addTextChangedListener { editable ->
+                editable?.let {
+                    val bounds = onTextViewTextSize(mDetailsView, editable.toString())
+                    mDetailsViewContainer.apply {
+                        layoutParams.height =
+                            if (bounds.width() > 6000) detailsScrollHeightSpan else ViewGroup.LayoutParams.WRAP_CONTENT
+                    }
+                }
+            }
+            mDetailsViewContainer.visibility = View.VISIBLE
+        }
         // Set Positive Button
-        if (mPositiveButton != null){
+        if (mPositiveButton != null) {
             mPositiveButtonView.visibility = View.VISIBLE
             mPositiveButtonView.text = mPositiveButton?.title
-            if (mPositiveButton?.icon != NOT_ICON) mPositiveButtonView.icon = ContextCompat.getDrawable(mContext.applicationContext, mPositiveButton?.icon!!)
-            mPositiveButtonView.setOnClickListener { mPositiveButton?.onClickListener?.onClick(this, BUTTON_POSITIVE) }
-        }else mPositiveButtonView.visibility = View.GONE
+            if (mPositiveButton?.icon != NOT_ICON) mPositiveButtonView.icon =
+                ContextCompat.getDrawable(mContext.applicationContext, mPositiveButton?.icon!!)
+            mPositiveButtonView.setOnClickListener {
+                mPositiveButton?.onClickListener?.onClick(
+                    this,
+                    BUTTON_POSITIVE
+                )
+            }
+        } else mPositiveButtonView.visibility = View.GONE
         // Set Neutral Button
-        if (mNeutralButton != null){
+        if (mNeutralButton != null) {
             mNeutralButtonView.visibility = View.VISIBLE
             mNeutralButtonView.text = mNeutralButton?.title
-            if (mNeutralButton?.icon != NOT_ICON) mNeutralButtonView.icon = ContextCompat.getDrawable(mContext.applicationContext, mNeutralButton?.icon!!)
-            mNeutralButtonView.setOnClickListener { mNeutralButton?.onClickListener?.onClick(this, BUTTON_NEUTRAL) }
-        }else mNeutralButtonView.visibility = View.GONE
+            if (mNeutralButton?.icon != NOT_ICON) mNeutralButtonView.icon =
+                ContextCompat.getDrawable(mContext.applicationContext, mNeutralButton?.icon!!)
+            mNeutralButtonView.setOnClickListener {
+                mNeutralButton?.onClickListener?.onClick(
+                    this,
+                    BUTTON_NEUTRAL
+                )
+            }
+        } else mNeutralButtonView.visibility = View.GONE
         // Set Negative Button
-        if (mNegativeButton != null){
+        if (mNegativeButton != null) {
             mNegativeButtonView.visibility = View.VISIBLE
             mNegativeButtonView.text = mNegativeButton?.title
-            if (mNegativeButton?.icon != NOT_ICON) mNegativeButtonView.icon = ContextCompat.getDrawable(mContext.applicationContext, mNegativeButton?.icon!!)
-            mNegativeButtonView.setOnClickListener { mNegativeButton?.onClickListener?.onClick(this, BUTTON_NEGATIVE) }
-        }else mNegativeButtonView.visibility = View.GONE
+            if (mNegativeButton?.icon != NOT_ICON) mNegativeButtonView.icon =
+                ContextCompat.getDrawable(mContext.applicationContext, mNegativeButton?.icon!!)
+            mNegativeButtonView.setOnClickListener {
+                mNegativeButton?.onClickListener?.onClick(
+                    this,
+                    BUTTON_NEGATIVE
+                )
+            }
+        } else mNegativeButtonView.visibility = View.GONE
         // Apply Styles
         try {
-            // Set Dialog Background
-            binding.root.setBackgroundColor(getColorDefaultBackgroundTheme(mContext))
             // Set Title Text Color
             mTitleView.setTextColor(getColorDefaultOnSurfaceTheme(mContext))
             // Set Message Text Color
@@ -144,23 +196,29 @@ abstract class AlertDefaultDialog(
             // Set Details Text Color
             mDetailsView.setTextColor(getColorDefaultOnSurfaceTheme(mContext))
             // Set Positive Button Icon Tint
-            val mPositiveButtonTint: ColorStateList = ColorStateList.valueOf(getColorDefaultSurfaceTheme(mContext))
+            val mPositiveButtonTint: ColorStateList =
+                ColorStateList.valueOf(getColorDefaultSurfaceTheme(mContext))
             mPositiveButtonView.setTextColor(mPositiveButtonTint)
             mPositiveButtonView.iconTint = mPositiveButtonTint
             // Set Neutral Button Icon & Text Tint
-            val mNeutralButtonTint: ColorStateList = ColorStateList.valueOf(getColorDefaultPrimaryTheme(mContext))
+            val mNeutralButtonTint: ColorStateList =
+                ColorStateList.valueOf(getColorDefaultPrimaryTheme(mContext))
             mNeutralButtonView.setTextColor(mNeutralButtonTint)
             mNeutralButtonView.iconTint = mNeutralButtonTint
             // Set Negative Button Icon & Text Tint
-            val mNegativeButtonTint: ColorStateList = ColorStateList.valueOf(getColorDefaultPrimaryTheme(mContext))
+            val mNegativeButtonTint: ColorStateList =
+                ColorStateList.valueOf(getColorDefaultPrimaryTheme(mContext))
             mNegativeButtonView.setTextColor(mNegativeButtonTint)
             mNegativeButtonView.iconTint = mNegativeButtonTint
             // Set Positive Button Background Tint
-            val mBackgroundTint: ColorStateList = ColorStateList.valueOf(getColorDefaultPrimaryTheme(mContext))
+            val mBackgroundTint: ColorStateList =
+                ColorStateList.valueOf(getColorDefaultPrimaryTheme(mContext))
             mPositiveButtonView.backgroundTintList = mBackgroundTint
             mNeutralButtonView.rippleColor = mBackgroundTint.withAlpha(75)
             mNegativeButtonView.rippleColor = mBackgroundTint.withAlpha(75)
-        }catch (e: Exception){ e.printStackTrace() }
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
         return binding.root
     }
 
@@ -203,9 +261,9 @@ abstract class AlertDefaultDialog(
      *
      * @param onCancelListener
      */
-    open fun setOnCancelListener(onCancelListener: AlertDialogInterface.OnCancelListener){
+    open fun setOnCancelListener(onCancelListener: AlertDialogInterface.OnCancelListener) {
         this.mOnCancelListener = onCancelListener
-        mDialog?.setOnCancelListener{ cancelCallback() }
+        mDialog?.setOnCancelListener { cancelCallback() }
     }
 
     /**
@@ -213,9 +271,9 @@ abstract class AlertDefaultDialog(
      *
      * @param onDismissListener
      */
-    open fun setOnDismissListener(onDismissListener: AlertDialogInterface.OnDismissListener){
+    open fun setOnDismissListener(onDismissListener: AlertDialogInterface.OnDismissListener) {
         this.mOnDismissListener = onDismissListener
-        mDialog?.setOnDismissListener{ dismissCallback() }
+        mDialog?.setOnDismissListener { dismissCallback() }
     }
 
     /**
@@ -223,9 +281,9 @@ abstract class AlertDefaultDialog(
      *
      * @param onShowListener
      */
-    open fun setOnShowListener(onShowListener: AlertDialogInterface.OnShowListener){
+    open fun setOnShowListener(onShowListener: AlertDialogInterface.OnShowListener) {
         this.mOnShowListener = onShowListener
-        mDialog?.setOnShowListener{ showCallback() }
+        mDialog?.setOnShowListener { showCallback() }
     }
 
     private fun cancelCallback() {
@@ -240,7 +298,7 @@ abstract class AlertDefaultDialog(
         mOnShowListener?.onShow(this)
     }
 
-    private fun throwNullDialog(){
+    private fun throwNullDialog() {
         throw NullPointerException("Called method on null Dialog. Create dialog using `Builder` before calling on Dialog")
     }
 
@@ -249,10 +307,12 @@ abstract class AlertDefaultDialog(
      * The default alert dialog theme is defined by [android.R.attr.alertDialogTheme] within the parent context's theme.
      * @param context – the parent context
      */
-    abstract class Builder<D: AlertDefaultDialog>(protected open val context: Context) {
+    abstract class Builder<D : AlertDefaultDialog>(protected open val context: Context) {
 
         protected open var icon: IconAlertDialog = IconAlertDialog(R.drawable.ic_help)
-        protected open var backgroundColorSpan: Int = R.color.material_dialog_header_background_help
+        protected open var backgroundColorSpan: Int =
+            com.google.android.material.R.color.background_material_light
+        protected open var detailsScrollHeightSpan: Int = DEFAULT_DETAILS_SCROLL_HEIGHT_SPAN
         protected open var type: TypeAlertDialog = TypeAlertDialog()
         protected open var title: TitleAlertDialog? = null
         protected open var message: MessageAlertDialog<*>? = null
@@ -289,11 +349,22 @@ abstract class AlertDefaultDialog(
         /**
          * Set background [ColorRes].
          *
-         * @param color Color resource. Eg: [R.color.material_dialog_background].
+         * @param color Color resource. Eg: [Color.WHITE].
          * @return This Builder object to allow for chaining of calls to set methods
          */
         fun setBackgroundColorSpan(@ColorRes color: Int): Builder<D> {
             this.backgroundColorSpan = color
+            return this
+        }
+
+        /**
+         * Set the maximum scroll size. Default 400.
+         *
+         * @param heightSpan height.
+         * @return This Builder object to allow for chaining of calls to set methods
+         */
+        fun setDetailsScrollHeightSpan(heightSpan: Int): Builder<D> {
+            this.detailsScrollHeightSpan = heightSpan
             return this
         }
 
@@ -337,7 +408,8 @@ abstract class AlertDefaultDialog(
          * @return This Builder object to allow for chaining of calls to set methods
          */
         fun setTitle(@StringRes title: Int, alignment: TextAlignment): Builder<D> {
-            this.title = TitleAlertDialog(title = context.getString(title), textAlignment = alignment)
+            this.title =
+                TitleAlertDialog(title = context.getString(title), textAlignment = alignment)
             return this
         }
 
@@ -381,7 +453,8 @@ abstract class AlertDefaultDialog(
          * @return This Builder object to allow for chaining of calls to set methods
          */
         fun setMessage(@StringRes message: Int, alignment: TextAlignment): Builder<D> {
-            this.message = MessageAlertDialog.text(text = context.getString(message), alignment = alignment)
+            this.message =
+                MessageAlertDialog.text(text = context.getString(message), alignment = alignment)
             return this
         }
 
@@ -458,7 +531,10 @@ abstract class AlertDefaultDialog(
          * @param onClickListener    The [AlertDialogInterface.OnClickListener] to use.
          * @return This Builder object to allow for chaining of calls to set methods
          */
-        fun setPositiveButton(buttonText: String?, onClickListener: AlertDialogInterface.OnClickListener): Builder<D> {
+        fun setPositiveButton(
+            buttonText: String?,
+            onClickListener: AlertDialogInterface.OnClickListener
+        ): Builder<D> {
             return setPositiveButton(buttonText, NOT_ICON, onClickListener)
         }
 
@@ -469,7 +545,10 @@ abstract class AlertDefaultDialog(
          * @param onClickListener    The [AlertDialogInterface.OnClickListener] to use.
          * @return This Builder object to allow for chaining of calls to set methods
          */
-        fun setPositiveButton(@StringRes buttonText: Int, onClickListener: AlertDialogInterface.OnClickListener): Builder<D> {
+        fun setPositiveButton(
+            @StringRes buttonText: Int,
+            onClickListener: AlertDialogInterface.OnClickListener
+        ): Builder<D> {
             return setPositiveButton(buttonText, NOT_ICON, onClickListener)
         }
 
@@ -481,10 +560,16 @@ abstract class AlertDefaultDialog(
          * @param icon        The [DrawableRes] to be set as an icon for the button.
          * @return This Builder object to allow for chaining of calls to set methods
          */
-        fun setPositiveButton(buttonText: String?, @DrawableRes icon: Int, onClickListener: AlertDialogInterface.OnClickListener): Builder<D> {
-            val valueText = if (buttonText.isNullOrEmpty()) context.getString(R.string.text_value_accept)
-            else buttonText
-            positiveButton = ButtonAlertDialog(title = valueText, icon = icon, onClickListener = onClickListener)
+        fun setPositiveButton(
+            buttonText: String?,
+            @DrawableRes icon: Int,
+            onClickListener: AlertDialogInterface.OnClickListener
+        ): Builder<D> {
+            val valueText =
+                if (buttonText.isNullOrEmpty()) context.getString(R.string.text_value_accept)
+                else buttonText
+            positiveButton =
+                ButtonAlertDialog(title = valueText, icon = icon, onClickListener = onClickListener)
             return this
         }
 
@@ -496,8 +581,16 @@ abstract class AlertDefaultDialog(
          * @param icon        The [DrawableRes] to be set as an icon for the button.
          * @return This Builder object to allow for chaining of calls to set methods
          */
-        fun setPositiveButton(@StringRes buttonText: Int, @DrawableRes icon: Int, onClickListener: AlertDialogInterface.OnClickListener): Builder<D> {
-            positiveButton = ButtonAlertDialog(title = context.getString(buttonText), icon = icon, onClickListener = onClickListener)
+        fun setPositiveButton(
+            @StringRes buttonText: Int,
+            @DrawableRes icon: Int,
+            onClickListener: AlertDialogInterface.OnClickListener
+        ): Builder<D> {
+            positiveButton = ButtonAlertDialog(
+                title = context.getString(buttonText),
+                icon = icon,
+                onClickListener = onClickListener
+            )
             return this
         }
 
@@ -508,7 +601,10 @@ abstract class AlertDefaultDialog(
          * @param onClickListener    The [AlertDialogInterface.OnClickListener] to use.
          * @return This Builder object to allow for chaining of calls to set methods
          */
-        fun setNeutralButton(buttonText: String?, onClickListener: AlertDialogInterface.OnClickListener): Builder<D> {
+        fun setNeutralButton(
+            buttonText: String?,
+            onClickListener: AlertDialogInterface.OnClickListener
+        ): Builder<D> {
             return setNeutralButton(buttonText, NOT_ICON, onClickListener)
         }
 
@@ -519,7 +615,10 @@ abstract class AlertDefaultDialog(
          * @param onClickListener    The [AlertDialogInterface.OnClickListener] to use.
          * @return This Builder object to allow for chaining of calls to set methods
          */
-        fun setNeutralButton(@StringRes buttonText: Int, onClickListener: AlertDialogInterface.OnClickListener): Builder<D> {
+        fun setNeutralButton(
+            @StringRes buttonText: Int,
+            onClickListener: AlertDialogInterface.OnClickListener
+        ): Builder<D> {
             return setNeutralButton(buttonText, NOT_ICON, onClickListener)
         }
 
@@ -531,10 +630,16 @@ abstract class AlertDefaultDialog(
          * @param icon        The [DrawableRes] to be set as an icon for the button.
          * @return This Builder object to allow for chaining of calls to set methods
          */
-        fun setNeutralButton(buttonText: String?, @DrawableRes icon: Int, onClickListener: AlertDialogInterface.OnClickListener): Builder<D> {
-            val valueText = if (buttonText.isNullOrEmpty()) context.getString(R.string.text_value_decline)
-            else buttonText
-            neutralButton = ButtonAlertDialog(title = valueText, icon = icon, onClickListener = onClickListener)
+        fun setNeutralButton(
+            buttonText: String?,
+            @DrawableRes icon: Int,
+            onClickListener: AlertDialogInterface.OnClickListener
+        ): Builder<D> {
+            val valueText =
+                if (buttonText.isNullOrEmpty()) context.getString(R.string.text_value_decline)
+                else buttonText
+            neutralButton =
+                ButtonAlertDialog(title = valueText, icon = icon, onClickListener = onClickListener)
             return this
         }
 
@@ -546,8 +651,16 @@ abstract class AlertDefaultDialog(
          * @param icon        The [DrawableRes] to be set as an icon for the button.
          * @return This Builder object to allow for chaining of calls to set methods
          */
-        fun setNeutralButton(@StringRes buttonText: Int, @DrawableRes icon: Int, onClickListener: AlertDialogInterface.OnClickListener): Builder<D> {
-            neutralButton = ButtonAlertDialog(title = context.getString(buttonText), icon = icon, onClickListener = onClickListener)
+        fun setNeutralButton(
+            @StringRes buttonText: Int,
+            @DrawableRes icon: Int,
+            onClickListener: AlertDialogInterface.OnClickListener
+        ): Builder<D> {
+            neutralButton = ButtonAlertDialog(
+                title = context.getString(buttonText),
+                icon = icon,
+                onClickListener = onClickListener
+            )
             return this
         }
 
@@ -558,7 +671,10 @@ abstract class AlertDefaultDialog(
          * @param onClickListener    The [AlertDialogInterface.OnClickListener] to use.
          * @return This Builder object to allow for chaining of calls to set methods
          */
-        fun setNegativeButton(buttonText: String?, onClickListener: AlertDialogInterface.OnClickListener): Builder<D> {
+        fun setNegativeButton(
+            buttonText: String?,
+            onClickListener: AlertDialogInterface.OnClickListener
+        ): Builder<D> {
             return setNegativeButton(buttonText, NOT_ICON, onClickListener)
         }
 
@@ -569,7 +685,10 @@ abstract class AlertDefaultDialog(
          * @param onClickListener    The [AlertDialogInterface.OnClickListener] to use.
          * @return This Builder object to allow for chaining of calls to set methods
          */
-        fun setNegativeButton(@StringRes buttonText: Int, onClickListener: AlertDialogInterface.OnClickListener): Builder<D> {
+        fun setNegativeButton(
+            @StringRes buttonText: Int,
+            onClickListener: AlertDialogInterface.OnClickListener
+        ): Builder<D> {
             return setNegativeButton(buttonText, NOT_ICON, onClickListener)
         }
 
@@ -581,10 +700,16 @@ abstract class AlertDefaultDialog(
          * @param icon        The [DrawableRes] to be set as an icon for the button.
          * @return This Builder object to allow for chaining of calls to set methods
          */
-        fun setNegativeButton(buttonText: String?, @DrawableRes icon: Int, onClickListener: AlertDialogInterface.OnClickListener): Builder<D> {
-            val valueText = if (buttonText.isNullOrEmpty()) context.getString(R.string.text_value_cancel)
-            else buttonText
-            negativeButton = ButtonAlertDialog(title = valueText, icon = icon, onClickListener = onClickListener)
+        fun setNegativeButton(
+            buttonText: String?,
+            @DrawableRes icon: Int,
+            onClickListener: AlertDialogInterface.OnClickListener
+        ): Builder<D> {
+            val valueText =
+                if (buttonText.isNullOrEmpty()) context.getString(R.string.text_value_cancel)
+                else buttonText
+            negativeButton =
+                ButtonAlertDialog(title = valueText, icon = icon, onClickListener = onClickListener)
             return this
         }
 
@@ -596,8 +721,16 @@ abstract class AlertDefaultDialog(
          * @param icon        The [DrawableRes] to be set as an icon for the button.
          * @return This Builder object to allow for chaining of calls to set methods
          */
-        fun setNegativeButton(@StringRes buttonText: Int, @DrawableRes icon: Int, onClickListener: AlertDialogInterface.OnClickListener): Builder<D> {
-            negativeButton = ButtonAlertDialog(title = context.getString(buttonText), icon = icon, onClickListener = onClickListener)
+        fun setNegativeButton(
+            @StringRes buttonText: Int,
+            @DrawableRes icon: Int,
+            onClickListener: AlertDialogInterface.OnClickListener
+        ): Builder<D> {
+            negativeButton = ButtonAlertDialog(
+                title = context.getString(buttonText),
+                icon = icon,
+                onClickListener = onClickListener
+            )
             return this
         }
 

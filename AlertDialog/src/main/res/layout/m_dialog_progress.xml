@@ -6,7 +6,7 @@
     android:padding="@dimen/radiusTop"
     android:theme="@style/Theme.MaterialDialog">
 
-    <androidx.appcompat.widget.LinearLayoutCompat
+    <LinearLayout
         android:id="@+id/linearLayoutCompatDialogProgress"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -54,6 +54,6 @@
 
         </RelativeLayout>
 
-    </androidx.appcompat.widget.LinearLayoutCompat>
+    </LinearLayout>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

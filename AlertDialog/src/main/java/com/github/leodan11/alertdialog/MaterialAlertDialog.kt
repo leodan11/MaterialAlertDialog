@@ -12,6 +12,7 @@ class MaterialAlertDialog(
     icon: IconAlertDialog,
     type: TypeAlertDialog,
     backgroundColorSpan: Int,
+    detailsScrollHeightSpan: Int,
     title: TitleAlertDialog?,
     message: MessageAlertDialog<*>?,
     details: DetailsAlertDialog<*>?,
@@ -24,6 +25,7 @@ class MaterialAlertDialog(
     icon = icon,
     type = type,
     backgroundColorSpan = backgroundColorSpan,
+    detailsScrollHeightSpan = detailsScrollHeightSpan,
     title = title,
     message = message,
     details = details,
@@ -43,6 +45,7 @@ class MaterialAlertDialog(
         builder.setCancelable(mCancelable)
         // Create and show dialog
         mDialog = builder.create()
+        mDialog?.window?.setBackgroundDrawableResource(android.R.color.transparent)
     }
 
     /**
@@ -58,6 +61,7 @@ class MaterialAlertDialog(
                 icon,
                 type,
                 backgroundColorSpan,
+                detailsScrollHeightSpan,
                 title,
                 message,
                 details,

@@ -1,9 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="material_dialog_background">@android:color/white</color>
-    <color name="material_dialog_header_background_error">#D50000</color>
-    <color name="material_dialog_header_background_help">#888888</color>
-    <color name="material_dialog_header_background_information">#4FC3F7</color>
-    <color name="material_dialog_header_background_success">#4CAF50</color>
-    <color name="material_dialog_header_background_warning">#FDD835</color>
+    <color name="design_dialog_box_stroke_color_success">#4CAF50</color>
+    <color name="design_dialog_box_stroke_color_warning">#FFEB3B</color>
 </resources>

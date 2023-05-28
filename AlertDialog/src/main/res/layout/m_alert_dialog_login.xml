@@ -7,7 +7,7 @@
     android:padding="@dimen/radiusTop"
     android:theme="@style/Theme.MaterialDialog">
 
-    <androidx.appcompat.widget.LinearLayoutCompat
+    <LinearLayout
         android:id="@+id/container_login_dialog"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -52,8 +52,7 @@
             app:helperTextEnabled="true"
             app:helperText="@string/text_value_username_helper"
             app:errorEnabled="true"
-            app:endIconMode="clear_text"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense" >
+            app:endIconMode="clear_text">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/text_input_edit_text_username"
@@ -75,8 +74,7 @@
             app:helperTextEnabled="true"
             app:helperText="@string/text_value_password_helper"
             app:errorEnabled="true"
-            app:endIconMode="password_toggle"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense" >
+            app:endIconMode="password_toggle">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/text_input_edit_text_password"
@@ -113,6 +111,6 @@
 
         </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
-    </androidx.appcompat.widget.LinearLayoutCompat>
+    </LinearLayout>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
