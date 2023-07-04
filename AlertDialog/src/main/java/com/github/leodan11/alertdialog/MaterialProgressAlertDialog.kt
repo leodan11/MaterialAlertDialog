@@ -3,11 +3,11 @@ package com.github.leodan11.alertdialog
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
-import androidx.appcompat.app.AlertDialog
 import com.github.leodan11.alertdialog.dist.base.VectorAlertDialog
 import com.github.leodan11.alertdialog.dist.models.IconAlertDialog
 import com.github.leodan11.alertdialog.dist.models.MessageAlertDialog
 import com.github.leodan11.alertdialog.dist.models.TitleAlertDialog
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
 class MaterialProgressAlertDialog(
     mContext: Context,
@@ -27,7 +27,7 @@ class MaterialProgressAlertDialog(
 
     // Init Dialog
     init {
-        val builder: AlertDialog.Builder = AlertDialog.Builder(mContext)
+        val builder = MaterialAlertDialogBuilder(mContext)
         val inflater: LayoutInflater = LayoutInflater.from(mContext)
         val dialogView: View = createView(inflater)
         builder.setView(dialogView)
