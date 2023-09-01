@@ -7,50 +7,81 @@ A fluent and extensible dialog API for Kotlin and Android.
 
 # Installation
 
-## Gradle
+<details>
+  <summary>Gradle</summary>
 
 - Step 1. Add the JitPack repository to your build file
 
-Add it in your root build.gradle at the end of repositories:
+  Add it in your root build.gradle at the end of repositories:
 
-```gradle
-allprojects {
-  repositories {
-    ...
-    maven { url 'https://jitpack.io' }
+  ```gradle
+  allprojects {
+    repositories {
+      ...
+      maven { url 'https://jitpack.io' }
+      }
+  }
+  ```
+
+- Step 2. Add the dependency
+  
+  ```kotlin
+  dependencies {
+    implementation 'com.github.leodan11:MaterialAlertDialog:{latest version}'
+  }
+  ```
+  
+</details>
+
+<details>
+    <summary>Kotlin</summary>
+
+  - Step 1. Add the JitPack repository to your build file.
+
+    Add it in your root build.gradle at the end of repositories:
+
+    ```kotlin
+    repositories {
+        ...
+        maven(url = "https://jitpack.io")
     }
-}
-```
+    ```
 
 - Step 2. Add the dependency
+  
+    ```gradle
+    dependencies {
+      implementation("com.github.leodan11:MaterialAlertDialog:${latest version}")
+    }
+    ```
+  
+</details>
 
-```gradle
-dependencies {
-  implementation 'com.github.leodan11:MaterialAlertDialog:{latest version}'
-}
-```
+<details>
+    <summary>Moven</summary>
 
-## Moven
+  - Step 1. Add the JitPack repository
 
-```xml
-<repositories>
-  <repository>
-    <id>jitpack.io</id>
-    <url>https://jitpack.io</url>
-  </repository>
-</repositories>
-```
+    ```xml
+    <repositories>
+      <repository>
+        <id>jitpack.io</id>
+        <url>https://jitpack.io</url>
+      </repository>
+    </repositories>
+    ```
+    
+  - Step 2. Add the dependency
 
-- Step 2. Add the dependency
-
-```xml
-<dependency>
-  <groupId>com.github.leodan11</groupId>
-    <artifactId>MaterialAlertDialog</artifactId>
-    <version>latest version</version>
- </dependency>
-```
-
+    ```xml
+    <dependency>
+      <groupId>com.github.leodan11</groupId>
+        <artifactId>MaterialAlertDialog</artifactId>
+        <version>latest version</version>
+     </dependency>
+    ```
+  
+</details>
 
 # Usage
 
