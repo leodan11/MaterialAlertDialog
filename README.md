@@ -25,7 +25,7 @@ A fluent and extensible dialog API for Kotlin and Android.
 
 - Step 2. Add the dependency
   
-  ```kotlin
+  ```gradle
   dependencies {
     implementation 'com.github.leodan11:MaterialAlertDialog:{latest version}'
   }
@@ -49,7 +49,7 @@ A fluent and extensible dialog API for Kotlin and Android.
 
 - Step 2. Add the dependency
   
-    ```gradle
+    ```kotlin
     dependencies {
       implementation("com.github.leodan11:MaterialAlertDialog:${latest version}")
     }
