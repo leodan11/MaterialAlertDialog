@@ -249,6 +249,6 @@ val dialog = MaterialProgressSmallDialog.Builder(this)
     .setMessage("Example Message")
     .create()
 
-dialog.show()
+dialog.show(fragmentManager) // Required
 dialog.dismiss()
 ```
