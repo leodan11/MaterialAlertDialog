@@ -2,6 +2,7 @@ package com.github.leodan11.alertdialog.dist.base
 
 import android.app.Dialog
 import android.content.Context
+import android.content.res.ColorStateList
 import android.text.Spanned
 import android.view.LayoutInflater
 import android.view.View
@@ -9,14 +10,19 @@ import android.view.ViewGroup
 import androidx.annotation.DrawableRes
 import androidx.annotation.RestrictTo
 import androidx.annotation.StringRes
+import androidx.core.content.ContextCompat
 import com.github.leodan11.alertdialog.MaterialProgressAlertDialog
 import com.github.leodan11.alertdialog.R
 import com.github.leodan11.alertdialog.databinding.MDialogProgressBinding
 import com.github.leodan11.alertdialog.dist.base.source.AlertDialogInterface
+import com.github.leodan11.alertdialog.dist.helpers.AlertDialog.BUTTON_NEGATIVE
+import com.github.leodan11.alertdialog.dist.helpers.AlertDialog.NOT_ICON
 import com.github.leodan11.alertdialog.dist.helpers.AlertDialog.getColorDefaultBackgroundTheme
 import com.github.leodan11.alertdialog.dist.helpers.AlertDialog.getColorDefaultOnSurfaceTheme
+import com.github.leodan11.alertdialog.dist.helpers.AlertDialog.getColorDefaultPrimaryTheme
 import com.github.leodan11.alertdialog.dist.helpers.AlertDialog.onAnimatedVectorDrawable
 import com.github.leodan11.alertdialog.dist.helpers.TextAlignment
+import com.github.leodan11.alertdialog.dist.models.ButtonAlertDialog
 import com.github.leodan11.alertdialog.dist.models.IconAlertDialog
 import com.github.leodan11.alertdialog.dist.models.MessageAlertDialog
 import com.github.leodan11.alertdialog.dist.models.TitleAlertDialog
@@ -28,7 +34,8 @@ abstract class VectorAlertDialog(
     protected open var mAnimatedVectorDrawable: Boolean,
     protected open var title: TitleAlertDialog?,
     protected open var message: MessageAlertDialog<*>?,
-    protected open var mCancelable: Boolean
+    protected open var mCancelable: Boolean,
+    protected open var mNegativeButton: ButtonAlertDialog?
 ): AlertDialogInterface {
 
     protected open var mDialog: Dialog? = null
@@ -45,6 +52,7 @@ abstract class VectorAlertDialog(
         val mTitleView= binding.textViewTitleDialogProgress
         val mMessageView= binding.textViewMessagesDialogProgress
         val mHeaderLayout= binding.layoutContentHeaderDialogProgress
+        val mNegativeButtonView = binding.buttonActionNegativeCircularProgressIndicator
 
         // Set Icon
         mIconView.setImageResource(icon.mDrawableResId)
@@ -62,6 +70,13 @@ abstract class VectorAlertDialog(
             mMessageView.text = message?.getText()
             mMessageView.textAlignment = message?.textAlignment!!.alignment
         }else mMessageView.visibility = View.GONE
+        // Set Negative Button
+        if (mNegativeButton != null){
+            mNegativeButtonView.visibility = View.VISIBLE
+            mNegativeButtonView.text = mNegativeButton?.title
+            if (mNegativeButton?.icon != NOT_ICON) mNegativeButtonView.icon = ContextCompat.getDrawable(mContext.applicationContext, mNegativeButton?.icon!!)
+            mNegativeButtonView.setOnClickListener { mNegativeButton?.onClickListener?.onClick(this, BUTTON_NEGATIVE) }
+        }else mNegativeButtonView.visibility = View.GONE
         // Apply Styles
         try {
             // Set Dialog Background
@@ -70,6 +85,11 @@ abstract class VectorAlertDialog(
             mTitleView.setTextColor(getColorDefaultOnSurfaceTheme(mContext))
             // Set Message Text Color
             mMessageView.setTextColor(getColorDefaultOnSurfaceTheme(mContext))
+            // Set Negative Button Icon & Text Tint
+            val mNegativeButtonTint: ColorStateList = ColorStateList.valueOf(getColorDefaultPrimaryTheme(mContext))
+            mNegativeButtonView.setTextColor(mNegativeButtonTint)
+            mNegativeButtonView.iconTint = mNegativeButtonTint
+            mNegativeButtonView.rippleColor = mNegativeButtonTint.withAlpha(75)
         }catch (e: Exception){ e.printStackTrace() }
         return binding.root
     }
@@ -165,6 +185,7 @@ abstract class VectorAlertDialog(
         protected open var title: TitleAlertDialog? = null
         protected open var message: MessageAlertDialog<*>? = null
         protected open var isCancelable: Boolean = true
+        protected open var negativeButton: ButtonAlertDialog? = null
 
         /**
          * Set animated vector [DrawableRes] to be used as progress.
@@ -309,6 +330,56 @@ abstract class VectorAlertDialog(
          */
         fun setCancelable(isCancelable: Boolean): Builder<D> {
             this.isCancelable = isCancelable
+            return this
+        }
+
+        /**
+         * Set a listener to be invoked when the negative button of the dialog is pressed.
+         *
+         * @param buttonText        The text to display in negative button.
+         * @param onClickListener    The [AlertDialogInterface.OnClickListener] to use.
+         * @return This Builder object to allow for chaining of calls to set methods
+         */
+        fun setNegativeButton(buttonText: String?, onClickListener: AlertDialogInterface.OnClickListener): Builder<D> {
+            return setNegativeButton(buttonText, NOT_ICON, onClickListener)
+        }
+
+        /**
+         * Set a listener to be invoked when the negative button of the dialog is pressed.
+         *
+         * @param buttonText        The text to display in negative button.
+         * @param onClickListener    The [AlertDialogInterface.OnClickListener] to use.
+         * @return This Builder object to allow for chaining of calls to set methods
+         */
+        fun setNegativeButton(@StringRes buttonText: Int, onClickListener: AlertDialogInterface.OnClickListener): Builder<D> {
+            return setNegativeButton(buttonText, NOT_ICON, onClickListener)
+        }
+
+        /**
+         * Set a listener to be invoked when the negative button of the dialog is pressed.
+         *
+         * @param buttonText        The text to display in negative button.
+         * @param onClickListener    The [AlertDialogInterface.OnClickListener] to use.
+         * @param icon        The [DrawableRes] to be set as an icon for the button.
+         * @return This Builder object to allow for chaining of calls to set methods
+         */
+        fun setNegativeButton(buttonText: String?, icon: Int, onClickListener: AlertDialogInterface.OnClickListener): Builder<D> {
+            val valueText = if (buttonText.isNullOrEmpty()) context.getString(R.string.text_value_cancel)
+            else buttonText
+            negativeButton = ButtonAlertDialog(title = valueText, icon = icon, onClickListener = onClickListener)
+            return this
+        }
+
+        /**
+         * Set a listener to be invoked when the negative button of the dialog is pressed.
+         *
+         * @param buttonText        The text to display in negative button.
+         * @param onClickListener    The [AlertDialogInterface.OnClickListener] to use.
+         * @param icon        The [DrawableRes] to be set as an icon for the button.
+         * @return This Builder object to allow for chaining of calls to set methods
+         */
+        fun setNegativeButton(@StringRes buttonText: Int, icon: Int, onClickListener: AlertDialogInterface.OnClickListener): Builder<D> {
+            negativeButton = ButtonAlertDialog(title = context.getString(buttonText), icon = icon, onClickListener = onClickListener)
             return this
         }
 

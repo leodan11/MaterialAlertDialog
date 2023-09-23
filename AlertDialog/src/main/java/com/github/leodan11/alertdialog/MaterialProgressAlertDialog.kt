@@ -4,6 +4,7 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import com.github.leodan11.alertdialog.dist.base.VectorAlertDialog
+import com.github.leodan11.alertdialog.dist.models.ButtonAlertDialog
 import com.github.leodan11.alertdialog.dist.models.IconAlertDialog
 import com.github.leodan11.alertdialog.dist.models.MessageAlertDialog
 import com.github.leodan11.alertdialog.dist.models.TitleAlertDialog
@@ -15,14 +16,16 @@ class MaterialProgressAlertDialog(
     mAnimatedVectorDrawable: Boolean,
     title: TitleAlertDialog?,
     message: MessageAlertDialog<*>?,
-    mCancelable: Boolean
+    mCancelable: Boolean,
+    mNegativeButton: ButtonAlertDialog?
 ): VectorAlertDialog(
     mContext = mContext,
     icon = icon,
     mAnimatedVectorDrawable = mAnimatedVectorDrawable,
     title = title,
     message = message,
-    mCancelable = mCancelable
+    mCancelable = mCancelable,
+    mNegativeButton = mNegativeButton
 ){
 
     // Init Dialog
@@ -51,7 +54,8 @@ class MaterialProgressAlertDialog(
                 isAnimatedVectorDrawable,
                 title,
                 message,
-                isCancelable
+                isCancelable,
+                negativeButton
             )
         }
 

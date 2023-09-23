@@ -54,6 +54,17 @@
 
         </RelativeLayout>
 
+        <com.google.android.material.button.MaterialButton
+            style="@style/Widget.Material3.Button.TextButton.Icon"
+            android:id="@+id/buttonActionNegativeCircularProgressIndicator"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:layout_marginTop="@dimen/margin_spacing_min"
+            android:contentDescription="@string/button_negative_speakable_text_value"
+            android:text="@string/text_value_cancel"
+            tools:ignore="TextContrastCheck" />
+
     </LinearLayout>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
