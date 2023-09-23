@@ -24,63 +24,63 @@ A fluent and extensible dialog API for Kotlin and Android.
   ```
 
 - Step 2. Add the dependency
-  
+
   ```gradle
   dependencies {
     implementation 'com.github.leodan11:MaterialAlertDialog:{latest version}'
   }
   ```
-  
+
 </details>
 
 <details>
     <summary>Kotlin</summary>
 
-  - Step 1. Add the JitPack repository to your build file.
+- Step 1. Add the JitPack repository to your build file.
 
-    Add it in your root build.gradle at the end of repositories:
+  Add it in your root build.gradle at the end of repositories:
 
-    ```kotlin
-    repositories {
-        ...
-        maven(url = "https://jitpack.io")
-    }
-    ```
+  ```kotlin
+  repositories {
+      ...
+      maven(url = "https://jitpack.io")
+  }
+  ```
 
 - Step 2. Add the dependency
-  
+
     ```kotlin
     dependencies {
       implementation("com.github.leodan11:MaterialAlertDialog:${latest version}")
     }
     ```
-  
+
 </details>
 
 <details>
     <summary>Moven</summary>
 
-  - Step 1. Add the JitPack repository
+- Step 1. Add the JitPack repository
 
-    ```xml
-    <repositories>
-      <repository>
-        <id>jitpack.io</id>
-        <url>https://jitpack.io</url>
-      </repository>
-    </repositories>
-    ```
-    
-  - Step 2. Add the dependency
+  ```xml
+  <repositories>
+    <repository>
+      <id>jitpack.io</id>
+      <url>https://jitpack.io</url>
+    </repository>
+  </repositories>
+  ```
 
-    ```xml
-    <dependency>
-      <groupId>com.github.leodan11</groupId>
-        <artifactId>MaterialAlertDialog</artifactId>
-        <version>latest version</version>
-     </dependency>
-    ```
-  
+- Step 2. Add the dependency
+
+  ```xml
+  <dependency>
+    <groupId>com.github.leodan11</groupId>
+      <artifactId>MaterialAlertDialog</artifactId>
+      <version>latest version</version>
+   </dependency>
+  ```
+
 </details>
 
 # Usage
@@ -96,27 +96,29 @@ MaterialAlertDialog.Builder(this)
 ```
 
 > You have different [types](https://github.com/leodan11/MaterialAlertDialog/tree/master/images):
-  - AlertDialog.DIALOG_STYLE_CUSTOM
-  - AlertDialog.DIALOG_STYLE_ERROR
-  - AlertDialog.DIALOG_STYLE_HELP
-  - AlertDialog.DIALOG_STYLE_INFORMATION
-  - AlertDialog.DIALOG_STYLE_SUCCESS
-  - AlertDialog.DIALOG_STYLE_WARNING
+
+- AlertDialog.DIALOG_STYLE_CUSTOM
+- AlertDialog.DIALOG_STYLE_ERROR
+- AlertDialog.DIALOG_STYLE_HELP
+- AlertDialog.DIALOG_STYLE_INFORMATION
+- AlertDialog.DIALOG_STYLE_SUCCESS
+- AlertDialog.DIALOG_STYLE_WARNING
 
 > Simple definition:
 
 ```kotlin
 MaterialAlertDialog.Builder(this)
-  .setType(AlertDialog.DIALOG_STYLE_SUCCESS)
-  .setTitle("Example")
-  .setMessage("Example Message")
-  .setDetails("Example Details")
-  .setPositiveButton(null, object: AlertDialogInterface.OnClickListener{
-      override fun onClick(dialog: AlertDialogInterface, which: Int) {
-          dialog.dismiss()
-        }})
-   .create()
-   .show()
+    .setType(AlertDialog.DIALOG_STYLE_SUCCESS)
+    .setTitle("Example")
+    .setMessage("Example Message")
+    .setDetails("Example Details")
+    .setPositiveButton(null, object : AlertDialogInterface.OnClickListener {
+        override fun onClick(dialog: AlertDialogInterface, which: Int) {
+            dialog.dismiss()
+        }
+    })
+    .create()
+    .show()
 ```
 
 ## Material Circular Progress AlertDialog
@@ -133,14 +135,15 @@ MaterialCircularProgressAlertDialog.Builder(this)
 
 ```kotlin
 MaterialCircularProgressAlertDialog.Builder(this)
-  .setTitle("Example")
-  .setMessage("Example Message")
-  .setNegativeButton(null, object: AlertDialogInterface.OnClickListener{
-      override fun onClick(dialog: AlertDialogInterface, which: Int) {
-          dialog.dismiss()
-        }})
-   .create()
-   .show()
+    .setTitle("Example")
+    .setMessage("Example Message")
+    .setNegativeButton(null, object : AlertDialogInterface.OnClickListener {
+        override fun onClick(dialog: AlertDialogInterface, which: Int) {
+            dialog.dismiss()
+        }
+    })
+    .create()
+    .show()
 ```
 
 ## Material Code AlertDialog
@@ -157,20 +160,26 @@ MaterialCodeAlertDialog.Builder(this)
 
 ```kotlin
 MaterialCodeAlertDialog.Builder(this)
-  .setTitle("Example")
-  .setMessage("Example Message")
-  .setPositiveButton(null, object: AlertDialogInterface.OnChildClickListenerInput{
-          override fun onClick(dialog: AlertDialogInterface, code: String, reason: String, numberDecimal: Double?, valuePercentage: Double?) {
-                        dialog.dismiss()
-                    }
-                })
-  .setNegativeButton(null, object: AlertDialogInterface.OnClickListener{
-          override fun onClick(dialog: AlertDialogInterface, which: Int) {
-                        dialog.dismiss()
-                    }
-                })
-   .create()
-   .show()
+    .setTitle("Example")
+    .setMessage("Example Message")
+    .setPositiveButton(null, object : AlertDialogInterface.OnChildClickListenerInput {
+        override fun onClick(
+            dialog: AlertDialogInterface,
+            code: String,
+            reason: String,
+            numberDecimal: Double?,
+            valuePercentage: Double?
+        ) {
+            dialog.dismiss()
+        }
+    })
+    .setNegativeButton(null, object : AlertDialogInterface.OnClickListener {
+        override fun onClick(dialog: AlertDialogInterface, which: Int) {
+            dialog.dismiss()
+        }
+    })
+    .create()
+    .show()
 ```
 
 ## Material Login AlertDialog
@@ -187,14 +196,14 @@ MaterialLoginAlertDialog.Builder(this)
 
 ```kotlin
 MaterialLoginAlertDialog.Builder(this)
-  .setTitle("Example")
-  .setPositiveButton(null, object: AlertDialogInterface.OnClickInvokedCallback{
+    .setTitle("Example")
+    .setPositiveButton(null, object : AlertDialogInterface.OnClickInvokedCallback {
         override fun onClick(dialog: AlertDialogInterface, username: String, password: String) {
-                        dialog.dismiss()
-                    }
-   })
-   .create()
-   .show()
+            dialog.dismiss()
+        }
+    })
+    .create()
+    .show()
 ```
 
 ## Material Progress AlertDialog
@@ -210,13 +219,36 @@ MaterialProgressAlertDialog.Builder(this)
 > Simple definition:
 
 ```kotlin
-val dialog = MaterialProgressAlertDialog.Builder(this)
-              .setIcon(R.drawable.ic_animated)
-              .setTitle("Example")
-              .setMessage("Example Message")
-              .create()
-              
+MaterialProgressAlertDialog.Builder(this)
+    .setIcon(R.drawable.ic_animated)
+    .setTitle("Example")
+    .setMessage("Example Message")
+    .setNegativeButton(null, object : AlertDialogInterface.OnClickListener {
+        override fun onClick(dialog: AlertDialogInterface, which: Int) {
+            dialog.dismiss()
+        }
+    })
+    .create().show()
+```
+
+## Material Small Progress AlertDialog
+
+Create a dialog, to wait for a progress through an animated drawable. Only message visible
+
+- Init
+
+```kotlin
+MaterialProgressSmallDialog.Builder(this)
+```
+
+> Simple definition:
+
+```kotlin
+val dialog = MaterialProgressSmallDialog.Builder(this)
+    .setIcon(R.drawable.ic_animated)
+    .setMessage("Example Message")
+    .create()
+
 dialog.show()
 dialog.dismiss()
 ```
-
