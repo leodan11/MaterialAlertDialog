@@ -38,8 +38,4 @@ class MaterialProgressSmallDialog(
 
     }
 
-    companion object {
-        const val TAG: String = "MaterialProgressSmallAlertDialog::class"
-    }
-
 }

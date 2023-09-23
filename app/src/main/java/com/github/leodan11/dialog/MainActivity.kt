@@ -2,7 +2,11 @@ package com.github.leodan11.dialog
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import com.github.leodan11.alertdialog.*
+import com.github.leodan11.alertdialog.MaterialAlertDialog
+import com.github.leodan11.alertdialog.MaterialCircularProgressAlertDialog
+import com.github.leodan11.alertdialog.MaterialCodeAlertDialog
+import com.github.leodan11.alertdialog.MaterialLoginAlertDialog
+import com.github.leodan11.alertdialog.MaterialProgressAlertDialog
 import com.github.leodan11.alertdialog.dist.helpers.AlertDialog
 import com.github.leodan11.dialog.databinding.ActivityMainBinding
 

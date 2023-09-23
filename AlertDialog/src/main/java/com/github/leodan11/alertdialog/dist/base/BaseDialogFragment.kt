@@ -11,9 +11,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.Window
 import androidx.annotation.DrawableRes
+import androidx.annotation.RestrictTo
 import androidx.annotation.StringRes
 import androidx.fragment.app.DialogFragment
-import com.github.leodan11.alertdialog.MaterialProgressAlertDialog
+import androidx.fragment.app.FragmentManager
+import com.github.leodan11.alertdialog.MaterialProgressSmallDialog
 import com.github.leodan11.alertdialog.R
 import com.github.leodan11.alertdialog.databinding.MDialogProgressSmallBinding
 import com.github.leodan11.alertdialog.dist.helpers.AlertDialog.onAnimatedVectorDrawable
@@ -21,6 +23,7 @@ import com.github.leodan11.alertdialog.dist.helpers.TextAlignment
 import com.github.leodan11.alertdialog.dist.models.IconAlertDialog
 import com.github.leodan11.alertdialog.dist.models.MessageAlertDialog
 
+@RestrictTo(RestrictTo.Scope.LIBRARY)
 abstract class BaseDialogFragment(
     protected open var mContext: Context,
     protected open var icon: IconAlertDialog,
@@ -58,7 +61,9 @@ abstract class BaseDialogFragment(
 
         with(binding) {
 
-            // Set Icon Animator
+            // Set Icon
+            imageViewIconLogoDialogProgress.setImageResource(icon.mDrawableResId)
+            // Set isAnimator Icon
             if (mAnimatedVectorDrawable) onAnimatedVectorDrawable(imageViewIconLogoDialogProgress)
             // Set Message
             if (message != null) {
@@ -85,6 +90,17 @@ abstract class BaseDialogFragment(
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    /**
+     * Start the dialog and display it on screen.
+     * The window is placed in the application layer and opaque.
+     * Note that you should not override this method to do initialization when the dialog is shown.
+     *
+     * @param fragmentManager   Required FragmentManager
+     */
+    fun show(fragmentManager: FragmentManager) {
+        this.show(fragmentManager, TAG)
     }
 
     /**
@@ -129,7 +145,7 @@ abstract class BaseDialogFragment(
          * @return This Builder object to allow for chaining of calls to set methods
          */
         fun setMessage(message: String?): Builder<D> {
-            return setMessage(message, TextAlignment.START)
+            return setMessage(message, TextAlignment.CENTER)
         }
 
         /**
@@ -139,7 +155,7 @@ abstract class BaseDialogFragment(
          * @return This Builder object to allow for chaining of calls to set methods
          */
         fun setMessage(@StringRes message: Int): Builder<D> {
-            return setMessage(message, TextAlignment.START)
+            return setMessage(message, TextAlignment.CENTER)
         }
 
         /**
@@ -150,7 +166,8 @@ abstract class BaseDialogFragment(
          * @return This Builder object to allow for chaining of calls to set methods
          */
         fun setMessage(message: String?, alignment: TextAlignment): Builder<D> {
-            val valueText = if (message.isNullOrEmpty()) context.getString(R.string.text_value_charging_please) else message
+            val valueText =
+                if (message.isNullOrEmpty()) context.getString(R.string.text_value_charging_please) else message
             this.message = MessageAlertDialog.text(text = valueText, alignment = alignment)
             return this
         }
@@ -163,7 +180,8 @@ abstract class BaseDialogFragment(
          * @return This Builder object to allow for chaining of calls to set methods
          */
         fun setMessage(@StringRes message: Int, alignment: TextAlignment): Builder<D> {
-            this.message = MessageAlertDialog.text(text = context.getString(message), alignment = alignment)
+            this.message =
+                MessageAlertDialog.text(text = context.getString(message), alignment = alignment)
             return this
         }
 
@@ -201,7 +219,7 @@ abstract class BaseDialogFragment(
         }
 
         /**
-         * Creates an [MaterialProgressAlertDialog] with the arguments supplied to this builder.
+         * Creates an [MaterialProgressSmallDialog] with the arguments supplied to this builder.
          * Calling this method does not display the dialog.
          * If no additional processing is needed, [show] may be called instead to both create and display the dialog.
          *
@@ -209,6 +227,10 @@ abstract class BaseDialogFragment(
          */
         abstract fun create(): D
 
+    }
+
+    companion object {
+        private val TAG: String = MaterialProgressSmallDialog::class.java.simpleName
     }
 
 }
