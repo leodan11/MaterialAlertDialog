@@ -1,4 +1,4 @@
-package com.github.leodan11.alertdialog.dist.models
+package com.github.leodan11.alertdialog.io.models
 
 import androidx.annotation.ColorInt
 import androidx.annotation.ColorRes

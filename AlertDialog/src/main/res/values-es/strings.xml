@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="text_value_error">Error</string>
+    <string name="text_value_unknown_error">Se produjo un error desconocido</string>
     <string name="text_value_help">Ayuda</string>
     <string name="text_value_information">Información</string>
     <string name="text_value_success">Éxito</string>
@@ -34,6 +35,6 @@
     <string name="text_value_password_helper">Seis o más caracteres, con al menos una letra minúscula y una mayúscula</string>
     <string name="text_value_reason_error">No puede dejar este campo vacío</string>
     <string name="text_value_code_error">Debes ingresar o completar el código</string>
-    <string name="text_value_unknown_error">Tipo de entrada desconocido</string>
+    <string name="text_value_unknown_input_type">Tipo de entrada desconocido</string>
     <string name="text_value_close">Cerrar</string>
 </resources>

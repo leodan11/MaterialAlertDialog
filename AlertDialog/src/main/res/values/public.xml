@@ -2,7 +2,6 @@
 <resources>
     <public name="ic_animated_default" type="drawable" />
     <public name="ic_error" type="drawable" />
-    <public name="ic_header_default_preset_custom" type="drawable" />
     <public name="ic_help" type="drawable" />
     <public name="ic_information" type="drawable" />
     <public name="ic_security" type="drawable" />
@@ -21,6 +20,7 @@
     <public name="text_value_login_in" type="string"/>
     <public name="text_value_sign_in_value" type="string"/>
     <public name="text_value_error" type="string"/>
+    <public name="text_value_unknown_error" type="string"/>
     <public name="text_value_help" type="string"/>
     <public name="text_value_information" type="string"/>
     <public name="text_value_success" type="string"/>
@@ -44,7 +44,7 @@
     <public name="text_value_reason_helper" type="string"/>
     <public name="text_value_reason_error" type="string"/>
     <public name="text_value_code_error" type="string"/>
-    <public name="text_value_unknown_error" type="string"/>
+    <public name="text_value_unknown_input_type" type="string"/>
     <public name="button_positive_speakable_text_value" type="string"/>
     <public name="button_neutral_speakable_text_value" type="string"/>
     <public name="button_negative_speakable_text_value" type="string"/>

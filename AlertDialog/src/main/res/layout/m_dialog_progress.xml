@@ -48,15 +48,15 @@
                 style="@style/Theme.MaterialDialog.Message"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/radiusTop"
                 android:layout_centerInParent="true"
+                android:layout_marginStart="@dimen/radiusTop"
                 android:layout_toEndOf="@id/imageViewIconLogoDialogProgress" />
 
         </RelativeLayout>
 
         <com.google.android.material.button.MaterialButton
-            style="@style/Widget.Material3.Button.TextButton.Icon"
             android:id="@+id/buttonActionNegativeCircularProgressIndicator"
+            style="@style/MaterialDialog.PositiveButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="end"

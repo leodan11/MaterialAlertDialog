@@ -8,42 +8,28 @@
     android:theme="@style/Theme.MaterialDialog">
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/cardViewContainerHeader"
-        android:layout_width="@dimen/shapeable_image_view_notification_icon_width"
-        android:layout_height="@dimen/shapeable_image_view_notification_icon_height"
-        app:cardBackgroundColor="?attr/colorSuccess"
-        app:cardCornerRadius="@dimen/corners_shape"
+        android:id="@+id/cardViewContainerBody"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="@dimen/margin_spacing"
+        app:cardElevation="0dp"
+        app:contentPadding="@dimen/margin_spacing"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <com.google.android.material.imageview.ShapeableImageView
-            android:id="@+id/imageViewIconAlertDialog"
-            android:layout_width="@dimen/notification_icon_width"
-            android:layout_height="@dimen/notification_icon_height"
-            android:layout_gravity="center"
-            android:tint="?attr/colorSurface"
-            tools:ignore="ImageContrastCheck"
-            tools:src="@drawable/ic_success" />
-
-    </androidx.cardview.widget.CardView>
-
-    <androidx.cardview.widget.CardView
-        android:id="@+id/cardViewContainerBody"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:translationY="@dimen/translation_y"
-        app:cardCornerRadius="@dimen/margin_spacing"
-        app:cardElevation="0dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/cardViewContainerHeader">
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/translation_y_invested"
             android:orientation="vertical">
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/imageViewIconAlertDialog"
+                android:layout_width="@dimen/notification_icon_width"
+                android:layout_height="@dimen/notification_icon_height"
+                android:layout_gravity="center"
+                tools:ignore="ImageContrastCheck"
+                tools:src="@drawable/ic_information" />
 
             <TextView
                 android:id="@+id/textViewTitleAlertDialog"
@@ -59,29 +45,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/margin_spacing_min"
-                android:layout_marginEnd="@dimen/margin_spacing_min" />
-
-            <androidx.core.widget.NestedScrollView
-                android:id="@+id/nestedScrollViewContainerDetails"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/margin_spacing_min"
-                android:layout_marginTop="@dimen/paddingTop"
                 android:layout_marginEnd="@dimen/margin_spacing_min"
-                android:layout_marginBottom="@dimen/margin_spacing_min"
-                android:contentDescription="@string/text_value_information"
-                android:scrollbars="none"
-                android:visibility="gone"
-                tools:visibility="visible">
-
-                <TextView
-                    android:id="@+id/textViewDetailsAlertDialog"
-                    style="@style/Theme.MaterialDialog.Details"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="0dp" />
-
-            </androidx.core.widget.NestedScrollView>
+                android:layout_marginBottom="@dimen/margin_spacing" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"

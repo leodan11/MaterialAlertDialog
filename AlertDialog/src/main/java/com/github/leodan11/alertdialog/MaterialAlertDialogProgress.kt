@@ -3,33 +3,34 @@ package com.github.leodan11.alertdialog
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
-import androidx.appcompat.app.AlertDialog
-import com.github.leodan11.alertdialog.dist.base.CircularProgressAlertDialog
-import com.github.leodan11.alertdialog.dist.models.*
+import com.github.leodan11.alertdialog.dist.AlertDialogProgressBase
+import com.github.leodan11.alertdialog.io.models.ButtonAlertDialog
+import com.github.leodan11.alertdialog.io.models.IconAlertDialog
+import com.github.leodan11.alertdialog.io.models.MessageAlertDialog
+import com.github.leodan11.alertdialog.io.models.TitleAlertDialog
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
-class MaterialCircularProgressAlertDialog(
+class MaterialAlertDialogProgress(
     mContext: Context,
-    icon: IconAlertDialog?,
-    tintColor: IconTintAlertDialog?,
+    icon: IconAlertDialog,
+    mAnimatedVectorDrawable: Boolean,
     title: TitleAlertDialog?,
     message: MessageAlertDialog<*>?,
     mCancelable: Boolean,
-    mIndeterminate: Boolean,
     mNegativeButton: ButtonAlertDialog?
-): CircularProgressAlertDialog(
+): AlertDialogProgressBase(
     mContext = mContext,
     icon = icon,
-    tintColor = tintColor,
+    mAnimatedVectorDrawable = mAnimatedVectorDrawable,
     title = title,
     message = message,
     mCancelable = mCancelable,
-    mIndeterminate = mIndeterminate,
     mNegativeButton = mNegativeButton
-) {
+){
 
     // Init Dialog
     init {
-        val builder: AlertDialog.Builder = AlertDialog.Builder(mContext)
+        val builder = MaterialAlertDialogBuilder(mContext)
         val inflater: LayoutInflater = LayoutInflater.from(mContext)
         val dialogView: View = createView(inflater)
         builder.setView(dialogView)
@@ -40,21 +41,20 @@ class MaterialCircularProgressAlertDialog(
     }
 
     /**
-     * Creates a builder for an circular progress alert dialog that uses the default alert dialog theme.
+     * Creates a builder for an progress alert dialog that uses the default alert dialog theme.
      * The default alert dialog theme is defined by [android.R.attr.alertDialogTheme] within the parent context's theme.
      * @param context the parent context
      */
-    class Builder(context: Context): CircularProgressAlertDialog.Builder<MaterialCircularProgressAlertDialog>(context = context) {
+    class Builder(context: Context): AlertDialogProgressBase.Builder<MaterialAlertDialogProgress>(context = context) {
 
-        override fun create(): MaterialCircularProgressAlertDialog {
-            return MaterialCircularProgressAlertDialog(
+        override fun create(): MaterialAlertDialogProgress {
+            return MaterialAlertDialogProgress(
                 context,
                 icon,
-                tintColor,
+                isAnimatedVectorDrawable,
                 title,
                 message,
                 isCancelable,
-                isIndeterminate,
                 negativeButton
             )
         }

@@ -2,12 +2,13 @@ package com.github.leodan11.dialog
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import com.github.leodan11.alertdialog.MaterialAlertDialog
-import com.github.leodan11.alertdialog.MaterialCircularProgressAlertDialog
-import com.github.leodan11.alertdialog.MaterialCodeAlertDialog
-import com.github.leodan11.alertdialog.MaterialLoginAlertDialog
-import com.github.leodan11.alertdialog.MaterialProgressAlertDialog
-import com.github.leodan11.alertdialog.dist.helpers.AlertDialog
+import com.github.leodan11.alertdialog.MaterialAlertDialogCentered
+import com.github.leodan11.alertdialog.MaterialAlertDialogEvents
+import com.github.leodan11.alertdialog.MaterialAlertDialogProgress
+import com.github.leodan11.alertdialog.MaterialAlertDialogProgressSmall
+import com.github.leodan11.alertdialog.MaterialAlertDialogSignIn
+import com.github.leodan11.alertdialog.MaterialAlertDialogVerificationCode
+import com.github.leodan11.alertdialog.ProgressMaterialDialog
 import com.github.leodan11.dialog.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
@@ -21,19 +22,18 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         binding.buttonActionAlert.setOnClickListener {
-            MaterialAlertDialog.Builder(this@MainActivity)
-                .setType(AlertDialog.DIALOG_STYLE_INFORMATION)
+            MaterialAlertDialogCentered.Builder(this@MainActivity)
                 .setTitle("Lorem Ipsum")
                 .setMessage("What is Lorem Ipsum?")
-                .setDetails("Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.")
                 .setCancelable(false)
                 .setPositiveButton(null, R.drawable.ic_baseline_light_mode) { dialog, _ -> dialog?.dismiss() }
                 .create().show()
         }
 
         binding.buttonActionAlertPlus.setOnClickListener {
-            MaterialAlertDialog.Builder(this@MainActivity)
+            MaterialAlertDialogEvents.Builder(this@MainActivity)
                 .setIcon(R.drawable.ic_baseline_light_mode)
+                .setBackgroundColorSpan(com.github.leodan11.alertdialog.R.color.Success)
                 .setTitle("Lorem Ipsum")
                 .setMessage("What is Lorem Ipsum?")
                 .setDetails("Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.")
@@ -45,7 +45,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         binding.buttonActionCode.setOnClickListener {
-            MaterialCodeAlertDialog.Builder(this@MainActivity)
+            MaterialAlertDialogVerificationCode.Builder(this@MainActivity)
                 .setIcon(R.drawable.ic_baseline_light_mode)
                 .setTitle("Lorem Ipsum")
                 .setMessage("What is Lorem Ipsum?")
@@ -56,7 +56,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         binding.buttonActionLogin.setOnClickListener {
-            MaterialLoginAlertDialog.Builder(this@MainActivity)
+            MaterialAlertDialogSignIn.Builder(this@MainActivity)
                 .setIcon(R.drawable.ic_baseline_light_mode)
                 .setTitle("Lorem Ipsum")
                 .setCancelable(false)
@@ -66,14 +66,20 @@ class MainActivity : AppCompatActivity() {
         }
 
         binding.buttonActionProgress.setOnClickListener {
-            MaterialProgressAlertDialog.Builder(this@MainActivity)
+            MaterialAlertDialogProgress.Builder(this@MainActivity)
                 .setTitle("Lorem Ipsum")
                 .setMessage("What is Lorem Ipsum?")
                 .create().show()
         }
 
+        binding.buttonActionProgressSmall.setOnClickListener {
+            MaterialAlertDialogProgressSmall.Builder(this@MainActivity)
+                .setMessage(null)
+                .create().show()
+        }
+
         binding.buttonActionCircularProgress.setOnClickListener {
-            MaterialCircularProgressAlertDialog.Builder(this@MainActivity)
+            ProgressMaterialDialog.Builder(this@MainActivity)
                 .setIcon(R.drawable.ic_baseline_light_mode)
                 .setTitle("Lorem Ipsum")
                 .setMessage("What is Lorem Ipsum?")

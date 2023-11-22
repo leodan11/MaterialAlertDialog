@@ -15,6 +15,7 @@
     <string name="text_value_sign_in_value">Sign in to %1$s</string>
 
     <string name="text_value_error">Error</string>
+    <string name="text_value_unknown_error">Unknown error occurred</string>
     <string name="text_value_help">Help</string>
     <string name="text_value_information">Information</string>
     <string name="text_value_success">Success</string>
@@ -38,7 +39,7 @@
     <string name="text_value_reason_helper">Specify the reasons why this action is performed</string>
     <string name="text_value_reason_error">You cannot leave this field empty</string>
     <string name="text_value_code_error">You must enter or complete the code</string>
-    <string name="text_value_unknown_error">Unknown input type</string>
+    <string name="text_value_unknown_input_type">Unknown input type</string>
 
     <string name="button_positive_speakable_text_value">Positive choice of dialogue</string>
     <string name="button_neutral_speakable_text_value">Dialogue neutral option</string>

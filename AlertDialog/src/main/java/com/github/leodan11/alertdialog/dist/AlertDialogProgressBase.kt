@@ -1,4 +1,4 @@
-package com.github.leodan11.alertdialog.dist.base
+package com.github.leodan11.alertdialog.dist
 
 import android.app.Dialog
 import android.content.Context
@@ -11,24 +11,23 @@ import androidx.annotation.DrawableRes
 import androidx.annotation.RestrictTo
 import androidx.annotation.StringRes
 import androidx.core.content.ContextCompat
-import com.github.leodan11.alertdialog.MaterialProgressAlertDialog
+import com.github.leodan11.alertdialog.MaterialAlertDialogProgress
 import com.github.leodan11.alertdialog.R
+import com.github.leodan11.alertdialog.config.Init.MATERIAL_ALERT_DIALOG_UI_NOT_ICON
 import com.github.leodan11.alertdialog.databinding.MDialogProgressBinding
-import com.github.leodan11.alertdialog.dist.base.source.AlertDialogInterface
-import com.github.leodan11.alertdialog.dist.helpers.AlertDialog.BUTTON_NEGATIVE
-import com.github.leodan11.alertdialog.dist.helpers.AlertDialog.NOT_ICON
-import com.github.leodan11.alertdialog.dist.helpers.AlertDialog.getColorDefaultBackgroundTheme
-import com.github.leodan11.alertdialog.dist.helpers.AlertDialog.getColorDefaultOnSurfaceTheme
-import com.github.leodan11.alertdialog.dist.helpers.AlertDialog.getColorDefaultPrimaryTheme
-import com.github.leodan11.alertdialog.dist.helpers.AlertDialog.onAnimatedVectorDrawable
-import com.github.leodan11.alertdialog.dist.helpers.TextAlignment
-import com.github.leodan11.alertdialog.dist.models.ButtonAlertDialog
-import com.github.leodan11.alertdialog.dist.models.IconAlertDialog
-import com.github.leodan11.alertdialog.dist.models.MessageAlertDialog
-import com.github.leodan11.alertdialog.dist.models.TitleAlertDialog
+import com.github.leodan11.alertdialog.io.content.MaterialAlertDialog
+import com.github.leodan11.alertdialog.io.content.MaterialDialogInterface
+import com.github.leodan11.alertdialog.io.extensions.getColorDefaultBackgroundTheme
+import com.github.leodan11.alertdialog.io.extensions.getColorDefaultOnSurfaceTheme
+import com.github.leodan11.alertdialog.io.extensions.getColorDefaultPrimaryTheme
+import com.github.leodan11.alertdialog.io.extensions.onAnimatedVectorDrawable
+import com.github.leodan11.alertdialog.io.models.ButtonAlertDialog
+import com.github.leodan11.alertdialog.io.models.IconAlertDialog
+import com.github.leodan11.alertdialog.io.models.MessageAlertDialog
+import com.github.leodan11.alertdialog.io.models.TitleAlertDialog
 
 @RestrictTo(RestrictTo.Scope.LIBRARY)
-abstract class VectorAlertDialog(
+abstract class AlertDialogProgressBase(
     protected open var mContext: Context,
     protected open var icon: IconAlertDialog,
     protected open var mAnimatedVectorDrawable: Boolean,
@@ -36,28 +35,28 @@ abstract class VectorAlertDialog(
     protected open var message: MessageAlertDialog<*>?,
     protected open var mCancelable: Boolean,
     protected open var mNegativeButton: ButtonAlertDialog?
-): AlertDialogInterface {
+): MaterialDialogInterface {
 
     protected open var mDialog: Dialog? = null
-    protected open var mOnDismissListener: AlertDialogInterface.OnDismissListener? = null
-    protected open var mOnCancelListener: AlertDialogInterface.OnCancelListener? = null
-    protected open var mOnShowListener: AlertDialogInterface.OnShowListener? = null
+    protected open var mOnDismissListener: MaterialDialogInterface.OnDismissListener? = null
+    protected open var mOnCancelListener: MaterialDialogInterface.OnCancelListener? = null
+    protected open var mOnShowListener: MaterialDialogInterface.OnShowListener? = null
 
     protected open fun createView(layoutInflater: LayoutInflater, container: ViewGroup? = null): View {
         // Inflate and set the layout for the dialog
         // Pass null as the parent view because its going in the dialog layout
         val binding: MDialogProgressBinding = MDialogProgressBinding.inflate(layoutInflater)
         // Initialize Views
-        val mIconView= binding.imageViewIconLogoDialogProgress
-        val mTitleView= binding.textViewTitleDialogProgress
-        val mMessageView= binding.textViewMessagesDialogProgress
-        val mHeaderLayout= binding.layoutContentHeaderDialogProgress
+        val mIconView = binding.imageViewIconLogoDialogProgress
+        val mTitleView = binding.textViewTitleDialogProgress
+        val mMessageView = binding.textViewMessagesDialogProgress
+        val mHeaderLayout = binding.layoutContentHeaderDialogProgress
         val mNegativeButtonView = binding.buttonActionNegativeCircularProgressIndicator
 
         // Set Icon
         mIconView.setImageResource(icon.mDrawableResId)
         // Set Icon Animator
-        if (mAnimatedVectorDrawable) onAnimatedVectorDrawable(mIconView)
+        if (mAnimatedVectorDrawable) mIconView.onAnimatedVectorDrawable()
         // Set Title
         if (title != null){
             mTitleView.visibility = View.VISIBLE
@@ -74,19 +73,19 @@ abstract class VectorAlertDialog(
         if (mNegativeButton != null){
             mNegativeButtonView.visibility = View.VISIBLE
             mNegativeButtonView.text = mNegativeButton?.title
-            if (mNegativeButton?.icon != NOT_ICON) mNegativeButtonView.icon = ContextCompat.getDrawable(mContext.applicationContext, mNegativeButton?.icon!!)
-            mNegativeButtonView.setOnClickListener { mNegativeButton?.onClickListener?.onClick(this, BUTTON_NEGATIVE) }
+            if (mNegativeButton?.icon != MATERIAL_ALERT_DIALOG_UI_NOT_ICON) mNegativeButtonView.icon = ContextCompat.getDrawable(mContext.applicationContext, mNegativeButton?.icon!!)
+            mNegativeButtonView.setOnClickListener { mNegativeButton?.onClickListener?.onClick(this, MaterialAlertDialog.UI.BUTTON_NEGATIVE) }
         }else mNegativeButtonView.visibility = View.GONE
         // Apply Styles
         try {
             // Set Dialog Background
-            binding.root.setBackgroundColor(getColorDefaultBackgroundTheme(mContext))
+            binding.root.setBackgroundColor(mContext.getColorDefaultBackgroundTheme())
             // Set Title Text Color
-            mTitleView.setTextColor(getColorDefaultOnSurfaceTheme(mContext))
+            mTitleView.setTextColor(mContext.getColorDefaultOnSurfaceTheme())
             // Set Message Text Color
-            mMessageView.setTextColor(getColorDefaultOnSurfaceTheme(mContext))
+            mMessageView.setTextColor(mContext.getColorDefaultOnSurfaceTheme())
             // Set Negative Button Icon & Text Tint
-            val mNegativeButtonTint: ColorStateList = ColorStateList.valueOf(getColorDefaultPrimaryTheme(mContext))
+            val mNegativeButtonTint: ColorStateList = ColorStateList.valueOf(mContext.getColorDefaultPrimaryTheme())
             mNegativeButtonView.setTextColor(mNegativeButtonTint)
             mNegativeButtonView.iconTint = mNegativeButtonTint
             mNegativeButtonView.rippleColor = mNegativeButtonTint.withAlpha(75)
@@ -132,7 +131,7 @@ abstract class VectorAlertDialog(
      *
      * @param onCancelListener
      */
-    open fun setOnCancelListener(onCancelListener: AlertDialogInterface.OnCancelListener){
+    open fun setOnCancelListener(onCancelListener: MaterialDialogInterface.OnCancelListener){
         this.mOnCancelListener = onCancelListener
         mDialog?.setOnCancelListener{ cancelCallback() }
     }
@@ -142,7 +141,7 @@ abstract class VectorAlertDialog(
      *
      * @param onDismissListener
      */
-    open fun setOnDismissListener(onDismissListener: AlertDialogInterface.OnDismissListener){
+    open fun setOnDismissListener(onDismissListener: MaterialDialogInterface.OnDismissListener){
         this.mOnDismissListener = onDismissListener
         mDialog?.setOnDismissListener{ dismissCallback() }
     }
@@ -152,7 +151,7 @@ abstract class VectorAlertDialog(
      *
      * @param onShowListener
      */
-    open fun setOnShowListener(onShowListener: AlertDialogInterface.OnShowListener){
+    open fun setOnShowListener(onShowListener: MaterialDialogInterface.OnShowListener){
         this.mOnShowListener = onShowListener
         mDialog?.setOnShowListener{ showCallback() }
     }
@@ -178,7 +177,7 @@ abstract class VectorAlertDialog(
      * The default alert dialog theme is defined by [android.R.attr.alertDialogTheme] within the parent context's theme.
      * @param context – the parent context
      */
-    abstract class Builder<D: VectorAlertDialog>(protected open val context: Context) {
+    abstract class Builder<D: AlertDialogProgressBase>(protected open val context: Context) {
 
         protected open var icon: IconAlertDialog = IconAlertDialog(R.drawable.ic_animated_default)
         protected open var isAnimatedVectorDrawable: Boolean = true
@@ -211,45 +210,45 @@ abstract class VectorAlertDialog(
         }
 
         /**
-         * Set the title displayed in the [MaterialProgressAlertDialog].
+         * Set the title displayed in the [MaterialAlertDialogProgress].
          *
          * @param title The title to display in the dialog.
          * @return This Builder object to allow for chaining of calls to set methods
          */
         fun setTitle(title: String): Builder<D> {
-            return setTitle(title, TextAlignment.START)
+            return setTitle(title, MaterialAlertDialog.TextAlignment.START)
         }
 
         /**
-         * Set the title displayed in the [MaterialProgressAlertDialog].
+         * Set the title displayed in the [MaterialAlertDialogProgress].
          *
          * @param title The title to display in the dialog.
          * @return This Builder object to allow for chaining of calls to set methods
          */
         fun setTitle(@StringRes title: Int): Builder<D> {
-            return setTitle(title, TextAlignment.START)
+            return setTitle(title, MaterialAlertDialog.TextAlignment.START)
         }
 
         /**
-         * Set the title displayed in the [MaterialProgressAlertDialog]. With text alignment: [TextAlignment.START], [TextAlignment.CENTER], [TextAlignment.END].
+         * Set the title displayed in the [MaterialAlertDialogProgress]. With text alignment: [MaterialAlertDialog.TextAlignment.START], [MaterialAlertDialog.TextAlignment.CENTER], [MaterialAlertDialog.TextAlignment.END].
          *
          * @param title The title to display in the dialog.
-         * @param alignment The message alignment. Default [TextAlignment.CENTER].
+         * @param alignment The message alignment. Default [MaterialAlertDialog.TextAlignment.CENTER].
          * @return This Builder object to allow for chaining of calls to set methods
          */
-        fun setTitle(title: String, alignment: TextAlignment): Builder<D> {
+        fun setTitle(title: String, alignment: MaterialAlertDialog.TextAlignment): Builder<D> {
             this.title = TitleAlertDialog(title = title, textAlignment = alignment)
             return this
         }
 
         /**
-         * Set the title displayed in the [MaterialProgressAlertDialog]. With text alignment: [TextAlignment.START], [TextAlignment.CENTER], [TextAlignment.END].
+         * Set the title displayed in the [MaterialAlertDialogProgress]. With text alignment: [MaterialAlertDialog.TextAlignment.START], [MaterialAlertDialog.TextAlignment.CENTER], [MaterialAlertDialog.TextAlignment.END].
          *
          * @param title The title to display in the dialog.
-         * @param alignment The message alignment. Default [TextAlignment.CENTER].
+         * @param alignment The message alignment. Default [MaterialAlertDialog.TextAlignment.CENTER].
          * @return This Builder object to allow for chaining of calls to set methods
          */
-        fun setTitle(@StringRes title: Int, alignment: TextAlignment): Builder<D> {
+        fun setTitle(@StringRes title: Int, alignment: MaterialAlertDialog.TextAlignment): Builder<D> {
             this.title = TitleAlertDialog(title = context.getString(title), textAlignment = alignment)
             return this
         }
@@ -261,7 +260,7 @@ abstract class VectorAlertDialog(
          * @return This Builder object to allow for chaining of calls to set methods
          */
         fun setMessage(message: String?): Builder<D> {
-            return setMessage(message, TextAlignment.START)
+            return setMessage(message, MaterialAlertDialog.TextAlignment.START)
         }
 
         /**
@@ -271,17 +270,17 @@ abstract class VectorAlertDialog(
          * @return This Builder object to allow for chaining of calls to set methods
          */
         fun setMessage(@StringRes message: Int): Builder<D> {
-            return setMessage(message, TextAlignment.START)
+            return setMessage(message, MaterialAlertDialog.TextAlignment.START)
         }
 
         /**
-         * Sets the message to display. With text alignment: [TextAlignment.START], [TextAlignment.CENTER], [TextAlignment.END].
+         * Sets the message to display. With text alignment: [MaterialAlertDialog.TextAlignment.START], [MaterialAlertDialog.TextAlignment.CENTER], [MaterialAlertDialog.TextAlignment.END].
          *
          * @param message The message to display in the dialog.
-         * @param alignment The message alignment. Default [TextAlignment.CENTER].
+         * @param alignment The message alignment. Default [MaterialAlertDialog.TextAlignment.CENTER].
          * @return This Builder object to allow for chaining of calls to set methods
          */
-        fun setMessage(message: String?, alignment: TextAlignment): Builder<D> {
+        fun setMessage(message: String?, alignment: MaterialAlertDialog.TextAlignment): Builder<D> {
             val valueText = if (message.isNullOrEmpty()) context.getString(R.string.text_value_charging_please)
             else message
             this.message = MessageAlertDialog.text(text = valueText, alignment = alignment)
@@ -289,13 +288,13 @@ abstract class VectorAlertDialog(
         }
 
         /**
-         * Sets the message to display. With text alignment: [TextAlignment.START], [TextAlignment.CENTER], [TextAlignment.END].
+         * Sets the message to display. With text alignment: [MaterialAlertDialog.TextAlignment.START], [MaterialAlertDialog.TextAlignment.CENTER], [MaterialAlertDialog.TextAlignment.END].
          *
          * @param message The message to display in the dialog.
-         * @param alignment The message alignment. Default [TextAlignment.CENTER].
+         * @param alignment The message alignment. Default [MaterialAlertDialog.TextAlignment.CENTER].
          * @return This Builder object to allow for chaining of calls to set methods
          */
-        fun setMessage(@StringRes message: Int, alignment: TextAlignment): Builder<D> {
+        fun setMessage(@StringRes message: Int, alignment: MaterialAlertDialog.TextAlignment): Builder<D> {
             this.message = MessageAlertDialog.text(text = context.getString(message), alignment = alignment)
             return this
         }
@@ -307,17 +306,17 @@ abstract class VectorAlertDialog(
          * @return This Builder object to allow for chaining of calls to set methods
          */
         fun setMessage(message: Spanned): Builder<D> {
-            return setMessage(message, TextAlignment.START)
+            return setMessage(message, MaterialAlertDialog.TextAlignment.START)
         }
 
         /**
-         * Sets the message to display. With text alignment: [TextAlignment.START], [TextAlignment.CENTER], [TextAlignment.END].
+         * Sets the message to display. With text alignment: [MaterialAlertDialog.TextAlignment.START], [MaterialAlertDialog.TextAlignment.CENTER], [MaterialAlertDialog.TextAlignment.END].
          *
          * @param message The message to display in the dialog.
-         * @param alignment The message alignment. Default [TextAlignment.CENTER].
+         * @param alignment The message alignment. Default [MaterialAlertDialog.TextAlignment.CENTER].
          * @return This Builder object to allow for chaining of calls to set methods
          */
-        fun setMessage(message: Spanned, alignment: TextAlignment): Builder<D> {
+        fun setMessage(message: Spanned, alignment: MaterialAlertDialog.TextAlignment): Builder<D> {
             this.message = MessageAlertDialog.spanned(text = message, alignment = alignment)
             return this
         }
@@ -337,33 +336,33 @@ abstract class VectorAlertDialog(
          * Set a listener to be invoked when the negative button of the dialog is pressed.
          *
          * @param buttonText        The text to display in negative button.
-         * @param onClickListener    The [AlertDialogInterface.OnClickListener] to use.
+         * @param onClickListener    The [MaterialDialogInterface.OnClickListener] to use.
          * @return This Builder object to allow for chaining of calls to set methods
          */
-        fun setNegativeButton(buttonText: String?, onClickListener: AlertDialogInterface.OnClickListener): Builder<D> {
-            return setNegativeButton(buttonText, NOT_ICON, onClickListener)
+        fun setNegativeButton(buttonText: String?, onClickListener: MaterialDialogInterface.OnClickListener): Builder<D> {
+            return setNegativeButton(buttonText, MATERIAL_ALERT_DIALOG_UI_NOT_ICON, onClickListener)
         }
 
         /**
          * Set a listener to be invoked when the negative button of the dialog is pressed.
          *
          * @param buttonText        The text to display in negative button.
-         * @param onClickListener    The [AlertDialogInterface.OnClickListener] to use.
+         * @param onClickListener    The [MaterialDialogInterface.OnClickListener] to use.
          * @return This Builder object to allow for chaining of calls to set methods
          */
-        fun setNegativeButton(@StringRes buttonText: Int, onClickListener: AlertDialogInterface.OnClickListener): Builder<D> {
-            return setNegativeButton(buttonText, NOT_ICON, onClickListener)
+        fun setNegativeButton(@StringRes buttonText: Int, onClickListener: MaterialDialogInterface.OnClickListener): Builder<D> {
+            return setNegativeButton(buttonText, MATERIAL_ALERT_DIALOG_UI_NOT_ICON, onClickListener)
         }
 
         /**
          * Set a listener to be invoked when the negative button of the dialog is pressed.
          *
          * @param buttonText        The text to display in negative button.
-         * @param onClickListener    The [AlertDialogInterface.OnClickListener] to use.
+         * @param onClickListener    The [MaterialDialogInterface.OnClickListener] to use.
          * @param icon        The [DrawableRes] to be set as an icon for the button.
          * @return This Builder object to allow for chaining of calls to set methods
          */
-        fun setNegativeButton(buttonText: String?, icon: Int, onClickListener: AlertDialogInterface.OnClickListener): Builder<D> {
+        fun setNegativeButton(buttonText: String?, icon: Int, onClickListener: MaterialDialogInterface.OnClickListener): Builder<D> {
             val valueText = if (buttonText.isNullOrEmpty()) context.getString(R.string.text_value_cancel)
             else buttonText
             negativeButton = ButtonAlertDialog(title = valueText, icon = icon, onClickListener = onClickListener)
@@ -374,17 +373,17 @@ abstract class VectorAlertDialog(
          * Set a listener to be invoked when the negative button of the dialog is pressed.
          *
          * @param buttonText        The text to display in negative button.
-         * @param onClickListener    The [AlertDialogInterface.OnClickListener] to use.
+         * @param onClickListener    The [MaterialDialogInterface.OnClickListener] to use.
          * @param icon        The [DrawableRes] to be set as an icon for the button.
          * @return This Builder object to allow for chaining of calls to set methods
          */
-        fun setNegativeButton(@StringRes buttonText: Int, icon: Int, onClickListener: AlertDialogInterface.OnClickListener): Builder<D> {
+        fun setNegativeButton(@StringRes buttonText: Int, icon: Int, onClickListener: MaterialDialogInterface.OnClickListener): Builder<D> {
             negativeButton = ButtonAlertDialog(title = context.getString(buttonText), icon = icon, onClickListener = onClickListener)
             return this
         }
 
         /**
-         * Creates an [MaterialProgressAlertDialog] with the arguments supplied to this builder.
+         * Creates an [MaterialAlertDialogProgress] with the arguments supplied to this builder.
          * Calling this method does not display the dialog.
          * If no additional processing is needed, [show] may be called instead to both create and display the dialog.
          *

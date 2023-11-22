@@ -17,9 +17,9 @@
             android:id="@+id/layout_content_header_circular_progress_indicator"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/radiusTop" >
+            android:layout_marginBottom="@dimen/radiusTop">
 
-            <androidx.appcompat.widget.AppCompatImageView
+            <com.google.android.material.imageview.ShapeableImageView
                 android:id="@+id/image_view_icon_circular_progress_indicator"
                 android:layout_width="@dimen/app_icon_size_min"
                 android:layout_height="@dimen/app_icon_size_min"
@@ -29,13 +29,13 @@
                 tools:ignore="ImageContrastCheck" />
 
             <TextView
-                style="@style/Theme.MaterialDialog.Title"
                 android:id="@+id/text_view_title_dialog_circular_progress_indicator"
+                style="@style/Theme.MaterialDialog.Title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
                 android:layout_marginStart="@dimen/margin_spacing_min"
                 android:layout_marginTop="0dp"
-                android:layout_centerInParent="true"
                 android:layout_toEndOf="@id/image_view_icon_circular_progress_indicator" />
 
         </RelativeLayout>
@@ -54,19 +54,19 @@
                 tools:ignore="ImageContrastCheck" />
 
             <TextView
-                style="@style/Theme.MaterialDialog.Message"
                 android:id="@+id/text_view_messages_dialog_circular_progress_indicator"
+                style="@style/Theme.MaterialDialog.Message"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
-                android:layout_toEndOf="@id/circularProgressIndicator"
-                android:layout_marginStart="@dimen/margin_spacing_min" />
+                android:layout_marginStart="@dimen/margin_spacing_min"
+                android:layout_toEndOf="@id/circularProgressIndicator" />
 
         </RelativeLayout>
 
         <com.google.android.material.button.MaterialButton
-            style="@style/Widget.Material3.Button.TextButton.Icon"
             android:id="@+id/buttonActionNegativeCircularProgressIndicator"
+            style="@style/MaterialDialog.PositiveButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="end"

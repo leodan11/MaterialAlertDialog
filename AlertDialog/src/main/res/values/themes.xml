@@ -2,53 +2,56 @@
     <!-- Base application theme. -->
     <style name="Base.Theme.MaterialDialog" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your light theme here. -->
-        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+        <item name="colorSuccess">#006d3a</item>
+        <item name="colorOnSuccess">#ffffff</item>
+        <item name="colorSuccessContainer">#85faab</item>
+        <item name="colorOnSuccessContainer">#00210e</item>
+        <item name="harmonizeSuccess">false</item>
+        <item name="colorWarning">#695f00</item>
+        <item name="colorOnWarning">#ffffff</item>
+        <item name="colorWarningContainer">#f9e534</item>
+        <item name="colorOnWarningContainer">#201c00</item>
+        <item name="harmonizeWarning">false</item>
     </style>
 
     <style name="Theme.MaterialDialog" parent="Base.Theme.MaterialDialog" />
 
     <!-- Theme for Dialog Title -->
-    <style name="Theme.MaterialDialog.Title">
+    <style name="Theme.MaterialDialog.Title" parent="TextAppearance.Material3.TitleMedium">
         <item name="android:gravity">center</item>
         <item name="android:fontFamily">@font/montserrat_bold</item>
         <item name="android:layout_marginTop">@dimen/radiusTop</item>
-        <item name="android:textSize">@dimen/text_title_size</item>
         <item name="android:textStyle">bold</item>
     </style>
 
     <!-- Theme for Dialog Message -->
-    <style name="Theme.MaterialDialog.Message">
-        <item name="android:textSize">@dimen/text_message_size</item>
+    <style name="Theme.MaterialDialog.Message" parent="TextAppearance.Material3.LabelLarge">
         <item name="android:layout_marginTop">@dimen/radiusTop</item>
         <item name="android:fontFamily">@font/montserrat_semi_bold</item>
         <item name="android:gravity">center</item>
     </style>
 
     <!-- Theme for Dialog Details -->
-    <style name="Theme.MaterialDialog.Details">
-        <item name="android:textSize">@dimen/text_message_size</item>
+    <style name="Theme.MaterialDialog.Details" parent="TextAppearance.Material3.BodyMedium">
         <item name="android:layout_marginTop">@dimen/radiusTop</item>
         <item name="android:fontFamily">@font/montserrat_extra_light</item>
         <item name="android:gravity">start</item>
     </style>
 
     <!-- Theme for Dialog Positive Button -->
-    <style name="MaterialDialog.PositiveButton" parent="@style/Widget.Material3.Button.Icon">
-        <item name="android:layout_margin">4dp</item>
+    <style name="MaterialDialog.PositiveButton" parent="Widget.Material3.Button.TextButton.Dialog.Icon">
         <item name="android:letterSpacing">0.025</item>
         <item name="android:fontFamily">@font/montserrat_bold</item>
     </style>
 
     <!-- Theme for Dialog Negative Button -->
-    <style name="MaterialDialog.NegativeButton" parent="Widget.Material3.Button.OutlinedButton.Icon">
-        <item name="android:layout_margin">4dp</item>
+    <style name="MaterialDialog.NegativeButton" parent="Widget.Material3.Button.TextButton.Dialog.Icon">
         <item name="android:letterSpacing">0.025</item>
         <item name="android:fontFamily">@font/montserrat_semi_bold</item>
     </style>
 
-    <!-- Theme for Dialog Negative Button -->
-    <style name="MaterialDialog.NeutralButton" parent="Widget.Material3.Button.OutlinedButton.Icon">
-        <item name="android:layout_margin">4dp</item>
+    <!-- Theme for Dialog Neutral Button -->
+    <style name="MaterialDialog.NeutralButton" parent="Widget.Material3.Button.TextButton.Dialog.Flush">
         <item name="android:letterSpacing">0.025</item>
         <item name="android:fontFamily">@font/montserrat_semi_bold</item>
     </style>

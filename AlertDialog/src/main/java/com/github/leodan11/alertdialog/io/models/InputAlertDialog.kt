@@ -1,11 +1,12 @@
-package com.github.leodan11.alertdialog.dist.models
+package com.github.leodan11.alertdialog.io.models
 
 import androidx.annotation.RestrictTo
 import com.github.leodan11.alertdialog.R
+import com.github.leodan11.alertdialog.io.content.AlertDialogVerificationCode.InputType
 
 @RestrictTo(RestrictTo.Scope.LIBRARY)
 data class InputAlertDialog(
-    var inputType: Int,
+    var inputType: InputType = InputType.NONE,
     var textHide: String,
     var textHelperRes: Int? = null,
     var textHelper: String? = null,

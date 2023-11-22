@@ -17,9 +17,9 @@
             android:id="@+id/layout_content_header_login_dialog"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/radiusTop" >
+            android:layout_marginBottom="@dimen/radiusTop">
 
-            <androidx.appcompat.widget.AppCompatImageView
+            <com.google.android.material.imageview.ShapeableImageView
                 android:id="@+id/image_view_icon_login_dialog"
                 android:layout_width="@dimen/app_icon_size_min"
                 android:layout_height="@dimen/app_icon_size_min"
@@ -29,16 +29,16 @@
                 tools:ignore="ImageContrastCheck" />
 
             <TextView
-                style="@style/Theme.MaterialDialog.Title"
                 android:id="@+id/text_view_title_dialog_login"
+                style="@style/Theme.MaterialDialog.Title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
                 android:layout_marginStart="@dimen/margin_spacing_min"
                 android:layout_marginTop="0dp"
-                android:gravity="start"
-                android:layout_centerInParent="true"
                 android:layout_toEndOf="@id/image_view_icon_login_dialog"
-                android:text="@string/text_value_login"/>
+                android:gravity="start"
+                android:text="@string/text_value_login" />
 
         </RelativeLayout>
 
@@ -48,11 +48,11 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/paddingTop"
             android:hint="@string/text_value_username"
-            app:shapeAppearance="@style/CutInputLayout"
-            app:helperTextEnabled="true"
-            app:helperText="@string/text_value_username_helper"
+            app:endIconMode="clear_text"
             app:errorEnabled="true"
-            app:endIconMode="clear_text">
+            app:helperText="@string/text_value_username_helper"
+            app:helperTextEnabled="true"
+            app:shapeAppearance="@style/CutInputLayout">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/text_input_edit_text_username"
@@ -60,7 +60,7 @@
                 android:layout_height="wrap_content"
                 android:imeOptions="actionNext"
                 android:inputType="text"
-                tools:ignore="TextContrastCheck" />
+                tools:ignore="TextContrastCheck,VisualLintTextFieldSize" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -70,11 +70,11 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/margin_spacing_min"
             android:hint="@string/text_value_password"
-            app:shapeAppearance="@style/CutInputLayout"
-            app:helperTextEnabled="true"
-            app:helperText="@string/text_value_password_helper"
+            app:endIconMode="password_toggle"
             app:errorEnabled="true"
-            app:endIconMode="password_toggle">
+            app:helperText="@string/text_value_password_helper"
+            app:helperTextEnabled="true"
+            app:shapeAppearance="@style/CutInputLayout">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/text_input_edit_text_password"
@@ -82,32 +82,32 @@
                 android:layout_height="wrap_content"
                 android:imeOptions="actionDone"
                 android:inputType="textPassword"
-                tools:ignore="TextContrastCheck" />
+                tools:ignore="TextContrastCheck,VisualLintTextFieldSize" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
         <androidx.coordinatorlayout.widget.CoordinatorLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_spacing_min" >
+            android:layout_marginTop="@dimen/margin_spacing_min">
 
             <com.google.android.material.button.MaterialButton
-                style="@style/MaterialDialog.NegativeButton"
                 android:id="@+id/button_action_negative_login_dialog"
+                style="@style/MaterialDialog.NegativeButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:contentDescription="@string/button_negative_speakable_text_value"
                 android:layout_gravity="start|center"
-                android:text="@string/text_value_cancel"/>
+                android:contentDescription="@string/button_negative_speakable_text_value"
+                android:text="@string/text_value_cancel" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/button_action_positive_login_dialog"
                 style="@style/MaterialDialog.PositiveButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:contentDescription="@string/button_positive_speakable_text_value"
                 android:layout_gravity="end|center"
-                android:text="@string/text_value_login_in"/>
+                android:contentDescription="@string/button_positive_speakable_text_value"
+                android:text="@string/text_value_login_in" />
 
         </androidx.coordinatorlayout.widget.CoordinatorLayout>
 

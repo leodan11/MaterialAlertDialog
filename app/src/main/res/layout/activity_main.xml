@@ -22,7 +22,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/radius_min"
-            android:text="Example Alert Dialog!"
+            android:text="Example Alert Dialog Centered!"
             tools:ignore="HardcodedText" />
 
         <Button
@@ -55,6 +55,14 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/radius_min"
             android:text="Example Progress Dialog!"
+            tools:ignore="HardcodedText" />
+
+        <Button
+            android:id="@+id/buttonActionProgressSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/radius_min"
+            android:text="Example Progress Dialog Small!"
             tools:ignore="HardcodedText" />
 
         <Button

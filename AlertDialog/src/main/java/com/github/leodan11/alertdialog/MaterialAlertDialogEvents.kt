@@ -3,14 +3,19 @@ package com.github.leodan11.alertdialog
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
-import androidx.appcompat.app.AlertDialog
-import com.github.leodan11.alertdialog.dist.base.AlertDefaultDialog
-import com.github.leodan11.alertdialog.dist.models.*
+import com.github.leodan11.alertdialog.dist.AlertDialogEventsBase
+import com.github.leodan11.alertdialog.io.content.AlertDialogEvents.Type
+import com.github.leodan11.alertdialog.io.models.ButtonAlertDialog
+import com.github.leodan11.alertdialog.io.models.DetailsAlertDialog
+import com.github.leodan11.alertdialog.io.models.IconAlertDialog
+import com.github.leodan11.alertdialog.io.models.MessageAlertDialog
+import com.github.leodan11.alertdialog.io.models.TitleAlertDialog
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
-class MaterialAlertDialog(
+class MaterialAlertDialogEvents(
     mContext: Context,
     icon: IconAlertDialog,
-    type: TypeAlertDialog,
+    type: Type,
     backgroundColorSpan: Int,
     detailsScrollHeightSpan: Int,
     title: TitleAlertDialog?,
@@ -20,7 +25,7 @@ class MaterialAlertDialog(
     mPositiveButton: ButtonAlertDialog?,
     mNeutralButton: ButtonAlertDialog?,
     mNegativeButton: ButtonAlertDialog?
-): AlertDefaultDialog(
+): AlertDialogEventsBase(
     mContext = mContext,
     icon = icon,
     type = type,
@@ -37,7 +42,7 @@ class MaterialAlertDialog(
 
     // Init Dialog
     init {
-        val builder: AlertDialog.Builder = AlertDialog.Builder(mContext)
+        val builder = MaterialAlertDialogBuilder(mContext)
         val inflater: LayoutInflater = LayoutInflater.from(mContext)
         val dialogView: View = createView(inflater)
         builder.setView(dialogView)
@@ -53,10 +58,10 @@ class MaterialAlertDialog(
      * The default alert dialog theme is defined by [android.R.attr.alertDialogTheme] within the parent context's theme.
      * @param context the parent context
      */
-    class Builder(context: Context): AlertDefaultDialog.Builder<MaterialAlertDialog>(context = context) {
+    class Builder(context: Context): AlertDialogEventsBase.Builder<MaterialAlertDialogEvents>(context = context) {
 
-        override fun create(): MaterialAlertDialog {
-            return MaterialAlertDialog(
+        override fun create(): MaterialAlertDialogEvents {
+            return MaterialAlertDialogEvents(
                 context,
                 icon,
                 type,

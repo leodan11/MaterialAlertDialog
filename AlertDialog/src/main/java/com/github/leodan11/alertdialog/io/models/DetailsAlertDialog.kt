@@ -1,4 +1,4 @@
-package com.github.leodan11.alertdialog.dist.models
+package com.github.leodan11.alertdialog.io.models
 
 import android.text.Spanned
 import androidx.annotation.RestrictTo

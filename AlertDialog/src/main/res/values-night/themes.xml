@@ -2,5 +2,15 @@
 <!-- Base application theme. -->
 <style name="Base.Theme.MaterialDialog" parent="Theme.Material3.DayNight.NoActionBar">
     <!-- Customize your dark theme here. -->
+    <item name="colorSuccess">#68dd91</item>
+    <item name="colorOnSuccess">#00391b</item>
+    <item name="colorSuccessContainer">#00522a</item>
+    <item name="colorOnSuccessContainer">#85faab</item>
+    <item name="harmonizeSuccess">false</item>
+    <item name="colorWarning">#dbc90a</item>
+    <item name="colorOnWarning">#363100</item>
+    <item name="colorWarningContainer">#4f4800</item>
+    <item name="colorOnWarningContainer">#f9e534</item>
+    <item name="harmonizeWarning">false</item>
 </style>
 </resources>
