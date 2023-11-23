@@ -8,6 +8,7 @@ import android.text.Spanned
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.annotation.ColorInt
 import androidx.annotation.ColorRes
 import androidx.annotation.DrawableRes
 import androidx.annotation.RestrictTo
@@ -22,7 +23,6 @@ import com.github.leodan11.alertdialog.databinding.MAlertDialogBinding
 import com.github.leodan11.alertdialog.io.content.AlertDialogEvents.Type
 import com.github.leodan11.alertdialog.io.content.MaterialAlertDialog
 import com.github.leodan11.alertdialog.io.content.MaterialDialogInterface
-import com.github.leodan11.alertdialog.io.extensions.getColorDefaultCustomResourceTheme
 import com.github.leodan11.alertdialog.io.extensions.getColorDefaultErrorTheme
 import com.github.leodan11.alertdialog.io.extensions.getColorDefaultOnSurfaceTheme
 import com.github.leodan11.alertdialog.io.extensions.getColorDefaultPrimaryTheme
@@ -36,7 +36,8 @@ abstract class AlertDialogEventsBase(
     protected open var mContext: Context,
     protected open var icon: IconAlertDialog,
     protected open var type: Type,
-    protected open var backgroundColorSpan: Int,
+    protected open var backgroundColorSpanInt: Int?,
+    protected open var backgroundColorSpanResource: Int?,
     protected open var detailsScrollHeightSpan: Int,
     protected open var title: TitleAlertDialog?,
     protected open var message: MessageAlertDialog<*>?,
@@ -84,9 +85,12 @@ abstract class AlertDialogEventsBase(
                 Type.ERROR -> mContext.getColorDefaultErrorTheme()
                 Type.HELP -> mContext.getColorDefaultSecondaryTheme()
                 Type.INFORMATION -> mContext.getColorDefaultPrimaryTheme()
-                Type.SUCCESS -> mContext.getColorDefaultCustomResourceTheme(R.attr.colorOnSuccess)
-                Type.WARNING -> mContext.getColorDefaultCustomResourceTheme(R.attr.colorWarning)
-                else -> mContext.getColor(backgroundColorSpan)
+                Type.SUCCESS -> mContext.getColor(R.color.Success)
+                Type.WARNING -> mContext.getColor(R.color.Warning)
+                else -> {
+                    if (backgroundColorSpanInt != null) backgroundColorSpanInt!!
+                    else if (backgroundColorSpanResource != null) mContext.getColor(backgroundColorSpanResource!!) else mContext.getColorDefaultSecondaryTheme()
+                }
             }
         )
         // Set Title
@@ -282,8 +286,8 @@ abstract class AlertDialogEventsBase(
     abstract class Builder<D : AlertDialogEventsBase>(protected open val context: Context) {
 
         protected open var icon: IconAlertDialog = IconAlertDialog(R.drawable.ic_help)
-        protected open var backgroundColorSpan: Int =
-            com.google.android.material.R.color.background_material_light
+        protected open var backgroundColorSpanInt: Int? = null
+        protected open var backgroundColorSpan: Int? = null
         protected open var detailsScrollHeightSpan: Int = DEFAULT_DETAILS_SCROLL_HEIGHT_SPAN
         protected open var type: Type = Type.CUSTOM
         protected open var title: TitleAlertDialog? = null
@@ -319,9 +323,20 @@ abstract class AlertDialogEventsBase(
         }
 
         /**
+         * Set background [ColorInt].
+         *
+         * @param color Color resource. Eg: [Color.GREEN].
+         * @return This Builder object to allow for chaining of calls to set methods
+         */
+        fun setBackgroundColorSpanRGB(@ColorInt color: Int): Builder<D> {
+            this.backgroundColorSpanInt = color
+            return this
+        }
+
+        /**
          * Set background [ColorRes].
          *
-         * @param color Color resource. Eg: [Color.WHITE].
+         * @param color Color resource. Eg: [R.color.Success].
          * @return This Builder object to allow for chaining of calls to set methods
          */
         fun setBackgroundColorSpan(@ColorRes color: Int): Builder<D> {
@@ -453,7 +468,7 @@ abstract class AlertDialogEventsBase(
         }
 
         /**
-         * Sets the message to display.
+         * Set the message details to display.
          *
          * @param detail The details to display in the dialog.
          * @return This Builder object to allow for chaining of calls to set methods
@@ -464,7 +479,7 @@ abstract class AlertDialogEventsBase(
         }
 
         /**
-         * Sets the message to display.
+         * Set the message details to display.
          *
          * @param detail The details to display in the dialog.
          * @return This Builder object to allow for chaining of calls to set methods
@@ -475,7 +490,7 @@ abstract class AlertDialogEventsBase(
         }
 
         /**
-         * Sets the message to display.
+         * Set the message details to display.
          *
          * @param detail The details to display in the dialog.
          * @return This Builder object to allow for chaining of calls to set methods

@@ -11,7 +11,6 @@
         android:id="@+id/cardViewContainerHeader"
         android:layout_width="@dimen/shapeable_image_view_notification_icon_width"
         android:layout_height="@dimen/shapeable_image_view_notification_icon_height"
-        app:cardBackgroundColor="?attr/colorSuccess"
         app:cardCornerRadius="@dimen/corners_shape"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

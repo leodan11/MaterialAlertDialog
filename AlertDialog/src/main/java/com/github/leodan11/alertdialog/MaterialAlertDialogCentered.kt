@@ -13,7 +13,8 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 class MaterialAlertDialogCentered(
     mContext: Context,
     icon: IconAlertDialog,
-    backgroundColorSpan: Int?,
+    backgroundColorInt: Int?,
+    backgroundColorResource: Int?,
     title: TitleAlertDialog?,
     message: MessageAlertDialog<*>?,
     mCancelable: Boolean,
@@ -23,7 +24,8 @@ class MaterialAlertDialogCentered(
 ) : AlertDialogCenteredBase(
     mContext = mContext,
     icon = icon,
-    backgroundColorSpan = backgroundColorSpan,
+    backgroundColorInt = backgroundColorInt,
+    backgroundColorResource = backgroundColorResource,
     title = title,
     message = message,
     mCancelable = mCancelable,
@@ -55,7 +57,8 @@ class MaterialAlertDialogCentered(
             return MaterialAlertDialogCentered(
                 context,
                 icon,
-                backgroundColorSpan,
+                backgroundColorInt,
+                backgroundColorResource,
                 title,
                 message,
                 isCancelable,

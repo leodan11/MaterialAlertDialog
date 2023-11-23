@@ -9,6 +9,7 @@ import android.text.Spanned
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.annotation.ColorInt
 import androidx.annotation.ColorRes
 import androidx.annotation.DrawableRes
 import androidx.annotation.RestrictTo
@@ -31,7 +32,8 @@ import com.github.leodan11.alertdialog.io.models.TitleAlertDialog
 abstract class AlertDialogCenteredBase(
     protected open var mContext: Context,
     protected open var icon: IconAlertDialog,
-    protected open var backgroundColorSpan: Int?,
+    protected open var backgroundColorInt: Int?,
+    protected open var backgroundColorResource: Int?,
     protected open var title: TitleAlertDialog?,
     protected open var message: MessageAlertDialog<*>?,
     protected open var mCancelable: Boolean,
@@ -62,7 +64,8 @@ abstract class AlertDialogCenteredBase(
         // Set Icon
         mIconView.setImageResource(icon.mDrawableResId)
         // Set Icon BackgroundTint
-        backgroundColorSpan?.let { mIconView.setColorFilter(it, PorterDuff.Mode.SRC_IN) }
+        backgroundColorInt?.let { mIconView.setColorFilter(it, PorterDuff.Mode.SRC_IN) }
+        backgroundColorResource?.let { mIconView.setColorFilter(mContext.getColor(it), PorterDuff.Mode.SRC_IN) }
         // Set Title
         if (title != null) {
             mTitleView.visibility = View.VISIBLE
@@ -238,7 +241,8 @@ abstract class AlertDialogCenteredBase(
     abstract class Builder<D : AlertDialogCenteredBase>(protected open val context: Context) {
 
         protected open var icon: IconAlertDialog = IconAlertDialog(R.drawable.ic_information)
-        protected open var backgroundColorSpan: Int? = null
+        protected open var backgroundColorResource: Int? = null
+        protected open var backgroundColorInt: Int? = null
         protected open var title: TitleAlertDialog? = null
         protected open var message: MessageAlertDialog<*>? = null
         protected open var isCancelable: Boolean = true
@@ -258,13 +262,24 @@ abstract class AlertDialogCenteredBase(
         }
 
         /**
+         * Set background tint [ColorInt].
+         *
+         * @param color Color resource. Eg: [Color.BLUE].
+         * @return This Builder object to allow for chaining of calls to set methods
+         */
+        fun setIconBackgroundTintRGB(@ColorInt color: Int): Builder<D> {
+            this.backgroundColorInt = color
+            return this
+        }
+
+        /**
          * Set background tint [ColorRes].
          *
-         * @param color Color resource. Eg: [Color.WHITE].
+         * @param color Color resource. Eg: [R.color.Success].
          * @return This Builder object to allow for chaining of calls to set methods
          */
         fun setIconBackgroundTint(@ColorRes color: Int): Builder<D> {
-            this.backgroundColorSpan = color
+            this.backgroundColorResource = color
             return this
         }
 

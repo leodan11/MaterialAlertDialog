@@ -2,16 +2,6 @@
     <!-- Base application theme. -->
     <style name="Base.Theme.MaterialDialog" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your light theme here. -->
-        <item name="colorSuccess">#006d3a</item>
-        <item name="colorOnSuccess">#ffffff</item>
-        <item name="colorSuccessContainer">#85faab</item>
-        <item name="colorOnSuccessContainer">#00210e</item>
-        <item name="harmonizeSuccess">false</item>
-        <item name="colorWarning">#695f00</item>
-        <item name="colorOnWarning">#ffffff</item>
-        <item name="colorWarningContainer">#f9e534</item>
-        <item name="colorOnWarningContainer">#201c00</item>
-        <item name="harmonizeWarning">false</item>
     </style>
 
     <style name="Theme.MaterialDialog" parent="Base.Theme.MaterialDialog" />
