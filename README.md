@@ -6,9 +6,6 @@
 A fluent and extensible dialog API for Kotlin and Android.
 
 
-> [!IMPORTANT]
-> Getting Started
-
 ## Installation
 
 #### Gradle
