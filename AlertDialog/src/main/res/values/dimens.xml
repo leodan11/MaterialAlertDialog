@@ -12,6 +12,8 @@
     <dimen name="translation_y_invested">30dp</dimen>
     <dimen name="shapeable_image_view_notification_icon_height">72dp</dimen>
     <dimen name="shapeable_image_view_notification_icon_width">72dp</dimen>
+    <dimen name="shapeable_image_view_notification_icon_height_medium">48dp</dimen>
+    <dimen name="shapeable_image_view_notification_icon_width_medium">48dp</dimen>
     <dimen name="notification_icon_height">36dp</dimen>
     <dimen name="notification_icon_width">36dp</dimen>
 

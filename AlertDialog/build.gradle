@@ -4,7 +4,7 @@ plugins {
     id 'maven-publish'
 }
 
-version = '1.8.0'
+version = '1.8.2'
 
 android {
     namespace 'com.github.leodan11.alertdialog'
@@ -64,7 +64,7 @@ afterEvaluate {
                 from components.release
                 groupId = 'com.github.leodan11'
                 artifactId = 'MaterialAlertDialog'
-                version = '1.8.0'
+                version = '1.8.2'
 
                 pom {
                     name = "MaterialAlertDialog"

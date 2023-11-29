@@ -2,13 +2,17 @@ package com.github.leodan11.alertdialog.io.extensions
 
 import android.app.Activity
 import android.content.Context
+import android.content.res.Configuration
+import android.graphics.drawable.Animatable2
 import android.graphics.drawable.AnimatedVectorDrawable
 import android.graphics.drawable.Drawable
+import android.os.Build
 import android.util.TypedValue
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.ImageView
 import androidx.annotation.AttrRes
+import androidx.vectordrawable.graphics.drawable.Animatable2Compat
 import androidx.vectordrawable.graphics.drawable.AnimatedVectorDrawableCompat
 
 /**
@@ -18,7 +22,7 @@ import androidx.vectordrawable.graphics.drawable.AnimatedVectorDrawableCompat
 fun Activity.hideInputKeyboardView() {
     val view: View? = this.currentFocus
     view?.clearFocus()
-    if (view != null){
+    if (view != null) {
         val input = this.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         input.hideSoftInputFromWindow(view.windowToken, 0)
     }
@@ -31,7 +35,11 @@ fun Activity.hideInputKeyboardView() {
  */
 fun Context.getColorDefaultBackgroundTheme(): Int {
     val typedValue = TypedValue()
-    this.theme.resolveAttribute(com.google.android.material.R.attr.backgroundColor, typedValue, true)
+    this.theme.resolveAttribute(
+        com.google.android.material.R.attr.backgroundColor,
+        typedValue,
+        true
+    )
     return typedValue.data
 }
 
@@ -43,7 +51,11 @@ fun Context.getColorDefaultBackgroundTheme(): Int {
  */
 fun Context.getColorDefaultOnBackgroundTheme(): Int {
     val typedValue = TypedValue()
-    this.theme.resolveAttribute(com.google.android.material.R.attr.colorOnBackground, typedValue, true)
+    this.theme.resolveAttribute(
+        com.google.android.material.R.attr.colorOnBackground,
+        typedValue,
+        true
+    )
     return typedValue.data
 }
 
@@ -92,7 +104,11 @@ fun Context.getColorDefaultOnErrorTheme(): Int {
  */
 fun Context.getColorDefaultErrorContainerTheme(): Int {
     val typedValue = TypedValue()
-    this.theme.resolveAttribute(com.google.android.material.R.attr.colorErrorContainer, typedValue, true)
+    this.theme.resolveAttribute(
+        com.google.android.material.R.attr.colorErrorContainer,
+        typedValue,
+        true
+    )
     return typedValue.data
 }
 
@@ -104,7 +120,11 @@ fun Context.getColorDefaultErrorContainerTheme(): Int {
  */
 fun Context.getColorDefaultOnErrorContainerTheme(): Int {
     val typedValue = TypedValue()
-    this.theme.resolveAttribute(com.google.android.material.R.attr.colorOnErrorContainer, typedValue, true)
+    this.theme.resolveAttribute(
+        com.google.android.material.R.attr.colorOnErrorContainer,
+        typedValue,
+        true
+    )
     return typedValue.data
 }
 
@@ -128,7 +148,11 @@ fun Context.getColorDefaultOutlineTheme(): Int {
  */
 fun Context.getColorDefaultOutlineVariantTheme(): Int {
     val typedValue = TypedValue()
-    this.theme.resolveAttribute(com.google.android.material.R.attr.colorOutlineVariant, typedValue, true)
+    this.theme.resolveAttribute(
+        com.google.android.material.R.attr.colorOutlineVariant,
+        typedValue,
+        true
+    )
     return typedValue.data
 }
 
@@ -164,7 +188,11 @@ fun Context.getColorDefaultOnPrimaryTheme(): Int {
  */
 fun Context.getColorDefaultPrimaryContainerTheme(): Int {
     val typedValue = TypedValue()
-    this.theme.resolveAttribute(com.google.android.material.R.attr.colorPrimaryContainer, typedValue, true)
+    this.theme.resolveAttribute(
+        com.google.android.material.R.attr.colorPrimaryContainer,
+        typedValue,
+        true
+    )
     return typedValue.data
 }
 
@@ -176,7 +204,11 @@ fun Context.getColorDefaultPrimaryContainerTheme(): Int {
  */
 fun Context.getColorDefaultOnPrimaryContainerTheme(): Int {
     val typedValue = TypedValue()
-    this.theme.resolveAttribute(com.google.android.material.R.attr.colorOnPrimaryContainer, typedValue, true)
+    this.theme.resolveAttribute(
+        com.google.android.material.R.attr.colorOnPrimaryContainer,
+        typedValue,
+        true
+    )
     return typedValue.data
 }
 
@@ -200,7 +232,11 @@ fun Context.getColorDefaultSecondaryTheme(): Int {
  */
 fun Context.getColorDefaultOnSecondaryTheme(): Int {
     val typedValue = TypedValue()
-    this.theme.resolveAttribute(com.google.android.material.R.attr.colorOnSecondary, typedValue, true)
+    this.theme.resolveAttribute(
+        com.google.android.material.R.attr.colorOnSecondary,
+        typedValue,
+        true
+    )
     return typedValue.data
 }
 
@@ -212,7 +248,11 @@ fun Context.getColorDefaultOnSecondaryTheme(): Int {
  */
 fun Context.getColorDefaultSecondaryContainerTheme(): Int {
     val typedValue = TypedValue()
-    this.theme.resolveAttribute(com.google.android.material.R.attr.colorSecondaryContainer, typedValue, true)
+    this.theme.resolveAttribute(
+        com.google.android.material.R.attr.colorSecondaryContainer,
+        typedValue,
+        true
+    )
     return typedValue.data
 }
 
@@ -224,7 +264,11 @@ fun Context.getColorDefaultSecondaryContainerTheme(): Int {
  */
 fun Context.getColorDefaultOnSecondaryContainerTheme(): Int {
     val typedValue = TypedValue()
-    this.theme.resolveAttribute(com.google.android.material.R.attr.colorOnSecondaryContainer, typedValue, true)
+    this.theme.resolveAttribute(
+        com.google.android.material.R.attr.colorOnSecondaryContainer,
+        typedValue,
+        true
+    )
     return typedValue.data
 }
 
@@ -260,7 +304,11 @@ fun Context.getColorDefaultOnSurfaceTheme(): Int {
  */
 fun Context.getColorDefaultSurfaceVariantTheme(): Int {
     val typedValue = TypedValue()
-    this.theme.resolveAttribute(com.google.android.material.R.attr.colorSurfaceVariant, typedValue, true)
+    this.theme.resolveAttribute(
+        com.google.android.material.R.attr.colorSurfaceVariant,
+        typedValue,
+        true
+    )
     return typedValue.data
 }
 
@@ -272,7 +320,11 @@ fun Context.getColorDefaultSurfaceVariantTheme(): Int {
  */
 fun Context.getColorDefaultOnSurfaceVariantTheme(): Int {
     val typedValue = TypedValue()
-    this.theme.resolveAttribute(com.google.android.material.R.attr.colorOnSurfaceVariant, typedValue, true)
+    this.theme.resolveAttribute(
+        com.google.android.material.R.attr.colorOnSurfaceVariant,
+        typedValue,
+        true
+    )
     return typedValue.data
 }
 
@@ -296,7 +348,11 @@ fun Context.getColorDefaultTertiaryTheme(): Int {
  */
 fun Context.getColorDefaultOnTertiaryTheme(): Int {
     val typedValue = TypedValue()
-    this.theme.resolveAttribute(com.google.android.material.R.attr.colorOnTertiary, typedValue, true)
+    this.theme.resolveAttribute(
+        com.google.android.material.R.attr.colorOnTertiary,
+        typedValue,
+        true
+    )
     return typedValue.data
 }
 
@@ -308,7 +364,11 @@ fun Context.getColorDefaultOnTertiaryTheme(): Int {
  */
 fun Context.getColorDefaultTertiaryContainerTheme(): Int {
     val typedValue = TypedValue()
-    this.theme.resolveAttribute(com.google.android.material.R.attr.colorTertiaryContainer, typedValue, true)
+    this.theme.resolveAttribute(
+        com.google.android.material.R.attr.colorTertiaryContainer,
+        typedValue,
+        true
+    )
     return typedValue.data
 }
 
@@ -320,21 +380,66 @@ fun Context.getColorDefaultTertiaryContainerTheme(): Int {
  */
 fun Context.getColorDefaultOnTertiaryContainerTheme(): Int {
     val typedValue = TypedValue()
-    this.theme.resolveAttribute(com.google.android.material.R.attr.colorOnTertiaryContainer, typedValue, true)
+    this.theme.resolveAttribute(
+        com.google.android.material.R.attr.colorOnTertiaryContainer,
+        typedValue,
+        true
+    )
     return typedValue.data
+}
+
+/**
+ * Determine if dark mode is currently active
+ *
+ * @return [Boolean] - It is active
+ */
+fun Context.isNightModeActive(): Boolean {
+    return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+        this.resources.configuration.isNightModeActive
+    } else {
+        val darkModeFlag = this.resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK
+        darkModeFlag == Configuration.UI_MODE_NIGHT_YES
+    }
 }
 
 /**
  * On animated vector drawable
  *
  */
-fun ImageView.onAnimatedVectorDrawable(){
-    val d : Drawable = this.drawable
+fun ImageView.onAnimatedVectorDrawable() {
+    val d: Drawable = this.drawable
     if (d is AnimatedVectorDrawableCompat) {
-        val avd : AnimatedVectorDrawableCompat = d
+        val avd: AnimatedVectorDrawableCompat = d
         avd.start()
     } else if (d is AnimatedVectorDrawable) {
-        val avd : AnimatedVectorDrawable = d
+        val avd: AnimatedVectorDrawable = d
+        avd.start()
+    }
+}
+
+/**
+ * On animated vector drawable loop
+ *
+ */
+fun ImageView.onAnimatedVectorDrawableLoop() {
+    val d: Drawable = this.drawable
+    if (d is AnimatedVectorDrawableCompat) {
+        val avd: AnimatedVectorDrawableCompat = d
+        avd.registerAnimationCallback(object : Animatable2Compat.AnimationCallback() {
+            override fun onAnimationEnd(drawable: Drawable?) {
+                super.onAnimationEnd(drawable)
+                avd.start()
+            }
+        })
+        avd.start()
+    } else if (d is AnimatedVectorDrawable) {
+        val avd: AnimatedVectorDrawable = d
+        avd.registerAnimationCallback(object : Animatable2.AnimationCallback() {
+            override fun onAnimationEnd(drawable: Drawable?) {
+                super.onAnimationEnd(drawable)
+                avd.start()
+            }
+        })
         avd.start()
     }
 }

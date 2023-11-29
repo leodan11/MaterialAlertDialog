@@ -1,0 +1,242 @@
+<animated-vector xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:aapt="http://schemas.android.com/aapt">
+    <aapt:attr name="android:drawable">
+        <vector
+            android:name="vector"
+            android:width="100dp"
+            android:height="100dp"
+            android:viewportWidth="100"
+            android:viewportHeight="100">
+            <group android:name="group">
+                <path
+                    android:name="spinner"
+                    android:fillColor="?attr/colorOnSurface"
+                    android:pathData="M 48.5 15 L 50.5 15 C 51.03 15 51.539 15.211 51.914 15.586 C 52.289 15.961 52.5 16.47 52.5 17 L 52.5 27 C 52.5 27.53 52.289 28.039 51.914 28.414 C 51.539 28.789 51.03 29 50.5 29 L 48.5 29 C 47.97 29 47.461 28.789 47.086 28.414 C 46.711 28.039 46.5 27.53 46.5 27 L 46.5 17 C 46.5 16.47 46.711 15.961 47.086 15.586 C 47.461 15.211 47.97 15 48.5 15"
+                    android:strokeWidth="1" />
+            </group>
+            <group android:name="group_1">
+                <path
+                    android:name="spinner_1"
+                    android:fillColor="?attr/colorOnSurface"
+                    android:pathData="M 73.688 24.191 L 75.102 25.605 C 75.477 25.98 75.688 26.489 75.688 27.019 C 75.688 27.549 75.477 28.058 75.102 28.433 L 68.031 35.504 C 67.656 35.879 67.147 36.09 66.617 36.09 C 66.087 36.09 65.578 35.879 65.203 35.504 L 63.789 34.09 C 63.414 33.715 63.203 33.206 63.203 32.676 C 63.203 32.146 63.414 31.637 63.789 31.262 L 70.86 24.191 C 71.235 23.816 71.744 23.605 72.274 23.605 C 72.804 23.605 73.313 23.816 73.688 24.191"
+                    android:strokeWidth="1" />
+            </group>
+            <group android:name="group_2">
+                <path
+                    android:name="spinner_2"
+                    android:fillColor="?attr/colorOnSurface"
+                    android:pathData="M 85 48.5 L 85 50.5 C 85 51.03 84.789 51.539 84.414 51.914 C 84.039 52.289 83.53 52.5 83 52.5 L 73 52.5 C 72.47 52.5 71.961 52.289 71.586 51.914 C 71.211 51.539 71 51.03 71 50.5 L 71 48.5 C 71 47.97 71.211 47.461 71.586 47.086 C 71.961 46.711 72.47 46.5 73 46.5 L 83 46.5 C 83.53 46.5 84.039 46.711 84.414 47.086 C 84.789 47.461 85 47.97 85 48.5"
+                    android:strokeWidth="1" />
+            </group>
+            <group android:name="group_3">
+                <path
+                    android:name="spinner_3"
+                    android:fillColor="?attr/colorOnSurface"
+                    android:pathData="M 75.809 73.688 L 74.395 75.102 C 74.02 75.477 73.511 75.688 72.981 75.688 C 72.451 75.688 71.942 75.477 71.567 75.102 L 64.496 68.031 C 64.121 67.656 63.91 67.147 63.91 66.617 C 63.91 66.087 64.121 65.578 64.496 65.203 L 65.91 63.789 C 66.285 63.414 66.794 63.203 67.324 63.203 C 67.854 63.203 68.363 63.414 68.738 63.789 L 75.809 70.86 C 76.184 71.235 76.395 71.744 76.395 72.274 C 76.395 72.804 76.184 73.313 75.809 73.688"
+                    android:strokeWidth="1" />
+            </group>
+            <group android:name="group_4">
+                <path
+                    android:name="spinner_4"
+                    android:fillColor="?attr/colorOnSurface"
+                    android:pathData="M 51.5 85 L 49.5 85 C 48.97 85 48.461 84.789 48.086 84.414 C 47.711 84.039 47.5 83.53 47.5 83 L 47.5 73 C 47.5 72.47 47.711 71.961 48.086 71.586 C 48.461 71.211 48.97 71 49.5 71 L 51.5 71 C 52.03 71 52.539 71.211 52.914 71.586 C 53.289 71.961 53.5 72.47 53.5 73 L 53.5 83 C 53.5 83.53 53.289 84.039 52.914 84.414 C 52.539 84.789 52.03 85 51.5 85"
+                    android:strokeWidth="1" />
+            </group>
+            <group android:name="group_5">
+                <path
+                    android:name="spinner_5"
+                    android:fillColor="?attr/colorOnSurface"
+                    android:pathData="M 26.312 75.809 L 24.898 74.395 C 24.523 74.02 24.312 73.511 24.312 72.981 C 24.312 72.451 24.523 71.942 24.898 71.567 L 31.969 64.496 C 32.344 64.121 32.853 63.91 33.383 63.91 C 33.913 63.91 34.422 64.121 34.797 64.496 L 36.211 65.91 C 36.586 66.285 36.797 66.794 36.797 67.324 C 36.797 67.854 36.586 68.363 36.211 68.738 L 29.14 75.809 C 28.765 76.184 28.256 76.395 27.726 76.395 C 27.196 76.395 26.687 76.184 26.312 75.809"
+                    android:strokeWidth="1" />
+            </group>
+            <group android:name="group_6">
+                <path
+                    android:name="spinner_6"
+                    android:fillColor="?attr/colorOnSurface"
+                    android:pathData="M 15 51.5 L 15 49.5 C 15 48.97 15.211 48.461 15.586 48.086 C 15.961 47.711 16.47 47.5 17 47.5 L 27 47.5 C 27.53 47.5 28.039 47.711 28.414 48.086 C 28.789 48.461 29 48.97 29 49.5 L 29 51.5 C 29 52.03 28.789 52.539 28.414 52.914 C 28.039 53.289 27.53 53.5 27 53.5 L 17 53.5 C 16.47 53.5 15.961 53.289 15.586 52.914 C 15.211 52.539 15 52.03 15 51.5"
+                    android:strokeWidth="1" />
+            </group>
+            <group android:name="group_7">
+                <path
+                    android:name="spinner_7"
+                    android:fillColor="?attr/colorOnSurface"
+                    android:pathData="M 24.191 26.312 L 25.605 24.898 C 25.98 24.523 26.489 24.312 27.019 24.312 C 27.549 24.312 28.058 24.523 28.433 24.898 L 35.504 31.969 C 35.879 32.344 36.09 32.853 36.09 33.383 C 36.09 33.913 35.879 34.422 35.504 34.797 L 34.09 36.211 C 33.715 36.586 33.206 36.797 32.676 36.797 C 32.146 36.797 31.637 36.586 31.262 36.211 L 24.191 29.14 C 23.816 28.765 23.605 28.256 23.605 27.726 C 23.605 27.196 23.816 26.687 24.191 26.312"
+                    android:strokeWidth="1" />
+            </group>
+        </vector>
+    </aapt:attr>
+    <target android:name="spinner">
+        <aapt:attr name="android:animation">
+            <set>
+                <objectAnimator
+                    android:duration="100"
+                    android:interpolator="@android:interpolator/fast_out_slow_in"
+                    android:propertyName="fillColor"
+                    android:valueFrom="?attr/colorOnSurface"
+                    android:valueTo="?attr/colorSurface"
+                    android:valueType="colorType" />
+                <objectAnimator
+                    android:duration="100"
+                    android:interpolator="@android:interpolator/fast_out_slow_in"
+                    android:propertyName="fillColor"
+                    android:startOffset="200"
+                    android:valueFrom="?attr/colorSurface"
+                    android:valueTo="?attr/colorOnSurface"
+                    android:valueType="colorType" />
+            </set>
+        </aapt:attr>
+    </target>
+    <target android:name="spinner_1">
+        <aapt:attr name="android:animation">
+            <set>
+                <objectAnimator
+                    android:duration="100"
+                    android:interpolator="@android:interpolator/fast_out_slow_in"
+                    android:propertyName="fillColor"
+                    android:startOffset="100"
+                    android:valueFrom="?attr/colorOnSurface"
+                    android:valueTo="?attr/colorSurface"
+                    android:valueType="colorType" />
+                <objectAnimator
+                    android:duration="100"
+                    android:interpolator="@android:interpolator/fast_out_slow_in"
+                    android:propertyName="fillColor"
+                    android:startOffset="300"
+                    android:valueFrom="?attr/colorSurface"
+                    android:valueTo="?attr/colorOnSurface"
+                    android:valueType="colorType" />
+            </set>
+        </aapt:attr>
+    </target>
+    <target android:name="spinner_2">
+        <aapt:attr name="android:animation">
+            <set>
+                <objectAnimator
+                    android:duration="100"
+                    android:interpolator="@android:interpolator/fast_out_slow_in"
+                    android:propertyName="fillColor"
+                    android:startOffset="200"
+                    android:valueFrom="?attr/colorOnSurface"
+                    android:valueTo="?attr/colorSurface"
+                    android:valueType="colorType" />
+                <objectAnimator
+                    android:duration="100"
+                    android:interpolator="@android:interpolator/fast_out_slow_in"
+                    android:propertyName="fillColor"
+                    android:startOffset="400"
+                    android:valueFrom="?attr/colorSurface"
+                    android:valueTo="?attr/colorOnSurface"
+                    android:valueType="colorType" />
+            </set>
+        </aapt:attr>
+    </target>
+    <target android:name="spinner_3">
+        <aapt:attr name="android:animation">
+            <set>
+                <objectAnimator
+                    android:duration="100"
+                    android:interpolator="@android:interpolator/fast_out_slow_in"
+                    android:propertyName="fillColor"
+                    android:startOffset="300"
+                    android:valueFrom="?attr/colorOnSurface"
+                    android:valueTo="?attr/colorSurface"
+                    android:valueType="colorType" />
+                <objectAnimator
+                    android:duration="100"
+                    android:interpolator="@android:interpolator/fast_out_slow_in"
+                    android:propertyName="fillColor"
+                    android:startOffset="500"
+                    android:valueFrom="?attr/colorSurface"
+                    android:valueTo="?attr/colorOnSurface"
+                    android:valueType="colorType" />
+            </set>
+        </aapt:attr>
+    </target>
+    <target android:name="spinner_4">
+        <aapt:attr name="android:animation">
+            <set>
+                <objectAnimator
+                    android:duration="100"
+                    android:interpolator="@android:interpolator/fast_out_slow_in"
+                    android:propertyName="fillColor"
+                    android:startOffset="400"
+                    android:valueFrom="?attr/colorOnSurface"
+                    android:valueTo="?attr/colorSurface"
+                    android:valueType="colorType" />
+                <objectAnimator
+                    android:duration="100"
+                    android:interpolator="@android:interpolator/fast_out_slow_in"
+                    android:propertyName="fillColor"
+                    android:startOffset="600"
+                    android:valueFrom="?attr/colorSurface"
+                    android:valueTo="?attr/colorOnSurface"
+                    android:valueType="colorType" />
+            </set>
+        </aapt:attr>
+    </target>
+    <target android:name="spinner_5">
+        <aapt:attr name="android:animation">
+            <set>
+                <objectAnimator
+                    android:duration="100"
+                    android:interpolator="@android:interpolator/fast_out_slow_in"
+                    android:propertyName="fillColor"
+                    android:startOffset="500"
+                    android:valueFrom="?attr/colorOnSurface"
+                    android:valueTo="?attr/colorSurface"
+                    android:valueType="colorType" />
+                <objectAnimator
+                    android:duration="100"
+                    android:interpolator="@android:interpolator/fast_out_slow_in"
+                    android:propertyName="fillColor"
+                    android:startOffset="700"
+                    android:valueFrom="?attr/colorSurface"
+                    android:valueTo="?attr/colorOnSurface"
+                    android:valueType="colorType" />
+            </set>
+        </aapt:attr>
+    </target>
+    <target android:name="spinner_6">
+        <aapt:attr name="android:animation">
+            <set>
+                <objectAnimator
+                    android:duration="100"
+                    android:interpolator="@android:interpolator/fast_out_slow_in"
+                    android:propertyName="fillColor"
+                    android:startOffset="600"
+                    android:valueFrom="?attr/colorOnSurface"
+                    android:valueTo="?attr/colorSurface"
+                    android:valueType="colorType" />
+                <objectAnimator
+                    android:duration="100"
+                    android:interpolator="@android:interpolator/fast_out_slow_in"
+                    android:propertyName="fillColor"
+                    android:valueFrom="?attr/colorSurface"
+                    android:valueTo="?attr/colorOnSurface"
+                    android:valueType="colorType" />
+            </set>
+        </aapt:attr>
+    </target>
+    <target android:name="spinner_7">
+        <aapt:attr name="android:animation">
+            <set>
+                <objectAnimator
+                    android:duration="100"
+                    android:interpolator="@android:interpolator/fast_out_slow_in"
+                    android:propertyName="fillColor"
+                    android:startOffset="700"
+                    android:valueFrom="?attr/colorOnSurface"
+                    android:valueTo="?attr/colorSurface"
+                    android:valueType="colorType" />
+                <objectAnimator
+                    android:duration="100"
+                    android:interpolator="@android:interpolator/fast_out_slow_in"
+                    android:propertyName="fillColor"
+                    android:startOffset="100"
+                    android:valueFrom="?attr/colorSurface"
+                    android:valueTo="?attr/colorOnSurface"
+                    android:valueType="colorType" />
+            </set>
+        </aapt:attr>
+    </target>
+</animated-vector>

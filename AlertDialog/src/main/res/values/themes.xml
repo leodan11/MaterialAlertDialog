@@ -14,10 +14,23 @@
         <item name="android:textStyle">bold</item>
     </style>
 
+    <!-- Theme for Dialog Title IOS -->
+    <style name="Theme.MaterialDialog.Title.IOS" parent="TextAppearance.Material3.TitleMedium">
+        <item name="android:gravity">center</item>
+        <item name="android:fontFamily">@font/helvetica_bold</item>
+    </style>
+
     <!-- Theme for Dialog Message -->
     <style name="Theme.MaterialDialog.Message" parent="TextAppearance.Material3.LabelLarge">
         <item name="android:layout_marginTop">@dimen/radiusTop</item>
         <item name="android:fontFamily">@font/montserrat_semi_bold</item>
+        <item name="android:gravity">center</item>
+    </style>
+
+    <!-- Theme for Dialog Message IOS -->
+    <style name="Theme.MaterialDialog.Message.IOS" parent="TextAppearance.Material3.BodyMedium">
+        <item name="android:layout_marginTop">@dimen/margin_spacing</item>
+        <item name="android:fontFamily">@font/helvetica</item>
         <item name="android:gravity">center</item>
     </style>
 
@@ -44,6 +57,22 @@
     <style name="MaterialDialog.NeutralButton" parent="Widget.Material3.Button.TextButton.Dialog.Flush">
         <item name="android:letterSpacing">0.025</item>
         <item name="android:fontFamily">@font/montserrat_semi_bold</item>
+    </style>
+
+    <!-- Theme for Dialog Button IOS -->
+    <style name="MaterialDialog.Button.Positive.IOS" parent="TextAppearance.Material3.BodyMedium">
+        <item name="android:textStyle">bold</item>
+        <item name="android:textAlignment">center</item>
+        <item name="android:padding">@dimen/radius_min</item>
+        <item name="android:fontFamily">@font/helvetica_light</item>
+    </style>
+
+
+    <!-- Theme for Dialog Button IOS -->
+    <style name="MaterialDialog.Button.IOS" parent="TextAppearance.Material3.BodyMedium">
+        <item name="android:textAlignment">center</item>
+        <item name="android:padding">@dimen/radius_min</item>
+        <item name="android:fontFamily">@font/helvetica_light</item>
     </style>
 
     <!-- Theme for Input Layout Cut -->
