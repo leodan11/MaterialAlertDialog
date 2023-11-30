@@ -13,11 +13,11 @@ import com.github.leodan11.alertdialog.R
 import com.github.leodan11.alertdialog.databinding.IosProgressAlertDialogBinding
 import com.github.leodan11.alertdialog.io.content.MaterialAlertDialog
 import com.github.leodan11.alertdialog.io.content.MaterialDialogInterface
-import com.github.leodan11.alertdialog.io.extensions.getColorDefaultBackgroundTheme
-import com.github.leodan11.alertdialog.io.extensions.getColorDefaultOnSurfaceTheme
-import com.github.leodan11.alertdialog.io.extensions.onAnimatedVectorDrawableLoop
 import com.github.leodan11.alertdialog.io.models.IconAlertDialog
 import com.github.leodan11.alertdialog.io.models.MessageAlertDialog
+import com.github.leodan11.k_extensions.core.backgroundColor
+import com.github.leodan11.k_extensions.core.colorOnSurface
+import com.github.leodan11.k_extensions.core.startAnimatedVectorDrawableLoop
 
 @RestrictTo(RestrictTo.Scope.LIBRARY)
 abstract class AlertDialogProgressIOSBase(
@@ -46,7 +46,7 @@ abstract class AlertDialogProgressIOSBase(
         // Set Icon
         mIconView.setImageResource(icon.mDrawableResId)
         // Set Icon Animator
-        mIconView.onAnimatedVectorDrawableLoop()
+        mIconView.startAnimatedVectorDrawableLoop()
         // Set Message
         if (message != null) {
             mMessageView.visibility = View.VISIBLE
@@ -56,9 +56,9 @@ abstract class AlertDialogProgressIOSBase(
         // Apply Styles
         try {
             // Set Dialog Background
-            binding.root.setBackgroundColor(mContext.getColorDefaultBackgroundTheme())
+            binding.root.setBackgroundColor(mContext.backgroundColor())
             // Set Message Text Color
-            mMessageView.setTextColor(mContext.getColorDefaultOnSurfaceTheme())
+            mMessageView.setTextColor(mContext.colorOnSurface())
         } catch (e: Exception) {
             e.printStackTrace()
         }

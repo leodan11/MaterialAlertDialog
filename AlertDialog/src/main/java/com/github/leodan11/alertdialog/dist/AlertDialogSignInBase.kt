@@ -17,12 +17,12 @@ import com.github.leodan11.alertdialog.config.Init.MATERIAL_ALERT_DIALOG_UI_NOT_
 import com.github.leodan11.alertdialog.databinding.MAlertDialogLoginBinding
 import com.github.leodan11.alertdialog.io.content.MaterialAlertDialog
 import com.github.leodan11.alertdialog.io.content.MaterialDialogInterface
-import com.github.leodan11.alertdialog.io.extensions.getColorDefaultOnSurfaceTheme
-import com.github.leodan11.alertdialog.io.extensions.getColorDefaultPrimaryTheme
 import com.github.leodan11.alertdialog.io.models.ButtonAlertDialog
 import com.github.leodan11.alertdialog.io.models.IconAlertDialog
 import com.github.leodan11.alertdialog.io.models.IconTintAlertDialog
 import com.github.leodan11.alertdialog.io.models.TitleAlertDialog
+import com.github.leodan11.k_extensions.core.colorOnSurface
+import com.github.leodan11.k_extensions.core.colorPrimary
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
 
@@ -115,18 +115,18 @@ abstract class AlertDialogSignInBase(
                 else if (tintColor?.iconColorInt != null) mIconView.setColorFilter(tintColor?.iconColorInt!!)
             }
             // Set Title Text Color
-            mTitleView.setTextColor(mContext.getColorDefaultOnSurfaceTheme())
+            mTitleView.setTextColor(mContext.colorOnSurface())
             // Set InputLayout Username Color
-            mTextInputLayoutUsername.boxStrokeColor = mContext.getColorDefaultPrimaryTheme()
+            mTextInputLayoutUsername.boxStrokeColor = mContext.colorPrimary()
             mTextInputLayoutUsername.hintTextColor =
-                ColorStateList.valueOf(mContext.getColorDefaultPrimaryTheme())
+                ColorStateList.valueOf(mContext.colorPrimary())
             // Set InputLayout Password Color
-            mTextInputLayoutPassword.boxStrokeColor = mContext.getColorDefaultPrimaryTheme()
+            mTextInputLayoutPassword.boxStrokeColor = mContext.colorPrimary()
             mTextInputLayoutPassword.hintTextColor =
-                ColorStateList.valueOf(mContext.getColorDefaultPrimaryTheme())
+                ColorStateList.valueOf(mContext.colorPrimary())
             // Set Background Tint
             val mBackgroundTint: ColorStateList =
-                ColorStateList.valueOf(mContext.getColorDefaultPrimaryTheme())
+                ColorStateList.valueOf(mContext.colorPrimary())
             // Set Positive Button Icon Tint
             val mPositiveButtonTint: ColorStateList = mBackgroundTint
             mPositiveButtonView.setTextColor(mPositiveButtonTint)

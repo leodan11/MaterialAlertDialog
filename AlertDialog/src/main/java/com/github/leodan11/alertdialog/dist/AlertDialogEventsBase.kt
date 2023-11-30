@@ -23,12 +23,12 @@ import com.github.leodan11.alertdialog.databinding.MAlertDialogBinding
 import com.github.leodan11.alertdialog.io.content.AlertDialogEvents.Type
 import com.github.leodan11.alertdialog.io.content.MaterialAlertDialog
 import com.github.leodan11.alertdialog.io.content.MaterialDialogInterface
-import com.github.leodan11.alertdialog.io.extensions.getColorDefaultErrorTheme
-import com.github.leodan11.alertdialog.io.extensions.getColorDefaultOnSurfaceTheme
-import com.github.leodan11.alertdialog.io.extensions.getColorDefaultPrimaryTheme
-import com.github.leodan11.alertdialog.io.extensions.getColorDefaultSecondaryTheme
 import com.github.leodan11.alertdialog.io.helpers.Functions.onTextViewTextSize
 import com.github.leodan11.alertdialog.io.models.*
+import com.github.leodan11.k_extensions.core.colorError
+import com.github.leodan11.k_extensions.core.colorOnSurface
+import com.github.leodan11.k_extensions.core.colorPrimary
+import com.github.leodan11.k_extensions.core.colorSecondary
 import com.leodan.readmoreoption.ReadMoreOption
 
 @RestrictTo(RestrictTo.Scope.LIBRARY)
@@ -82,14 +82,14 @@ abstract class AlertDialogEventsBase(
         // Set Icon BackgroundTint
         binding.cardViewContainerHeader.setCardBackgroundColor(
             when (type) {
-                Type.ERROR -> mContext.getColorDefaultErrorTheme()
-                Type.HELP -> mContext.getColorDefaultSecondaryTheme()
-                Type.INFORMATION -> mContext.getColorDefaultPrimaryTheme()
+                Type.ERROR -> mContext.colorError()
+                Type.HELP -> mContext.colorSecondary()
+                Type.INFORMATION -> mContext.colorPrimary()
                 Type.SUCCESS -> mContext.getColor(R.color.Success)
                 Type.WARNING -> mContext.getColor(R.color.Warning)
                 else -> {
                     if (backgroundColorSpanInt != null) backgroundColorSpanInt!!
-                    else if (backgroundColorSpanResource != null) mContext.getColor(backgroundColorSpanResource!!) else mContext.getColorDefaultSecondaryTheme()
+                    else if (backgroundColorSpanResource != null) mContext.getColor(backgroundColorSpanResource!!) else mContext.colorSecondary()
                 }
             }
         )
@@ -110,8 +110,8 @@ abstract class AlertDialogEventsBase(
             val readMoreOption: ReadMoreOption = ReadMoreOption.Builder(mContext.applicationContext)
                 .textLength(4)
                 .textLengthType(ReadMoreOption.TYPE_LINE)
-                .moreLabelColor(mContext.getColorDefaultPrimaryTheme())
-                .lessLabelColor(mContext.getColorDefaultPrimaryTheme())
+                .moreLabelColor(mContext.colorPrimary())
+                .lessLabelColor(mContext.colorPrimary())
                 .labelUnderLine(true)
                 .expandAnimation(true)
                 .build()
@@ -169,13 +169,13 @@ abstract class AlertDialogEventsBase(
         // Apply Styles
         try {
             // Set Title Text Color
-            mTitleView.setTextColor(mContext.getColorDefaultOnSurfaceTheme())
+            mTitleView.setTextColor(mContext.colorOnSurface())
             // Set Message Text Color
-            mMessageView.setTextColor(mContext.getColorDefaultOnSurfaceTheme())
+            mMessageView.setTextColor(mContext.colorOnSurface())
             // Set Details Text Color
-            mDetailsView.setTextColor(mContext.getColorDefaultOnSurfaceTheme())
+            mDetailsView.setTextColor(mContext.colorOnSurface())
             // Set Background Tint
-            val mBackgroundTint: ColorStateList = ColorStateList.valueOf(mContext.getColorDefaultPrimaryTheme())
+            val mBackgroundTint: ColorStateList = ColorStateList.valueOf(mContext.colorPrimary())
             // Set Positive Button Icon Tint
             val mPositiveButtonTint: ColorStateList = mBackgroundTint
             mPositiveButtonView.setTextColor(mPositiveButtonTint)

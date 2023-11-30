@@ -21,12 +21,12 @@ import com.github.leodan11.alertdialog.config.Init.MATERIAL_ALERT_DIALOG_UI_NOT_
 import com.github.leodan11.alertdialog.databinding.MAlertDialogCenteredBinding
 import com.github.leodan11.alertdialog.io.content.MaterialAlertDialog
 import com.github.leodan11.alertdialog.io.content.MaterialDialogInterface
-import com.github.leodan11.alertdialog.io.extensions.getColorDefaultOnSurfaceTheme
-import com.github.leodan11.alertdialog.io.extensions.getColorDefaultPrimaryTheme
 import com.github.leodan11.alertdialog.io.models.ButtonAlertDialog
 import com.github.leodan11.alertdialog.io.models.IconAlertDialog
 import com.github.leodan11.alertdialog.io.models.MessageAlertDialog
 import com.github.leodan11.alertdialog.io.models.TitleAlertDialog
+import com.github.leodan11.k_extensions.core.colorOnSurface
+import com.github.leodan11.k_extensions.core.colorPrimary
 
 @RestrictTo(RestrictTo.Scope.LIBRARY)
 abstract class AlertDialogCenteredBase(
@@ -126,11 +126,11 @@ abstract class AlertDialogCenteredBase(
         // Apply Styles
         try {
             // Set Title Text Color
-            mTitleView.setTextColor(mContext.getColorDefaultOnSurfaceTheme())
+            mTitleView.setTextColor(mContext.colorOnSurface())
             // Set Message Text Color
-            mMessageView.setTextColor(mContext.getColorDefaultOnSurfaceTheme())
+            mMessageView.setTextColor(mContext.colorOnSurface())
             // Set Background Tint
-            val mBackgroundTint: ColorStateList = ColorStateList.valueOf(mContext.getColorDefaultPrimaryTheme())
+            val mBackgroundTint: ColorStateList = ColorStateList.valueOf(mContext.colorPrimary())
             // Set Positive Button Icon Tint
             val mPositiveButtonTint: ColorStateList = mBackgroundTint
             mPositiveButtonView.setTextColor(mPositiveButtonTint)

@@ -15,16 +15,16 @@ import com.github.leodan11.alertdialog.ProgressMaterialDialog
 import com.github.leodan11.alertdialog.R
 import com.github.leodan11.alertdialog.config.Init.MATERIAL_ALERT_DIALOG_UI_NOT_ICON
 import com.github.leodan11.alertdialog.databinding.MDialogProgressCircularBinding
-import com.github.leodan11.alertdialog.io.content.MaterialDialogInterface
 import com.github.leodan11.alertdialog.io.content.MaterialAlertDialog
-import com.github.leodan11.alertdialog.io.extensions.getColorDefaultBackgroundTheme
-import com.github.leodan11.alertdialog.io.extensions.getColorDefaultOnSurfaceTheme
-import com.github.leodan11.alertdialog.io.extensions.getColorDefaultPrimaryTheme
+import com.github.leodan11.alertdialog.io.content.MaterialDialogInterface
 import com.github.leodan11.alertdialog.io.models.ButtonAlertDialog
 import com.github.leodan11.alertdialog.io.models.IconAlertDialog
 import com.github.leodan11.alertdialog.io.models.IconTintAlertDialog
 import com.github.leodan11.alertdialog.io.models.MessageAlertDialog
 import com.github.leodan11.alertdialog.io.models.TitleAlertDialog
+import com.github.leodan11.k_extensions.core.backgroundColor
+import com.github.leodan11.k_extensions.core.colorOnSurface
+import com.github.leodan11.k_extensions.core.colorPrimary
 import com.google.android.material.progressindicator.CircularProgressIndicator
 
 @RestrictTo(RestrictTo.Scope.LIBRARY)
@@ -84,21 +84,21 @@ abstract class ProgressDialogBase(
         // Apply Styles
         try {
             // Set Dialog Background
-            binding.root.setBackgroundColor(mContext.getColorDefaultBackgroundTheme())
+            binding.root.setBackgroundColor(mContext.backgroundColor())
             // Set Icon Color
             if (tintColor != null){
                 if (tintColor?.iconColorRes != null) mIconView.setColorFilter(ContextCompat.getColor(mContext.applicationContext, tintColor?.iconColorRes!!))
                 else if (tintColor?.iconColorInt != null) mIconView.setColorFilter(tintColor?.iconColorInt!!)
             }
             // Set Title Text Color
-            mTitleView.setTextColor(mContext.getColorDefaultOnSurfaceTheme())
+            mTitleView.setTextColor(mContext.colorOnSurface())
             // Set Message Text Color
-            mMessageView.setTextColor(mContext.getColorDefaultOnSurfaceTheme())
+            mMessageView.setTextColor(mContext.colorOnSurface())
             // set Indeterminate Progress Circular & Tint
             mProgressCircular.isIndeterminate = mIndeterminate
-            mProgressCircular.setIndicatorColor(mContext.getColorDefaultPrimaryTheme())
+            mProgressCircular.setIndicatorColor(mContext.colorPrimary())
             // Set Negative Button Icon & Text Tint
-            val mNegativeButtonTint: ColorStateList = ColorStateList.valueOf(mContext.getColorDefaultPrimaryTheme())
+            val mNegativeButtonTint: ColorStateList = ColorStateList.valueOf(mContext.colorPrimary())
             mNegativeButtonView.setTextColor(mNegativeButtonTint)
             mNegativeButtonView.iconTint = mNegativeButtonTint
             mNegativeButtonView.rippleColor = mNegativeButtonTint.withAlpha(75)

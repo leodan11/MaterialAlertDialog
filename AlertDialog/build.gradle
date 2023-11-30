@@ -4,8 +4,6 @@ plugins {
     id 'maven-publish'
 }
 
-version = '1.8.2'
-
 android {
     namespace 'com.github.leodan11.alertdialog'
     compileSdk 34
@@ -53,7 +51,8 @@ dependencies {
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
-    implementation 'com.github.leodan11:ReadMoreOptions:1.1.2'
+    implementation 'com.github.leodan11:KExtensions:1.0.0' // KTX Extension
+    implementation 'com.github.leodan11:ReadMoreOptions:1.1.2' // ReadMoreTextView
 }
 
 afterEvaluate {
@@ -64,7 +63,7 @@ afterEvaluate {
                 from components.release
                 groupId = 'com.github.leodan11'
                 artifactId = 'MaterialAlertDialog'
-                version = '1.8.2'
+                version = '1.8.4'
 
                 pom {
                     name = "MaterialAlertDialog"

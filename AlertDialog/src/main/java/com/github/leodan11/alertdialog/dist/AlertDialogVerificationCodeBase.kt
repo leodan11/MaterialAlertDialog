@@ -20,8 +20,6 @@ import com.github.leodan11.alertdialog.databinding.MAlertDialogInputCodeBinding
 import com.github.leodan11.alertdialog.io.content.AlertDialogVerificationCode
 import com.github.leodan11.alertdialog.io.content.MaterialAlertDialog
 import com.github.leodan11.alertdialog.io.content.MaterialDialogInterface
-import com.github.leodan11.alertdialog.io.extensions.getColorDefaultOnSurfaceTheme
-import com.github.leodan11.alertdialog.io.extensions.getColorDefaultPrimaryTheme
 import com.github.leodan11.alertdialog.io.helpers.Functions.onCallbackRequestFocus
 import com.github.leodan11.alertdialog.io.helpers.Functions.onValidateTextField
 import com.github.leodan11.alertdialog.io.models.ButtonAlertDialog
@@ -30,6 +28,8 @@ import com.github.leodan11.alertdialog.io.models.IconTintAlertDialog
 import com.github.leodan11.alertdialog.io.models.InputAlertDialog
 import com.github.leodan11.alertdialog.io.models.MessageAlertDialog
 import com.github.leodan11.alertdialog.io.models.TitleAlertDialog
+import com.github.leodan11.k_extensions.core.colorOnSurface
+import com.github.leodan11.k_extensions.core.colorPrimary
 
 @RestrictTo(RestrictTo.Scope.LIBRARY)
 abstract class AlertDialogVerificationCodeBase(
@@ -254,26 +254,26 @@ abstract class AlertDialogVerificationCodeBase(
                 else if (tintColor?.iconColorInt != null) mIconView.setColorFilter(tintColor?.iconColorInt!!)
             }
             // Set Title Text Color
-            mTitleView.setTextColor(mContext.getColorDefaultOnSurfaceTheme())
+            mTitleView.setTextColor(mContext.colorOnSurface())
             // Set Title Code Text Color
-            mTitleCodeView.setTextColor(mContext.getColorDefaultOnSurfaceTheme())
+            mTitleCodeView.setTextColor(mContext.colorOnSurface())
             // Set Message Text Color
-            mMessageView.setTextColor(mContext.getColorDefaultOnSurfaceTheme())
+            mMessageView.setTextColor(mContext.colorOnSurface())
             // Set InputLayout Decimal Number Color
-            mEditTextDecimalNumberLayout.boxStrokeColor = mContext.getColorDefaultPrimaryTheme()
+            mEditTextDecimalNumberLayout.boxStrokeColor = mContext.colorPrimary()
             mEditTextDecimalNumberLayout.hintTextColor =
-                ColorStateList.valueOf(mContext.getColorDefaultPrimaryTheme())
+                ColorStateList.valueOf(mContext.colorPrimary())
             // Set InputLayout Percentage Color
-            mEditTextPercentageLayout.boxStrokeColor = mContext.getColorDefaultPrimaryTheme()
+            mEditTextPercentageLayout.boxStrokeColor = mContext.colorPrimary()
             mEditTextPercentageLayout.hintTextColor =
-                ColorStateList.valueOf(mContext.getColorDefaultPrimaryTheme())
+                ColorStateList.valueOf(mContext.colorPrimary())
             // Set InputLayout Reason Color
-            mEditTextReasonLayout.boxStrokeColor = mContext.getColorDefaultPrimaryTheme()
+            mEditTextReasonLayout.boxStrokeColor = mContext.colorPrimary()
             mEditTextReasonLayout.hintTextColor =
-                ColorStateList.valueOf(mContext.getColorDefaultPrimaryTheme())
+                ColorStateList.valueOf(mContext.colorPrimary())
             // Set Background Tint
             val mBackgroundTint: ColorStateList =
-                ColorStateList.valueOf(mContext.getColorDefaultPrimaryTheme())
+                ColorStateList.valueOf(mContext.colorPrimary())
             // Set Positive Button Icon Tint
             val mPositiveButtonTint: ColorStateList = mBackgroundTint
             mPositiveButtonView.setTextColor(mPositiveButtonTint)

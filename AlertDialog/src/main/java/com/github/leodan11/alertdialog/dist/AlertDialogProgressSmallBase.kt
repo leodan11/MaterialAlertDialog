@@ -14,17 +14,19 @@ import com.github.leodan11.alertdialog.R
 import com.github.leodan11.alertdialog.databinding.MDialogProgressSmallBinding
 import com.github.leodan11.alertdialog.io.content.MaterialAlertDialog
 import com.github.leodan11.alertdialog.io.content.MaterialDialogInterface
-import com.github.leodan11.alertdialog.io.extensions.getColorDefaultBackgroundTheme
-import com.github.leodan11.alertdialog.io.extensions.getColorDefaultOnSurfaceTheme
-import com.github.leodan11.alertdialog.io.extensions.onAnimatedVectorDrawable
 import com.github.leodan11.alertdialog.io.models.IconAlertDialog
 import com.github.leodan11.alertdialog.io.models.MessageAlertDialog
+import com.github.leodan11.k_extensions.core.backgroundColor
+import com.github.leodan11.k_extensions.core.colorOnSurface
+import com.github.leodan11.k_extensions.core.startAnimatedVectorDrawable
+import com.github.leodan11.k_extensions.core.startAnimatedVectorDrawableLoop
 
 @RestrictTo(RestrictTo.Scope.LIBRARY)
 abstract class AlertDialogProgressSmallBase(
     protected open var mContext: Context,
     protected open var icon: IconAlertDialog,
     protected open var mAnimatedVectorDrawable: Boolean,
+    protected open var mAnimatedVectorDrawableLoop: Boolean,
     protected open var message: MessageAlertDialog<*>?,
     protected open var mCancelable: Boolean,
 ) : MaterialDialogInterface {
@@ -49,7 +51,10 @@ abstract class AlertDialogProgressSmallBase(
         // Set Icon
         mIconView.setImageResource(icon.mDrawableResId)
         // Set Icon Animator
-        if (mAnimatedVectorDrawable) mIconView.onAnimatedVectorDrawable()
+        if (mAnimatedVectorDrawable) {
+            if (mAnimatedVectorDrawableLoop) mIconView.startAnimatedVectorDrawableLoop()
+            else mIconView.startAnimatedVectorDrawable()
+        }
         // Set Message
         if (message != null) {
             mMessageView.visibility = View.VISIBLE
@@ -59,9 +64,9 @@ abstract class AlertDialogProgressSmallBase(
         // Apply Styles
         try {
             // Set Dialog Background
-            binding.root.setBackgroundColor(mContext.getColorDefaultBackgroundTheme())
+            binding.root.setBackgroundColor(mContext.backgroundColor())
             // Set Message Text Color
-            mMessageView.setTextColor(mContext.getColorDefaultOnSurfaceTheme())
+            mMessageView.setTextColor(mContext.colorOnSurface())
         } catch (e: Exception) {
             e.printStackTrace()
         }
@@ -156,6 +161,7 @@ abstract class AlertDialogProgressSmallBase(
 
         protected open var icon: IconAlertDialog = IconAlertDialog(R.drawable.ic_animated_default)
         protected open var isAnimatedVectorDrawable: Boolean = true
+        protected open var isAnimatedVectorDrawableLoop: Boolean = false
         protected open var message: MessageAlertDialog<*>? = null
         protected open var isCancelable: Boolean = true
 
@@ -179,6 +185,17 @@ abstract class AlertDialogProgressSmallBase(
          */
         fun setAnimatedVectorDrawable(isAnimated: Boolean): Builder<D> {
             this.isAnimatedVectorDrawable = isAnimated
+            return this
+        }
+
+        /**
+         * Set animated vector loop [DrawableRes] to be used as progress.
+         *
+         * @param isAnimatedLoop value [Boolean]. Default value false.
+         * @return This Builder object to allow for chaining of calls to set methods
+         */
+        fun setLoopAnimatedVectorDrawable(isAnimatedLoop: Boolean): Builder<D> {
+            this.isAnimatedVectorDrawableLoop = isAnimatedLoop
             return this
         }
 

@@ -19,9 +19,9 @@ import com.github.leodan11.alertdialog.io.content.IOSDialog
 import com.github.leodan11.alertdialog.io.content.IOSDialog.Orientation
 import com.github.leodan11.alertdialog.io.content.MaterialAlertDialog
 import com.github.leodan11.alertdialog.io.content.MaterialDialogInterface
-import com.github.leodan11.alertdialog.io.extensions.getColorDefaultOnSurfaceTheme
-import com.github.leodan11.alertdialog.io.extensions.isNightModeActive
 import com.github.leodan11.alertdialog.io.models.*
+import com.github.leodan11.k_extensions.core.colorOnSurface
+import com.github.leodan11.k_extensions.core.isNightModeActive
 
 @RestrictTo(RestrictTo.Scope.LIBRARY)
 abstract class AlertDialogIOSBase(
@@ -159,9 +159,9 @@ abstract class AlertDialogIOSBase(
         // Apply Styles
         try {
             // Set Title Text Color
-            mTitleView.setTextColor(mContext.getColorDefaultOnSurfaceTheme())
+            mTitleView.setTextColor(mContext.colorOnSurface())
             // Set Message Text Color
-            mMessageView.setTextColor(mContext.getColorDefaultOnSurfaceTheme())
+            mMessageView.setTextColor(mContext.colorOnSurface())
             // Set Background Tint
             val mBackgroundTint: ColorStateList = ColorStateList.valueOf(
                 if (mContext.isNightModeActive()) Color.rgb(10, 132, 255) else Color.rgb(0, 122, 255)

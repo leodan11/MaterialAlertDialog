@@ -17,20 +17,22 @@ import com.github.leodan11.alertdialog.config.Init.MATERIAL_ALERT_DIALOG_UI_NOT_
 import com.github.leodan11.alertdialog.databinding.MDialogProgressBinding
 import com.github.leodan11.alertdialog.io.content.MaterialAlertDialog
 import com.github.leodan11.alertdialog.io.content.MaterialDialogInterface
-import com.github.leodan11.alertdialog.io.extensions.getColorDefaultBackgroundTheme
-import com.github.leodan11.alertdialog.io.extensions.getColorDefaultOnSurfaceTheme
-import com.github.leodan11.alertdialog.io.extensions.getColorDefaultPrimaryTheme
-import com.github.leodan11.alertdialog.io.extensions.onAnimatedVectorDrawable
 import com.github.leodan11.alertdialog.io.models.ButtonAlertDialog
 import com.github.leodan11.alertdialog.io.models.IconAlertDialog
 import com.github.leodan11.alertdialog.io.models.MessageAlertDialog
 import com.github.leodan11.alertdialog.io.models.TitleAlertDialog
+import com.github.leodan11.k_extensions.core.backgroundColor
+import com.github.leodan11.k_extensions.core.colorOnSurface
+import com.github.leodan11.k_extensions.core.colorPrimary
+import com.github.leodan11.k_extensions.core.startAnimatedVectorDrawable
+import com.github.leodan11.k_extensions.core.startAnimatedVectorDrawableLoop
 
 @RestrictTo(RestrictTo.Scope.LIBRARY)
 abstract class AlertDialogProgressBase(
     protected open var mContext: Context,
     protected open var icon: IconAlertDialog,
     protected open var mAnimatedVectorDrawable: Boolean,
+    protected open var mAnimatedVectorDrawableLoop: Boolean,
     protected open var title: TitleAlertDialog?,
     protected open var message: MessageAlertDialog<*>?,
     protected open var mCancelable: Boolean,
@@ -56,7 +58,10 @@ abstract class AlertDialogProgressBase(
         // Set Icon
         mIconView.setImageResource(icon.mDrawableResId)
         // Set Icon Animator
-        if (mAnimatedVectorDrawable) mIconView.onAnimatedVectorDrawable()
+        if (mAnimatedVectorDrawable) {
+            if (mAnimatedVectorDrawableLoop) mIconView.startAnimatedVectorDrawableLoop()
+            else mIconView.startAnimatedVectorDrawable()
+        }
         // Set Title
         if (title != null){
             mTitleView.visibility = View.VISIBLE
@@ -79,13 +84,13 @@ abstract class AlertDialogProgressBase(
         // Apply Styles
         try {
             // Set Dialog Background
-            binding.root.setBackgroundColor(mContext.getColorDefaultBackgroundTheme())
+            binding.root.setBackgroundColor(mContext.backgroundColor())
             // Set Title Text Color
-            mTitleView.setTextColor(mContext.getColorDefaultOnSurfaceTheme())
+            mTitleView.setTextColor(mContext.colorOnSurface())
             // Set Message Text Color
-            mMessageView.setTextColor(mContext.getColorDefaultOnSurfaceTheme())
+            mMessageView.setTextColor(mContext.colorOnSurface())
             // Set Negative Button Icon & Text Tint
-            val mNegativeButtonTint: ColorStateList = ColorStateList.valueOf(mContext.getColorDefaultPrimaryTheme())
+            val mNegativeButtonTint: ColorStateList = ColorStateList.valueOf(mContext.colorPrimary())
             mNegativeButtonView.setTextColor(mNegativeButtonTint)
             mNegativeButtonView.iconTint = mNegativeButtonTint
             mNegativeButtonView.rippleColor = mNegativeButtonTint.withAlpha(75)
@@ -181,6 +186,7 @@ abstract class AlertDialogProgressBase(
 
         protected open var icon: IconAlertDialog = IconAlertDialog(R.drawable.ic_animated_default)
         protected open var isAnimatedVectorDrawable: Boolean = true
+        protected open var isAnimatedVectorDrawableLoop: Boolean = false
         protected open var title: TitleAlertDialog? = null
         protected open var message: MessageAlertDialog<*>? = null
         protected open var isCancelable: Boolean = true
@@ -206,6 +212,17 @@ abstract class AlertDialogProgressBase(
          */
         fun setAnimatedVectorDrawable(isAnimated: Boolean): Builder<D> {
             this.isAnimatedVectorDrawable = isAnimated
+            return this
+        }
+
+        /**
+         * Set animated vector loop [DrawableRes] to be used as progress.
+         *
+         * @param isAnimatedLoop value [Boolean]. Default value false.
+         * @return This Builder object to allow for chaining of calls to set methods
+         */
+        fun setLoopAnimatedVectorDrawable(isAnimatedLoop: Boolean): Builder<D> {
+            this.isAnimatedVectorDrawableLoop = isAnimatedLoop
             return this
         }
 

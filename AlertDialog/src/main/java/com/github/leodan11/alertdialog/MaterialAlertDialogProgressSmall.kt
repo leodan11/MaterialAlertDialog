@@ -12,12 +12,14 @@ class MaterialAlertDialogProgressSmall(
     mContext: Context,
     icon: IconAlertDialog,
     mAnimatedVectorDrawable: Boolean,
+    mAnimatedVectorDrawableLoop: Boolean,
     message: MessageAlertDialog<*>?,
     mCancelable: Boolean,
 ) : AlertDialogProgressSmallBase(
     mContext = mContext,
     icon = icon,
     mAnimatedVectorDrawable = mAnimatedVectorDrawable,
+    mAnimatedVectorDrawableLoop = mAnimatedVectorDrawableLoop,
     message = message,
     mCancelable = mCancelable
 ) {
@@ -47,6 +49,7 @@ class MaterialAlertDialogProgressSmall(
                 context,
                 icon,
                 isAnimatedVectorDrawable,
+                isAnimatedVectorDrawableLoop,
                 message,
                 isCancelable
             )
