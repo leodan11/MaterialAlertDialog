@@ -27,7 +27,6 @@ import com.github.leodan11.k_extensions.core.colorOnSurface
 import com.github.leodan11.k_extensions.core.colorPrimary
 import com.google.android.material.progressindicator.CircularProgressIndicator
 
-@RestrictTo(RestrictTo.Scope.LIBRARY)
 abstract class ProgressDialogBase(
     protected open var mContext: Context,
     protected open var icon: IconAlertDialog?,
@@ -45,9 +44,10 @@ abstract class ProgressDialogBase(
     protected open var mOnCancelListener: MaterialDialogInterface.OnCancelListener? = null
     protected open var mOnShowListener: MaterialDialogInterface.OnShowListener? = null
 
+    @RestrictTo(RestrictTo.Scope.LIBRARY)
     protected open fun createView(layoutInflater: LayoutInflater, container: ViewGroup? = null): View{
         // Inflate and set the layout for the dialog
-        // Pass null as the parent view because its going in the dialog layout
+        // Pass null as the parent view because it's going in the dialog layout
         val binding: MDialogProgressCircularBinding = MDialogProgressCircularBinding.inflate(layoutInflater)
         // Initialize Views
         val mIconView = binding.imageViewIconCircularProgressIndicator
@@ -109,7 +109,7 @@ abstract class ProgressDialogBase(
     /**
      * Cancel this dialog, removing it from the screen.
      * This method can be invoked safely from any thread.
-     * Note that you should not override this method to do cleanup when the dialog is cancelled.
+     * Note that you should not override this method to do cleanup when the dialog is canceled.
      *
      */
     override fun cancel() {
@@ -151,7 +151,7 @@ abstract class ProgressDialogBase(
     }
 
     /**
-     * Set interface for callback events when dialog is cancelled.
+     * Set the interface for callback events when the dialog is canceled.
      *
      * @param onCancelListener
      */
@@ -161,7 +161,7 @@ abstract class ProgressDialogBase(
     }
 
     /**
-     * Set interface for callback events when dialog is dismissed.
+     * Set the interface for callback events when the dialog is dismissed.
      *
      * @param onDismissListener
      */
@@ -171,7 +171,7 @@ abstract class ProgressDialogBase(
     }
 
     /**
-     * Set interface for callback events when dialog is shown.
+     * Set the interface for callback events when the dialog is shown.
      *
      * @param onShowListener
      */

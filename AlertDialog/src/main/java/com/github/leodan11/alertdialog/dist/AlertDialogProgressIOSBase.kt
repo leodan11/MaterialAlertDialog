@@ -19,7 +19,6 @@ import com.github.leodan11.k_extensions.core.backgroundColor
 import com.github.leodan11.k_extensions.core.colorOnSurface
 import com.github.leodan11.k_extensions.core.startAnimatedVectorDrawableLoop
 
-@RestrictTo(RestrictTo.Scope.LIBRARY)
 abstract class AlertDialogProgressIOSBase(
     protected open var mContext: Context,
     protected open var message: MessageAlertDialog<*>?,
@@ -32,12 +31,13 @@ abstract class AlertDialogProgressIOSBase(
     protected open var mOnShowListener: MaterialDialogInterface.OnShowListener? = null
     private val icon: IconAlertDialog = IconAlertDialog(R.drawable.ic_loader_circular_default_ios)
 
+    @RestrictTo(RestrictTo.Scope.LIBRARY)
     protected open fun createView(
         layoutInflater: LayoutInflater,
         container: ViewGroup? = null,
     ): View {
         // Inflate and set the layout for the dialog
-        // Pass null as the parent view because its going in the dialog layout
+        // Pass null as the parent view because it's going in the dialog layout
         val binding: IosProgressAlertDialogBinding = IosProgressAlertDialogBinding.inflate(layoutInflater)
         // Initialize Views
         val mIconView = binding.imageViewIconLogoDialogProgress
@@ -68,7 +68,7 @@ abstract class AlertDialogProgressIOSBase(
     /**
      * Cancel this dialog, removing it from the screen.
      * This method can be invoked safely from any thread.
-     * Note that you should not override this method to do cleanup when the dialog is cancelled.
+     * Note that you should not override this method to do cleanup when the dialog is canceled.
      *
      */
     override fun cancel() {
@@ -99,7 +99,7 @@ abstract class AlertDialogProgressIOSBase(
     }
 
     /**
-     * Set interface for callback events when dialog is cancelled.
+     * Set the interface for callback events when the dialog is canceled.
      *
      * @param onCancelListener
      */
@@ -109,7 +109,7 @@ abstract class AlertDialogProgressIOSBase(
     }
 
     /**
-     * Set interface for callback events when dialog is dismissed.
+     * Set the interface for callback events when the dialog is dismissed.
      *
      * @param onDismissListener
      */
@@ -119,7 +119,7 @@ abstract class AlertDialogProgressIOSBase(
     }
 
     /**
-     * Set interface for callback events when dialog is shown.
+     * Set the interface for callback events when the dialog is shown.
      *
      * @param onShowListener
      */

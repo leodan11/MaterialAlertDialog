@@ -31,7 +31,6 @@ import com.github.leodan11.k_extensions.core.colorPrimary
 import com.github.leodan11.k_extensions.core.colorSecondary
 import com.leodan.readmoreoption.ReadMoreOption
 
-@RestrictTo(RestrictTo.Scope.LIBRARY)
 abstract class AlertDialogEventsBase(
     protected open var mContext: Context,
     protected open var icon: IconAlertDialog,
@@ -53,12 +52,13 @@ abstract class AlertDialogEventsBase(
     protected open var mOnCancelListener: MaterialDialogInterface.OnCancelListener? = null
     protected open var mOnShowListener: MaterialDialogInterface.OnShowListener? = null
 
+    @RestrictTo(RestrictTo.Scope.LIBRARY)
     protected open fun createView(
         layoutInflater: LayoutInflater,
         container: ViewGroup? = null
     ): View {
         // Inflate and set the layout for the dialog
-        // Pass null as the parent view because its going in the dialog layout
+        // Pass null as the parent view because it's going in the dialog layout
         val binding: MAlertDialogBinding = MAlertDialogBinding.inflate(layoutInflater)
         // Initialize Views
         val mIconView = binding.imageViewIconAlertDialog
@@ -201,7 +201,7 @@ abstract class AlertDialogEventsBase(
     /**
      * Cancel this dialog, removing it from the screen.
      * This method can be invoked safely from any thread.
-     * Note that you should not override this method to do cleanup when the dialog is cancelled.
+     * Note that you should not override this method to do cleanup when the dialog is canceled.
      *
      */
     override fun cancel() {
@@ -233,7 +233,7 @@ abstract class AlertDialogEventsBase(
 
 
     /**
-     * Set interface for callback events when dialog is cancelled.
+     * Set the interface for callback events when the dialog is canceled.
      *
      * @param onCancelListener
      */
@@ -243,7 +243,7 @@ abstract class AlertDialogEventsBase(
     }
 
     /**
-     * Set interface for callback events when dialog is dismissed.
+     * Set the interface for callback events when the dialog is dismissed.
      *
      * @param onDismissListener
      */
@@ -253,7 +253,7 @@ abstract class AlertDialogEventsBase(
     }
 
     /**
-     * Set interface for callback events when dialog is shown.
+     * Set the interface for callback events when the dialog is shown.
      *
      * @param onShowListener
      */
@@ -314,7 +314,7 @@ abstract class AlertDialogEventsBase(
          * [Type.CUSTOM], [Type.ERROR], [Type.HELP],
          * [Type.INFORMATION], [Type.SUCCESS], [Type.WARNING].
          *
-         * @param dialogType By default it is used [Type.CUSTOM].
+         * @param dialogType By default, it is used [Type.CUSTOM].
          * @return This Builder object to allow for chaining of calls to set methods
          */
         fun setType(dialogType: Type): Builder<D> {

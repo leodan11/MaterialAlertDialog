@@ -31,7 +31,6 @@ import com.github.leodan11.alertdialog.io.models.TitleAlertDialog
 import com.github.leodan11.k_extensions.core.colorOnSurface
 import com.github.leodan11.k_extensions.core.colorPrimary
 
-@RestrictTo(RestrictTo.Scope.LIBRARY)
 abstract class AlertDialogVerificationCodeBase(
     protected open var mContext: Context,
     protected open var icon: IconAlertDialog?,
@@ -49,12 +48,13 @@ abstract class AlertDialogVerificationCodeBase(
     protected open var mOnCancelListener: MaterialDialogInterface.OnCancelListener? = null
     protected open var mOnShowListener: MaterialDialogInterface.OnShowListener? = null
 
+    @RestrictTo(RestrictTo.Scope.LIBRARY)
     protected open fun createView(
         layoutInflater: LayoutInflater,
         container: ViewGroup? = null,
     ): View {
         // Inflate and set the layout for the dialog
-        // Pass null as the parent view because its going in the dialog layout
+        // Pass null as the parent view because it's going in the dialog layout
         val binding: MAlertDialogInputCodeBinding =
             MAlertDialogInputCodeBinding.inflate(layoutInflater)
         // Initialize Views
@@ -294,7 +294,7 @@ abstract class AlertDialogVerificationCodeBase(
     /**
      * Cancel this dialog, removing it from the screen.
      * This method can be invoked safely from any thread.
-     * Note that you should not override this method to do cleanup when the dialog is cancelled.
+     * Note that you should not override this method to do cleanup when the dialog is canceled.
      *
      */
     override fun cancel() {
@@ -325,7 +325,7 @@ abstract class AlertDialogVerificationCodeBase(
     }
 
     /**
-     * Set interface for callback events when dialog is cancelled.
+     * Set the interface for callback events when the dialog is canceled.
      *
      * @param onCancelListener
      */
@@ -335,7 +335,7 @@ abstract class AlertDialogVerificationCodeBase(
     }
 
     /**
-     * Set interface for callback events when dialog is dismissed.
+     * Set the interface for callback events when the dialog is dismissed.
      *
      * @param onDismissListener
      */
@@ -345,7 +345,7 @@ abstract class AlertDialogVerificationCodeBase(
     }
 
     /**
-     * Set interface for callback events when dialog is shown.
+     * Set the interface for callback events when the dialog is shown.
      *
      * @param onShowListener
      */
@@ -371,8 +371,7 @@ abstract class AlertDialogVerificationCodeBase(
     }
 
     private fun validateCodeEditText(editText: EditText): Boolean {
-        if (TextUtils.isEmpty(editText.text.toString().trim())) return false
-        return true
+        return !TextUtils.isEmpty(editText.text.toString().trim())
     }
 
     /**

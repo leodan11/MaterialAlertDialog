@@ -12,7 +12,7 @@ object Functions {
 
 
     /**
-     * Move focus from current element to next
+     * Move focus from a current element to next
      *
      * @param editTextOrigen Current item
      * @param editTextDestiny Element that will receive the focus

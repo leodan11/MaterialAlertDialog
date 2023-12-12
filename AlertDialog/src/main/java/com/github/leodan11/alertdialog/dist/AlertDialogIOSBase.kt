@@ -23,7 +23,6 @@ import com.github.leodan11.alertdialog.io.models.*
 import com.github.leodan11.k_extensions.core.colorOnSurface
 import com.github.leodan11.k_extensions.core.isNightModeActive
 
-@RestrictTo(RestrictTo.Scope.LIBRARY)
 abstract class AlertDialogIOSBase(
     protected open var mContext: Context,
     protected open var orientationButton: Orientation,
@@ -40,12 +39,13 @@ abstract class AlertDialogIOSBase(
     protected open var mOnCancelListener: MaterialDialogInterface.OnCancelListener? = null
     protected open var mOnShowListener: MaterialDialogInterface.OnShowListener? = null
 
+    @RestrictTo(RestrictTo.Scope.LIBRARY)
     protected open fun onCustomCreateView(
         layoutInflater: LayoutInflater,
         container: ViewGroup? = null
     ): View {
         // Inflate and set the layout for the dialog
-        // Pass null as the parent view because its going in the dialog layout
+        // Pass null as the parent view because it's going in the dialog layout
         val binding: IosAlertDialogBinding = IosAlertDialogBinding.inflate(layoutInflater)
         // Initialize Views
         val mTitleView = binding.textViewTitleAlertDialog
@@ -207,7 +207,7 @@ abstract class AlertDialogIOSBase(
     /**
      * Cancel this dialog, removing it from the screen.
      * This method can be invoked safely from any thread.
-     * Note that you should not override this method to do cleanup when the dialog is cancelled.
+     * Note that you should not override this method to do cleanup when the dialog is canceled.
      *
      */
     override fun cancel() {
@@ -239,7 +239,7 @@ abstract class AlertDialogIOSBase(
 
 
     /**
-     * Set interface for callback events when dialog is cancelled.
+     * Set the interface for callback events when the dialog is canceled.
      *
      * @param onCancelListener
      */
@@ -249,7 +249,7 @@ abstract class AlertDialogIOSBase(
     }
 
     /**
-     * Set interface for callback events when dialog is dismissed.
+     * Set the interface for callback events when the dialog is dismissed.
      *
      * @param onDismissListener
      */
@@ -259,7 +259,7 @@ abstract class AlertDialogIOSBase(
     }
 
     /**
-     * Set interface for callback events when dialog is shown.
+     * Set the interface for callback events when the dialog is shown.
      *
      * @param onShowListener
      */
@@ -304,7 +304,7 @@ abstract class AlertDialogIOSBase(
          * Set material dialog type. Use the following types
          * [IOSDialog.Orientation.HORIZONTAL], [IOSDialog.Orientation.VERTICAL]
          *
-         * @param orientation By default it is used [IOSDialog.Orientation.HORIZONTAL].
+         * @param orientation By default, it is used [IOSDialog.Orientation.HORIZONTAL].
          * @return This Builder object to allow for chaining of calls to set methods
          */
         fun setOrientationButton(orientation: Orientation): Builder<D> {
