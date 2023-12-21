@@ -3,38 +3,47 @@ package com.github.leodan11.alertdialog
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
-import com.github.leodan11.alertdialog.dist.AlertDialogProgressBase
+import com.github.leodan11.alertdialog.dist.AboutDialogBase
 import com.github.leodan11.alertdialog.io.models.ButtonAlertDialog
+import com.github.leodan11.alertdialog.io.models.DetailsAlertDialog
 import com.github.leodan11.alertdialog.io.models.IconAlertDialog
+import com.github.leodan11.alertdialog.io.models.IconTintAlertDialog
 import com.github.leodan11.alertdialog.io.models.MessageAlertDialog
 import com.github.leodan11.alertdialog.io.models.TitleAlertDialog
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
-class MaterialAlertDialogProgress(
+class AboutMaterialDialog(
     mContext: Context,
     icon: IconAlertDialog,
-    mAnimatedVectorDrawable: Boolean,
-    mAnimatedVectorDrawableLoop: Boolean,
+    backgroundIconTintColor: IconTintAlertDialog?,
+    detailsScrollHeightSpan: Int,
     title: TitleAlertDialog?,
     message: MessageAlertDialog<*>?,
+    span: DetailsAlertDialog<*>?,
+    details: DetailsAlertDialog<*>?,
     mCancelable: Boolean,
-    mNegativeButton: ButtonAlertDialog?
-): AlertDialogProgressBase(
+    mPositiveButton: ButtonAlertDialog?,
+    mNeutralButton: ButtonAlertDialog?,
+    mNegativeButton: ButtonAlertDialog?,
+) : AboutDialogBase(
     mContext = mContext,
     icon = icon,
-    mAnimatedVectorDrawable = mAnimatedVectorDrawable,
-    mAnimatedVectorDrawableLoop = mAnimatedVectorDrawableLoop,
+    backgroundIconTintColor = backgroundIconTintColor,
+    detailsScrollHeightSpan = detailsScrollHeightSpan,
     title = title,
     message = message,
+    span = span,
+    details = details,
     mCancelable = mCancelable,
+    mPositiveButton = mPositiveButton,
+    mNeutralButton = mNeutralButton,
     mNegativeButton = mNegativeButton
-){
+) {
 
-    // Init Dialog
     init {
         val builder = MaterialAlertDialogBuilder(mContext)
         val inflater: LayoutInflater = LayoutInflater.from(mContext)
-        val dialogView: View = createView(inflater)
+        val dialogView: View = onCreateViewDialogContent(inflater)
         builder.setView(dialogView)
         // Set Cancelable property
         builder.setCancelable(mCancelable)
@@ -43,25 +52,28 @@ class MaterialAlertDialogProgress(
     }
 
     /**
-     * Creates a builder for a progress alert dialog that uses the default alert dialog theme.
+     * Creates a builder for an alert dialog that uses the default alert dialog theme.
      * The default alert dialog theme is defined by [android.R.attr.alertDialogTheme] within the parent context's theme.
      * @param context the parent context
      */
-    class Builder(context: Context): AlertDialogProgressBase.Builder<MaterialAlertDialogProgress>(context = context) {
+    class Builder(context: Context) : AboutDialogBase.Builder<AboutMaterialDialog>(context = context) {
 
-        override fun create(): MaterialAlertDialogProgress {
-            return MaterialAlertDialogProgress(
+        override fun create(): AboutMaterialDialog {
+            return AboutMaterialDialog(
                 context,
                 icon,
-                isAnimatedVectorDrawable,
-                isAnimatedVectorDrawableLoop,
+                backgroundIconTintColor,
+                detailsScrollHeightSpan,
                 title,
                 message,
+                span,
+                details,
                 isCancelable,
+                positiveButton,
+                neutralButton,
                 negativeButton
             )
         }
-
     }
 
 }

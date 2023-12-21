@@ -4,12 +4,7 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import com.github.leodan11.alertdialog.dist.AlertDialogProgressIOSBase
-import com.github.leodan11.alertdialog.dist.ProgressDialogBase
-import com.github.leodan11.alertdialog.io.models.ButtonAlertDialog
-import com.github.leodan11.alertdialog.io.models.IconAlertDialog
-import com.github.leodan11.alertdialog.io.models.IconTintAlertDialog
 import com.github.leodan11.alertdialog.io.models.MessageAlertDialog
-import com.github.leodan11.alertdialog.io.models.TitleAlertDialog
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
 class IOSProgressDialog(
@@ -36,7 +31,8 @@ class IOSProgressDialog(
     }
 
     /**
-     * Creates a builder for an circular progress alert dialog that uses the default alert dialog theme.
+     * Creates a builder for a circular progress alert dialog
+     * that uses the default alert dialog theme.
      * The default alert dialog theme is defined by [android.R.attr.alertDialogTheme] within the parent context's theme.
      * @param context the parent context
      */

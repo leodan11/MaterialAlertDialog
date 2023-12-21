@@ -3,6 +3,7 @@ package com.github.leodan11.dialog
 import android.graphics.Color
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import com.github.leodan11.alertdialog.AboutMaterialDialog
 import com.github.leodan11.alertdialog.IOSAlertDialog
 import com.github.leodan11.alertdialog.IOSProgressDialog
 import com.github.leodan11.alertdialog.MaterialAlertDialogCentered
@@ -25,6 +26,18 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         with(binding) {
+
+            buttonActionAbout.setOnClickListener {
+                AboutMaterialDialog.Builder(this@MainActivity)
+                    .setApplicationIcon(R.mipmap.ic_launcher_round)
+                    .setApplicationName(R.string.app_name)
+                    .setApplicationVersion("Lorem Ipsum")
+                    .setApplicationLegalese("What is Lorem Ipsum?")
+                    .setCancelable(false)
+                    .setPositiveButton(null) { dialog, _ -> dialog?.dismiss() }
+                    .create()
+                    .show()
+            }
 
             buttonActionAlert.setOnClickListener {
                 MaterialAlertDialogCentered.Builder(this@MainActivity)

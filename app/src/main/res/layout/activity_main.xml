@@ -13,6 +13,14 @@
         android:gravity="center">
 
         <Button
+            android:id="@+id/buttonActionAbout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/radius_min"
+            android:text="Example Alert About!"
+            tools:ignore="HardcodedText" />
+
+        <Button
             android:id="@+id/buttonActionAlert"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

@@ -41,7 +41,7 @@ class MaterialAlertDialogSignIn(
     }
 
     /**
-     * Creates a builder for an login alert dialog that uses the default alert dialog theme.
+     * Creates a builder for a login alert dialog that uses the default alert dialog theme.
      * The default alert dialog theme is defined by [android.R.attr.alertDialogTheme] within the parent context's theme.
      * @param context the parent context
      */
