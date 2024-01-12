@@ -63,7 +63,7 @@ afterEvaluate {
                 from components.release
                 groupId = 'com.github.leodan11'
                 artifactId = 'MaterialAlertDialog'
-                version = '1.8.6'
+                version = '1.8.8'
 
                 pom {
                     name = "MaterialAlertDialog"
