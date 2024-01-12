@@ -10,6 +10,7 @@ data class ButtonAlertDialog(
     @DrawableRes
     val icon: Int,
     val onClickListener: MaterialDialogInterface.OnClickListener? = null,
+    val onClickInputListener: MaterialDialogInterface.OnClickInputListener? = null,
     val onChildClickListener: MaterialDialogInterface.OnChildClickListenerInput? = null,
     val onClickInvokedCallback: MaterialDialogInterface.OnClickInvokedCallback? = null
 )

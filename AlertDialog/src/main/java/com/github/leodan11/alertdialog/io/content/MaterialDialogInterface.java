@@ -21,6 +21,10 @@ public interface MaterialDialogInterface {
         void onClick(MaterialDialogInterface dialog, MaterialAlertDialog.UI whichButton);
     }
 
+    interface OnClickInputListener {
+        void onClick(MaterialDialogInterface dialog, String contentValue);
+    }
+
     interface OnDismissListener {
         void onDismiss(MaterialDialogInterface dialog);
     }

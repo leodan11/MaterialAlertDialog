@@ -4,6 +4,7 @@ import android.app.Dialog
 import android.content.Context
 import android.content.res.ColorStateList
 import android.graphics.Color
+import android.os.Build
 import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
@@ -120,9 +121,13 @@ abstract class AlertDialogSignInBase(
             mTextInputLayoutUsername.boxStrokeColor = mContext.colorPrimary()
             mTextInputLayoutUsername.hintTextColor =
                 ColorStateList.valueOf(mContext.colorPrimary())
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) mTextInputLayoutUsername.cursorColor =
+                ColorStateList.valueOf(mContext.colorPrimary())
             // Set InputLayout Password Color
             mTextInputLayoutPassword.boxStrokeColor = mContext.colorPrimary()
             mTextInputLayoutPassword.hintTextColor =
+                ColorStateList.valueOf(mContext.colorPrimary())
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) mTextInputLayoutUsername.cursorColor =
                 ColorStateList.valueOf(mContext.colorPrimary())
             // Set Background Tint
             val mBackgroundTint: ColorStateList =

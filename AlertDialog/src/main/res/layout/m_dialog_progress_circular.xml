@@ -8,19 +8,19 @@
     android:theme="@style/Theme.MaterialDialog">
 
     <LinearLayout
-        android:id="@+id/container_circular_progress_indicator"
+        android:id="@+id/container_progress_indicator"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
 
         <RelativeLayout
-            android:id="@+id/layout_content_header_circular_progress_indicator"
+            android:id="@+id/layout_content_header_progress_indicator"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/radiusTop">
 
             <com.google.android.material.imageview.ShapeableImageView
-                android:id="@+id/image_view_icon_circular_progress_indicator"
+                android:id="@+id/image_view_icon_progress_indicator"
                 android:layout_width="@dimen/app_icon_size_min"
                 android:layout_height="@dimen/app_icon_size_min"
                 android:layout_alignParentStart="true"
@@ -29,21 +29,23 @@
                 tools:ignore="ImageContrastCheck" />
 
             <TextView
-                android:id="@+id/text_view_title_dialog_circular_progress_indicator"
+                android:id="@+id/text_view_title_dialog_progress_indicator"
                 style="@style/Theme.MaterialDialog.Title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
                 android:layout_marginStart="@dimen/margin_spacing_min"
                 android:layout_marginTop="0dp"
-                android:layout_toEndOf="@id/image_view_icon_circular_progress_indicator" />
+                android:layout_toEndOf="@id/image_view_icon_progress_indicator" />
 
         </RelativeLayout>
 
         <RelativeLayout
             android:id="@+id/layout_content_body_circular_progress_indicator"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            tools:visibility="visible">
 
             <com.google.android.material.progressindicator.CircularProgressIndicator
                 android:id="@+id/circularProgressIndicator"
@@ -63,6 +65,62 @@
                 android:layout_toEndOf="@id/circularProgressIndicator" />
 
         </RelativeLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/layout_content_body_linear_progress_indicator"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone">
+
+            <TextView
+                android:id="@+id/text_view_messages_dialog_linear_progress_indicator"
+                style="@style/Theme.MaterialDialog.Message"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_spacing_min"
+                android:layout_marginEnd="@dimen/margin_spacing_min"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <com.google.android.material.progressindicator.LinearProgressIndicator
+                android:id="@+id/linearProgressIndicator"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_marginStart="@dimen/margin_spacing_min"
+                android:layout_marginTop="@dimen/margin_spacing_min"
+                android:layout_marginEnd="@dimen/margin_spacing_min"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/text_view_messages_dialog_linear_progress_indicator"
+                tools:ignore="ImageContrastCheck" />
+
+            <TextView
+                android:id="@+id/text_view_progress_dialog_linear_indicator"
+                style="@style/Theme.MaterialDialog.Message"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_spacing_medium"
+                android:layout_marginTop="@dimen/margin_spacing"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/linearProgressIndicator" />
+
+            <TextView
+                android:id="@+id/text_view_description_dialog_linear_indicator"
+                style="@style/Theme.MaterialDialog.Message"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_spacing"
+                android:layout_marginTop="@dimen/margin_spacing"
+                android:layout_marginEnd="@dimen/margin_spacing_medium"
+                android:gravity="end"
+                android:textAlignment="textEnd"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/text_view_progress_dialog_linear_indicator"
+                app:layout_constraintTop_toBottomOf="@id/linearProgressIndicator" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/buttonActionNegativeCircularProgressIndicator"

@@ -33,6 +33,7 @@
     <string name="text_value_charging">Charging…</string>
     <string name="text_value_charging_please">Charging. Please wait…</string>
 
+    <string name="text_value_enter_a_value_below">Enter a value below</string>
     <string name="text_value_code">Enter the code below</string>
     <string name="text_value_this_field_is_required">The field is required</string>
     <string name="text_value_reason_hint">Share additional details</string>

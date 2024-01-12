@@ -16,4 +16,6 @@ class MaterialAlertDialog {
 
     }
 
+    enum class Type { CIRCULAR, LINEAR }
+
 }

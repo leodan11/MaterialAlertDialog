@@ -8,9 +8,9 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
         android:layout_margin="@dimen/margin_spacing"
-        android:gravity="center">
+        android:gravity="center"
+        android:orientation="vertical">
 
         <Button
             android:id="@+id/buttonActionAbout"
@@ -89,7 +89,15 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/radius_min"
-            android:text="Example Circular Progress Dialog!"
+            android:text="Example Progress Dialog!"
+            tools:ignore="HardcodedText" />
+
+        <Button
+            android:id="@+id/buttonActionInput"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/radius_min"
+            android:text="Example Simple Input Dialog!"
             tools:ignore="HardcodedText" />
 
     </LinearLayout>

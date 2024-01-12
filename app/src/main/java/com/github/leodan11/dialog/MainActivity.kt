@@ -2,12 +2,14 @@ package com.github.leodan11.dialog
 
 import android.graphics.Color
 import android.os.Bundle
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.github.leodan11.alertdialog.AboutMaterialDialog
 import com.github.leodan11.alertdialog.IOSAlertDialog
 import com.github.leodan11.alertdialog.IOSProgressDialog
 import com.github.leodan11.alertdialog.MaterialAlertDialogCentered
 import com.github.leodan11.alertdialog.MaterialAlertDialogEvents
+import com.github.leodan11.alertdialog.MaterialAlertDialogInput
 import com.github.leodan11.alertdialog.MaterialAlertDialogProgress
 import com.github.leodan11.alertdialog.MaterialAlertDialogProgressSmall
 import com.github.leodan11.alertdialog.MaterialAlertDialogSignIn
@@ -44,7 +46,10 @@ class MainActivity : AppCompatActivity() {
                     .setTitle("Lorem Ipsum")
                     .setMessage("What is Lorem Ipsum?")
                     .setCancelable(false)
-                    .setPositiveButton(null, R.drawable.ic_baseline_light_mode) { dialog, _ -> dialog?.dismiss() }
+                    .setPositiveButton(
+                        null,
+                        R.drawable.ic_baseline_light_mode
+                    ) { dialog, _ -> dialog?.dismiss() }
                     .create()
                     .show()
             }
@@ -70,7 +75,10 @@ class MainActivity : AppCompatActivity() {
                     .setCancelable(false)
                     .setPositiveButton(null) { dialog, _ -> dialog?.dismiss() }
                     .setNeutralButton(null) { dialog, _ -> dialog?.dismiss() }
-                    .setNegativeButton(null, R.drawable.ic_baseline_close) { dialog, _ -> dialog?.dismiss() }
+                    .setNegativeButton(
+                        null,
+                        R.drawable.ic_baseline_close
+                    ) { dialog, _ -> dialog?.dismiss() }
                     .create()
                     .show()
             }
@@ -82,7 +90,10 @@ class MainActivity : AppCompatActivity() {
                     .setMessage("What is Lorem Ipsum?")
                     .setCancelable(false)
                     .setPositiveButton(null) { dialog, _, _, _, _ -> dialog.dismiss() }
-                    .setNegativeButton(null, R.drawable.ic_baseline_close) { dialog, _ -> dialog?.dismiss() }
+                    .setNegativeButton(
+                        null,
+                        R.drawable.ic_baseline_close
+                    ) { dialog, _ -> dialog?.dismiss() }
                     .create()
                     .show()
             }
@@ -93,7 +104,10 @@ class MainActivity : AppCompatActivity() {
                     .setTitle("Lorem Ipsum")
                     .setCancelable(false)
                     .setPositiveButton(null) { dialog, _, _ -> dialog?.dismiss() }
-                    .setNegativeButton(null, R.drawable.ic_baseline_close) { dialog, _ -> dialog?.dismiss() }
+                    .setNegativeButton(
+                        null,
+                        R.drawable.ic_baseline_close
+                    ) { dialog, _ -> dialog?.dismiss() }
                     .create()
                     .show()
             }
@@ -127,7 +141,24 @@ class MainActivity : AppCompatActivity() {
                     .setMessage("What is Lorem Ipsum?")
                     .setIndeterminable(true)
                     .setCancelable(false)
-                    .setNegativeButton(null, R.drawable.ic_baseline_close) { dialog, _ -> dialog?.dismiss() }
+                    .setNegativeButton(
+                        null,
+                        R.drawable.ic_baseline_close
+                    ) { dialog, _ -> dialog?.dismiss() }
+                    .create()
+                    .show()
+            }
+
+            buttonActionInput.setOnClickListener {
+                MaterialAlertDialogInput.Builder(this@MainActivity)
+                    .setIcon(R.drawable.ic_baseline_light_mode)
+                    .setTitle("Lorem Ipsum")
+                    .setMessage("What is Lorem Ipsum?")
+                    .setCancelable(false)
+                    .setPositiveButton(null, R.drawable.ic_baseline_close) { dialog, contentValue ->
+                        Toast.makeText(this@MainActivity, contentValue, Toast.LENGTH_LONG).show()
+                        dialog.dismiss()
+                    }
                     .create()
                     .show()
             }

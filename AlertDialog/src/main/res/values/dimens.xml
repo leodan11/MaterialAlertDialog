@@ -3,6 +3,7 @@
     <dimen name="radius_min">5dp</dimen>
     <dimen name="margin_spacing_min">8dp</dimen>
     <dimen name="margin_spacing">10dp</dimen>
+    <dimen name="margin_spacing_medium">12dp</dimen>
     <dimen name="radiusTop">16dp</dimen>
     <dimen name="paddingTop">16dp</dimen>
     <dimen name="app_icon_size_min">34dp</dimen>

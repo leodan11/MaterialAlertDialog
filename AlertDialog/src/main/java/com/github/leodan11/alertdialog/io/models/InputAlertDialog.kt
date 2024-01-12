@@ -2,7 +2,7 @@ package com.github.leodan11.alertdialog.io.models
 
 import androidx.annotation.RestrictTo
 import com.github.leodan11.alertdialog.R
-import com.github.leodan11.alertdialog.io.content.AlertDialogVerificationCode.InputType
+import com.github.leodan11.alertdialog.io.content.AlertDialogInput.InputType
 
 @RestrictTo(RestrictTo.Scope.LIBRARY)
 data class InputAlertDialog(
