@@ -33,6 +33,7 @@ import com.github.leodan11.alertdialog.io.models.InputAlertDialog
 import com.github.leodan11.alertdialog.io.models.MessageAlertDialog
 import com.github.leodan11.alertdialog.io.models.TitleAlertDialog
 import com.github.leodan11.k_extensions.core.colorOnSurface
+import com.github.leodan11.k_extensions.core.colorOnSurfaceVariant
 import com.github.leodan11.k_extensions.core.colorPrimary
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
@@ -207,7 +208,8 @@ abstract class AlertDialogInputBase(
             mMessageView.setTextColor(mContext.colorOnSurface())
             // Set InputLayout Color
             mTextInputLayoutAlert.boxStrokeColor = mContext.colorPrimary()
-            mTextInputLayoutAlert.hintTextColor = ColorStateList.valueOf(mContext.colorPrimary())
+            mTextInputLayoutAlert.hintTextColor =
+                ColorStateList.valueOf(mContext.colorOnSurfaceVariant())
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) mTextInputLayoutAlert.cursorColor =
                 ColorStateList.valueOf(mContext.colorPrimary())
             // Set Background Tint

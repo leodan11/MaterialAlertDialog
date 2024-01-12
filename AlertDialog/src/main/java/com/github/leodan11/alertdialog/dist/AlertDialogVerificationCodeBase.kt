@@ -35,6 +35,7 @@ import com.github.leodan11.alertdialog.io.models.InputAlertDialog
 import com.github.leodan11.alertdialog.io.models.MessageAlertDialog
 import com.github.leodan11.alertdialog.io.models.TitleAlertDialog
 import com.github.leodan11.k_extensions.core.colorOnSurface
+import com.github.leodan11.k_extensions.core.colorOnSurfaceVariant
 import com.github.leodan11.k_extensions.core.colorPrimary
 
 abstract class AlertDialogVerificationCodeBase(
@@ -268,19 +269,19 @@ abstract class AlertDialogVerificationCodeBase(
             // Set InputLayout Decimal Number Color
             mEditTextDecimalNumberLayout.boxStrokeColor = mContext.colorPrimary()
             mEditTextDecimalNumberLayout.hintTextColor =
-                ColorStateList.valueOf(mContext.colorPrimary())
+                ColorStateList.valueOf(mContext.colorOnSurfaceVariant())
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) mEditTextDecimalNumberLayout.cursorColor =
                 ColorStateList.valueOf(mContext.colorPrimary())
             // Set InputLayout Percentage Color
             mEditTextPercentageLayout.boxStrokeColor = mContext.colorPrimary()
             mEditTextPercentageLayout.hintTextColor =
-                ColorStateList.valueOf(mContext.colorPrimary())
+                ColorStateList.valueOf(mContext.colorOnSurfaceVariant())
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) mEditTextPercentageLayout.cursorColor =
                 ColorStateList.valueOf(mContext.colorPrimary())
             // Set InputLayout Reason Color
             mEditTextReasonLayout.boxStrokeColor = mContext.colorPrimary()
             mEditTextReasonLayout.hintTextColor =
-                ColorStateList.valueOf(mContext.colorPrimary())
+                ColorStateList.valueOf(mContext.colorOnSurfaceVariant())
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) mEditTextReasonLayout.cursorColor =
                 ColorStateList.valueOf(mContext.colorPrimary())
             // Set Background Tint

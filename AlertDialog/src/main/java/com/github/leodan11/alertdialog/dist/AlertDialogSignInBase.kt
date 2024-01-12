@@ -23,6 +23,7 @@ import com.github.leodan11.alertdialog.io.models.IconAlertDialog
 import com.github.leodan11.alertdialog.io.models.IconTintAlertDialog
 import com.github.leodan11.alertdialog.io.models.TitleAlertDialog
 import com.github.leodan11.k_extensions.core.colorOnSurface
+import com.github.leodan11.k_extensions.core.colorOnSurfaceVariant
 import com.github.leodan11.k_extensions.core.colorPrimary
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
@@ -120,14 +121,14 @@ abstract class AlertDialogSignInBase(
             // Set InputLayout Username Color
             mTextInputLayoutUsername.boxStrokeColor = mContext.colorPrimary()
             mTextInputLayoutUsername.hintTextColor =
-                ColorStateList.valueOf(mContext.colorPrimary())
+                ColorStateList.valueOf(mContext.colorOnSurfaceVariant())
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) mTextInputLayoutUsername.cursorColor =
                 ColorStateList.valueOf(mContext.colorPrimary())
             // Set InputLayout Password Color
             mTextInputLayoutPassword.boxStrokeColor = mContext.colorPrimary()
             mTextInputLayoutPassword.hintTextColor =
-                ColorStateList.valueOf(mContext.colorPrimary())
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) mTextInputLayoutUsername.cursorColor =
+                ColorStateList.valueOf(mContext.colorOnSurfaceVariant())
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) mTextInputLayoutPassword.cursorColor =
                 ColorStateList.valueOf(mContext.colorPrimary())
             // Set Background Tint
             val mBackgroundTint: ColorStateList =
