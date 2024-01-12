@@ -22,7 +22,6 @@ import com.github.leodan11.alertdialog.MaterialAlertDialogInput
 import com.github.leodan11.alertdialog.R
 import com.github.leodan11.alertdialog.config.Init.MATERIAL_ALERT_DIALOG_UI_NOT_ICON
 import com.github.leodan11.alertdialog.databinding.MAlertDialogInputBinding
-import com.github.leodan11.alertdialog.io.content.AlertDialogInput.InputType
 import com.github.leodan11.alertdialog.io.content.MaterialAlertDialog
 import com.github.leodan11.alertdialog.io.content.MaterialDialogInterface
 import com.github.leodan11.alertdialog.io.models.ButtonAlertDialog
@@ -33,7 +32,6 @@ import com.github.leodan11.alertdialog.io.models.InputAlertDialog
 import com.github.leodan11.alertdialog.io.models.MessageAlertDialog
 import com.github.leodan11.alertdialog.io.models.TitleAlertDialog
 import com.github.leodan11.k_extensions.core.colorOnSurface
-import com.github.leodan11.k_extensions.core.colorOnSurfaceVariant
 import com.github.leodan11.k_extensions.core.colorPrimary
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
@@ -105,20 +103,20 @@ abstract class AlertDialogInputBase(
             isHelperTextEnabled = helperText != null
         }
         mTextInputEditTextAlert.inputType = when (inputBase.inputType) {
-            InputType.DECIMAL_NUMBER -> EditorInfo.TYPE_NUMBER_FLAG_DECIMAL
-            InputType.EMAIL -> {
+            MaterialAlertDialog.InputType.DECIMAL_NUMBER -> EditorInfo.TYPE_NUMBER_FLAG_DECIMAL
+            MaterialAlertDialog.InputType.EMAIL -> {
                 mTextInputLayoutAlert.endIconMode = TextInputLayout.END_ICON_CLEAR_TEXT
                 EditorInfo.TYPE_TEXT_VARIATION_EMAIL_ADDRESS
             }
 
-            InputType.NUMBER -> EditorInfo.TYPE_CLASS_NUMBER
-            InputType.PASSWORD -> {
+            MaterialAlertDialog.InputType.NUMBER -> EditorInfo.TYPE_CLASS_NUMBER
+            MaterialAlertDialog.InputType.PASSWORD -> {
                 mTextInputLayoutAlert.endIconMode = TextInputLayout.END_ICON_PASSWORD_TOGGLE
                 EditorInfo.TYPE_TEXT_VARIATION_PASSWORD
             }
 
-            InputType.PHONE -> EditorInfo.TYPE_CLASS_PHONE
-            InputType.TEXT -> {
+            MaterialAlertDialog.InputType.PHONE -> EditorInfo.TYPE_CLASS_PHONE
+            MaterialAlertDialog.InputType.TEXT -> {
                 mTextInputLayoutAlert.endIconMode = TextInputLayout.END_ICON_CLEAR_TEXT
                 EditorInfo.TYPE_CLASS_TEXT
             }
@@ -209,7 +207,7 @@ abstract class AlertDialogInputBase(
             // Set InputLayout Color
             mTextInputLayoutAlert.boxStrokeColor = mContext.colorPrimary()
             mTextInputLayoutAlert.hintTextColor =
-                ColorStateList.valueOf(mContext.colorOnSurfaceVariant())
+                ColorStateList.valueOf(mContext.colorPrimary())
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) mTextInputLayoutAlert.cursorColor =
                 ColorStateList.valueOf(mContext.colorPrimary())
             // Set Background Tint
@@ -343,7 +341,7 @@ abstract class AlertDialogInputBase(
         protected open var startIcon: IconInputDialog? = null
         protected open var endIcon: IconInputDialog? = null
         protected open var inputBase: InputAlertDialog = InputAlertDialog(
-            inputType = InputType.TEXT,
+            inputType = MaterialAlertDialog.InputType.TEXT,
             textHide = context.getString(R.string.text_value_enter_a_value_below)
         )
         protected open var isCancelable: Boolean = false
@@ -525,7 +523,7 @@ abstract class AlertDialogInputBase(
 
         /**
          * Set inputs to be displayed. Use class [InputAlertDialog].
-         * [InputType.DECIMAL_NUMBER], [InputType.EMAIL], [InputType.NUMBER], [InputType.PASSWORD], [InputType.PHONE] and [InputType.TEXT]
+         * [MaterialAlertDialog.InputType.DECIMAL_NUMBER], [MaterialAlertDialog.InputType.EMAIL], [MaterialAlertDialog.InputType.NUMBER], [MaterialAlertDialog.InputType.PASSWORD], [MaterialAlertDialog.InputType.PHONE] and [MaterialAlertDialog.InputType.TEXT]
          *
          * @param inputSource The input source.
          * @return This Builder object to allow for chaining of calls to set methods

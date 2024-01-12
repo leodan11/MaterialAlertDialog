@@ -9,8 +9,11 @@ import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.annotation.*
+import androidx.annotation.ColorRes
+import androidx.annotation.DrawableRes
 import androidx.annotation.IntRange
+import androidx.annotation.RestrictTo
+import androidx.annotation.StringRes
 import androidx.core.content.ContextCompat
 import com.github.leodan11.alertdialog.MaterialAlertDialogSignIn
 import com.github.leodan11.alertdialog.R
@@ -23,7 +26,6 @@ import com.github.leodan11.alertdialog.io.models.IconAlertDialog
 import com.github.leodan11.alertdialog.io.models.IconTintAlertDialog
 import com.github.leodan11.alertdialog.io.models.TitleAlertDialog
 import com.github.leodan11.k_extensions.core.colorOnSurface
-import com.github.leodan11.k_extensions.core.colorOnSurfaceVariant
 import com.github.leodan11.k_extensions.core.colorPrimary
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
@@ -121,13 +123,13 @@ abstract class AlertDialogSignInBase(
             // Set InputLayout Username Color
             mTextInputLayoutUsername.boxStrokeColor = mContext.colorPrimary()
             mTextInputLayoutUsername.hintTextColor =
-                ColorStateList.valueOf(mContext.colorOnSurfaceVariant())
+                ColorStateList.valueOf(mContext.colorPrimary())
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) mTextInputLayoutUsername.cursorColor =
                 ColorStateList.valueOf(mContext.colorPrimary())
             // Set InputLayout Password Color
             mTextInputLayoutPassword.boxStrokeColor = mContext.colorPrimary()
             mTextInputLayoutPassword.hintTextColor =
-                ColorStateList.valueOf(mContext.colorOnSurfaceVariant())
+                ColorStateList.valueOf(mContext.colorPrimary())
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) mTextInputLayoutPassword.cursorColor =
                 ColorStateList.valueOf(mContext.colorPrimary())
             // Set Background Tint

@@ -23,7 +23,6 @@ import com.github.leodan11.alertdialog.MaterialAlertDialogVerificationCode
 import com.github.leodan11.alertdialog.R
 import com.github.leodan11.alertdialog.config.Init.MATERIAL_ALERT_DIALOG_UI_NOT_ICON
 import com.github.leodan11.alertdialog.databinding.MAlertDialogInputCodeBinding
-import com.github.leodan11.alertdialog.io.content.AlertDialogInput
 import com.github.leodan11.alertdialog.io.content.MaterialAlertDialog
 import com.github.leodan11.alertdialog.io.content.MaterialDialogInterface
 import com.github.leodan11.alertdialog.io.helpers.Functions.onCallbackRequestFocus
@@ -35,7 +34,6 @@ import com.github.leodan11.alertdialog.io.models.InputAlertDialog
 import com.github.leodan11.alertdialog.io.models.MessageAlertDialog
 import com.github.leodan11.alertdialog.io.models.TitleAlertDialog
 import com.github.leodan11.k_extensions.core.colorOnSurface
-import com.github.leodan11.k_extensions.core.colorOnSurfaceVariant
 import com.github.leodan11.k_extensions.core.colorPrimary
 
 abstract class AlertDialogVerificationCodeBase(
@@ -104,7 +102,7 @@ abstract class AlertDialogVerificationCodeBase(
         if (mInputsContentValue.isNotEmpty()) {
             for (item in mInputsContentValue) {
                 when (item.inputType) {
-                    AlertDialogInput.InputType.PERCENTAGE -> {
+                    MaterialAlertDialog.InputType.PERCENTAGE -> {
                         mEditTextPercentageLayout.hint = item.textHide
                         item.textHelper?.let { mEditTextPercentageLayout.helperText = it }
                         item.textHelperRes?.let {
@@ -114,7 +112,7 @@ abstract class AlertDialogVerificationCodeBase(
                         onCallbackRequestFocus(mEditTextSix, mEditTextPercentageInfo)
                     }
 
-                    AlertDialogInput.InputType.DECIMAL_NUMBER -> {
+                    MaterialAlertDialog.InputType.DECIMAL_NUMBER -> {
                         mEditTextDecimalNumberLayout.hint = item.textHide
                         item.textHelper?.let { mEditTextDecimalNumberLayout.helperText = it }
                         item.textHelperRes?.let {
@@ -167,7 +165,7 @@ abstract class AlertDialogVerificationCodeBase(
                                 var isFinish = false
                                 for (item in mInputsContentValue) {
                                     when (item.inputType) {
-                                        AlertDialogInput.InputType.PERCENTAGE -> {
+                                        MaterialAlertDialog.InputType.PERCENTAGE -> {
                                             if (onValidateTextField(
                                                     mEditTextPercentageLayout,
                                                     mEditTextPercentageInfo,
@@ -182,7 +180,7 @@ abstract class AlertDialogVerificationCodeBase(
                                             }
                                         }
 
-                                        AlertDialogInput.InputType.DECIMAL_NUMBER -> {
+                                        MaterialAlertDialog.InputType.DECIMAL_NUMBER -> {
                                             if (onValidateTextField(
                                                     mEditTextDecimalNumberLayout,
                                                     mEditTextDecimalNumberInfo,
@@ -269,19 +267,19 @@ abstract class AlertDialogVerificationCodeBase(
             // Set InputLayout Decimal Number Color
             mEditTextDecimalNumberLayout.boxStrokeColor = mContext.colorPrimary()
             mEditTextDecimalNumberLayout.hintTextColor =
-                ColorStateList.valueOf(mContext.colorOnSurfaceVariant())
+                ColorStateList.valueOf(mContext.colorPrimary())
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) mEditTextDecimalNumberLayout.cursorColor =
                 ColorStateList.valueOf(mContext.colorPrimary())
             // Set InputLayout Percentage Color
             mEditTextPercentageLayout.boxStrokeColor = mContext.colorPrimary()
             mEditTextPercentageLayout.hintTextColor =
-                ColorStateList.valueOf(mContext.colorOnSurfaceVariant())
+                ColorStateList.valueOf(mContext.colorPrimary())
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) mEditTextPercentageLayout.cursorColor =
                 ColorStateList.valueOf(mContext.colorPrimary())
             // Set InputLayout Reason Color
             mEditTextReasonLayout.boxStrokeColor = mContext.colorPrimary()
             mEditTextReasonLayout.hintTextColor =
-                ColorStateList.valueOf(mContext.colorOnSurfaceVariant())
+                ColorStateList.valueOf(mContext.colorPrimary())
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) mEditTextReasonLayout.cursorColor =
                 ColorStateList.valueOf(mContext.colorPrimary())
             // Set Background Tint

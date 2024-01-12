@@ -4,8 +4,15 @@ import android.view.View
 
 class MaterialAlertDialog {
 
-    enum class UI {
-        BUTTON_POSITIVE, BUTTON_NEUTRAL, BUTTON_NEGATIVE
+    enum class InputType {
+        DECIMAL_NUMBER,
+        EMAIL,
+        NUMBER,
+        NONE,
+        PASSWORD,
+        PERCENTAGE,
+        PHONE,
+        TEXT
     }
 
     enum class TextAlignment(val alignment: Int) {
@@ -17,5 +24,9 @@ class MaterialAlertDialog {
     }
 
     enum class Type { CIRCULAR, LINEAR }
+
+    enum class UI {
+        BUTTON_POSITIVE, BUTTON_NEUTRAL, BUTTON_NEGATIVE
+    }
 
 }
