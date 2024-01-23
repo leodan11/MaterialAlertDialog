@@ -13,143 +13,141 @@
         android:layout_margin="@dimen/margin_spacing_min"
         app:cardCornerRadius="@dimen/margin_spacing">
 
-        <RelativeLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_spacing_min"
-            android:orientation="vertical">
+            android:layout_height="wrap_content">
 
             <LinearLayout
-                android:id="@+id/contentBody"
-                android:layout_width="match_parent"
+                android:id="@+id/containerBody"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentTop="true"
-                android:layout_centerInParent="true"
-                android:layout_marginStart="@dimen/margin_spacing_min"
-                android:layout_marginEnd="@dimen/margin_spacing_min"
-                android:orientation="vertical">
+                android:layout_marginTop="@dimen/margin_spacing_medium"
+                android:orientation="vertical"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
 
                 <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/textViewTitleAlertDialog"
                     style="@style/Theme.MaterialDialog.Title.IOS"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="@dimen/notification_icon_height"
+                    android:layout_marginEnd="@dimen/notification_icon_height"
+                    android:layout_marginBottom="@dimen/margin_spacing_min"
+                    android:textAlignment="center" />
 
                 <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/textViewMessageAlertDialog"
                     style="@style/Theme.MaterialDialog.Message.IOS"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/radius_min" />
+                    android:layout_gravity="center"
+                    android:layout_marginStart="@dimen/notification_icon_height"
+                    android:layout_marginEnd="@dimen/notification_icon_height"
+                    android:layout_marginBottom="@dimen/margin_spacing_min" />
 
             </LinearLayout>
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/contentFooter"
-                android:layout_width="match_parent"
+            <com.google.android.material.divider.MaterialDivider
+                android:id="@+id/materialDividerBodyFooter"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/contentBody"
-                android:layout_centerInParent="true"
-                android:layout_marginTop="@dimen/margin_spacing_min">
+                android:layout_marginTop="@dimen/margin_spacing"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/containerBody" />
+
+            <LinearLayout
+                android:id="@+id/layoutContentHorizontalButton"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/materialDividerBodyFooter">
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/buttonActionNegativeAlertDialogHorizontal"
+                    style="@style/MaterialDialog.Button.IOS"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/ic_border_drawable_end"
+                    android:gravity="center"
+                    tools:text="@string/text_value_cancel" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/buttonActionNeutralAlertDialogHorizontal"
+                    style="@style/MaterialDialog.Button.IOS"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/ic_border_drawable_end"
+                    android:gravity="center"
+                    tools:text="@string/text_value_decline" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/buttonActionPositiveAlertDialogHorizontal"
+                    style="@style/MaterialDialog.Button.Positive.IOS"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    tools:text="@string/text_value_accept" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/layoutContentVerticalButton"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/materialDividerBodyFooter"
+                tools:visibility="visible">
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/buttonActionNegativeAlertDialogVertical"
+                    style="@style/MaterialDialog.Button.IOS"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    tools:text="@string/text_value_cancel" />
 
                 <com.google.android.material.divider.MaterialDivider
-                    android:id="@+id/materialDividerBodyFooter"
-                    android:layout_width="0dp"
+                    android:id="@+id/split_negative_neutral_vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/buttonActionNeutralAlertDialogVertical"
+                    style="@style/MaterialDialog.Button.IOS"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    android:gravity="center"
+                    tools:text="@string/text_value_decline" />
 
-                <LinearLayout
-                    android:id="@+id/layoutContentHorizontalButton"
-                    android:layout_width="0dp"
+                <com.google.android.material.divider.MaterialDivider
+                    android:id="@+id/split_neutral_positive_vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/buttonActionPositiveAlertDialogVertical"
+                    style="@style/MaterialDialog.Button.Positive.IOS"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:visibility="gone"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/materialDividerBodyFooter">
+                    android:gravity="center"
+                    tools:text="@string/text_value_accept" />
 
-                    <com.google.android.material.textview.MaterialTextView
-                        android:id="@+id/buttonActionNegativeAlertDialogHorizontal"
-                        style="@style/MaterialDialog.Button.IOS"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:background="@drawable/ic_border_drawable_end"
-                        android:gravity="center"
-                        tools:text="@string/text_value_cancel" />
+            </LinearLayout>
 
-                    <com.google.android.material.textview.MaterialTextView
-                        android:id="@+id/buttonActionNeutralAlertDialogHorizontal"
-                        style="@style/MaterialDialog.Button.IOS"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:background="@drawable/ic_border_drawable_end"
-                        android:gravity="center"
-                        tools:text="@string/text_value_decline" />
-
-                    <com.google.android.material.textview.MaterialTextView
-                        android:id="@+id/buttonActionPositiveAlertDialogHorizontal"
-                        style="@style/MaterialDialog.Button.Positive.IOS"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:gravity="center"
-                        tools:text="@string/text_value_accept" />
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/layoutContentVerticalButton"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:visibility="gone"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/materialDividerBodyFooter">
-
-                    <com.google.android.material.textview.MaterialTextView
-                        android:id="@+id/buttonActionNegativeAlertDialogVertical"
-                        style="@style/MaterialDialog.Button.IOS"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        tools:text="@string/text_value_cancel" />
-
-                    <com.google.android.material.divider.MaterialDivider
-                        android:id="@+id/split_negative_neutral_vertical"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
-
-                    <com.google.android.material.textview.MaterialTextView
-                        android:id="@+id/buttonActionNeutralAlertDialogVertical"
-                        style="@style/MaterialDialog.Button.IOS"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        tools:text="@string/text_value_decline" />
-
-                    <com.google.android.material.divider.MaterialDivider
-                        android:id="@+id/split_neutral_positive_vertical"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
-
-                    <com.google.android.material.textview.MaterialTextView
-                        android:id="@+id/buttonActionPositiveAlertDialogVertical"
-                        style="@style/MaterialDialog.Button.Positive.IOS"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        tools:text="@string/text_value_accept" />
-
-                </LinearLayout>
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-        </RelativeLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.cardview.widget.CardView>
 

@@ -9,11 +9,11 @@ public interface MaterialDialogInterface {
         void onCancel(MaterialDialogInterface dialog);
     }
 
-    interface OnChildClickListenerInput {
+    interface OnClickVerificationCodeListener {
         void onClick(MaterialDialogInterface dialog, String code, String reason, Double numberDecimal, Double valuePercentage);
     }
 
-    interface OnClickInvokedCallback {
+    interface OnClickSignInListener {
         void onClick(MaterialDialogInterface dialog, String username, String password);
     }
 

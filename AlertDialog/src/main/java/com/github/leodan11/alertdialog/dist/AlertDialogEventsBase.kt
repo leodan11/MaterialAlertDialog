@@ -17,8 +17,8 @@ import androidx.core.content.ContextCompat
 import androidx.core.widget.addTextChangedListener
 import com.github.leodan11.alertdialog.MaterialAlertDialogEvents
 import com.github.leodan11.alertdialog.R
-import com.github.leodan11.alertdialog.config.Init.DEFAULT_DETAILS_SCROLL_HEIGHT_SPAN
-import com.github.leodan11.alertdialog.config.Init.MATERIAL_ALERT_DIALOG_UI_NOT_ICON
+import com.github.leodan11.alertdialog.io.content.Config.DEFAULT_DETAILS_SCROLL_HEIGHT_SPAN
+import com.github.leodan11.alertdialog.io.content.Config.MATERIAL_ALERT_DIALOG_UI_NOT_ICON
 import com.github.leodan11.alertdialog.databinding.MAlertDialogBinding
 import com.github.leodan11.alertdialog.io.content.AlertDialogEvents.Type
 import com.github.leodan11.alertdialog.io.content.MaterialAlertDialog

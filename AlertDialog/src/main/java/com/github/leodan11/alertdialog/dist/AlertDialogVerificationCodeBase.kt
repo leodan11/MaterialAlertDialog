@@ -21,7 +21,7 @@ import androidx.annotation.StringRes
 import androidx.core.content.ContextCompat
 import com.github.leodan11.alertdialog.MaterialAlertDialogVerificationCode
 import com.github.leodan11.alertdialog.R
-import com.github.leodan11.alertdialog.config.Init.MATERIAL_ALERT_DIALOG_UI_NOT_ICON
+import com.github.leodan11.alertdialog.io.content.Config.MATERIAL_ALERT_DIALOG_UI_NOT_ICON
 import com.github.leodan11.alertdialog.databinding.MAlertDialogInputCodeBinding
 import com.github.leodan11.alertdialog.io.content.MaterialAlertDialog
 import com.github.leodan11.alertdialog.io.content.MaterialDialogInterface
@@ -142,7 +142,7 @@ abstract class AlertDialogVerificationCodeBase(
             if (mPositiveButton?.icon != MATERIAL_ALERT_DIALOG_UI_NOT_ICON) mPositiveButtonView.icon =
                 ContextCompat.getDrawable(mContext.applicationContext, mPositiveButton?.icon!!)
             mPositiveButtonView.setOnClickListener {
-                if (mPositiveButton?.onChildClickListener != null) {
+                if (mPositiveButton?.onClickVerificationCodeListener != null) {
                     if (validateCodeEditText(mEditTextOne) && validateCodeEditText(mEditTextTwo) && validateCodeEditText(
                             mEditTextThree
                         ) &&
@@ -205,7 +205,7 @@ abstract class AlertDialogVerificationCodeBase(
                                         }
                                     }
                                 }
-                                if (isFinish) mPositiveButton?.onChildClickListener?.onClick(
+                                if (isFinish) mPositiveButton?.onClickVerificationCodeListener?.onClick(
                                     this,
                                     code,
                                     reason,
@@ -213,7 +213,7 @@ abstract class AlertDialogVerificationCodeBase(
                                     percentage
                                 )
                             } else {
-                                mPositiveButton?.onChildClickListener?.onClick(
+                                mPositiveButton?.onClickVerificationCodeListener?.onClick(
                                     this,
                                     code,
                                     reason,
@@ -590,17 +590,17 @@ abstract class AlertDialogVerificationCodeBase(
          * Set a listener to be invoked when the positive button of the dialog is pressed.
          *
          * @param buttonText        The text to display in positive button.
-         * @param onChildClickListenerInput    The [MaterialDialogInterface.OnChildClickListenerInput] to use.
+         * @param onClickVerificationCodeListener    The [MaterialDialogInterface.OnClickVerificationCodeListener] to use.
          * @return This Builder object to allow for chaining of calls to set methods
          */
         fun setPositiveButton(
             buttonText: String?,
-            onChildClickListenerInput: MaterialDialogInterface.OnChildClickListenerInput,
+            onClickVerificationCodeListener: MaterialDialogInterface.OnClickVerificationCodeListener,
         ): Builder<D> {
             return setPositiveButton(
                 buttonText,
                 MATERIAL_ALERT_DIALOG_UI_NOT_ICON,
-                onChildClickListenerInput
+                onClickVerificationCodeListener
             )
         }
 
@@ -608,17 +608,17 @@ abstract class AlertDialogVerificationCodeBase(
          * Set a listener to be invoked when the positive button of the dialog is pressed.
          *
          * @param buttonText        The text to display in positive button.
-         * @param onChildClickListenerInput    The [MaterialDialogInterface.OnChildClickListenerInput] to use.
+         * @param onClickVerificationCodeListener    The [MaterialDialogInterface.OnClickVerificationCodeListener] to use.
          * @return This Builder object to allow for chaining of calls to set methods
          */
         fun setPositiveButton(
             @StringRes buttonText: Int,
-            onChildClickListenerInput: MaterialDialogInterface.OnChildClickListenerInput,
+            onClickVerificationCodeListener: MaterialDialogInterface.OnClickVerificationCodeListener,
         ): Builder<D> {
             return setPositiveButton(
                 buttonText,
                 MATERIAL_ALERT_DIALOG_UI_NOT_ICON,
-                onChildClickListenerInput
+                onClickVerificationCodeListener
             )
         }
 
@@ -626,14 +626,14 @@ abstract class AlertDialogVerificationCodeBase(
          * Set a listener to be invoked when the positive button of the dialog is pressed.
          *
          * @param buttonText        The text to display in positive button.
-         * @param onChildClickListenerInput    The [MaterialDialogInterface.OnChildClickListenerInput] to use.
+         * @param onClickVerificationCodeListener    The [MaterialDialogInterface.OnClickVerificationCodeListener] to use.
          * @param icon        The [DrawableRes] to be set as an icon for the button.
          * @return This Builder object to allow for chaining of calls to set methods
          */
         fun setPositiveButton(
             buttonText: String?,
             @DrawableRes icon: Int,
-            onChildClickListenerInput: MaterialDialogInterface.OnChildClickListenerInput,
+            onClickVerificationCodeListener: MaterialDialogInterface.OnClickVerificationCodeListener,
         ): Builder<D> {
             val valueText =
                 if (buttonText.isNullOrEmpty()) context.getString(R.string.text_value_accept)
@@ -641,7 +641,7 @@ abstract class AlertDialogVerificationCodeBase(
             positiveButton = ButtonAlertDialog(
                 title = valueText,
                 icon = icon,
-                onChildClickListener = onChildClickListenerInput
+                onClickVerificationCodeListener = onClickVerificationCodeListener
             )
             return this
         }
@@ -650,19 +650,19 @@ abstract class AlertDialogVerificationCodeBase(
          * Set a listener to be invoked when the positive button of the dialog is pressed.
          *
          * @param buttonText        The text to display in positive button.
-         * @param onChildClickListenerInput    The [MaterialDialogInterface.OnChildClickListenerInput] to use.
+         * @param onClickVerificationCodeListener    The [MaterialDialogInterface.OnClickVerificationCodeListener] to use.
          * @param icon        The [DrawableRes] to be set as an icon for the button.
          * @return This Builder object to allow for chaining of calls to set methods
          */
         fun setPositiveButton(
             @StringRes buttonText: Int,
             @DrawableRes icon: Int,
-            onChildClickListenerInput: MaterialDialogInterface.OnChildClickListenerInput,
+            onClickVerificationCodeListener: MaterialDialogInterface.OnClickVerificationCodeListener,
         ): Builder<D> {
             positiveButton = ButtonAlertDialog(
                 title = context.getString(buttonText),
                 icon = icon,
-                onChildClickListener = onChildClickListenerInput
+                onClickVerificationCodeListener = onClickVerificationCodeListener
             )
             return this
         }

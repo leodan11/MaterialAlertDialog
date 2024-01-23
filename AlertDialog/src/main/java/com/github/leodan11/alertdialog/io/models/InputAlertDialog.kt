@@ -9,5 +9,5 @@ data class InputAlertDialog(
     var textHelperRes: Int? = null,
     var textHelper: String? = null,
     var textErrorRes: Int = R.string.text_value_this_field_is_required,
-    var textError: String? = null
+    var textError: String? = null,
 )

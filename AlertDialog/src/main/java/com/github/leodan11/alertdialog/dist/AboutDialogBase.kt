@@ -17,8 +17,9 @@ import androidx.core.content.ContextCompat
 import androidx.core.widget.addTextChangedListener
 import com.github.leodan11.alertdialog.AboutMaterialDialog
 import com.github.leodan11.alertdialog.R
-import com.github.leodan11.alertdialog.config.Init
 import com.github.leodan11.alertdialog.databinding.MAboutDialogBinding
+import com.github.leodan11.alertdialog.io.content.Config.DEFAULT_DETAILS_SCROLL_HEIGHT_SPAN
+import com.github.leodan11.alertdialog.io.content.Config.MATERIAL_ALERT_DIALOG_UI_NOT_ICON
 import com.github.leodan11.alertdialog.io.content.MaterialAlertDialog
 import com.github.leodan11.alertdialog.io.content.MaterialDialogInterface
 import com.github.leodan11.alertdialog.io.helpers.Functions.onTextViewTextSize
@@ -132,7 +133,7 @@ abstract class AboutDialogBase(
         if (mPositiveButton != null) {
             mPositiveButtonView.visibility = View.VISIBLE
             mPositiveButtonView.text = mPositiveButton?.title
-            if (mPositiveButton?.icon != Init.MATERIAL_ALERT_DIALOG_UI_NOT_ICON) mPositiveButtonView.icon =
+            if (mPositiveButton?.icon != MATERIAL_ALERT_DIALOG_UI_NOT_ICON) mPositiveButtonView.icon =
                 ContextCompat.getDrawable(mContext.applicationContext, mPositiveButton?.icon!!)
             mPositiveButtonView.setOnClickListener {
                 mPositiveButton?.onClickListener?.onClick(
@@ -146,7 +147,7 @@ abstract class AboutDialogBase(
         if (mNeutralButton != null) {
             mNeutralButtonView.visibility = View.VISIBLE
             mNeutralButtonView.text = mNeutralButton?.title
-            if (mNeutralButton?.icon != Init.MATERIAL_ALERT_DIALOG_UI_NOT_ICON) mNeutralButtonView.icon =
+            if (mNeutralButton?.icon != MATERIAL_ALERT_DIALOG_UI_NOT_ICON) mNeutralButtonView.icon =
                 ContextCompat.getDrawable(mContext.applicationContext, mNeutralButton?.icon!!)
             mNeutralButtonView.setOnClickListener {
                 mNeutralButton?.onClickListener?.onClick(
@@ -160,7 +161,7 @@ abstract class AboutDialogBase(
         if (mNegativeButton != null) {
             mNegativeButtonView.visibility = View.VISIBLE
             mNegativeButtonView.text = mNegativeButton?.title
-            if (mNegativeButton?.icon != Init.MATERIAL_ALERT_DIALOG_UI_NOT_ICON) mNegativeButtonView.icon =
+            if (mNegativeButton?.icon != MATERIAL_ALERT_DIALOG_UI_NOT_ICON) mNegativeButtonView.icon =
                 ContextCompat.getDrawable(mContext.applicationContext, mNegativeButton?.icon!!)
             mNegativeButtonView.setOnClickListener {
                 mNegativeButton?.onClickListener?.onClick(
@@ -292,7 +293,7 @@ abstract class AboutDialogBase(
 
         protected open var icon: IconAlertDialog = IconAlertDialog(R.drawable.ic_help)
         protected open var backgroundIconTintColor: IconTintAlertDialog? = null
-        protected open var detailsScrollHeightSpan: Int = Init.DEFAULT_DETAILS_SCROLL_HEIGHT_SPAN
+        protected open var detailsScrollHeightSpan: Int = DEFAULT_DETAILS_SCROLL_HEIGHT_SPAN
         protected open var title: TitleAlertDialog? = null
         protected open var message: MessageAlertDialog<*>? = null
         protected open var span: DetailsAlertDialog<*>? = null
@@ -572,7 +573,7 @@ abstract class AboutDialogBase(
         ): Builder<D> {
             return setPositiveButton(
                 buttonText,
-                Init.MATERIAL_ALERT_DIALOG_UI_NOT_ICON, onClickListener
+                MATERIAL_ALERT_DIALOG_UI_NOT_ICON, onClickListener
             )
         }
 
@@ -589,7 +590,7 @@ abstract class AboutDialogBase(
         ): Builder<D> {
             return setPositiveButton(
                 buttonText,
-                Init.MATERIAL_ALERT_DIALOG_UI_NOT_ICON, onClickListener
+                MATERIAL_ALERT_DIALOG_UI_NOT_ICON, onClickListener
             )
         }
 
@@ -648,7 +649,7 @@ abstract class AboutDialogBase(
         ): Builder<D> {
             return setNeutralButton(
                 buttonText,
-                Init.MATERIAL_ALERT_DIALOG_UI_NOT_ICON, onClickListener
+                MATERIAL_ALERT_DIALOG_UI_NOT_ICON, onClickListener
             )
         }
 
@@ -665,7 +666,7 @@ abstract class AboutDialogBase(
         ): Builder<D> {
             return setNeutralButton(
                 buttonText,
-                Init.MATERIAL_ALERT_DIALOG_UI_NOT_ICON, onClickListener
+                MATERIAL_ALERT_DIALOG_UI_NOT_ICON, onClickListener
             )
         }
 
@@ -724,7 +725,7 @@ abstract class AboutDialogBase(
         ): Builder<D> {
             return setNegativeButton(
                 buttonText,
-                Init.MATERIAL_ALERT_DIALOG_UI_NOT_ICON, onClickListener
+                MATERIAL_ALERT_DIALOG_UI_NOT_ICON, onClickListener
             )
         }
 
@@ -741,7 +742,7 @@ abstract class AboutDialogBase(
         ): Builder<D> {
             return setNegativeButton(
                 buttonText,
-                Init.MATERIAL_ALERT_DIALOG_UI_NOT_ICON, onClickListener
+                MATERIAL_ALERT_DIALOG_UI_NOT_ICON, onClickListener
             )
         }
 

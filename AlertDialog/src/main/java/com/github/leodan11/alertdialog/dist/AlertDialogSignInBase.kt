@@ -17,7 +17,7 @@ import androidx.annotation.StringRes
 import androidx.core.content.ContextCompat
 import com.github.leodan11.alertdialog.MaterialAlertDialogSignIn
 import com.github.leodan11.alertdialog.R
-import com.github.leodan11.alertdialog.config.Init.MATERIAL_ALERT_DIALOG_UI_NOT_ICON
+import com.github.leodan11.alertdialog.io.content.Config.MATERIAL_ALERT_DIALOG_UI_NOT_ICON
 import com.github.leodan11.alertdialog.databinding.MAlertDialogLoginBinding
 import com.github.leodan11.alertdialog.io.content.MaterialAlertDialog
 import com.github.leodan11.alertdialog.io.content.MaterialDialogInterface
@@ -81,8 +81,8 @@ abstract class AlertDialogSignInBase(
             if (mPositiveButton?.icon != MATERIAL_ALERT_DIALOG_UI_NOT_ICON) mPositiveButtonView.icon =
                 ContextCompat.getDrawable(mContext.applicationContext, mPositiveButton?.icon!!)
             mPositiveButtonView.setOnClickListener {
-                if (mPositiveButton?.onClickInvokedCallback != null) {
-                    if (onValidateInputValue()) mPositiveButton?.onClickInvokedCallback?.onClick(
+                if (mPositiveButton?.onClickSignInListener != null) {
+                    if (onValidateInputValue()) mPositiveButton?.onClickSignInListener?.onClick(
                         this,
                         mTextInputEditTextUsername.text.toString().trim(),
                         mTextInputEditTextPassword.text.toString()
@@ -365,17 +365,17 @@ abstract class AlertDialogSignInBase(
          * Set a listener to be invoked when the positive button of the dialog is pressed.
          *
          * @param buttonText        The text to display in positive button.
-         * @param onClickInvokedCallback    The [MaterialDialogInterface.OnClickInvokedCallback] to use.
+         * @param onClickSignInListener    The [MaterialDialogInterface.OnClickSignInListener] to use.
          * @return This Builder object to allow for chaining of calls to set methods
          */
         fun setPositiveButton(
             buttonText: String?,
-            onClickInvokedCallback: MaterialDialogInterface.OnClickInvokedCallback,
+            onClickSignInListener: MaterialDialogInterface.OnClickSignInListener,
         ): Builder<D> {
             return setPositiveButton(
                 buttonText,
                 MATERIAL_ALERT_DIALOG_UI_NOT_ICON,
-                onClickInvokedCallback
+                onClickSignInListener
             )
         }
 
@@ -383,17 +383,17 @@ abstract class AlertDialogSignInBase(
          * Set a listener to be invoked when the positive button of the dialog is pressed.
          *
          * @param buttonText        The text to display in positive button.
-         * @param onClickInvokedCallback    The [MaterialDialogInterface.OnClickInvokedCallback] to use.
+         * @param onClickSignInListener    The [MaterialDialogInterface.OnClickSignInListener] to use.
          * @return This Builder object to allow for chaining of calls to set methods
          */
         fun setPositiveButton(
             @StringRes buttonText: Int,
-            onClickInvokedCallback: MaterialDialogInterface.OnClickInvokedCallback,
+            onClickSignInListener: MaterialDialogInterface.OnClickSignInListener,
         ): Builder<D> {
             return setPositiveButton(
                 buttonText,
                 MATERIAL_ALERT_DIALOG_UI_NOT_ICON,
-                onClickInvokedCallback
+                onClickSignInListener
             )
         }
 
@@ -401,14 +401,14 @@ abstract class AlertDialogSignInBase(
          * Set a listener to be invoked when the positive button of the dialog is pressed.
          *
          * @param buttonText        The text to display in positive button.
-         * @param onClickInvokedCallback    The [MaterialDialogInterface.OnClickInvokedCallback] to use.
+         * @param onClickSignInListener    The [MaterialDialogInterface.OnClickSignInListener] to use.
          * @param icon        The [DrawableRes] to be set as an icon for the button.
          * @return This Builder object to allow for chaining of calls to set methods
          */
         fun setPositiveButton(
             buttonText: String?,
             @DrawableRes icon: Int,
-            onClickInvokedCallback: MaterialDialogInterface.OnClickInvokedCallback,
+            onClickSignInListener: MaterialDialogInterface.OnClickSignInListener,
         ): Builder<D> {
             val valueText =
                 if (buttonText.isNullOrEmpty()) context.getString(R.string.text_value_login_in)
@@ -416,7 +416,7 @@ abstract class AlertDialogSignInBase(
             positiveButton = ButtonAlertDialog(
                 title = valueText,
                 icon = icon,
-                onClickInvokedCallback = onClickInvokedCallback
+                onClickSignInListener = onClickSignInListener
             )
             return this
         }
@@ -425,19 +425,19 @@ abstract class AlertDialogSignInBase(
          * Set a listener to be invoked when the positive button of the dialog is pressed.
          *
          * @param buttonText        The text to display in positive button.
-         * @param onClickInvokedCallback    The [MaterialDialogInterface.OnClickInvokedCallback] to use.
+         * @param onClickSignInListener    The [MaterialDialogInterface.OnClickSignInListener] to use.
          * @param icon        The [DrawableRes] to be set as an icon for the button.
          * @return This Builder object to allow for chaining of calls to set methods
          */
         fun setPositiveButton(
             @StringRes buttonText: Int,
             @DrawableRes icon: Int,
-            onClickInvokedCallback: MaterialDialogInterface.OnClickInvokedCallback,
+            onClickSignInListener: MaterialDialogInterface.OnClickSignInListener,
         ): Builder<D> {
             positiveButton = ButtonAlertDialog(
                 title = context.getString(buttonText),
                 icon = icon,
-                onClickInvokedCallback = onClickInvokedCallback
+                onClickSignInListener = onClickSignInListener
             )
             return this
         }

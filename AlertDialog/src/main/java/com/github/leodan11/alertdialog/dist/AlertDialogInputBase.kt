@@ -17,11 +17,10 @@ import androidx.annotation.IntRange
 import androidx.annotation.RestrictTo
 import androidx.annotation.StringRes
 import androidx.core.content.ContextCompat
-import androidx.core.view.isVisible
 import com.github.leodan11.alertdialog.MaterialAlertDialogInput
 import com.github.leodan11.alertdialog.R
-import com.github.leodan11.alertdialog.config.Init.MATERIAL_ALERT_DIALOG_UI_NOT_ICON
 import com.github.leodan11.alertdialog.databinding.MAlertDialogInputBinding
+import com.github.leodan11.alertdialog.io.content.Config.MATERIAL_ALERT_DIALOG_UI_NOT_ICON
 import com.github.leodan11.alertdialog.io.content.MaterialAlertDialog
 import com.github.leodan11.alertdialog.io.content.MaterialDialogInterface
 import com.github.leodan11.alertdialog.io.models.ButtonAlertDialog
@@ -77,6 +76,7 @@ abstract class AlertDialogInputBase(
         if (icon != null) {
             icon?.let { mIconView.setImageResource(it.mDrawableResId) }
             mIconView.visibility = View.VISIBLE
+            mContentHeader.visibility = View.VISIBLE
         } else mIconView.visibility = View.GONE
         // Set Title
         if (title != null) {
@@ -85,8 +85,8 @@ abstract class AlertDialogInputBase(
                 textAlignment = title?.textAlignment!!.alignment
                 visibility = View.VISIBLE
             }
+            mContentHeader.visibility = View.VISIBLE
         } else mTitleView.visibility = View.GONE
-        mContentHeader.isVisible = mIconView.isVisible && mTitleView.isVisible
         // Set Message
         if (message != null) {
             mMessageView.apply {

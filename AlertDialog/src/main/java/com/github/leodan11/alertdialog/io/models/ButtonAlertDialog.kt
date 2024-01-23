@@ -11,6 +11,6 @@ data class ButtonAlertDialog(
     val icon: Int,
     val onClickListener: MaterialDialogInterface.OnClickListener? = null,
     val onClickInputListener: MaterialDialogInterface.OnClickInputListener? = null,
-    val onChildClickListener: MaterialDialogInterface.OnChildClickListenerInput? = null,
-    val onClickInvokedCallback: MaterialDialogInterface.OnClickInvokedCallback? = null
+    val onClickVerificationCodeListener: MaterialDialogInterface.OnClickVerificationCodeListener? = null,
+    val onClickSignInListener: MaterialDialogInterface.OnClickSignInListener? = null
 )

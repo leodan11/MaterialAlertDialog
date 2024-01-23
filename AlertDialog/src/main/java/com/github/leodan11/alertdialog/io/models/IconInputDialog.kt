@@ -6,4 +6,9 @@ import androidx.annotation.RestrictTo
 import androidx.annotation.StringRes
 
 @RestrictTo(RestrictTo.Scope.LIBRARY)
-data class IconInputDialog(@DrawableRes val icon: Int, val contentDescription: String? = null, @StringRes val contentDescriptionRes: Int? = null, val listener: OnClickListener? = null)
+data class IconInputDialog(
+    @DrawableRes val icon: Int,
+    val contentDescription: String? = null,
+    @StringRes val contentDescriptionRes: Int? = null,
+    val listener: OnClickListener? = null,
+)

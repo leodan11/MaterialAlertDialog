@@ -9,5 +9,5 @@ data class IconTintAlertDialog(
     @ColorRes
     var iconColorRes: Int? = null,
     @ColorInt
-    var iconColorInt: Int ? = null
+    var iconColorInt: Int? = null,
 )
