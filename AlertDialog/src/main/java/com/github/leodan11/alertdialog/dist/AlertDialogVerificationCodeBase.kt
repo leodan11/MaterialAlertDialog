@@ -19,6 +19,7 @@ import androidx.annotation.RestrictTo
 import androidx.annotation.Size
 import androidx.annotation.StringRes
 import androidx.core.content.ContextCompat
+import androidx.core.view.isVisible
 import com.github.leodan11.alertdialog.MaterialAlertDialogVerificationCode
 import com.github.leodan11.alertdialog.R
 import com.github.leodan11.alertdialog.io.content.Config.MATERIAL_ALERT_DIALOG_UI_NOT_ICON
@@ -43,6 +44,7 @@ abstract class AlertDialogVerificationCodeBase(
     protected open var title: TitleAlertDialog?,
     protected open var message: MessageAlertDialog<*>?,
     protected open var mInputsContentValue: List<InputAlertDialog>,
+    protected open var mNeedReason: Boolean,
     protected open var mCancelable: Boolean,
     protected open var mPositiveButton: ButtonAlertDialog?,
     protected open var mNegativeButton: ButtonAlertDialog?,
@@ -74,6 +76,7 @@ abstract class AlertDialogVerificationCodeBase(
         val mEditTextFour = binding.editTextTextValueFour
         val mEditTextFive = binding.editTextTextValueFive
         val mEditTextSix = binding.editTextTextValueSix
+        val mContentLayoutInputs = binding.containerInputs
         val mEditTextReasonLayout = binding.textInputLayoutCodeReason
         val mEditTextReasonInfo = binding.textInputEditTextCodeReason
         val mEditTextDecimalNumberLayout = binding.textInputLayoutCodeDecimalNumber
@@ -99,6 +102,7 @@ abstract class AlertDialogVerificationCodeBase(
         onCallbackRequestFocus(mEditTextFive, mEditTextSix)
 
         // Set Content
+        mEditTextReasonLayout.isVisible = mNeedReason
         if (mInputsContentValue.isNotEmpty()) {
             for (item in mInputsContentValue) {
                 when (item.inputType) {
@@ -108,6 +112,7 @@ abstract class AlertDialogVerificationCodeBase(
                         item.textHelperRes?.let {
                             mEditTextPercentageLayout.helperText = mContext.getString(it)
                         }
+                        mContentLayoutInputs.visibility = View.VISIBLE
                         mEditTextPercentageLayout.visibility = View.VISIBLE
                         onCallbackRequestFocus(mEditTextSix, mEditTextPercentageInfo)
                     }
@@ -118,17 +123,22 @@ abstract class AlertDialogVerificationCodeBase(
                         item.textHelperRes?.let {
                             mEditTextDecimalNumberLayout.helperText = mContext.getString(it)
                         }
+                        mContentLayoutInputs.visibility = View.VISIBLE
                         mEditTextDecimalNumberLayout.visibility = View.VISIBLE
                         onCallbackRequestFocus(mEditTextSix, mEditTextDecimalNumberInfo)
                     }
 
                     else -> {
+                        if (!mNeedReason) mContentLayoutInputs.visibility = View.GONE
                         mEditTextPercentageLayout.visibility = View.GONE
                         mEditTextDecimalNumberLayout.visibility = View.GONE
                     }
                 }
             }
-        } else onCallbackRequestFocus(mEditTextSix, mEditTextReasonInfo)
+        } else {
+            if (mNeedReason) onCallbackRequestFocus(mEditTextSix, mEditTextReasonInfo)
+            else mContentLayoutInputs.visibility = View.GONE
+        }
         // Set Message
         if (message != null) {
             mMessageView.visibility = View.VISIBLE
@@ -152,13 +162,80 @@ abstract class AlertDialogVerificationCodeBase(
                     ) {
                         val code =
                             "${mEditTextOne.text}${mEditTextTwo.text}${mEditTextThree.text}${mEditTextFour.text}${mEditTextFive.text}${mEditTextSix.text}"
-                        if (onValidateTextField(
-                                mEditTextReasonLayout,
-                                mEditTextReasonInfo,
-                                mContext.getString(R.string.text_value_reason_error)
-                            )
-                        ) {
-                            val reason = mEditTextReasonInfo.text.toString()
+                        if (mNeedReason) {
+                            if (onValidateTextField(
+                                    mEditTextReasonLayout,
+                                    mEditTextReasonInfo,
+                                    mContext.getString(R.string.text_value_reason_error)
+                                )
+                            ) {
+                                val reason = mEditTextReasonInfo.text.toString()
+                                if (mInputsContentValue.isNotEmpty()) {
+                                    var decimal: Double? = null
+                                    var percentage: Double? = null
+                                    var isFinish = false
+                                    for (item in mInputsContentValue) {
+                                        when (item.inputType) {
+                                            MaterialAlertDialog.InputType.PERCENTAGE -> {
+                                                if (onValidateTextField(
+                                                        mEditTextPercentageLayout,
+                                                        mEditTextPercentageInfo,
+                                                        if (item.textError != null) item.textError!! else mContext.getString(
+                                                            item.textErrorRes
+                                                        )
+                                                    )
+                                                ) {
+                                                    percentage =
+                                                        mEditTextPercentageInfo.text.toString()
+                                                            .toDouble()
+                                                    isFinish = true
+                                                }
+                                            }
+
+                                            MaterialAlertDialog.InputType.DECIMAL_NUMBER -> {
+                                                if (onValidateTextField(
+                                                        mEditTextDecimalNumberLayout,
+                                                        mEditTextDecimalNumberInfo,
+                                                        if (item.textError != null) item.textError!! else mContext.getString(
+                                                            item.textErrorRes
+                                                        )
+                                                    )
+                                                ) {
+                                                    decimal =
+                                                        mEditTextDecimalNumberInfo.text.toString()
+                                                            .toDouble()
+                                                    isFinish = true
+                                                }
+                                            }
+
+                                            else -> {
+                                                Toast.makeText(
+                                                    mContext,
+                                                    mContext.getString(R.string.text_value_unknown_input_type),
+                                                    Toast.LENGTH_LONG
+                                                ).show()
+                                                isFinish = false
+                                            }
+                                        }
+                                    }
+                                    if (isFinish) mPositiveButton?.onClickVerificationCodeListener?.onClick(
+                                        this,
+                                        code,
+                                        reason,
+                                        decimal,
+                                        percentage
+                                    )
+                                } else {
+                                    mPositiveButton?.onClickVerificationCodeListener?.onClick(
+                                        this,
+                                        code,
+                                        reason,
+                                        null,
+                                        null
+                                    )
+                                }
+                            }
+                        } else {
                             if (mInputsContentValue.isNotEmpty()) {
                                 var decimal: Double? = null
                                 var percentage: Double? = null
@@ -208,7 +285,7 @@ abstract class AlertDialogVerificationCodeBase(
                                 if (isFinish) mPositiveButton?.onClickVerificationCodeListener?.onClick(
                                     this,
                                     code,
-                                    reason,
+                                    null,
                                     decimal,
                                     percentage
                                 )
@@ -216,17 +293,19 @@ abstract class AlertDialogVerificationCodeBase(
                                 mPositiveButton?.onClickVerificationCodeListener?.onClick(
                                     this,
                                     code,
-                                    reason,
+                                    null,
                                     null,
                                     null
                                 )
                             }
                         }
-                    } else Toast.makeText(
-                        mContext,
-                        mContext.getString(R.string.text_value_code_error),
-                        Toast.LENGTH_LONG
-                    ).show()
+                    } else {
+                        Toast.makeText(
+                            mContext,
+                            mContext.getString(R.string.text_value_code_error),
+                            Toast.LENGTH_LONG
+                        ).show()
+                    }
                 } else if (mPositiveButton?.onClickListener != null) mPositiveButton?.onClickListener?.onClick(
                     this,
                     MaterialAlertDialog.UI.BUTTON_POSITIVE
@@ -396,6 +475,7 @@ abstract class AlertDialogVerificationCodeBase(
         protected open var tintColor: IconTintAlertDialog? = null
         protected open var title: TitleAlertDialog? = null
         protected open var message: MessageAlertDialog<*>? = null
+        protected open var isNeedReason: Boolean = true
         protected open var isCancelable: Boolean = false
         protected open var mInputsContentValue: List<InputAlertDialog> = arrayListOf()
         protected open var positiveButton: ButtonAlertDialog? = null
@@ -576,9 +656,20 @@ abstract class AlertDialogVerificationCodeBase(
         }
 
         /**
+         * Sets whether the dialog box should specify a reason for the action.
+         *
+         * @param isNeedReason is [Boolean] value. Default is true.
+         * @return This Builder object to allow for chaining of calls to set methods
+         */
+        fun setNeedReason(isNeedReason: Boolean): Builder<D> {
+            this.isNeedReason = isCancelable
+            return this
+        }
+
+        /**
          * Sets whether the dialog is cancelable or not.
          *
-         * @param isCancelable is [Boolean] value. Default is true.
+         * @param isCancelable is [Boolean] value. Default is false.
          * @return This Builder object to allow for chaining of calls to set methods
          */
         fun setCancelable(isCancelable: Boolean): Builder<D> {

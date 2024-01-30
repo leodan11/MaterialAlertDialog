@@ -184,7 +184,7 @@ abstract class AlertDialogProgressBase(
      */
     abstract class Builder<D: AlertDialogProgressBase>(protected open val context: Context) {
 
-        protected open var icon: IconAlertDialog = IconAlertDialog(R.drawable.ic_animated_default)
+        protected open var icon: IconAlertDialog = IconAlertDialog(R.drawable.ic_baseline_animated_default)
         protected open var isAnimatedVectorDrawable: Boolean = true
         protected open var isAnimatedVectorDrawableLoop: Boolean = false
         protected open var title: TitleAlertDialog? = null

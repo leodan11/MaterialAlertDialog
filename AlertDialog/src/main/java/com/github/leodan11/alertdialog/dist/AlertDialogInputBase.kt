@@ -102,6 +102,7 @@ abstract class AlertDialogInputBase(
             inputBase.textHelperRes?.let { res -> helperText = mContext.getString(res) }
             isHelperTextEnabled = helperText != null
         }
+        inputBase.textDefaultValue?.let { mTextInputEditTextAlert.setText(it) }
         mTextInputEditTextAlert.inputType = when (inputBase.inputType) {
             MaterialAlertDialog.InputType.DECIMAL_NUMBER -> EditorInfo.TYPE_NUMBER_FLAG_DECIMAL
             MaterialAlertDialog.InputType.EMAIL -> {
@@ -536,7 +537,7 @@ abstract class AlertDialogInputBase(
         /**
          * Sets whether the dialog is cancelable or not.
          *
-         * @param isCancelable is [Boolean] value. Default is true.
+         * @param isCancelable is [Boolean] value. Default is false.
          * @return This Builder object to allow for chaining of calls to set methods
          */
         fun setCancelable(isCancelable: Boolean): Builder<D> {

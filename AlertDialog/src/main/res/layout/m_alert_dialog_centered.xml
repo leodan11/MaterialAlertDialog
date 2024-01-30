@@ -29,7 +29,7 @@
                 android:layout_height="@dimen/notification_icon_height"
                 android:layout_gravity="center"
                 tools:ignore="ImageContrastCheck"
-                tools:src="@drawable/ic_information" />
+                tools:src="@drawable/ic_baseline_information" />
 
             <TextView
                 android:id="@+id/textViewTitleAlertDialog"

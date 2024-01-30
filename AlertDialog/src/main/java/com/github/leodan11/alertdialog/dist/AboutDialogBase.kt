@@ -291,7 +291,7 @@ abstract class AboutDialogBase(
      */
     abstract class Builder<D : AboutDialogBase>(protected open val context: Context) {
 
-        protected open var icon: IconAlertDialog = IconAlertDialog(R.drawable.ic_help)
+        protected open var icon: IconAlertDialog = IconAlertDialog(R.drawable.ic_baseline_help)
         protected open var backgroundIconTintColor: IconTintAlertDialog? = null
         protected open var detailsScrollHeightSpan: Int = DEFAULT_DETAILS_SCROLL_HEIGHT_SPAN
         protected open var title: TitleAlertDialog? = null

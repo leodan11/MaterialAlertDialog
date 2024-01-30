@@ -23,7 +23,7 @@
             android:layout_gravity="center"
             android:tint="?attr/colorSurface"
             tools:ignore="ImageContrastCheck"
-            tools:src="@drawable/ic_success" />
+            tools:src="@drawable/ic_baseline_success" />
 
     </androidx.cardview.widget.CardView>
 

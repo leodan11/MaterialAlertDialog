@@ -25,7 +25,7 @@
                 android:layout_height="@dimen/app_icon_size_min"
                 android:layout_alignParentStart="true"
                 android:layout_centerInParent="true"
-                app:srcCompat="@drawable/ic_security"
+                app:srcCompat="@drawable/ic_baseline_security"
                 tools:ignore="ImageContrastCheck" />
 
             <TextView

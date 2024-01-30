@@ -240,7 +240,7 @@ abstract class AlertDialogCenteredBase(
      */
     abstract class Builder<D : AlertDialogCenteredBase>(protected open val context: Context) {
 
-        protected open var icon: IconAlertDialog = IconAlertDialog(R.drawable.ic_information)
+        protected open var icon: IconAlertDialog = IconAlertDialog(R.drawable.ic_baseline_information)
         protected open var backgroundColorResource: Int? = null
         protected open var backgroundColorInt: Int? = null
         protected open var title: TitleAlertDialog? = null

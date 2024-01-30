@@ -29,7 +29,7 @@ abstract class AlertDialogProgressIOSBase(
     protected open var mOnDismissListener: MaterialDialogInterface.OnDismissListener? = null
     protected open var mOnCancelListener: MaterialDialogInterface.OnCancelListener? = null
     protected open var mOnShowListener: MaterialDialogInterface.OnShowListener? = null
-    private val icon: IconAlertDialog = IconAlertDialog(R.drawable.ic_loader_circular_default_ios)
+    private val icon: IconAlertDialog = IconAlertDialog(R.drawable.ic_baseline_loader_circular_default_ios)
 
     @RestrictTo(RestrictTo.Scope.LIBRARY)
     protected open fun createView(

@@ -19,7 +19,7 @@
             android:layout_height="@android:dimen/app_icon_size"
             android:layout_alignParentStart="true"
             android:layout_centerInParent="true"
-            app:srcCompat="@drawable/ic_shield_key"
+            app:srcCompat="@drawable/ic_baseline_shield_key"
             tools:ignore="ImageContrastCheck" />
 
         <TextView
@@ -63,7 +63,7 @@
             android:layout_height="@dimen/spacing_edit_text"
             android:layout_marginEnd="@dimen/margin_spacing_min"
             android:autofillHints="name"
-            android:background="@drawable/ic_background_transparent_font"
+            android:background="@drawable/ic_baseline_background_transparent_font"
             android:ems="10"
             android:gravity="center"
             android:hint="@string/text_value_screenplay"
@@ -81,7 +81,7 @@
             android:layout_height="@dimen/spacing_edit_text"
             android:layout_marginEnd="@dimen/margin_spacing_min"
             android:autofillHints="name"
-            android:background="@drawable/ic_background_transparent_font"
+            android:background="@drawable/ic_baseline_background_transparent_font"
             android:ems="10"
             android:gravity="center"
             android:hint="@string/text_value_screenplay"
@@ -99,7 +99,7 @@
             android:layout_height="@dimen/spacing_edit_text"
             android:layout_marginEnd="@dimen/margin_spacing_min"
             android:autofillHints="name"
-            android:background="@drawable/ic_background_transparent_font"
+            android:background="@drawable/ic_baseline_background_transparent_font"
             android:ems="10"
             android:gravity="center"
             android:hint="@string/text_value_screenplay"
@@ -117,7 +117,7 @@
             android:layout_height="@dimen/spacing_edit_text"
             android:layout_marginEnd="@dimen/margin_spacing_min"
             android:autofillHints="name"
-            android:background="@drawable/ic_background_transparent_font"
+            android:background="@drawable/ic_baseline_background_transparent_font"
             android:ems="10"
             android:gravity="center"
             android:hint="@string/text_value_screenplay"
@@ -135,7 +135,7 @@
             android:layout_height="@dimen/spacing_edit_text"
             android:layout_marginEnd="@dimen/margin_spacing_min"
             android:autofillHints="name"
-            android:background="@drawable/ic_background_transparent_font"
+            android:background="@drawable/ic_baseline_background_transparent_font"
             android:ems="10"
             android:gravity="center"
             android:hint="@string/text_value_screenplay"
@@ -152,7 +152,7 @@
             android:layout_width="@dimen/spacing_edit_text"
             android:layout_height="@dimen/spacing_edit_text"
             android:autofillHints="name"
-            android:background="@drawable/ic_background_transparent_font"
+            android:background="@drawable/ic_baseline_background_transparent_font"
             android:ems="10"
             android:gravity="center"
             android:hint="@string/text_value_screenplay"
@@ -167,6 +167,7 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <LinearLayout
+        android:id="@+id/container_inputs"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin_spacing_min"

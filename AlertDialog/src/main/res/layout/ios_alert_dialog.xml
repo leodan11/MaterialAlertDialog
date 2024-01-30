@@ -75,7 +75,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:background="@drawable/ic_border_drawable_end"
+                    android:background="@drawable/ic_baseline_border_drawable_end"
                     android:gravity="center"
                     tools:text="@string/text_value_cancel" />
 
@@ -85,7 +85,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:background="@drawable/ic_border_drawable_end"
+                    android:background="@drawable/ic_baseline_border_drawable_end"
                     android:gravity="center"
                     tools:text="@string/text_value_decline" />
 

@@ -72,11 +72,11 @@ abstract class AlertDialogEventsBase(
 
         // Set Icon
         when (type) {
-            Type.ERROR -> mIconView.setImageResource(R.drawable.ic_error)
-            Type.HELP -> mIconView.setImageResource(R.drawable.ic_help)
-            Type.INFORMATION -> mIconView.setImageResource(R.drawable.ic_information)
-            Type.SUCCESS -> mIconView.setImageResource(R.drawable.ic_success)
-            Type.WARNING -> mIconView.setImageResource(R.drawable.ic_warning)
+            Type.ERROR -> mIconView.setImageResource(R.drawable.ic_baseline_error)
+            Type.HELP -> mIconView.setImageResource(R.drawable.ic_baseline_help)
+            Type.INFORMATION -> mIconView.setImageResource(R.drawable.ic_baseline_information)
+            Type.SUCCESS -> mIconView.setImageResource(R.drawable.ic_baseline_success)
+            Type.WARNING -> mIconView.setImageResource(R.drawable.ic_baseline_warning)
             else -> mIconView.setImageResource(icon.mDrawableResId)
         }
         // Set Icon BackgroundTint
@@ -285,7 +285,7 @@ abstract class AlertDialogEventsBase(
      */
     abstract class Builder<D : AlertDialogEventsBase>(protected open val context: Context) {
 
-        protected open var icon: IconAlertDialog = IconAlertDialog(R.drawable.ic_help)
+        protected open var icon: IconAlertDialog = IconAlertDialog(R.drawable.ic_baseline_help)
         protected open var backgroundColorSpanInt: Int? = null
         protected open var backgroundColorSpan: Int? = null
         protected open var detailsScrollHeightSpan: Int = DEFAULT_DETAILS_SCROLL_HEIGHT_SPAN
