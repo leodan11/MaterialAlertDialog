@@ -7,12 +7,15 @@ import com.github.leodan11.alertdialog.dist.AlertDialogCenteredBase
 import com.github.leodan11.alertdialog.io.models.ButtonAlertDialog
 import com.github.leodan11.alertdialog.io.models.IconAlertDialog
 import com.github.leodan11.alertdialog.io.models.MessageAlertDialog
+import com.github.leodan11.alertdialog.io.models.RawAlertDialog
 import com.github.leodan11.alertdialog.io.models.TitleAlertDialog
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
 class MaterialAlertDialogCentered(
     mContext: Context,
-    icon: IconAlertDialog,
+    icon: IconAlertDialog?,
+    image: IconAlertDialog?,
+    jsonAnimation: RawAlertDialog?,
     backgroundColorInt: Int?,
     backgroundColorResource: Int?,
     title: TitleAlertDialog?,
@@ -24,6 +27,8 @@ class MaterialAlertDialogCentered(
 ) : AlertDialogCenteredBase(
     mContext = mContext,
     icon = icon,
+    bitmap = image,
+    jsonAnimation = jsonAnimation,
     backgroundColorInt = backgroundColorInt,
     backgroundColorResource = backgroundColorResource,
     title = title,
@@ -43,6 +48,7 @@ class MaterialAlertDialogCentered(
         builder.setCancelable(mCancelable)
         // Create and show dialog
         mDialog = builder.create()
+        mDialog?.window?.setBackgroundDrawableResource(android.R.color.transparent)
     }
 
     /**
@@ -57,6 +63,8 @@ class MaterialAlertDialogCentered(
             return MaterialAlertDialogCentered(
                 context,
                 icon,
+                bitmap,
+                jsonAnimation,
                 backgroundColorInt,
                 backgroundColorResource,
                 title,

@@ -7,13 +7,10 @@
     android:orientation="vertical"
     android:theme="@style/Theme.MaterialDialog">
 
-    <androidx.cardview.widget.CardView
+    <com.google.android.material.card.MaterialCardView
         android:id="@+id/cardViewContainerBody"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        app:cardCornerRadius="@dimen/margin_spacing"
-        app:cardElevation="0dp"
-        app:contentPadding="@dimen/margin_spacing"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -23,35 +20,72 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <com.google.android.material.imageview.ShapeableImageView
-                android:id="@+id/imageViewIconAlertDialog"
-                android:layout_width="@dimen/notification_icon_width"
-                android:layout_height="@dimen/notification_icon_height"
-                android:layout_gravity="center"
-                tools:ignore="ImageContrastCheck"
-                tools:src="@drawable/ic_baseline_information" />
+            <RelativeLayout
+                android:id="@+id/headerHolderAlertDialog"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    tools:ignore="UselessParent">
+
+                    <com.airbnb.lottie.LottieAnimationView
+                        android:id="@+id/animationViewAlertDialog"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/dialog_image_view_notification_icon_height_large"
+                        android:visibility="gone"
+                        app:lottie_autoPlay="true"
+                        app:lottie_loop="true" />
+
+                    <com.google.android.material.imageview.ShapeableImageView
+                        android:id="@+id/imageViewBitmapAlertDialog"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/dialog_image_view_notification_icon_height_large"
+                        android:layout_gravity="center"
+                        android:scaleType="centerCrop"
+                        android:visibility="gone"
+                        tools:ignore="ImageContrastCheck"
+                        tools:src="@drawable/ic_bitmap_example" />
+
+                    <com.google.android.material.imageview.ShapeableImageView
+                        android:id="@+id/imageViewIconAlertDialog"
+                        android:layout_width="@dimen/notification_icon_width"
+                        android:layout_height="@dimen/notification_icon_height"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="@dimen/margin_spacing"
+                        tools:ignore="ImageContrastCheck"
+                        tools:src="@drawable/ic_baseline_information" />
+
+                </LinearLayout>
+
+            </RelativeLayout>
 
             <TextView
                 android:id="@+id/textViewTitleAlertDialog"
                 style="@style/Theme.MaterialDialog.Title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/margin_spacing_min"
-                android:layout_marginEnd="@dimen/margin_spacing_min" />
+                android:layout_marginStart="@dimen/margin_spacing"
+                android:layout_marginEnd="@dimen/margin_spacing" />
 
             <TextView
                 android:id="@+id/textViewMessageAlertDialog"
                 style="@style/Theme.MaterialDialog.Message"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/margin_spacing_min"
-                android:layout_marginEnd="@dimen/margin_spacing_min"
-                android:layout_marginBottom="@dimen/margin_spacing" />
+                android:layout_marginStart="@dimen/margin_spacing"
+                android:layout_marginEnd="@dimen/margin_spacing"
+                android:layout_marginBottom="@dimen/margin_spacing_medium" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="@dimen/margin_spacing_min">
+                android:layout_margin="@dimen/margin_spacing">
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/buttonActionNegativeAlertDialog"
@@ -95,6 +129,6 @@
 
         </LinearLayout>
 
-    </androidx.cardview.widget.CardView>
+    </com.google.android.material.card.MaterialCardView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

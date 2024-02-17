@@ -18,8 +18,8 @@
 
             <com.google.android.material.imageview.ShapeableImageView
                 android:id="@+id/imageViewApplicationIcon"
-                android:layout_width="@dimen/shapeable_image_view_notification_icon_width"
-                android:layout_height="@dimen/shapeable_image_view_notification_icon_height"
+                android:layout_width="@dimen/dialog_image_view_notification_icon_width"
+                android:layout_height="@dimen/dialog_image_view_notification_icon_height"
                 android:layout_alignParentStart="true"
                 android:layout_alignParentTop="true"
                 android:layout_marginStart="@dimen/margin_spacing_min"

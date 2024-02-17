@@ -12,6 +12,7 @@ import android.view.ViewGroup
 import androidx.annotation.ColorInt
 import androidx.annotation.ColorRes
 import androidx.annotation.DrawableRes
+import androidx.annotation.RawRes
 import androidx.annotation.RestrictTo
 import androidx.annotation.StringRes
 import androidx.core.content.ContextCompat
@@ -24,13 +25,16 @@ import com.github.leodan11.alertdialog.io.content.MaterialDialogInterface
 import com.github.leodan11.alertdialog.io.models.ButtonAlertDialog
 import com.github.leodan11.alertdialog.io.models.IconAlertDialog
 import com.github.leodan11.alertdialog.io.models.MessageAlertDialog
+import com.github.leodan11.alertdialog.io.models.RawAlertDialog
 import com.github.leodan11.alertdialog.io.models.TitleAlertDialog
 import com.github.leodan11.k_extensions.core.colorOnSurface
 import com.github.leodan11.k_extensions.core.colorPrimary
 
 abstract class AlertDialogCenteredBase(
     protected open var mContext: Context,
-    protected open var icon: IconAlertDialog,
+    protected open var icon: IconAlertDialog?,
+    protected open var bitmap: IconAlertDialog?,
+    protected open var jsonAnimation: RawAlertDialog?,
     protected open var backgroundColorInt: Int?,
     protected open var backgroundColorResource: Int?,
     protected open var title: TitleAlertDialog?,
@@ -53,7 +57,8 @@ abstract class AlertDialogCenteredBase(
     ): View {
         // Inflate and set the layout for the dialog
         // Pass null as the parent view because it's going in the dialog layout
-        val binding: MAlertDialogCenteredBinding = MAlertDialogCenteredBinding.inflate(layoutInflater)
+        val binding: MAlertDialogCenteredBinding =
+            MAlertDialogCenteredBinding.inflate(layoutInflater)
         // Initialize Views
         val mIconView = binding.imageViewIconAlertDialog
         val mTitleView = binding.textViewTitleAlertDialog
@@ -62,10 +67,30 @@ abstract class AlertDialogCenteredBase(
         val mNeutralButtonView = binding.buttonActionNeutralAlertDialog
         val mNegativeButtonView = binding.buttonActionNegativeAlertDialog
         // Set Icon
-        mIconView.setImageResource(icon.mDrawableResId)
+        if (icon != null) {
+            binding.animationViewAlertDialog.visibility = View.GONE
+            binding.imageViewBitmapAlertDialog.visibility = View.GONE
+            mIconView.setImageResource(icon!!.mDrawableResId)
+            mIconView.visibility = View.VISIBLE
+        } else if (bitmap != null) {
+            binding.animationViewAlertDialog.visibility = View.GONE
+            mIconView.visibility = View.GONE
+            binding.imageViewBitmapAlertDialog.setImageResource(bitmap!!.mDrawableResId)
+            binding.imageViewBitmapAlertDialog.visibility = View.VISIBLE
+        } else if (jsonAnimation != null) {
+            binding.imageViewBitmapAlertDialog.visibility = View.GONE
+            mIconView.visibility = View.GONE
+            binding.animationViewAlertDialog.setAnimation(jsonAnimation!!.mRawResId)
+            binding.animationViewAlertDialog.visibility = View.VISIBLE
+        } else binding.headerHolderAlertDialog.visibility = View.GONE
         // Set Icon BackgroundTint
         backgroundColorInt?.let { mIconView.setColorFilter(it, PorterDuff.Mode.SRC_IN) }
-        backgroundColorResource?.let { mIconView.setColorFilter(mContext.getColor(it), PorterDuff.Mode.SRC_IN) }
+        backgroundColorResource?.let {
+            mIconView.setColorFilter(
+                mContext.getColor(it),
+                PorterDuff.Mode.SRC_IN
+            )
+        }
         // Set Title
         if (title != null) {
             mTitleView.visibility = View.VISIBLE
@@ -240,7 +265,9 @@ abstract class AlertDialogCenteredBase(
      */
     abstract class Builder<D : AlertDialogCenteredBase>(protected open val context: Context) {
 
-        protected open var icon: IconAlertDialog = IconAlertDialog(R.drawable.ic_baseline_information)
+        protected open var icon: IconAlertDialog? = null
+        protected open var bitmap: IconAlertDialog? = null
+        protected open var jsonAnimation: RawAlertDialog? = null
         protected open var backgroundColorResource: Int? = null
         protected open var backgroundColorInt: Int? = null
         protected open var title: TitleAlertDialog? = null
@@ -258,6 +285,28 @@ abstract class AlertDialogCenteredBase(
          */
         fun setIcon(@DrawableRes icon: Int): Builder<D> {
             this.icon = IconAlertDialog(mDrawableResId = icon)
+            return this
+        }
+
+        /**
+         * Set the [DrawableRes] to be used in the title.
+         *
+         * @param icon Drawable to use as the icon.
+         * @return This Builder object to allow for chaining of calls to set methods
+         */
+        fun setImage(@DrawableRes icon: Int): Builder<D> {
+            this.bitmap = IconAlertDialog(mDrawableResId = icon)
+            return this
+        }
+
+        /**
+         * Set the [RawRes] to be used in the title.
+         *
+         * @param source Json animation to use as the icon.
+         * @return This Builder object to allow for chaining of calls to set methods
+         */
+        fun setAnimation(@RawRes source: Int): Builder<D> {
+            this.jsonAnimation = RawAlertDialog(mRawResId = source)
             return this
         }
 

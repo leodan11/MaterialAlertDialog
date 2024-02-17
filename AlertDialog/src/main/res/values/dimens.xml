@@ -11,10 +11,14 @@
     <dimen name="corners_shape">50dp</dimen>
     <dimen name="translation_y">-30dp</dimen>
     <dimen name="translation_y_invested">30dp</dimen>
-    <dimen name="shapeable_image_view_notification_icon_height">72dp</dimen>
-    <dimen name="shapeable_image_view_notification_icon_width">72dp</dimen>
-    <dimen name="shapeable_image_view_notification_icon_height_medium">48dp</dimen>
-    <dimen name="shapeable_image_view_notification_icon_width_medium">48dp</dimen>
+    <dimen name="dialog_image_view_notification_icon_height">72dp</dimen>
+    <dimen name="dialog_image_view_notification_icon_width">72dp</dimen>
+    <dimen name="dialog_image_view_notification_icon_height_min">48dp</dimen>
+    <dimen name="dialog_image_view_notification_icon_width_min">48dp</dimen>
+    <dimen name="dialog_image_view_notification_icon_height_medium">100dp</dimen>
+    <dimen name="dialog_image_view_notification_icon_width_medium">100dp</dimen>
+    <dimen name="dialog_image_view_notification_icon_height_large">150dp</dimen>
+    <dimen name="dialog_image_view_notification_icon_width_large">150dp</dimen>
     <dimen name="notification_icon_height">36dp</dimen>
     <dimen name="notification_icon_width">36dp</dimen>
 
