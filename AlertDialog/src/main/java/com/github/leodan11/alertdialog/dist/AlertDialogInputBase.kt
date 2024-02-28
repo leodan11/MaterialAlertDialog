@@ -4,7 +4,6 @@ import android.app.Dialog
 import android.content.Context
 import android.content.res.ColorStateList
 import android.graphics.Color
-import android.os.Build
 import android.text.Spanned
 import android.text.TextUtils
 import android.view.LayoutInflater
@@ -208,8 +207,6 @@ abstract class AlertDialogInputBase(
             // Set InputLayout Color
             mTextInputLayoutAlert.boxStrokeColor = mContext.colorPrimary()
             mTextInputLayoutAlert.hintTextColor =
-                ColorStateList.valueOf(mContext.colorPrimary())
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) mTextInputLayoutAlert.cursorColor =
                 ColorStateList.valueOf(mContext.colorPrimary())
             // Set Background Tint
             val mBackgroundTint: ColorStateList =

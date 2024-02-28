@@ -4,7 +4,6 @@ import android.app.Dialog
 import android.content.Context
 import android.content.res.ColorStateList
 import android.graphics.Color
-import android.os.Build
 import android.text.Spanned
 import android.text.TextUtils
 import android.view.LayoutInflater
@@ -22,8 +21,8 @@ import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import com.github.leodan11.alertdialog.MaterialAlertDialogVerificationCode
 import com.github.leodan11.alertdialog.R
-import com.github.leodan11.alertdialog.io.content.Config.MATERIAL_ALERT_DIALOG_UI_NOT_ICON
 import com.github.leodan11.alertdialog.databinding.MAlertDialogInputCodeBinding
+import com.github.leodan11.alertdialog.io.content.Config.MATERIAL_ALERT_DIALOG_UI_NOT_ICON
 import com.github.leodan11.alertdialog.io.content.MaterialAlertDialog
 import com.github.leodan11.alertdialog.io.content.MaterialDialogInterface
 import com.github.leodan11.alertdialog.io.helpers.Functions.onCallbackRequestFocus
@@ -347,19 +346,13 @@ abstract class AlertDialogVerificationCodeBase(
             mEditTextDecimalNumberLayout.boxStrokeColor = mContext.colorPrimary()
             mEditTextDecimalNumberLayout.hintTextColor =
                 ColorStateList.valueOf(mContext.colorPrimary())
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) mEditTextDecimalNumberLayout.cursorColor =
-                ColorStateList.valueOf(mContext.colorPrimary())
             // Set InputLayout Percentage Color
             mEditTextPercentageLayout.boxStrokeColor = mContext.colorPrimary()
             mEditTextPercentageLayout.hintTextColor =
                 ColorStateList.valueOf(mContext.colorPrimary())
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) mEditTextPercentageLayout.cursorColor =
-                ColorStateList.valueOf(mContext.colorPrimary())
             // Set InputLayout Reason Color
             mEditTextReasonLayout.boxStrokeColor = mContext.colorPrimary()
             mEditTextReasonLayout.hintTextColor =
-                ColorStateList.valueOf(mContext.colorPrimary())
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) mEditTextReasonLayout.cursorColor =
                 ColorStateList.valueOf(mContext.colorPrimary())
             // Set Background Tint
             val mBackgroundTint: ColorStateList =
@@ -662,7 +655,7 @@ abstract class AlertDialogVerificationCodeBase(
          * @return This Builder object to allow for chaining of calls to set methods
          */
         fun setNeedReason(isNeedReason: Boolean): Builder<D> {
-            this.isNeedReason = isCancelable
+            this.isNeedReason = isNeedReason
             return this
         }
 

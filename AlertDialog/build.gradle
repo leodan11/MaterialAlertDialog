@@ -52,7 +52,7 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
     implementation 'com.airbnb.android:lottie:6.3.0' // Lottie for Android
-    implementation 'com.github.leodan11:KExtensions:1.0.5' // KTX Extension
+    implementation 'com.github.leodan11:KExtensions:1.0.6' // KTX Extension
     implementation 'com.github.leodan11:ReadMoreOptions:1.1.4' // ReadMoreTextView
 }
 
@@ -64,7 +64,7 @@ afterEvaluate {
                 from components.release
                 groupId = 'com.github.leodan11'
                 artifactId = 'MaterialAlertDialog'
-                version = '1.9.0'
+                version = '1.9.2'
 
                 pom {
                     name = "MaterialAlertDialog"

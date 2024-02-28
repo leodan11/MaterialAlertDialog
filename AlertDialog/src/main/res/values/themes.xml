@@ -1,10 +1,4 @@
-<resources xmlns:tools="http://schemas.android.com/tools">
-    <!-- Base application theme. -->
-    <style name="Base.Theme.MaterialDialog" parent="Theme.Material3.DayNight.NoActionBar">
-        <!-- Customize your light theme here. -->
-    </style>
-
-    <style name="Theme.MaterialDialog" parent="Base.Theme.MaterialDialog" />
+<resources>
 
     <!-- Theme for Dialog Title -->
     <style name="Theme.MaterialDialog.Title" parent="TextAppearance.Material3.TitleMedium">
