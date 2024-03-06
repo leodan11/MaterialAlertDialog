@@ -34,10 +34,9 @@
     <public name="text_value_decline" type="string"/>
     <public name="text_value_discard" type="string"/>
     <public name="text_value_got_it" type="string"/>
-    <public name="text_value_more" type="string"/>
-    <public name="text_value_less" type="string"/>
     <public name="text_value_charging" type="string"/>
     <public name="text_value_charging_please" type="string"/>
+    <public name="text_value_enter_a_value_below" type="string"/>
     <public name="text_value_code" type="string"/>
     <public name="text_value_this_field_is_required" type="string"/>
     <public name="text_value_reason_hint" type="string"/>

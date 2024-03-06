@@ -10,7 +10,10 @@
         android:id="@+id/cardViewContainerHeader"
         android:layout_width="@dimen/dialog_image_view_notification_icon_width"
         android:layout_height="@dimen/dialog_image_view_notification_icon_height"
+        android:layout_marginTop="2dp"
+        android:layout_marginBottom="2dp"
         app:cardCornerRadius="@dimen/corners_shape"
+        app:layout_constraintBottom_toTopOf="@id/cardViewContainerBody"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -30,7 +33,7 @@
         android:id="@+id/cardViewContainerBody"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:translationY="@dimen/translation_y"
+        android:translationY="@dimen/dialog_image_view_notification_icon_fifty_percent_negative"
         app:cardCornerRadius="@dimen/margin_spacing"
         app:cardElevation="0dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -40,7 +43,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/translation_y_invested"
+            android:layout_marginTop="@dimen/dialog_image_view_notification_icon_fifty_percent"
             android:orientation="vertical">
 
             <TextView

@@ -71,7 +71,8 @@ dependencies {
 
 ## Documentation
 
-A beautiful, fluid, and extensible dialogs API for Kotlin & Android. See the [documentation](https://github.com/leodan11/MaterialAlertDialog/wiki) for examples and general usage of the this library.
+A beautiful, fluid, and extensible dialogs API for Kotlin & Android.
+See the [documentation](https://github.com/leodan11/MaterialAlertDialog/wiki) for examples and general usage of this library.
 
 License
 -------

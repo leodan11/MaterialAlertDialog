@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="dialog_image_view_notification_icon_height">80dp</dimen>
-    <dimen name="dialog_image_view_notification_icon_width">80dp</dimen>
+    <dimen name="dialog_image_view_notification_icon_fifty_percent">45dp</dimen>
+    <dimen name="dialog_image_view_notification_icon_fifty_percent_negative">-45dp</dimen>
+    <dimen name="dialog_image_view_notification_icon_height">90dp</dimen>
+    <dimen name="dialog_image_view_notification_icon_width">90dp</dimen>
     <dimen name="dialog_image_view_notification_icon_height_min">56dp</dimen>
     <dimen name="dialog_image_view_notification_icon_width_min">56dp</dimen>
     <dimen name="dialog_image_view_notification_icon_height_medium">120dp</dimen>

@@ -9,10 +9,10 @@
     <dimen name="app_icon_size_min">34dp</dimen>
     <dimen name="spacing_edit_text">48dp</dimen>
     <dimen name="corners_shape">50dp</dimen>
-    <dimen name="translation_y">-30dp</dimen>
-    <dimen name="translation_y_invested">30dp</dimen>
-    <dimen name="dialog_image_view_notification_icon_height">72dp</dimen>
-    <dimen name="dialog_image_view_notification_icon_width">72dp</dimen>
+    <dimen name="dialog_image_view_notification_icon_fifty_percent">40dp</dimen>
+    <dimen name="dialog_image_view_notification_icon_fifty_percent_negative">-40dp</dimen>
+    <dimen name="dialog_image_view_notification_icon_height">80dp</dimen>
+    <dimen name="dialog_image_view_notification_icon_width">80dp</dimen>
     <dimen name="dialog_image_view_notification_icon_height_min">48dp</dimen>
     <dimen name="dialog_image_view_notification_icon_width_min">48dp</dimen>
     <dimen name="dialog_image_view_notification_icon_height_medium">100dp</dimen>
