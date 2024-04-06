@@ -50,8 +50,7 @@
             app:endIconMode="clear_text"
             app:errorEnabled="true"
             app:helperText="@string/text_value_username_helper"
-            app:helperTextEnabled="true"
-            app:shapeAppearance="@style/CutInputLayout">
+            app:helperTextEnabled="true">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/text_input_edit_text_username"
@@ -72,8 +71,7 @@
             app:endIconMode="password_toggle"
             app:errorEnabled="true"
             app:helperText="@string/text_value_password_helper"
-            app:helperTextEnabled="true"
-            app:shapeAppearance="@style/CutInputLayout">
+            app:helperTextEnabled="true">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/text_input_edit_text_password"

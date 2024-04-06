@@ -313,7 +313,7 @@ abstract class AlertDialogCenteredBase(
         /**
          * Set background tint [ColorInt].
          *
-         * @param color Color resource. Eg: [Color.BLUE].
+         * @param color Color resource. E.g.: [Color.BLUE].
          * @return This Builder object to allow for chaining of calls to set methods
          */
         fun setIconBackgroundTintRGB(@ColorInt color: Int): Builder<D> {
@@ -324,7 +324,7 @@ abstract class AlertDialogCenteredBase(
         /**
          * Set background tint [ColorRes].
          *
-         * @param color Color resource. Eg: [R.color.Success].
+         * @param color Color resource. E.g.: [R.color.Success].
          * @return This Builder object to allow for chaining of calls to set methods
          */
         fun setIconBackgroundTint(@ColorRes color: Int): Builder<D> {

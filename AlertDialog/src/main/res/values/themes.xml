@@ -61,7 +61,6 @@
         <item name="android:fontFamily">@font/helvetica_light</item>
     </style>
 
-
     <!-- Theme for Dialog Button IOS -->
     <style name="MaterialDialog.Button.IOS" parent="TextAppearance.Material3.BodyMedium">
         <item name="android:textAlignment">center</item>
@@ -69,9 +68,4 @@
         <item name="android:fontFamily">@font/helvetica_light</item>
     </style>
 
-    <!-- Theme for Input Layout Cut -->
-    <style name="CutInputLayout" parent="ShapeAppearance.Material3.MediumComponent">
-        <item name="cornerFamily">cut</item>
-        <item name="cornerSize">12dp</item>
-    </style>
 </resources>

@@ -25,8 +25,8 @@ class MaterialAlertDialogEvents(
     mCancelable: Boolean,
     mPositiveButton: ButtonAlertDialog?,
     mNeutralButton: ButtonAlertDialog?,
-    mNegativeButton: ButtonAlertDialog?
-): AlertDialogEventsBase(
+    mNegativeButton: ButtonAlertDialog?,
+) : AlertDialogEventsBase(
     mContext = mContext,
     icon = icon,
     type = type,
@@ -40,7 +40,7 @@ class MaterialAlertDialogEvents(
     mPositiveButton = mPositiveButton,
     mNeutralButton = mNeutralButton,
     mNegativeButton = mNegativeButton
-){
+) {
 
     // Init Dialog
     init {
@@ -52,7 +52,6 @@ class MaterialAlertDialogEvents(
         builder.setCancelable(mCancelable)
         // Create and show dialog
         mDialog = builder.create()
-        mDialog?.window?.setBackgroundDrawableResource(android.R.color.transparent)
     }
 
     /**
@@ -60,7 +59,8 @@ class MaterialAlertDialogEvents(
      * The default alert dialog theme is defined by [android.R.attr.alertDialogTheme] within the parent context's theme.
      * @param context the parent context
      */
-    class Builder(context: Context): AlertDialogEventsBase.Builder<MaterialAlertDialogEvents>(context = context) {
+    class Builder(context: Context) :
+        AlertDialogEventsBase.Builder<MaterialAlertDialogEvents>(context = context) {
 
         override fun create(): MaterialAlertDialogEvents {
             return MaterialAlertDialogEvents(

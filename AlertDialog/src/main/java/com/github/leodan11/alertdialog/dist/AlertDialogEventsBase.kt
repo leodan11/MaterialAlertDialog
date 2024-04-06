@@ -3,11 +3,17 @@ package com.github.leodan11.alertdialog.dist
 import android.app.Dialog
 import android.content.Context
 import android.content.res.ColorStateList
+import android.graphics.Bitmap
 import android.graphics.Color
+import android.graphics.Paint
+import android.graphics.drawable.ShapeDrawable
+import android.graphics.drawable.shapes.RoundRectShape
 import android.text.Spanned
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.LinearLayout
 import androidx.annotation.ColorInt
 import androidx.annotation.ColorRes
 import androidx.annotation.DrawableRes
@@ -17,14 +23,21 @@ import androidx.core.content.ContextCompat
 import androidx.core.widget.addTextChangedListener
 import com.github.leodan11.alertdialog.MaterialAlertDialogEvents
 import com.github.leodan11.alertdialog.R
-import com.github.leodan11.alertdialog.io.content.Config.DEFAULT_DETAILS_SCROLL_HEIGHT_SPAN
-import com.github.leodan11.alertdialog.io.content.Config.MATERIAL_ALERT_DIALOG_UI_NOT_ICON
 import com.github.leodan11.alertdialog.databinding.MAlertDialogBinding
 import com.github.leodan11.alertdialog.io.content.AlertDialogEvents.Type
+import com.github.leodan11.alertdialog.io.content.Config.DEFAULT_DETAILS_SCROLL_HEIGHT_SPAN
+import com.github.leodan11.alertdialog.io.content.Config.DEFAULT_RADIUS
+import com.github.leodan11.alertdialog.io.content.Config.MATERIAL_ALERT_DIALOG_UI_NOT_ICON
 import com.github.leodan11.alertdialog.io.content.MaterialAlertDialog
 import com.github.leodan11.alertdialog.io.content.MaterialDialogInterface
+import com.github.leodan11.alertdialog.io.helpers.DisplayUtil
+import com.github.leodan11.alertdialog.io.helpers.Functions
 import com.github.leodan11.alertdialog.io.helpers.Functions.onTextViewTextSize
-import com.github.leodan11.alertdialog.io.models.*
+import com.github.leodan11.alertdialog.io.models.ButtonAlertDialog
+import com.github.leodan11.alertdialog.io.models.DetailsAlertDialog
+import com.github.leodan11.alertdialog.io.models.IconAlertDialog
+import com.github.leodan11.alertdialog.io.models.MessageAlertDialog
+import com.github.leodan11.alertdialog.io.models.TitleAlertDialog
 import com.github.leodan11.k_extensions.core.colorError
 import com.github.leodan11.k_extensions.core.colorOnSurface
 import com.github.leodan11.k_extensions.core.colorPrimary
@@ -44,7 +57,7 @@ abstract class AlertDialogEventsBase(
     protected open var mCancelable: Boolean,
     protected open var mPositiveButton: ButtonAlertDialog?,
     protected open var mNeutralButton: ButtonAlertDialog?,
-    protected open var mNegativeButton: ButtonAlertDialog?
+    protected open var mNegativeButton: ButtonAlertDialog?,
 ) : MaterialDialogInterface {
 
     protected open var mDialog: Dialog? = null
@@ -55,7 +68,7 @@ abstract class AlertDialogEventsBase(
     @RestrictTo(RestrictTo.Scope.LIBRARY)
     protected open fun createView(
         layoutInflater: LayoutInflater,
-        container: ViewGroup? = null
+        container: ViewGroup? = null,
     ): View {
         // Inflate and set the layout for the dialog
         // Pass null as the parent view because it's going in the dialog layout
@@ -77,22 +90,38 @@ abstract class AlertDialogEventsBase(
             Type.INFORMATION -> mIconView.setImageResource(R.drawable.ic_baseline_information)
             Type.SUCCESS -> mIconView.setImageResource(R.drawable.ic_baseline_success)
             Type.WARNING -> mIconView.setImageResource(R.drawable.ic_baseline_warning)
+            Type.WITHOUT_INTERNET -> mIconView.setImageResource(R.drawable.ic_baseline_wifi_alert)
             else -> mIconView.setImageResource(icon.mDrawableResId)
         }
         // Set Icon BackgroundTint
-        binding.cardViewContainerHeader.setCardBackgroundColor(
-            when (type) {
-                Type.ERROR -> mContext.colorError()
-                Type.HELP -> mContext.colorSecondary()
-                Type.INFORMATION -> mContext.colorPrimary()
-                Type.SUCCESS -> mContext.getColor(R.color.Success)
-                Type.WARNING -> mContext.getColor(R.color.Warning)
-                else -> {
-                    if (backgroundColorSpanInt != null) backgroundColorSpanInt!!
-                    else if (backgroundColorSpanResource != null) mContext.getColor(backgroundColorSpanResource!!) else mContext.colorSecondary()
-                }
-            }
+        val triangleIv = ImageView(mContext)
+        triangleIv.layoutParams = LinearLayout.LayoutParams(
+            ViewGroup.LayoutParams.MATCH_PARENT,
+            DisplayUtil.dp2px(mContext, 10f)
         )
+        triangleIv.setImageBitmap(
+            createTriangle(
+                (DisplayUtil.getScreenSize(mContext).x * 0.7).toFloat(),
+                DisplayUtil.dp2px(mContext, 10f).toFloat()
+            )
+        )
+        binding.topLayout.addView(triangleIv)
+        val radius = DisplayUtil.dp2px(mContext, DEFAULT_RADIUS)
+        val outerRadii = floatArrayOf(
+            radius.toFloat(),
+            radius.toFloat(),
+            radius.toFloat(),
+            radius.toFloat(),
+            0f,
+            0f,
+            0f,
+            0f
+        )
+        val roundRectShape = RoundRectShape(outerRadii, null, null)
+        val shapeDrawable = ShapeDrawable(roundRectShape)
+        shapeDrawable.paint.style = Paint.Style.FILL
+        shapeDrawable.paint.setColor(getColor())
+        binding.llTop.background = shapeDrawable
         // Set Title
         if (title != null) {
             mTitleView.visibility = View.VISIBLE
@@ -210,6 +239,22 @@ abstract class AlertDialogEventsBase(
     }
 
     /**
+     * Create triangle
+     *
+     * @param width Defines the width of the bitmap
+     * @param height Defines the height of the bitmap
+     * @return [Bitmap] or null
+     */
+    private fun createTriangle(width: Float, height: Float): Bitmap? {
+        return if (width <= 0 || height <= 0) null else Functions.getBitmap(
+            width,
+            height,
+            getColor()
+        )
+    }
+
+
+    /**
      * Dismiss this dialog, removing it from the screen.
      * This method can be invoked safely from any thread.
      * Note that you should not override this method to do cleanup when the dialog is dismissed.
@@ -270,6 +315,23 @@ abstract class AlertDialogEventsBase(
         mOnDismissListener?.onDismiss(this)
     }
 
+    private fun getColor(): Int {
+        return when (type) {
+            Type.ERROR -> mContext.colorError()
+            Type.HELP -> mContext.colorSecondary()
+            Type.INFORMATION -> mContext.colorPrimary()
+            Type.SUCCESS -> mContext.getColor(R.color.Success)
+            Type.WARNING -> mContext.getColor(R.color.Warning)
+            Type.WITHOUT_INTERNET -> mContext.getColor(R.color.Warning)
+            else -> {
+                if (backgroundColorSpanInt != null) backgroundColorSpanInt!!
+                else if (backgroundColorSpanResource != null) mContext.getColor(
+                    backgroundColorSpanResource!!
+                ) else mContext.colorSecondary()
+            }
+        }
+    }
+
     private fun showCallback() {
         mOnShowListener?.onShow(this)
     }
@@ -312,7 +374,8 @@ abstract class AlertDialogEventsBase(
         /**
          * Set material dialog type. Use the following types
          * [Type.CUSTOM], [Type.ERROR], [Type.HELP],
-         * [Type.INFORMATION], [Type.SUCCESS], [Type.WARNING].
+         * [Type.INFORMATION], [Type.SUCCESS], [Type.WARNING],
+         * [Type.WITHOUT_INTERNET].
          *
          * @param dialogType By default, it is used [Type.CUSTOM].
          * @return This Builder object to allow for chaining of calls to set methods
@@ -325,7 +388,7 @@ abstract class AlertDialogEventsBase(
         /**
          * Set background [ColorInt].
          *
-         * @param color Color resource. Eg: [Color.GREEN].
+         * @param color Color resource. E.g.: [Color.GREEN].
          * @return This Builder object to allow for chaining of calls to set methods
          */
         fun setBackgroundColorSpanRGB(@ColorInt color: Int): Builder<D> {
@@ -336,7 +399,7 @@ abstract class AlertDialogEventsBase(
         /**
          * Set background [ColorRes].
          *
-         * @param color Color resource. Eg: [R.color.Success].
+         * @param color Color resource. E.g.: [R.color.Success].
          * @return This Builder object to allow for chaining of calls to set methods
          */
         fun setBackgroundColorSpan(@ColorRes color: Int): Builder<D> {
@@ -394,7 +457,10 @@ abstract class AlertDialogEventsBase(
          * @param alignment The message alignment. Default [MaterialAlertDialog.TextAlignment.CENTER].
          * @return This Builder object to allow for chaining of calls to set methods
          */
-        fun setTitle(@StringRes title: Int, alignment: MaterialAlertDialog.TextAlignment): Builder<D> {
+        fun setTitle(
+            @StringRes title: Int,
+            alignment: MaterialAlertDialog.TextAlignment,
+        ): Builder<D> {
             this.title =
                 TitleAlertDialog(title = context.getString(title), textAlignment = alignment)
             return this
@@ -439,7 +505,10 @@ abstract class AlertDialogEventsBase(
          * @param alignment The message alignment. Default [MaterialAlertDialog.TextAlignment.CENTER].
          * @return This Builder object to allow for chaining of calls to set methods
          */
-        fun setMessage(@StringRes message: Int, alignment: MaterialAlertDialog.TextAlignment): Builder<D> {
+        fun setMessage(
+            @StringRes message: Int,
+            alignment: MaterialAlertDialog.TextAlignment,
+        ): Builder<D> {
             this.message =
                 MessageAlertDialog.text(text = context.getString(message), alignment = alignment)
             return this
@@ -520,7 +589,7 @@ abstract class AlertDialogEventsBase(
          */
         fun setPositiveButton(
             buttonText: String?,
-            onClickListener: MaterialDialogInterface.OnClickListener
+            onClickListener: MaterialDialogInterface.OnClickListener,
         ): Builder<D> {
             return setPositiveButton(buttonText, MATERIAL_ALERT_DIALOG_UI_NOT_ICON, onClickListener)
         }
@@ -534,7 +603,7 @@ abstract class AlertDialogEventsBase(
          */
         fun setPositiveButton(
             @StringRes buttonText: Int,
-            onClickListener: MaterialDialogInterface.OnClickListener
+            onClickListener: MaterialDialogInterface.OnClickListener,
         ): Builder<D> {
             return setPositiveButton(buttonText, MATERIAL_ALERT_DIALOG_UI_NOT_ICON, onClickListener)
         }
@@ -550,7 +619,7 @@ abstract class AlertDialogEventsBase(
         fun setPositiveButton(
             buttonText: String?,
             @DrawableRes icon: Int,
-            onClickListener: MaterialDialogInterface.OnClickListener
+            onClickListener: MaterialDialogInterface.OnClickListener,
         ): Builder<D> {
             val valueText =
                 if (buttonText.isNullOrEmpty()) context.getString(R.string.text_value_accept)
@@ -571,7 +640,7 @@ abstract class AlertDialogEventsBase(
         fun setPositiveButton(
             @StringRes buttonText: Int,
             @DrawableRes icon: Int,
-            onClickListener: MaterialDialogInterface.OnClickListener
+            onClickListener: MaterialDialogInterface.OnClickListener,
         ): Builder<D> {
             positiveButton = ButtonAlertDialog(
                 title = context.getString(buttonText),
@@ -590,7 +659,7 @@ abstract class AlertDialogEventsBase(
          */
         fun setNeutralButton(
             buttonText: String?,
-            onClickListener: MaterialDialogInterface.OnClickListener
+            onClickListener: MaterialDialogInterface.OnClickListener,
         ): Builder<D> {
             return setNeutralButton(buttonText, MATERIAL_ALERT_DIALOG_UI_NOT_ICON, onClickListener)
         }
@@ -604,7 +673,7 @@ abstract class AlertDialogEventsBase(
          */
         fun setNeutralButton(
             @StringRes buttonText: Int,
-            onClickListener: MaterialDialogInterface.OnClickListener
+            onClickListener: MaterialDialogInterface.OnClickListener,
         ): Builder<D> {
             return setNeutralButton(buttonText, MATERIAL_ALERT_DIALOG_UI_NOT_ICON, onClickListener)
         }
@@ -620,7 +689,7 @@ abstract class AlertDialogEventsBase(
         fun setNeutralButton(
             buttonText: String?,
             @DrawableRes icon: Int,
-            onClickListener: MaterialDialogInterface.OnClickListener
+            onClickListener: MaterialDialogInterface.OnClickListener,
         ): Builder<D> {
             val valueText =
                 if (buttonText.isNullOrEmpty()) context.getString(R.string.text_value_decline)
@@ -641,7 +710,7 @@ abstract class AlertDialogEventsBase(
         fun setNeutralButton(
             @StringRes buttonText: Int,
             @DrawableRes icon: Int,
-            onClickListener: MaterialDialogInterface.OnClickListener
+            onClickListener: MaterialDialogInterface.OnClickListener,
         ): Builder<D> {
             neutralButton = ButtonAlertDialog(
                 title = context.getString(buttonText),
@@ -660,7 +729,7 @@ abstract class AlertDialogEventsBase(
          */
         fun setNegativeButton(
             buttonText: String?,
-            onClickListener: MaterialDialogInterface.OnClickListener
+            onClickListener: MaterialDialogInterface.OnClickListener,
         ): Builder<D> {
             return setNegativeButton(buttonText, MATERIAL_ALERT_DIALOG_UI_NOT_ICON, onClickListener)
         }
@@ -674,7 +743,7 @@ abstract class AlertDialogEventsBase(
          */
         fun setNegativeButton(
             @StringRes buttonText: Int,
-            onClickListener: MaterialDialogInterface.OnClickListener
+            onClickListener: MaterialDialogInterface.OnClickListener,
         ): Builder<D> {
             return setNegativeButton(buttonText, MATERIAL_ALERT_DIALOG_UI_NOT_ICON, onClickListener)
         }
@@ -690,7 +759,7 @@ abstract class AlertDialogEventsBase(
         fun setNegativeButton(
             buttonText: String?,
             @DrawableRes icon: Int,
-            onClickListener: MaterialDialogInterface.OnClickListener
+            onClickListener: MaterialDialogInterface.OnClickListener,
         ): Builder<D> {
             val valueText =
                 if (buttonText.isNullOrEmpty()) context.getString(R.string.text_value_cancel)
@@ -711,7 +780,7 @@ abstract class AlertDialogEventsBase(
         fun setNegativeButton(
             @StringRes buttonText: Int,
             @DrawableRes icon: Int,
-            onClickListener: MaterialDialogInterface.OnClickListener
+            onClickListener: MaterialDialogInterface.OnClickListener,
         ): Builder<D> {
             negativeButton = ButtonAlertDialog(
                 title = context.getString(buttonText),

@@ -37,5 +37,5 @@
     <string name="text_value_code_error">Debes ingresar o completar el código</string>
     <string name="text_value_unknown_input_type">Tipo de entrada desconocido</string>
     <string name="text_value_close">Cerrar</string>
-    <string name="text_value_enter_a_value_below">Ingrese un valor en continuación</string>
+    <string name="text_value_enter_a_value_below">Ingrese un valor a continuación</string>
 </resources>

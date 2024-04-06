@@ -13,8 +13,8 @@
     <dimen name="dialog_image_view_notification_icon_fifty_percent_negative">-40dp</dimen>
     <dimen name="dialog_image_view_notification_icon_height">80dp</dimen>
     <dimen name="dialog_image_view_notification_icon_width">80dp</dimen>
-    <dimen name="dialog_image_view_notification_icon_height_min">48dp</dimen>
-    <dimen name="dialog_image_view_notification_icon_width_min">48dp</dimen>
+    <dimen name="dialog_image_view_notification_icon_height_min">50dp</dimen>
+    <dimen name="dialog_image_view_notification_icon_width_min">50dp</dimen>
     <dimen name="dialog_image_view_notification_icon_height_medium">100dp</dimen>
     <dimen name="dialog_image_view_notification_icon_width_medium">100dp</dimen>
     <dimen name="dialog_image_view_notification_icon_height_large">150dp</dimen>

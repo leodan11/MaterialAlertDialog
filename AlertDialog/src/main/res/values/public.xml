@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <public name="ic_animated_default" type="drawable" />
-    <public name="ic_error" type="drawable" />
-    <public name="ic_help" type="drawable" />
-    <public name="ic_information" type="drawable" />
-    <public name="ic_security" type="drawable" />
-    <public name="ic_shield_key" type="drawable" />
-    <public name="ic_success" type="drawable" />
-    <public name="ic_warning" type="drawable" />
+    <public name="ic_baseline_animated_default" type="drawable" />
+    <public name="ic_baseline_error" type="drawable" />
+    <public name="ic_baseline_help" type="drawable" />
+    <public name="ic_baseline_information" type="drawable" />
+    <public name="ic_baseline_security" type="drawable" />
+    <public name="ic_baseline_shield_key" type="drawable" />
+    <public name="ic_baseline_success" type="drawable" />
+    <public name="ic_baseline_warning" type="drawable" />
+    <public name="ic_baseline_wifi_alert" type="drawable" />
 
     <public name="text_value_username" type="string"/>
     <public name="text_value_username_helper" type="string"/>

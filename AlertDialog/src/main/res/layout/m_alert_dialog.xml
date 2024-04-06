@@ -1,136 +1,119 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical">
 
-    <androidx.cardview.widget.CardView
-        android:id="@+id/cardViewContainerHeader"
-        android:layout_width="@dimen/dialog_image_view_notification_icon_width"
-        android:layout_height="@dimen/dialog_image_view_notification_icon_height"
-        android:layout_marginTop="2dp"
-        android:layout_marginBottom="2dp"
-        app:cardCornerRadius="@dimen/corners_shape"
-        app:layout_constraintBottom_toTopOf="@id/cardViewContainerBody"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+    <LinearLayout
+        android:id="@+id/llTop"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dialog_image_view_notification_icon_height_medium"
+        android:gravity="center"
+        android:orientation="vertical">
 
         <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/imageViewIconAlertDialog"
-            android:layout_width="@dimen/notification_icon_width"
-            android:layout_height="@dimen/notification_icon_height"
+            android:layout_width="@dimen/dialog_image_view_notification_icon_width_min"
+            android:layout_height="@dimen/dialog_image_view_notification_icon_height_min"
             android:layout_gravity="center"
+            android:layout_margin="@dimen/margin_spacing"
             android:tint="?attr/colorSurface"
             tools:ignore="ImageContrastCheck"
             tools:src="@drawable/ic_baseline_success" />
 
-    </androidx.cardview.widget.CardView>
+    </LinearLayout>
 
-    <androidx.cardview.widget.CardView
-        android:id="@+id/cardViewContainerBody"
-        android:layout_width="0dp"
+    <LinearLayout
+        android:id="@+id/topLayout"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/margin_spacing"
+        android:orientation="vertical">
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/textViewTitleAlertDialog"
+        style="@style/Theme.MaterialDialog.Title"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:translationY="@dimen/dialog_image_view_notification_icon_fifty_percent_negative"
-        app:cardCornerRadius="@dimen/margin_spacing"
-        app:cardElevation="0dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/cardViewContainerHeader">
+        android:layout_marginStart="@dimen/margin_spacing_min"
+        android:layout_marginEnd="@dimen/margin_spacing_min" />
 
-        <LinearLayout
+    <TextView
+        android:id="@+id/textViewMessageAlertDialog"
+        style="@style/Theme.MaterialDialog.Message"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin_spacing_min"
+        android:layout_marginEnd="@dimen/margin_spacing_min" />
+
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/nestedScrollViewContainerDetails"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin_spacing"
+        android:layout_marginTop="@dimen/paddingTop"
+        android:layout_marginEnd="@dimen/margin_spacing"
+        android:layout_marginBottom="@dimen/margin_spacing"
+        android:contentDescription="@string/text_value_information"
+        android:scrollbars="none"
+        android:visibility="gone"
+        tools:visibility="visible">
+
+        <TextView
+            android:id="@+id/textViewDetailsAlertDialog"
+            style="@style/Theme.MaterialDialog.Details"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/dialog_image_view_notification_icon_fifty_percent"
-            android:orientation="vertical">
+            android:layout_marginTop="0dp" />
 
-            <TextView
-                android:id="@+id/textViewTitleAlertDialog"
-                style="@style/Theme.MaterialDialog.Title"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/margin_spacing_min"
-                android:layout_marginEnd="@dimen/margin_spacing_min" />
+    </androidx.core.widget.NestedScrollView>
 
-            <TextView
-                android:id="@+id/textViewMessageAlertDialog"
-                style="@style/Theme.MaterialDialog.Message"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/margin_spacing_min"
-                android:layout_marginEnd="@dimen/margin_spacing_min" />
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/margin_spacing_min">
 
-            <androidx.core.widget.NestedScrollView
-                android:id="@+id/nestedScrollViewContainerDetails"
-                android:layout_width="match_parent"
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/buttonActionNegativeAlertDialog"
+            style="@style/MaterialDialog.NegativeButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/button_negative_speakable_text_value"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="VisualLintButtonSize" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/buttonActionNeutralAlertDialog"
+                style="@style/MaterialDialog.NeutralButton"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/margin_spacing_min"
-                android:layout_marginTop="@dimen/paddingTop"
+                android:layout_gravity="center"
                 android:layout_marginEnd="@dimen/margin_spacing_min"
-                android:layout_marginBottom="@dimen/margin_spacing_min"
-                android:contentDescription="@string/text_value_information"
-                android:scrollbars="none"
-                android:visibility="gone"
-                tools:visibility="visible">
+                android:contentDescription="@string/button_neutral_speakable_text_value"
+                tools:ignore="VisualLintButtonSize" />
 
-                <TextView
-                    android:id="@+id/textViewDetailsAlertDialog"
-                    style="@style/Theme.MaterialDialog.Details"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="0dp" />
-
-            </androidx.core.widget.NestedScrollView>
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/buttonActionPositiveAlertDialog"
+                style="@style/MaterialDialog.PositiveButton"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="@dimen/margin_spacing_min">
-
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/buttonActionNegativeAlertDialog"
-                    style="@style/MaterialDialog.NegativeButton"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:contentDescription="@string/button_negative_speakable_text_value"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    tools:ignore="VisualLintButtonSize" />
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent">
-
-                    <com.google.android.material.button.MaterialButton
-                        android:id="@+id/buttonActionNeutralAlertDialog"
-                        style="@style/MaterialDialog.NeutralButton"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_marginEnd="@dimen/margin_spacing_min"
-                        android:contentDescription="@string/button_neutral_speakable_text_value"
-                        tools:ignore="VisualLintButtonSize" />
-
-                    <com.google.android.material.button.MaterialButton
-                        android:id="@+id/buttonActionPositiveAlertDialog"
-                        style="@style/MaterialDialog.PositiveButton"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:contentDescription="@string/button_positive_speakable_text_value"
-                        tools:ignore="VisualLintButtonSize" />
-
-                </LinearLayout>
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
+                android:layout_gravity="center"
+                android:contentDescription="@string/button_positive_speakable_text_value"
+                tools:ignore="VisualLintButtonSize" />
 
         </LinearLayout>
 
-    </androidx.cardview.widget.CardView>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>
