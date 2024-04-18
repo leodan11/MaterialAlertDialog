@@ -1,6 +1,5 @@
 package com.github.leodan11.dialog
 
-import android.graphics.Color
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -68,10 +67,10 @@ class MainActivity : AppCompatActivity() {
             buttonActionAlertPlus.setOnClickListener {
                 MaterialAlertDialogEvents.Builder(this@MainActivity)
                     .setIcon(R.drawable.ic_baseline_light_mode)
-                    .setBackgroundColorSpanRGB(Color.rgb(60, 100, 200))
+                    .setBackgroundColorSpan(60, 100, 200)
                     .setTitle("Lorem Ipsum")
                     .setMessage("What is Lorem Ipsum?")
-                    .setDetails("Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.")
+                    .setDetails("Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Elettra sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.")
                     .setCancelable(false)
                     .setPositiveButton(null) { dialog, _ -> dialog?.dismiss() }
                     .setNeutralButton(null) { dialog, _ -> dialog?.dismiss() }
