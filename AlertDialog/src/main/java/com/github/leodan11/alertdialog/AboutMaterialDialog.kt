@@ -56,7 +56,8 @@ class AboutMaterialDialog(
      * The default alert dialog theme is defined by [android.R.attr.alertDialogTheme] within the parent context's theme.
      * @param context the parent context
      */
-    class Builder(context: Context) : AboutDialogBase.Builder<AboutMaterialDialog>(context = context) {
+    class Builder(context: Context) :
+        AboutDialogBase.Builder<AboutMaterialDialog>(context = context) {
 
         override fun create(): AboutMaterialDialog {
             return AboutMaterialDialog(

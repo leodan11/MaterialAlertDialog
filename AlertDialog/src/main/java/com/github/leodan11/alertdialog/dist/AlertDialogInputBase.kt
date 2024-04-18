@@ -10,6 +10,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
+import androidx.annotation.ColorInt
 import androidx.annotation.ColorRes
 import androidx.annotation.DrawableRes
 import androidx.annotation.IntRange
@@ -359,13 +360,13 @@ abstract class AlertDialogInputBase(
         }
 
         /**
-         * Set icon tint of [ColorRes].
+         * Set icon tint of [ColorInt].
          *
-         * @param tintColor the color resource.
+         * @param tintColor The color int. E.g. [Color.BLUE]
          * @return This Builder object to allow for chaining of calls to set methods
          */
-        fun setIconTintColor(@ColorRes tintColor: Int): Builder<D> {
-            this.iconTintColor = IconTintAlertDialog(iconColorRes = tintColor)
+        fun setIconTintColor(@ColorInt tintColor: Int): Builder<D> {
+            this.iconTintColor = IconTintAlertDialog(iconColorInt = tintColor)
             return this
         }
 
@@ -385,6 +386,17 @@ abstract class AlertDialogInputBase(
             @IntRange(from = 0, to = 255) blue: Int,
         ): Builder<D> {
             this.iconTintColor = IconTintAlertDialog(iconColorInt = Color.rgb(red, green, blue))
+            return this
+        }
+
+        /**
+         * Set icon tint of [ColorRes].
+         *
+         * @param tintColor the color resource.
+         * @return This Builder object to allow for chaining of calls to set methods
+         */
+        fun setIconTintColorRes(@ColorRes tintColor: Int): Builder<D> {
+            this.iconTintColor = IconTintAlertDialog(iconColorRes = tintColor)
             return this
         }
 

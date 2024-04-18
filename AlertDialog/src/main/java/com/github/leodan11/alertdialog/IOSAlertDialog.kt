@@ -18,7 +18,7 @@ class IOSAlertDialog(
     mCancelable: Boolean,
     mPositiveButton: ButtonAlertDialog?,
     mNeutralButton: ButtonAlertDialog?,
-    mNegativeButton: ButtonAlertDialog?
+    mNegativeButton: ButtonAlertDialog?,
 ) : AlertDialogIOSBase(
     mContext = mContext,
     orientationButton = mOrientationButton,
@@ -28,7 +28,7 @@ class IOSAlertDialog(
     mPositiveButton = mPositiveButton,
     mNeutralButton = mNeutralButton,
     mNegativeButton = mNegativeButton,
-    ) {
+) {
 
     // Init Dialog
     init {
@@ -48,7 +48,8 @@ class IOSAlertDialog(
      * The default alert dialog theme is defined by [android.R.attr.alertDialogTheme] within the parent context's theme.
      * @param context the parent context
      */
-    class Builder(context: Context) : AlertDialogIOSBase.Builder<IOSAlertDialog>(context = context) {
+    class Builder(context: Context) :
+        AlertDialogIOSBase.Builder<IOSAlertDialog>(context = context) {
 
         override fun create(): IOSAlertDialog {
             return IOSAlertDialog(

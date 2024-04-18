@@ -8,12 +8,14 @@ import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.annotation.ColorInt
 import androidx.annotation.ColorRes
 import androidx.annotation.DrawableRes
 import androidx.annotation.IntRange
 import androidx.annotation.RestrictTo
 import androidx.annotation.StringRes
 import androidx.core.content.ContextCompat
+import androidx.core.view.isVisible
 import com.github.leodan11.alertdialog.MaterialAlertDialogSignIn
 import com.github.leodan11.alertdialog.R
 import com.github.leodan11.alertdialog.databinding.MAlertDialogLoginBinding
@@ -66,7 +68,8 @@ abstract class AlertDialogSignInBase(
         val mPositiveButtonView = binding.buttonActionPositiveLoginDialog
         val mNegativeButtonView = binding.buttonActionNegativeLoginDialog
         // Set Icon
-        if (icon != null) icon?.let { mIconView.setImageResource(it.mDrawableResId) }
+        mIconView.isVisible = icon != null
+        icon?.let { mIconView.setImageResource(it.mDrawableResId) }
         // Set Title
         if (title != null) {
             mTitleView.visibility = View.VISIBLE
@@ -266,13 +269,13 @@ abstract class AlertDialogSignInBase(
         }
 
         /**
-         * Set icon tint of [ColorRes].
+         * Set icon tint of [ColorInt].
          *
-         * @param tintColor the color resource.
+         * @param tintColor the color int. E.g. [Color.BLUE]
          * @return This Builder object to allow for chaining of calls to set methods
          */
-        fun setIconTintColor(@ColorRes tintColor: Int): Builder<D> {
-            this.tintColor = IconTintAlertDialog(iconColorRes = tintColor)
+        fun setIconTintColor(@ColorInt tintColor: Int): Builder<D> {
+            this.tintColor = IconTintAlertDialog(iconColorInt = tintColor)
             return this
         }
 
@@ -292,6 +295,17 @@ abstract class AlertDialogSignInBase(
             @IntRange(from = 0, to = 255) blue: Int,
         ): Builder<D> {
             this.tintColor = IconTintAlertDialog(iconColorInt = Color.rgb(red, green, blue))
+            return this
+        }
+
+        /**
+         * Set icon tint of [ColorRes].
+         *
+         * @param tintColor the color resource.
+         * @return This Builder object to allow for chaining of calls to set methods
+         */
+        fun setIconTintColorRes(@ColorRes tintColor: Int): Builder<D> {
+            this.tintColor = IconTintAlertDialog(iconColorRes = tintColor)
             return this
         }
 

@@ -11,6 +11,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.Toast
+import androidx.annotation.ColorInt
 import androidx.annotation.ColorRes
 import androidx.annotation.DrawableRes
 import androidx.annotation.IntRange
@@ -86,7 +87,8 @@ abstract class AlertDialogVerificationCodeBase(
         val mNegativeButtonView = binding.buttonActionNegativeAlertDialogCode
 
         // Set Icon
-        if (icon != null) icon?.let { mIconView.setImageResource(it.mDrawableResId) }
+        mIconView.isVisible = icon != null
+        icon?.let { mIconView.setImageResource(it.mDrawableResId) }
         // Set Title
         if (title != null) {
             mTitleView.visibility = View.VISIBLE
@@ -486,13 +488,13 @@ abstract class AlertDialogVerificationCodeBase(
         }
 
         /**
-         * Set icon tint of [ColorRes].
+         * Set icon tint of [ColorInt].
          *
-         * @param tintColor the color resource.
+         * @param tintColor the color int. E.g. [Color.BLUE]
          * @return This Builder object to allow for chaining of calls to set methods
          */
-        fun setIconTintColor(@ColorRes tintColor: Int): Builder<D> {
-            this.tintColor = IconTintAlertDialog(iconColorRes = tintColor)
+        fun setIconTintColor(@ColorInt tintColor: Int): Builder<D> {
+            this.tintColor = IconTintAlertDialog(iconColorInt = tintColor)
             return this
         }
 
@@ -512,6 +514,17 @@ abstract class AlertDialogVerificationCodeBase(
             @IntRange(from = 0, to = 255) blue: Int,
         ): Builder<D> {
             this.tintColor = IconTintAlertDialog(iconColorInt = Color.rgb(red, green, blue))
+            return this
+        }
+
+        /**
+         * Set icon tint of [ColorRes].
+         *
+         * @param tintColor the color resource.
+         * @return This Builder object to allow for chaining of calls to set methods
+         */
+        fun setIconTintColorRes(@ColorRes tintColor: Int): Builder<D> {
+            this.tintColor = IconTintAlertDialog(iconColorRes = tintColor)
             return this
         }
 

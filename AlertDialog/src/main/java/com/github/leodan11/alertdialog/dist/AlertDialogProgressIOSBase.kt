@@ -29,7 +29,8 @@ abstract class AlertDialogProgressIOSBase(
     protected open var mOnDismissListener: MaterialDialogInterface.OnDismissListener? = null
     protected open var mOnCancelListener: MaterialDialogInterface.OnCancelListener? = null
     protected open var mOnShowListener: MaterialDialogInterface.OnShowListener? = null
-    private val icon: IconAlertDialog = IconAlertDialog(R.drawable.ic_baseline_loader_circular_default_ios)
+    private val icon: IconAlertDialog =
+        IconAlertDialog(R.drawable.ic_baseline_loader_circular_default_ios)
 
     @RestrictTo(RestrictTo.Scope.LIBRARY)
     protected open fun createView(
@@ -38,7 +39,8 @@ abstract class AlertDialogProgressIOSBase(
     ): View {
         // Inflate and set the layout for the dialog
         // Pass null as the parent view because it's going in the dialog layout
-        val binding: IosProgressAlertDialogBinding = IosProgressAlertDialogBinding.inflate(layoutInflater)
+        val binding: IosProgressAlertDialogBinding =
+            IosProgressAlertDialogBinding.inflate(layoutInflater)
         // Initialize Views
         val mIconView = binding.imageViewIconLogoDialogProgress
         val mMessageView = binding.textViewMessagesDialogProgress

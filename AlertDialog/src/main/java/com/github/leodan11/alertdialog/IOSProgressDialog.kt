@@ -10,7 +10,7 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 class IOSProgressDialog(
     mContext: Context,
     message: MessageAlertDialog<*>?,
-    mCancelable: Boolean
+    mCancelable: Boolean,
 ) : AlertDialogProgressIOSBase(
     mContext = mContext,
     message = message,

@@ -31,7 +31,7 @@ abstract class AlertDialogIOSBase(
     protected open var mCancelable: Boolean,
     protected open var mPositiveButton: ButtonAlertDialog?,
     protected open var mNeutralButton: ButtonAlertDialog?,
-    protected open var mNegativeButton: ButtonAlertDialog?
+    protected open var mNegativeButton: ButtonAlertDialog?,
 ) : MaterialDialogInterface {
 
     protected open var mDialog: Dialog? = null
@@ -42,7 +42,7 @@ abstract class AlertDialogIOSBase(
     @RestrictTo(RestrictTo.Scope.LIBRARY)
     protected open fun onCustomCreateView(
         layoutInflater: LayoutInflater,
-        container: ViewGroup? = null
+        container: ViewGroup? = null,
     ): View {
         // Inflate and set the layout for the dialog
         // Pass null as the parent view because it's going in the dialog layout
@@ -69,14 +69,18 @@ abstract class AlertDialogIOSBase(
                 with(binding) {
                     layoutContentHorizontalButton.visibility = View.VISIBLE
                     layoutContentVerticalButton.visibility = View.GONE
-                    materialDividerBodyFooter.visibility = if (mPositiveButton != null || mNeutralButton != null || mNegativeButton != null) View.VISIBLE else View.GONE
+                    materialDividerBodyFooter.visibility =
+                        if (mPositiveButton != null || mNeutralButton != null || mNegativeButton != null) View.VISIBLE else View.GONE
                     // Set Positive Button
                     if (mPositiveButton != null) {
                         buttonActionPositiveAlertDialogHorizontal.let {
                             it.visibility = View.VISIBLE
                             it.text = mPositiveButton?.title
                             it.setOnClickListener {
-                                mPositiveButton?.onClickListener?.onClick(this@AlertDialogIOSBase, MaterialAlertDialog.UI.BUTTON_POSITIVE)
+                                mPositiveButton?.onClickListener?.onClick(
+                                    this@AlertDialogIOSBase,
+                                    MaterialAlertDialog.UI.BUTTON_POSITIVE
+                                )
                             }
                         }
                     } else {
@@ -88,7 +92,10 @@ abstract class AlertDialogIOSBase(
                             it.visibility = View.VISIBLE
                             it.text = mNeutralButton?.title
                             it.setOnClickListener {
-                                mNeutralButton?.onClickListener?.onClick(this@AlertDialogIOSBase, MaterialAlertDialog.UI.BUTTON_NEUTRAL)
+                                mNeutralButton?.onClickListener?.onClick(
+                                    this@AlertDialogIOSBase,
+                                    MaterialAlertDialog.UI.BUTTON_NEUTRAL
+                                )
                             }
                         }
                     } else {
@@ -100,7 +107,10 @@ abstract class AlertDialogIOSBase(
                             it.visibility = View.VISIBLE
                             it.text = mNegativeButton?.title
                             it.setOnClickListener {
-                                mNegativeButton?.onClickListener?.onClick(this@AlertDialogIOSBase, MaterialAlertDialog.UI.BUTTON_NEGATIVE)
+                                mNegativeButton?.onClickListener?.onClick(
+                                    this@AlertDialogIOSBase,
+                                    MaterialAlertDialog.UI.BUTTON_NEGATIVE
+                                )
                             }
 
                         }
@@ -109,18 +119,23 @@ abstract class AlertDialogIOSBase(
                     }
                 }
             }
+
             Orientation.VERTICAL -> {
                 with(binding) {
                     layoutContentHorizontalButton.visibility = View.GONE
                     layoutContentVerticalButton.visibility = View.VISIBLE
-                    materialDividerBodyFooter.visibility = if (mPositiveButton != null || mNeutralButton != null || mNegativeButton != null) View.VISIBLE else View.GONE
+                    materialDividerBodyFooter.visibility =
+                        if (mPositiveButton != null || mNeutralButton != null || mNegativeButton != null) View.VISIBLE else View.GONE
                     // Set Positive Button
                     if (mPositiveButton != null) {
                         buttonActionPositiveAlertDialogVertical.let {
                             it.visibility = View.VISIBLE
                             it.text = mPositiveButton?.title
                             it.setOnClickListener {
-                                mPositiveButton?.onClickListener?.onClick(this@AlertDialogIOSBase, MaterialAlertDialog.UI.BUTTON_POSITIVE)
+                                mPositiveButton?.onClickListener?.onClick(
+                                    this@AlertDialogIOSBase,
+                                    MaterialAlertDialog.UI.BUTTON_POSITIVE
+                                )
                             }
                         }
                     } else {
@@ -132,7 +147,10 @@ abstract class AlertDialogIOSBase(
                             it.visibility = View.VISIBLE
                             it.text = mNeutralButton?.title
                             it.setOnClickListener {
-                                mNeutralButton?.onClickListener?.onClick(this@AlertDialogIOSBase, MaterialAlertDialog.UI.BUTTON_NEUTRAL)
+                                mNeutralButton?.onClickListener?.onClick(
+                                    this@AlertDialogIOSBase,
+                                    MaterialAlertDialog.UI.BUTTON_NEUTRAL
+                                )
                             }
                         }
                     } else {
@@ -144,15 +162,21 @@ abstract class AlertDialogIOSBase(
                             it.visibility = View.VISIBLE
                             it.text = mNegativeButton?.title
                             it.setOnClickListener {
-                                mNegativeButton?.onClickListener?.onClick(this@AlertDialogIOSBase, MaterialAlertDialog.UI.BUTTON_NEGATIVE)
+                                mNegativeButton?.onClickListener?.onClick(
+                                    this@AlertDialogIOSBase,
+                                    MaterialAlertDialog.UI.BUTTON_NEGATIVE
+                                )
                             }
                         }
                     } else {
                         buttonActionNegativeAlertDialogVertical.visibility = View.GONE
                     }
-                    splitNeutralPositiveVertical.isVisible = buttonActionNeutralAlertDialogVertical.isVisible && buttonActionPositiveAlertDialogVertical.isVisible
-                    splitNegativeNeutralVertical.isVisible = buttonActionNeutralAlertDialogVertical.isVisible && buttonActionNegativeAlertDialogVertical.isVisible
-                    splitNegativeNeutralVertical.isVisible = buttonActionPositiveAlertDialogVertical.isVisible && buttonActionNegativeAlertDialogVertical.isVisible
+                    splitNeutralPositiveVertical.isVisible =
+                        buttonActionNeutralAlertDialogVertical.isVisible && buttonActionPositiveAlertDialogVertical.isVisible
+                    splitNegativeNeutralVertical.isVisible =
+                        buttonActionNeutralAlertDialogVertical.isVisible && buttonActionNegativeAlertDialogVertical.isVisible
+                    splitNegativeNeutralVertical.isVisible =
+                        buttonActionPositiveAlertDialogVertical.isVisible && buttonActionNegativeAlertDialogVertical.isVisible
                 }
             }
         }
@@ -164,7 +188,11 @@ abstract class AlertDialogIOSBase(
             mMessageView.setTextColor(mContext.colorOnSurface())
             // Set Background Tint
             val mBackgroundTint: ColorStateList = ColorStateList.valueOf(
-                if (mContext.isNightModeActive()) Color.rgb(10, 132, 255) else Color.rgb(0, 122, 255)
+                if (mContext.isNightModeActive()) Color.rgb(10, 132, 255) else Color.rgb(
+                    0,
+                    122,
+                    255
+                )
             )
             with(binding) {
                 // Set Positive Button Icon Tint
@@ -351,7 +379,10 @@ abstract class AlertDialogIOSBase(
          * @param alignment The message alignment. Default [MaterialAlertDialog.TextAlignment.CENTER].
          * @return This Builder object to allow for chaining of calls to set methods
          */
-        fun setTitle(@StringRes title: Int, alignment: MaterialAlertDialog.TextAlignment): Builder<D> {
+        fun setTitle(
+            @StringRes title: Int,
+            alignment: MaterialAlertDialog.TextAlignment,
+        ): Builder<D> {
             this.title =
                 TitleAlertDialog(title = context.getString(title), textAlignment = alignment)
             return this
@@ -396,7 +427,10 @@ abstract class AlertDialogIOSBase(
          * @param alignment The message alignment. Default [MaterialAlertDialog.TextAlignment.CENTER].
          * @return This Builder object to allow for chaining of calls to set methods
          */
-        fun setMessage(@StringRes message: Int, alignment: MaterialAlertDialog.TextAlignment): Builder<D> {
+        fun setMessage(
+            @StringRes message: Int,
+            alignment: MaterialAlertDialog.TextAlignment,
+        ): Builder<D> {
             this.message =
                 MessageAlertDialog.text(text = context.getString(message), alignment = alignment)
             return this
@@ -442,9 +476,17 @@ abstract class AlertDialogIOSBase(
          * @param onClickListener    The [MaterialDialogInterface.OnClickListener] to use.
          * @return This Builder object to allow for chaining of calls to set methods
          */
-        fun setPositiveButton(buttonText: String?, onClickListener: MaterialDialogInterface.OnClickListener): Builder<D> {
-            val valueText = if (buttonText.isNullOrEmpty()) context.getString(R.string.text_value_accept) else buttonText
-            positiveButton = ButtonAlertDialog(title = valueText, icon = MATERIAL_ALERT_DIALOG_UI_NOT_ICON, onClickListener = onClickListener)
+        fun setPositiveButton(
+            buttonText: String?,
+            onClickListener: MaterialDialogInterface.OnClickListener,
+        ): Builder<D> {
+            val valueText =
+                if (buttonText.isNullOrEmpty()) context.getString(R.string.text_value_accept) else buttonText
+            positiveButton = ButtonAlertDialog(
+                title = valueText,
+                icon = MATERIAL_ALERT_DIALOG_UI_NOT_ICON,
+                onClickListener = onClickListener
+            )
             return this
         }
 
@@ -455,8 +497,15 @@ abstract class AlertDialogIOSBase(
          * @param onClickListener    The [MaterialDialogInterface.OnClickListener] to use.
          * @return This Builder object to allow for chaining of calls to set methods
          */
-        fun setPositiveButton(@StringRes buttonText: Int, onClickListener: MaterialDialogInterface.OnClickListener): Builder<D> {
-            positiveButton = ButtonAlertDialog(title = context.getString(buttonText), icon = MATERIAL_ALERT_DIALOG_UI_NOT_ICON, onClickListener = onClickListener)
+        fun setPositiveButton(
+            @StringRes buttonText: Int,
+            onClickListener: MaterialDialogInterface.OnClickListener,
+        ): Builder<D> {
+            positiveButton = ButtonAlertDialog(
+                title = context.getString(buttonText),
+                icon = MATERIAL_ALERT_DIALOG_UI_NOT_ICON,
+                onClickListener = onClickListener
+            )
             return this
         }
 
@@ -467,9 +516,17 @@ abstract class AlertDialogIOSBase(
          * @param onClickListener    The [MaterialDialogInterface.OnClickListener] to use.
          * @return This Builder object to allow for chaining of calls to set methods
          */
-        fun setNeutralButton(buttonText: String?, onClickListener: MaterialDialogInterface.OnClickListener): Builder<D> {
-            val valueText = if (buttonText.isNullOrEmpty()) context.getString(R.string.text_value_decline) else buttonText
-            neutralButton = ButtonAlertDialog(title = valueText, icon = MATERIAL_ALERT_DIALOG_UI_NOT_ICON, onClickListener = onClickListener)
+        fun setNeutralButton(
+            buttonText: String?,
+            onClickListener: MaterialDialogInterface.OnClickListener,
+        ): Builder<D> {
+            val valueText =
+                if (buttonText.isNullOrEmpty()) context.getString(R.string.text_value_decline) else buttonText
+            neutralButton = ButtonAlertDialog(
+                title = valueText,
+                icon = MATERIAL_ALERT_DIALOG_UI_NOT_ICON,
+                onClickListener = onClickListener
+            )
             return this
         }
 
@@ -480,8 +537,15 @@ abstract class AlertDialogIOSBase(
          * @param onClickListener    The [MaterialDialogInterface.OnClickListener] to use.
          * @return This Builder object to allow for chaining of calls to set methods
          */
-        fun setNeutralButton(@StringRes buttonText: Int, onClickListener: MaterialDialogInterface.OnClickListener): Builder<D> {
-            neutralButton = ButtonAlertDialog(title = context.getString(buttonText), icon = MATERIAL_ALERT_DIALOG_UI_NOT_ICON, onClickListener = onClickListener)
+        fun setNeutralButton(
+            @StringRes buttonText: Int,
+            onClickListener: MaterialDialogInterface.OnClickListener,
+        ): Builder<D> {
+            neutralButton = ButtonAlertDialog(
+                title = context.getString(buttonText),
+                icon = MATERIAL_ALERT_DIALOG_UI_NOT_ICON,
+                onClickListener = onClickListener
+            )
             return this
         }
 
@@ -492,9 +556,17 @@ abstract class AlertDialogIOSBase(
          * @param onClickListener    The [MaterialDialogInterface.OnClickListener] to use.
          * @return This Builder object to allow for chaining of calls to set methods
          */
-        fun setNegativeButton(buttonText: String?, onClickListener: MaterialDialogInterface.OnClickListener): Builder<D> {
-            val valueText = if (buttonText.isNullOrEmpty()) context.getString(R.string.text_value_cancel) else buttonText
-            negativeButton = ButtonAlertDialog(title = valueText, icon = MATERIAL_ALERT_DIALOG_UI_NOT_ICON, onClickListener = onClickListener)
+        fun setNegativeButton(
+            buttonText: String?,
+            onClickListener: MaterialDialogInterface.OnClickListener,
+        ): Builder<D> {
+            val valueText =
+                if (buttonText.isNullOrEmpty()) context.getString(R.string.text_value_cancel) else buttonText
+            negativeButton = ButtonAlertDialog(
+                title = valueText,
+                icon = MATERIAL_ALERT_DIALOG_UI_NOT_ICON,
+                onClickListener = onClickListener
+            )
             return this
         }
 
@@ -505,8 +577,15 @@ abstract class AlertDialogIOSBase(
          * @param onClickListener    The [MaterialDialogInterface.OnClickListener] to use.
          * @return This Builder object to allow for chaining of calls to set methods
          */
-        fun setNegativeButton(@StringRes buttonText: Int, onClickListener: MaterialDialogInterface.OnClickListener): Builder<D> {
-            negativeButton = ButtonAlertDialog(title = context.getString(buttonText), icon = MATERIAL_ALERT_DIALOG_UI_NOT_ICON, onClickListener = onClickListener)
+        fun setNegativeButton(
+            @StringRes buttonText: Int,
+            onClickListener: MaterialDialogInterface.OnClickListener,
+        ): Builder<D> {
+            negativeButton = ButtonAlertDialog(
+                title = context.getString(buttonText),
+                icon = MATERIAL_ALERT_DIALOG_UI_NOT_ICON,
+                onClickListener = onClickListener
+            )
             return this
         }
 

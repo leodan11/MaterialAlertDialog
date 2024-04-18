@@ -13,6 +13,7 @@ import android.widget.TextView
 import androidx.annotation.*
 import androidx.annotation.IntRange
 import androidx.core.content.ContextCompat
+import androidx.core.view.isVisible
 import com.github.leodan11.alertdialog.ProgressMaterialDialog
 import com.github.leodan11.alertdialog.R
 import com.github.leodan11.alertdialog.io.content.Config.MATERIAL_ALERT_DIALOG_UI_NOT_ICON
@@ -51,7 +52,6 @@ abstract class ProgressDialogBase(
     protected open var mOnCancelListener: MaterialDialogInterface.OnCancelListener? = null
     protected open var mOnShowListener: MaterialDialogInterface.OnShowListener? = null
 
-    @SuppressLint("SetTextI18n")
     @RestrictTo(RestrictTo.Scope.LIBRARY)
     protected open fun createView(
         layoutInflater: LayoutInflater,
@@ -75,10 +75,8 @@ abstract class ProgressDialogBase(
         val mNegativeButtonView = binding.buttonActionNegativeCircularProgressIndicator
 
         // Set Icon
-        if (icon != null) {
-            mIconView.visibility = View.VISIBLE
-            mIconView.setImageResource(icon!!.mDrawableResId)
-        } else mIconView.visibility = View.GONE
+        mIconView.isVisible = icon != null
+        icon?.let { mIconView.setImageResource(it.mDrawableResId) }
         // Set Title
         if (title != null) {
             mTitleView.visibility = View.VISIBLE
@@ -290,13 +288,13 @@ abstract class ProgressDialogBase(
         }
 
         /**
-         * Set icon tint of [ColorRes].
+         * Set icon tint of [ColorInt].
          *
-         * @param tintColor the color resource.
+         * @param tintColor the color int. E.g. [Color.BLUE]
          * @return This Builder object to allow for chaining of calls to set methods
          */
-        fun setIconTintColor(@ColorRes tintColor: Int): Builder<D> {
-            this.tintColor = IconTintAlertDialog(iconColorRes = tintColor)
+        fun setIconTintColor(@ColorInt tintColor: Int): Builder<D> {
+            this.tintColor = IconTintAlertDialog(iconColorInt = tintColor)
             return this
         }
 
@@ -316,6 +314,17 @@ abstract class ProgressDialogBase(
             @IntRange(from = 0, to = 255) blue: Int,
         ): Builder<D> {
             this.tintColor = IconTintAlertDialog(iconColorInt = Color.rgb(red, green, blue))
+            return this
+        }
+
+        /**
+         * Set icon tint of [ColorRes].
+         *
+         * @param tintColor the color resource.
+         * @return This Builder object to allow for chaining of calls to set methods
+         */
+        fun setIconTintColorRes(@ColorRes tintColor: Int): Builder<D> {
+            this.tintColor = IconTintAlertDialog(iconColorRes = tintColor)
             return this
         }
 

@@ -6,29 +6,34 @@ import android.view.View
 import com.github.leodan11.alertdialog.dist.AlertDialogProgressBase
 import com.github.leodan11.alertdialog.io.models.ButtonAlertDialog
 import com.github.leodan11.alertdialog.io.models.IconAlertDialog
+import com.github.leodan11.alertdialog.io.models.IconTintAlertDialog
 import com.github.leodan11.alertdialog.io.models.MessageAlertDialog
 import com.github.leodan11.alertdialog.io.models.TitleAlertDialog
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
 class MaterialAlertDialogProgress(
     mContext: Context,
-    icon: IconAlertDialog,
+    icon: IconAlertDialog?,
+    tintColor: IconTintAlertDialog?,
+    iconVectorDrawable: IconAlertDialog,
     mAnimatedVectorDrawable: Boolean,
     mAnimatedVectorDrawableLoop: Boolean,
     title: TitleAlertDialog?,
     message: MessageAlertDialog<*>?,
     mCancelable: Boolean,
-    mNegativeButton: ButtonAlertDialog?
-): AlertDialogProgressBase(
+    mNegativeButton: ButtonAlertDialog?,
+) : AlertDialogProgressBase(
     mContext = mContext,
     icon = icon,
+    tintColor = tintColor,
+    iconVectorDrawable = iconVectorDrawable,
     mAnimatedVectorDrawable = mAnimatedVectorDrawable,
     mAnimatedVectorDrawableLoop = mAnimatedVectorDrawableLoop,
     title = title,
     message = message,
     mCancelable = mCancelable,
     mNegativeButton = mNegativeButton
-){
+) {
 
     // Init Dialog
     init {
@@ -47,12 +52,15 @@ class MaterialAlertDialogProgress(
      * The default alert dialog theme is defined by [android.R.attr.alertDialogTheme] within the parent context's theme.
      * @param context the parent context
      */
-    class Builder(context: Context): AlertDialogProgressBase.Builder<MaterialAlertDialogProgress>(context = context) {
+    class Builder(context: Context) :
+        AlertDialogProgressBase.Builder<MaterialAlertDialogProgress>(context = context) {
 
         override fun create(): MaterialAlertDialogProgress {
             return MaterialAlertDialogProgress(
                 context,
                 icon,
+                tintColor,
+                iconVectorDrawable,
                 isAnimatedVectorDrawable,
                 isAnimatedVectorDrawableLoop,
                 title,

@@ -16,12 +16,12 @@
             android:id="@+id/layout_content_header_progress_indicator"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/radiusTop">
+            android:layout_marginBottom="?android:attr/scrollbarSize">
 
             <com.google.android.material.imageview.ShapeableImageView
                 android:id="@+id/image_view_icon_progress_indicator"
-                android:layout_width="@dimen/app_icon_size_min"
-                android:layout_height="@dimen/app_icon_size_min"
+                android:layout_width="@dimen/app_icon_size_medium"
+                android:layout_height="@dimen/app_icon_size_medium"
                 android:layout_alignParentStart="true"
                 android:layout_centerInParent="true"
                 app:srcCompat="@drawable/ic_baseline_success"
@@ -33,7 +33,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
-                android:layout_marginStart="@dimen/margin_spacing_min"
+                android:layout_marginStart="@dimen/margin_spacing"
                 android:layout_marginTop="0dp"
                 android:layout_toEndOf="@id/image_view_icon_progress_indicator" />
 
@@ -43,6 +43,8 @@
             android:id="@+id/layout_content_body_circular_progress_indicator"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_spacing_medium"
+            android:layout_marginBottom="@dimen/margin_spacing_medium"
             android:visibility="gone"
             tools:visibility="visible">
 
@@ -60,7 +62,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
-                android:layout_marginStart="@dimen/margin_spacing_min"
+                android:layout_marginStart="@dimen/margin_spacing_medium"
                 android:layout_toEndOf="@id/circularProgressIndicator" />
 
         </RelativeLayout>
@@ -69,6 +71,8 @@
             android:id="@+id/layout_content_body_linear_progress_indicator"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_spacing_medium"
+            android:layout_marginBottom="@dimen/margin_spacing_medium"
             android:visibility="gone">
 
             <TextView
@@ -127,7 +131,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="end"
-            android:layout_marginTop="@dimen/margin_spacing_min"
             android:contentDescription="@string/button_negative_speakable_text_value"
             android:text="@string/text_value_cancel"
             tools:ignore="TextContrastCheck" />

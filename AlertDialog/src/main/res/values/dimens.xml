@@ -6,7 +6,9 @@
     <dimen name="margin_spacing_medium">12dp</dimen>
     <dimen name="radiusTop">16dp</dimen>
     <dimen name="paddingTop">16dp</dimen>
-    <dimen name="app_icon_size_min">34dp</dimen>
+    <dimen name="app_icon_size">48dp</dimen>
+    <dimen name="app_icon_size_medium">32dp</dimen>
+    <dimen name="app_icon_size_min">24dp</dimen>
     <dimen name="spacing_edit_text">48dp</dimen>
     <dimen name="corners_shape">50dp</dimen>
     <dimen name="dialog_image_view_notification_icon_fifty_percent">40dp</dimen>

@@ -12,6 +12,7 @@ import android.view.ViewGroup
 import androidx.annotation.ColorInt
 import androidx.annotation.ColorRes
 import androidx.annotation.DrawableRes
+import androidx.annotation.IntRange
 import androidx.annotation.RawRes
 import androidx.annotation.RestrictTo
 import androidx.annotation.StringRes
@@ -313,21 +314,40 @@ abstract class AlertDialogCenteredBase(
         /**
          * Set background tint [ColorInt].
          *
-         * @param color Color resource. E.g.: [Color.BLUE].
+         * @param color Color int. E.g. [Color.BLUE]
          * @return This Builder object to allow for chaining of calls to set methods
          */
-        fun setIconBackgroundTintRGB(@ColorInt color: Int): Builder<D> {
+        fun setIconBackgroundTint(@ColorInt color: Int): Builder<D> {
             this.backgroundColorInt = color
+            return this
+        }
+
+        /**
+         * Set background tint color, Return a color-int from red, green, blue components.
+         * These component values should be [0..255],
+         * so if they are out of range, the returned color is undefined.
+         *
+         * @param red to extract the red component
+         * @param green to extract the green component
+         * @param blue to extract the blue component
+         * @return This Builder object to allow for chaining of calls to set methods
+         */
+        fun setIconBackgroundTint(
+            @IntRange(from = 0, to = 255) red: Int,
+            @IntRange(from = 0, to = 255) green: Int,
+            @IntRange(from = 0, to = 255) blue: Int,
+        ): Builder<D> {
+            this.backgroundColorInt = Color.rgb(red, green, blue)
             return this
         }
 
         /**
          * Set background tint [ColorRes].
          *
-         * @param color Color resource. E.g.: [R.color.Success].
+         * @param color Color resource.
          * @return This Builder object to allow for chaining of calls to set methods
          */
-        fun setIconBackgroundTint(@ColorRes color: Int): Builder<D> {
+        fun setIconBackgroundTintRes(@ColorRes color: Int): Builder<D> {
             this.backgroundColorResource = color
             return this
         }

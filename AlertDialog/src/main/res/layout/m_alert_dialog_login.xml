@@ -20,8 +20,8 @@
 
             <com.google.android.material.imageview.ShapeableImageView
                 android:id="@+id/image_view_icon_login_dialog"
-                android:layout_width="@dimen/app_icon_size_min"
-                android:layout_height="@dimen/app_icon_size_min"
+                android:layout_width="@dimen/app_icon_size_medium"
+                android:layout_height="@dimen/app_icon_size_medium"
                 android:layout_alignParentStart="true"
                 android:layout_centerInParent="true"
                 app:srcCompat="@drawable/ic_baseline_security"

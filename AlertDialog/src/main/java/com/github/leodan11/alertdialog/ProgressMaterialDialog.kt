@@ -22,8 +22,8 @@ class ProgressMaterialDialog(
     detailsLinearProgress: MessageAlertDialog<*>?,
     mCancelable: Boolean,
     mIndeterminate: Boolean,
-    mNegativeButton: ButtonAlertDialog?
-): ProgressDialogBase(
+    mNegativeButton: ButtonAlertDialog?,
+) : ProgressDialogBase(
     mContext = mContext,
     icon = icon,
     tintColor = tintColor,
@@ -54,7 +54,8 @@ class ProgressMaterialDialog(
      * The default alert dialog theme is defined by [android.R.attr.alertDialogTheme] within the parent context's theme.
      * @param context the parent context
      */
-    class Builder(context: Context): ProgressDialogBase.Builder<ProgressMaterialDialog>(context = context) {
+    class Builder(context: Context) :
+        ProgressDialogBase.Builder<ProgressMaterialDialog>(context = context) {
 
         override fun create(): ProgressMaterialDialog {
             return ProgressMaterialDialog(

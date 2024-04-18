@@ -17,6 +17,7 @@ import android.widget.LinearLayout
 import androidx.annotation.ColorInt
 import androidx.annotation.ColorRes
 import androidx.annotation.DrawableRes
+import androidx.annotation.IntRange
 import androidx.annotation.RestrictTo
 import androidx.annotation.StringRes
 import androidx.core.content.ContextCompat
@@ -320,9 +321,9 @@ abstract class AlertDialogEventsBase(
             Type.ERROR -> mContext.colorError()
             Type.HELP -> mContext.colorSecondary()
             Type.INFORMATION -> mContext.colorPrimary()
-            Type.SUCCESS -> mContext.getColor(R.color.Success)
-            Type.WARNING -> mContext.getColor(R.color.Warning)
-            Type.WITHOUT_INTERNET -> mContext.getColor(R.color.Warning)
+            Type.SUCCESS -> mContext.getColor(R.color.success)
+            Type.WARNING -> mContext.getColor(R.color.warning)
+            Type.WITHOUT_INTERNET -> mContext.getColor(R.color.caution)
             else -> {
                 if (backgroundColorSpanInt != null) backgroundColorSpanInt!!
                 else if (backgroundColorSpanResource != null) mContext.getColor(
@@ -388,21 +389,40 @@ abstract class AlertDialogEventsBase(
         /**
          * Set background [ColorInt].
          *
-         * @param color Color resource. E.g.: [Color.GREEN].
+         * @param color Color int. E.g. [Color.GREEN]
          * @return This Builder object to allow for chaining of calls to set methods
          */
-        fun setBackgroundColorSpanRGB(@ColorInt color: Int): Builder<D> {
+        fun setBackgroundColorSpan(@ColorInt color: Int): Builder<D> {
             this.backgroundColorSpanInt = color
+            return this
+        }
+
+        /**
+         * Set background color, Return a color-int from red, green, blue components.
+         * These component values should be [0..255],
+         * so if they are out of range, the returned color is undefined.
+         *
+         * @param red to extract the red component
+         * @param green to extract the green component
+         * @param blue to extract the blue component
+         * @return This Builder object to allow for chaining of calls to set methods
+         */
+        fun setBackgroundColorSpan(
+            @IntRange(from = 0, to = 255) red: Int,
+            @IntRange(from = 0, to = 255) green: Int,
+            @IntRange(from = 0, to = 255) blue: Int,
+        ): Builder<D> {
+            this.backgroundColorSpanInt = Color.rgb(red, green, blue)
             return this
         }
 
         /**
          * Set background [ColorRes].
          *
-         * @param color Color resource. E.g.: [R.color.Success].
+         * @param color Color resource.
          * @return This Builder object to allow for chaining of calls to set methods
          */
-        fun setBackgroundColorSpan(@ColorRes color: Int): Builder<D> {
+        fun setBackgroundColorSpanRes(@ColorRes color: Int): Builder<D> {
             this.backgroundColorSpan = color
             return this
         }

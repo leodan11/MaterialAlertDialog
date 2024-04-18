@@ -22,8 +22,8 @@ class MaterialAlertDialogVerificationCode(
     mCancelable: Boolean,
     mInputsContentValue: List<InputAlertDialog>,
     mPositiveButton: ButtonAlertDialog?,
-    mNegativeButton: ButtonAlertDialog?
-): AlertDialogVerificationCodeBase(
+    mNegativeButton: ButtonAlertDialog?,
+) : AlertDialogVerificationCodeBase(
     mContext = mContext,
     icon = icon,
     tintColor = tintColor,
@@ -53,7 +53,8 @@ class MaterialAlertDialogVerificationCode(
      * The default alert dialog theme is defined by [android.R.attr.alertDialogTheme] within the parent context's theme.
      * @param context the parent context
      */
-    class Builder(context: Context): AlertDialogVerificationCodeBase.Builder<MaterialAlertDialogVerificationCode>(context = context) {
+    class Builder(context: Context) :
+        AlertDialogVerificationCodeBase.Builder<MaterialAlertDialogVerificationCode>(context = context) {
 
         override fun create(): MaterialAlertDialogVerificationCode {
             return MaterialAlertDialogVerificationCode(

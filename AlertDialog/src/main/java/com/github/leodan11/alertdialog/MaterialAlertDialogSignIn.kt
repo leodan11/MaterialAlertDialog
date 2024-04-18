@@ -17,8 +17,8 @@ class MaterialAlertDialogSignIn(
     title: TitleAlertDialog?,
     mCancelable: Boolean,
     mPositiveButton: ButtonAlertDialog?,
-    mNegativeButton: ButtonAlertDialog?
-): AlertDialogSignInBase(
+    mNegativeButton: ButtonAlertDialog?,
+) : AlertDialogSignInBase(
     mContext = mContext,
     icon = icon,
     tintColor = tintColor,
@@ -45,7 +45,8 @@ class MaterialAlertDialogSignIn(
      * The default alert dialog theme is defined by [android.R.attr.alertDialogTheme] within the parent context's theme.
      * @param context the parent context
      */
-    class Builder(context: Context): AlertDialogSignInBase.Builder<MaterialAlertDialogSignIn>(context = context) {
+    class Builder(context: Context) :
+        AlertDialogSignInBase.Builder<MaterialAlertDialogSignIn>(context = context) {
 
         override fun create(): MaterialAlertDialogSignIn {
             return MaterialAlertDialogSignIn(
