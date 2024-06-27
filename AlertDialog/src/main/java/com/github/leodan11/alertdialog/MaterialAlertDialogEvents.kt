@@ -4,7 +4,7 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import com.github.leodan11.alertdialog.dist.AlertDialogEventsBase
-import com.github.leodan11.alertdialog.io.content.AlertDialogEvents.Type
+import com.github.leodan11.alertdialog.io.content.AlertDialogEvents.TYPE
 import com.github.leodan11.alertdialog.io.models.ButtonAlertDialog
 import com.github.leodan11.alertdialog.io.models.DetailsAlertDialog
 import com.github.leodan11.alertdialog.io.models.IconAlertDialog
@@ -15,7 +15,7 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 class MaterialAlertDialogEvents(
     mContext: Context,
     icon: IconAlertDialog,
-    type: Type,
+    type: TYPE,
     backgroundColorSpanInt: Int?,
     backgroundColorSpanResource: Int?,
     detailsScrollHeightSpan: Int,

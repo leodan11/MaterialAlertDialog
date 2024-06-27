@@ -2,7 +2,7 @@ package com.github.leodan11.alertdialog.io.content;
 
 public class AlertDialogEvents {
 
-    public enum Type {
+    public enum TYPE {
         CUSTOM, ERROR, HELP, INFORMATION, SUCCESS, WARNING, WITHOUT_INTERNET
     }
 

@@ -25,7 +25,7 @@ import androidx.core.widget.addTextChangedListener
 import com.github.leodan11.alertdialog.MaterialAlertDialogEvents
 import com.github.leodan11.alertdialog.R
 import com.github.leodan11.alertdialog.databinding.MAlertDialogBinding
-import com.github.leodan11.alertdialog.io.content.AlertDialogEvents.Type
+import com.github.leodan11.alertdialog.io.content.AlertDialogEvents.TYPE
 import com.github.leodan11.alertdialog.io.content.Config.DEFAULT_DETAILS_SCROLL_HEIGHT_SPAN
 import com.github.leodan11.alertdialog.io.content.Config.DEFAULT_RADIUS
 import com.github.leodan11.alertdialog.io.content.Config.MATERIAL_ALERT_DIALOG_UI_NOT_ICON
@@ -48,7 +48,7 @@ import com.leodan.readmoreoption.ReadMoreOption
 abstract class AlertDialogEventsBase(
     protected open var mContext: Context,
     protected open var icon: IconAlertDialog,
-    protected open var type: Type,
+    protected open var type: TYPE,
     protected open var backgroundColorSpanInt: Int?,
     protected open var backgroundColorSpanResource: Int?,
     protected open var detailsScrollHeightSpan: Int,
@@ -86,12 +86,12 @@ abstract class AlertDialogEventsBase(
 
         // Set Icon
         when (type) {
-            Type.ERROR -> mIconView.setImageResource(R.drawable.ic_baseline_error)
-            Type.HELP -> mIconView.setImageResource(R.drawable.ic_baseline_help)
-            Type.INFORMATION -> mIconView.setImageResource(R.drawable.ic_baseline_information)
-            Type.SUCCESS -> mIconView.setImageResource(R.drawable.ic_baseline_success)
-            Type.WARNING -> mIconView.setImageResource(R.drawable.ic_baseline_warning)
-            Type.WITHOUT_INTERNET -> mIconView.setImageResource(R.drawable.ic_baseline_wifi_alert)
+            TYPE.ERROR -> mIconView.setImageResource(R.drawable.ic_baseline_error)
+            TYPE.HELP -> mIconView.setImageResource(R.drawable.ic_baseline_help)
+            TYPE.INFORMATION -> mIconView.setImageResource(R.drawable.ic_baseline_information)
+            TYPE.SUCCESS -> mIconView.setImageResource(R.drawable.ic_baseline_success)
+            TYPE.WARNING -> mIconView.setImageResource(R.drawable.ic_baseline_warning)
+            TYPE.WITHOUT_INTERNET -> mIconView.setImageResource(R.drawable.ic_baseline_wifi_alert)
             else -> mIconView.setImageResource(icon.mDrawableResId)
         }
         // Set Icon BackgroundTint
@@ -318,12 +318,12 @@ abstract class AlertDialogEventsBase(
 
     private fun getColor(): Int {
         return when (type) {
-            Type.ERROR -> mContext.colorError()
-            Type.HELP -> mContext.colorSecondary()
-            Type.INFORMATION -> mContext.colorPrimary()
-            Type.SUCCESS -> mContext.getColor(R.color.success)
-            Type.WARNING -> mContext.getColor(R.color.warning)
-            Type.WITHOUT_INTERNET -> mContext.getColor(R.color.caution)
+            TYPE.ERROR -> mContext.colorError()
+            TYPE.HELP -> mContext.colorSecondary()
+            TYPE.INFORMATION -> mContext.colorPrimary()
+            TYPE.SUCCESS -> mContext.getColor(R.color.success)
+            TYPE.WARNING -> mContext.getColor(R.color.warning)
+            TYPE.WITHOUT_INTERNET -> mContext.getColor(R.color.caution)
             else -> {
                 if (backgroundColorSpanInt != null) backgroundColorSpanInt!!
                 else if (backgroundColorSpanResource != null) mContext.getColor(
@@ -352,7 +352,7 @@ abstract class AlertDialogEventsBase(
         protected open var backgroundColorSpanInt: Int? = null
         protected open var backgroundColorSpan: Int? = null
         protected open var detailsScrollHeightSpan: Int = DEFAULT_DETAILS_SCROLL_HEIGHT_SPAN
-        protected open var type: Type = Type.CUSTOM
+        protected open var type: TYPE = TYPE.CUSTOM
         protected open var title: TitleAlertDialog? = null
         protected open var message: MessageAlertDialog<*>? = null
         protected open var details: DetailsAlertDialog<*>? = null
@@ -374,14 +374,14 @@ abstract class AlertDialogEventsBase(
 
         /**
          * Set material dialog type. Use the following types
-         * [Type.CUSTOM], [Type.ERROR], [Type.HELP],
-         * [Type.INFORMATION], [Type.SUCCESS], [Type.WARNING],
-         * [Type.WITHOUT_INTERNET].
+         * [TYPE.CUSTOM], [TYPE.ERROR], [TYPE.HELP],
+         * [TYPE.INFORMATION], [TYPE.SUCCESS], [TYPE.WARNING],
+         * [TYPE.WITHOUT_INTERNET].
          *
-         * @param dialogType By default, it is used [Type.CUSTOM].
+         * @param dialogType By default, it is used [TYPE.CUSTOM].
          * @return This Builder object to allow for chaining of calls to set methods
          */
-        fun setType(dialogType: Type): Builder<D> {
+        fun setType(dialogType: TYPE): Builder<D> {
             this.type = dialogType
             return this
         }
