@@ -9,7 +9,7 @@ import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.inputmethod.EditorInfo
+import android.widget.EditText
 import androidx.annotation.ColorInt
 import androidx.annotation.ColorRes
 import androidx.annotation.DrawableRes
@@ -20,20 +20,20 @@ import androidx.core.content.ContextCompat
 import com.github.leodan11.alertdialog.MaterialAlertDialogInput
 import com.github.leodan11.alertdialog.R
 import com.github.leodan11.alertdialog.databinding.MAlertDialogInputBinding
+import com.github.leodan11.alertdialog.io.content.AlertDialog
 import com.github.leodan11.alertdialog.io.content.Config.MATERIAL_ALERT_DIALOG_UI_NOT_ICON
-import com.github.leodan11.alertdialog.io.content.MaterialAlertDialog
 import com.github.leodan11.alertdialog.io.content.MaterialDialogInterface
 import com.github.leodan11.alertdialog.io.models.ButtonAlertDialog
 import com.github.leodan11.alertdialog.io.models.IconAlertDialog
 import com.github.leodan11.alertdialog.io.models.IconInputDialog
 import com.github.leodan11.alertdialog.io.models.IconTintAlertDialog
-import com.github.leodan11.alertdialog.io.models.InputAlertDialog
 import com.github.leodan11.alertdialog.io.models.MessageAlertDialog
 import com.github.leodan11.alertdialog.io.models.TitleAlertDialog
 import com.github.leodan11.k_extensions.core.colorOnSurface
 import com.github.leodan11.k_extensions.core.colorPrimary
-import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
+import com.vicmikhailau.maskededittext.MaskedFormatter
+import com.vicmikhailau.maskededittext.MaskedWatcher
 
 abstract class AlertDialogInputBase(
     protected open var mContext: Context,
@@ -41,10 +41,14 @@ abstract class AlertDialogInputBase(
     protected open var iconTintColor: IconTintAlertDialog?,
     protected open var title: TitleAlertDialog?,
     protected open var message: MessageAlertDialog<*>?,
+    protected open var maskedFormatter: String?,
     protected open var counterMax: Int?,
     protected open var startIcon: IconInputDialog?,
     protected open var endIcon: IconInputDialog?,
-    protected open var inputBase: InputAlertDialog,
+    protected open var inputTextHide: String,
+    protected open var inputTextHelper: String?,
+    protected open var inputTextError: String?,
+    protected open var inputTextDefault: String?,
     protected open var isCancelable: Boolean,
     protected open var positiveButton: ButtonAlertDialog?,
     protected open var negativeButton: ButtonAlertDialog?,
@@ -62,7 +66,8 @@ abstract class AlertDialogInputBase(
     ): View {
         // Inflate and set the layout for the dialog
         // Pass null as the parent view because it's going in the dialog layout
-        val binding: MAlertDialogInputBinding = MAlertDialogInputBinding.inflate(layoutInflater)
+        val binding: MAlertDialogInputBinding =
+            MAlertDialogInputBinding.inflate(layoutInflater, container, false)
         val mIconView = binding.imageViewIconInputAlertDialog
         val mContentHeader = binding.layoutContentHeaderInputAlertDialog
         val mTitleView = binding.textViewTitleDialogInputAlert
@@ -97,32 +102,22 @@ abstract class AlertDialogInputBase(
         } else mMessageView.visibility = View.GONE
         // Set Content
         mTextInputLayoutAlert.apply {
-            hint = inputBase.textHide
-            inputBase.textHelper?.let { srt -> helperText = srt }
-            inputBase.textHelperRes?.let { res -> helperText = mContext.getString(res) }
-            isHelperTextEnabled = helperText != null
+            hint = inputTextHide
+            inputTextHelper?.let { helperText = it }
+            isHelperTextEnabled = !inputTextHelper.isNullOrEmpty()
+            inputTextError?.let { error = it }
+            isErrorEnabled = !inputTextError.isNullOrEmpty()
+            endIconMode = TextInputLayout.END_ICON_CLEAR_TEXT
         }
-        inputBase.textDefaultValue?.let { mTextInputEditTextAlert.setText(it) }
-        mTextInputEditTextAlert.inputType = when (inputBase.inputType) {
-            MaterialAlertDialog.InputType.DECIMAL_NUMBER -> EditorInfo.TYPE_NUMBER_FLAG_DECIMAL
-            MaterialAlertDialog.InputType.EMAIL -> {
-                mTextInputLayoutAlert.endIconMode = TextInputLayout.END_ICON_CLEAR_TEXT
-                EditorInfo.TYPE_TEXT_VARIATION_EMAIL_ADDRESS
-            }
-
-            MaterialAlertDialog.InputType.NUMBER -> EditorInfo.TYPE_CLASS_NUMBER
-            MaterialAlertDialog.InputType.PASSWORD -> {
-                mTextInputLayoutAlert.endIconMode = TextInputLayout.END_ICON_PASSWORD_TOGGLE
-                EditorInfo.TYPE_TEXT_VARIATION_PASSWORD
-            }
-
-            MaterialAlertDialog.InputType.PHONE -> EditorInfo.TYPE_CLASS_PHONE
-            MaterialAlertDialog.InputType.TEXT -> {
-                mTextInputLayoutAlert.endIconMode = TextInputLayout.END_ICON_CLEAR_TEXT
-                EditorInfo.TYPE_CLASS_TEXT
-            }
-
-            else -> throw IllegalArgumentException("Bad Input Type")
+        inputTextDefault?.let { mTextInputEditTextAlert.setText(it) }
+        maskedFormatter?.let {
+            val formatter = MaskedFormatter(it)
+            mTextInputEditTextAlert.addTextChangedListener(
+                MaskedWatcher(
+                    formatter,
+                    mTextInputEditTextAlert
+                )
+            )
         }
         counterMax?.let {
             mTextInputLayoutAlert.counterMaxLength = it
@@ -157,7 +152,7 @@ abstract class AlertDialogInputBase(
                         if (validateLayoutEditText(
                                 mTextInputLayoutAlert,
                                 mTextInputEditTextAlert,
-                                inputBase
+                                inputTextError
                             )
                         ) {
                             positiveButton?.onClickInputListener?.onClick(
@@ -181,7 +176,7 @@ abstract class AlertDialogInputBase(
                 setOnClickListener {
                     negativeButton?.onClickListener?.onClick(
                         this@AlertDialogInputBase,
-                        MaterialAlertDialog.UI.BUTTON_NEGATIVE
+                        AlertDialog.UI.BUTTON_NEGATIVE
                     )
                 }
                 visibility = View.VISIBLE
@@ -311,16 +306,16 @@ abstract class AlertDialogInputBase(
 
     private fun validateLayoutEditText(
         textInputLayoutAlert: TextInputLayout,
-        textInputEditTextAlert: TextInputEditText,
-        inputBase: InputAlertDialog,
+        textInputEditTextAlert: EditText,
+        textError: String?,
     ): Boolean {
         return if (!TextUtils.isEmpty(textInputEditTextAlert.text.toString().trim())) {
             textInputLayoutAlert.isErrorEnabled = false
             true
         } else {
             textInputLayoutAlert.isErrorEnabled = true
-            textInputLayoutAlert.error = inputBase.textError
-                ?: mContext.getString(inputBase.textErrorRes)
+            textInputLayoutAlert.error =
+                textError ?: mContext.getString(R.string.text_value_this_field_is_required)
             false
         }
     }
@@ -336,13 +331,15 @@ abstract class AlertDialogInputBase(
         protected open var iconTintColor: IconTintAlertDialog? = null
         protected open var title: TitleAlertDialog? = null
         protected open var message: MessageAlertDialog<*>? = null
+        protected open var maskedFormatter: String? = null
         protected open var counterMaxLength: Int? = null
         protected open var startIcon: IconInputDialog? = null
         protected open var endIcon: IconInputDialog? = null
-        protected open var inputBase: InputAlertDialog = InputAlertDialog(
-            inputType = MaterialAlertDialog.InputType.TEXT,
-            textHide = context.getString(R.string.text_value_enter_a_value_below)
-        )
+        protected open var inputTextHide: String =
+            context.getString(R.string.text_value_enter_a_value_below)
+        protected open var inputTextHelper: String? = null
+        protected open var inputTextError: String? = null
+        protected open var inputTextDefault: String? = null
         protected open var isCancelable: Boolean = false
         protected open var positiveButton: ButtonAlertDialog? = null
         protected open var negativeButton: ButtonAlertDialog? = null
@@ -406,8 +403,8 @@ abstract class AlertDialogInputBase(
          * @param title The title to display in the dialog.
          * @return This Builder object to allow for chaining of calls to set methods
          */
-        fun setTitle(title: String?): Builder<D> {
-            return setTitle(title, MaterialAlertDialog.TextAlignment.START)
+        fun setTitle(title: String): Builder<D> {
+            return setTitle(title, AlertDialog.TextAlignment.START)
         }
 
         /**
@@ -417,17 +414,17 @@ abstract class AlertDialogInputBase(
          * @return This Builder object to allow for chaining of calls to set methods
          */
         fun setTitle(@StringRes title: Int): Builder<D> {
-            return setTitle(title, MaterialAlertDialog.TextAlignment.START)
+            return setTitle(title, AlertDialog.TextAlignment.START)
         }
 
         /**
-         * Set the title displayed in the [MaterialAlertDialogInput]. With text alignment: [MaterialAlertDialog.TextAlignment.START], [MaterialAlertDialog.TextAlignment.CENTER], [MaterialAlertDialog.TextAlignment.END].
+         * Set the title displayed in the [MaterialAlertDialogInput]. With text alignment: [AlertDialog.TextAlignment.START], [AlertDialog.TextAlignment.CENTER], [AlertDialog.TextAlignment.END].
          *
          * @param title The title to display in the dialog.
-         * @param alignment The message alignment. Default [MaterialAlertDialog.TextAlignment.CENTER].
+         * @param alignment The message alignment. Default [AlertDialog.TextAlignment.CENTER].
          * @return This Builder object to allow for chaining of calls to set methods
          */
-        fun setTitle(title: String?, alignment: MaterialAlertDialog.TextAlignment): Builder<D> {
+        fun setTitle(title: String? = null, alignment: AlertDialog.TextAlignment): Builder<D> {
             val valueText =
                 if (title.isNullOrEmpty()) context.getString(R.string.text_value_information) else title
             this.title = TitleAlertDialog(title = valueText, textAlignment = alignment)
@@ -435,15 +432,15 @@ abstract class AlertDialogInputBase(
         }
 
         /**
-         * Set the title displayed in the [MaterialAlertDialogInput]. With text alignment: [MaterialAlertDialog.TextAlignment.START], [MaterialAlertDialog.TextAlignment.CENTER], [MaterialAlertDialog.TextAlignment.END].
+         * Set the title displayed in the [MaterialAlertDialogInput]. With text alignment: [AlertDialog.TextAlignment.START], [AlertDialog.TextAlignment.CENTER], [AlertDialog.TextAlignment.END].
          *
          * @param title The title to display in the dialog.
-         * @param alignment The message alignment. Default [MaterialAlertDialog.TextAlignment.CENTER].
+         * @param alignment The message alignment. Default [AlertDialog.TextAlignment.CENTER].
          * @return This Builder object to allow for chaining of calls to set methods
          */
         fun setTitle(
             @StringRes title: Int,
-            alignment: MaterialAlertDialog.TextAlignment,
+            alignment: AlertDialog.TextAlignment,
         ): Builder<D> {
             this.title =
                 TitleAlertDialog(title = context.getString(title), textAlignment = alignment)
@@ -457,7 +454,7 @@ abstract class AlertDialogInputBase(
          * @return This Builder object to allow for chaining of calls to set methods
          */
         fun setMessage(message: String): Builder<D> {
-            return setMessage(message, MaterialAlertDialog.TextAlignment.START)
+            return setMessage(message, AlertDialog.TextAlignment.START)
         }
 
         /**
@@ -467,31 +464,31 @@ abstract class AlertDialogInputBase(
          * @return This Builder object to allow for chaining of calls to set methods
          */
         fun setMessage(@StringRes message: Int): Builder<D> {
-            return setMessage(message, MaterialAlertDialog.TextAlignment.START)
+            return setMessage(message, AlertDialog.TextAlignment.START)
         }
 
         /**
-         * Sets the message to display. With text alignment: [MaterialAlertDialog.TextAlignment.START], [MaterialAlertDialog.TextAlignment.CENTER], [MaterialAlertDialog.TextAlignment.END].
+         * Sets the message to display. With text alignment: [AlertDialog.TextAlignment.START], [AlertDialog.TextAlignment.CENTER], [AlertDialog.TextAlignment.END].
          *
          * @param message The message to display in the dialog.
-         * @param alignment The message alignment. Default [MaterialAlertDialog.TextAlignment.CENTER].
+         * @param alignment The message alignment. Default [AlertDialog.TextAlignment.CENTER].
          * @return This Builder object to allow for chaining of calls to set methods
          */
-        fun setMessage(message: String, alignment: MaterialAlertDialog.TextAlignment): Builder<D> {
+        fun setMessage(message: String, alignment: AlertDialog.TextAlignment): Builder<D> {
             this.message = MessageAlertDialog.text(text = message, alignment = alignment)
             return this
         }
 
         /**
-         * Sets the message to display. With text alignment: [MaterialAlertDialog.TextAlignment.START], [MaterialAlertDialog.TextAlignment.CENTER], [MaterialAlertDialog.TextAlignment.END].
+         * Sets the message to display. With text alignment: [AlertDialog.TextAlignment.START], [AlertDialog.TextAlignment.CENTER], [AlertDialog.TextAlignment.END].
          *
          * @param message The message to display in the dialog.
-         * @param alignment The message alignment. Default [MaterialAlertDialog.TextAlignment.CENTER].
+         * @param alignment The message alignment. Default [AlertDialog.TextAlignment.CENTER].
          * @return This Builder object to allow for chaining of calls to set methods
          */
         fun setMessage(
             @StringRes message: Int,
-            alignment: MaterialAlertDialog.TextAlignment,
+            alignment: AlertDialog.TextAlignment,
         ): Builder<D> {
             this.message =
                 MessageAlertDialog.text(text = context.getString(message), alignment = alignment)
@@ -505,17 +502,17 @@ abstract class AlertDialogInputBase(
          * @return This Builder object to allow for chaining of calls to set methods
          */
         fun setMessage(message: Spanned): Builder<D> {
-            return setMessage(message, MaterialAlertDialog.TextAlignment.START)
+            return setMessage(message, AlertDialog.TextAlignment.START)
         }
 
         /**
-         * Sets the message to display. With text alignment: [MaterialAlertDialog.TextAlignment.START], [MaterialAlertDialog.TextAlignment.CENTER], [MaterialAlertDialog.TextAlignment.END].
+         * Sets the message to display. With text alignment: [AlertDialog.TextAlignment.START], [AlertDialog.TextAlignment.CENTER], [AlertDialog.TextAlignment.END].
          *
          * @param message The message to display in the dialog.
-         * @param alignment The message alignment. Default [MaterialAlertDialog.TextAlignment.CENTER].
+         * @param alignment The message alignment. Default [AlertDialog.TextAlignment.CENTER].
          * @return This Builder object to allow for chaining of calls to set methods
          */
-        fun setMessage(message: Spanned, alignment: MaterialAlertDialog.TextAlignment): Builder<D> {
+        fun setMessage(message: Spanned, alignment: AlertDialog.TextAlignment): Builder<D> {
             this.message = MessageAlertDialog.spanned(text = message, alignment = alignment)
             return this
         }
@@ -532,14 +529,90 @@ abstract class AlertDialogInputBase(
         }
 
         /**
-         * Set inputs to be displayed. Use class [InputAlertDialog].
-         * [MaterialAlertDialog.InputType.DECIMAL_NUMBER], [MaterialAlertDialog.InputType.EMAIL], [MaterialAlertDialog.InputType.NUMBER], [MaterialAlertDialog.InputType.PASSWORD], [MaterialAlertDialog.InputType.PHONE] and [MaterialAlertDialog.InputType.TEXT]
+         * Set masked formatter
          *
-         * @param inputSource The input source.
+         * @param formatter The formatter to use.
          * @return This Builder object to allow for chaining of calls to set methods
          */
-        fun setInitInput(inputSource: InputAlertDialog): Builder<D> {
-            this.inputBase = inputSource
+        fun setMaskedFormatter(formatter: String): Builder<D> {
+            this.maskedFormatter = formatter
+            return this
+        }
+
+        /**
+         * Set input hint
+         *
+         * @param hint The hint to use.
+         * @return This Builder object to allow for chaining of calls to set methods
+         */
+        fun setInputHint(hint: String): Builder<D> {
+            this.inputTextHide = hint
+            return this
+        }
+
+        /**
+         * Set input hint
+         *
+         * @param hint The hint to use.
+         * @return This Builder object to allow for chaining of calls to set methods
+         */
+        fun setInputHint(@StringRes hint: Int): Builder<D> {
+            this.inputTextHide = context.getString(hint)
+            return this
+        }
+
+        /**
+         * Set input error
+         *
+         * @param error The error to use.
+         * @return This Builder object to allow for chaining of calls to set methods
+         */
+        fun setInputError(error: String): Builder<D> {
+            this.inputTextError = error
+            return this
+        }
+
+        /**
+         * Set input error
+         *
+         * @param error The error to use.
+         * @return This Builder object to allow for chaining of calls to set methods
+         */
+        fun setInputError(@StringRes error: Int): Builder<D> {
+            this.inputTextError = context.getString(error)
+            return this
+        }
+
+        /**
+         * Set input helper text
+         *
+         * @param helperText The helper text to use.
+         * @return This Builder object to allow for chaining of calls to set methods
+         */
+        fun setInputHelperText(helperText: String): Builder<D> {
+            this.inputTextHelper = helperText
+            return this
+        }
+
+        /**
+         * Set input helper text
+         *
+         * @param helperText The helper text to use.
+         * @return This Builder object to allow for chaining of calls to set methods
+         */
+        fun setInputHelperText(@StringRes helperText: Int): Builder<D> {
+            this.inputTextHelper = context.getString(helperText)
+            return this
+        }
+
+        /**
+         * Set input default value
+         *
+         * @param valueHolder The default value to use.
+         * @return This Builder object to allow for chaining of calls to set methods
+         */
+        fun setInputDefaultValue(valueHolder: String): Builder<D> {
+            this.inputTextDefault = valueHolder
             return this
         }
 
@@ -638,7 +711,7 @@ abstract class AlertDialogInputBase(
          * @return This Builder object to allow for chaining of calls to set methods
          */
         fun setPositiveButton(
-            buttonText: String?,
+            buttonText: String? = null,
             onClickListenerInput: MaterialDialogInterface.OnClickInputListener,
         ): Builder<D> {
             return setPositiveButton(
@@ -675,7 +748,7 @@ abstract class AlertDialogInputBase(
          * @return This Builder object to allow for chaining of calls to set methods
          */
         fun setPositiveButton(
-            buttonText: String?,
+            buttonText: String? = null,
             @DrawableRes icon: Int,
             onClickListenerInput: MaterialDialogInterface.OnClickInputListener,
         ): Builder<D> {
@@ -718,7 +791,7 @@ abstract class AlertDialogInputBase(
          * @return This Builder object to allow for chaining of calls to set methods
          */
         fun setNegativeButton(
-            buttonText: String?,
+            buttonText: String? = null,
             onClickListener: MaterialDialogInterface.OnClickListener,
         ): Builder<D> {
             return setNegativeButton(buttonText, MATERIAL_ALERT_DIALOG_UI_NOT_ICON, onClickListener)
@@ -747,7 +820,7 @@ abstract class AlertDialogInputBase(
          * @return This Builder object to allow for chaining of calls to set methods
          */
         fun setNegativeButton(
-            buttonText: String?,
+            buttonText: String? = null,
             icon: Int,
             onClickListener: MaterialDialogInterface.OnClickListener,
         ): Builder<D> {

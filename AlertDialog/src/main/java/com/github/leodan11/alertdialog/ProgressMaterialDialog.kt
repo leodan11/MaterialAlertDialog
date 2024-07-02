@@ -4,7 +4,7 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import com.github.leodan11.alertdialog.dist.ProgressDialogBase
-import com.github.leodan11.alertdialog.io.content.MaterialAlertDialog
+import com.github.leodan11.alertdialog.io.content.AlertDialog
 import com.github.leodan11.alertdialog.io.models.ButtonAlertDialog
 import com.github.leodan11.alertdialog.io.models.IconAlertDialog
 import com.github.leodan11.alertdialog.io.models.IconTintAlertDialog
@@ -16,7 +16,7 @@ class ProgressMaterialDialog(
     mContext: Context,
     icon: IconAlertDialog?,
     tintColor: IconTintAlertDialog?,
-    progressType: MaterialAlertDialog.Type,
+    progressType: AlertDialog.Progress,
     title: TitleAlertDialog?,
     message: MessageAlertDialog<*>?,
     detailsLinearProgress: MessageAlertDialog<*>?,
@@ -59,16 +59,16 @@ class ProgressMaterialDialog(
 
         override fun create(): ProgressMaterialDialog {
             return ProgressMaterialDialog(
-                context,
-                icon,
-                tintColor,
-                progressType,
-                title,
-                message,
-                detailsLinearProgress,
-                isCancelable,
-                isIndeterminate,
-                negativeButton
+                mContext = context,
+                icon = icon,
+                tintColor = tintColor,
+                progressType = progressType,
+                title = title,
+                message = message,
+                detailsLinearProgress = detailsLinearProgress,
+                mCancelable = isCancelable,
+                mIndeterminate = isIndeterminate,
+                mNegativeButton = negativeButton
             )
         }
 

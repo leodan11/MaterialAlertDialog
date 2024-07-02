@@ -50,13 +50,13 @@ class MaterialAlertDialogSignIn(
 
         override fun create(): MaterialAlertDialogSignIn {
             return MaterialAlertDialogSignIn(
-                context,
-                icon,
-                tintColor,
-                title,
-                isCancelable,
-                positiveButton,
-                negativeButton
+                mContext = context,
+                icon = icon,
+                tintColor = tintColor,
+                title = title,
+                mCancelable = isCancelable,
+                mPositiveButton = positiveButton,
+                mNegativeButton = negativeButton
             )
         }
 

@@ -46,12 +46,12 @@ class MaterialAlertDialogProgressSmall(
 
         override fun create(): MaterialAlertDialogProgressSmall {
             return MaterialAlertDialogProgressSmall(
-                context,
-                icon,
-                isAnimatedVectorDrawable,
-                isAnimatedVectorDrawableLoop,
-                message,
-                isCancelable
+                mContext = context,
+                icon = icon,
+                mAnimatedVectorDrawable = isAnimatedVectorDrawable,
+                mAnimatedVectorDrawableLoop = isAnimatedVectorDrawableLoop,
+                message = message,
+                mCancelable = isCancelable
             )
         }
 

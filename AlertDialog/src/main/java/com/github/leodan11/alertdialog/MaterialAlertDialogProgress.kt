@@ -57,16 +57,16 @@ class MaterialAlertDialogProgress(
 
         override fun create(): MaterialAlertDialogProgress {
             return MaterialAlertDialogProgress(
-                context,
-                icon,
-                tintColor,
-                iconVectorDrawable,
-                isAnimatedVectorDrawable,
-                isAnimatedVectorDrawableLoop,
-                title,
-                message,
-                isCancelable,
-                negativeButton
+                mContext = context,
+                icon = icon,
+                tintColor = tintColor,
+                iconVectorDrawable = iconVectorDrawable,
+                mAnimatedVectorDrawable = isAnimatedVectorDrawable,
+                mAnimatedVectorDrawableLoop = isAnimatedVectorDrawableLoop,
+                title = title,
+                message = message,
+                mCancelable = isCancelable,
+                mNegativeButton = negativeButton
             )
         }
 

@@ -63,7 +63,6 @@
             android:layout_marginEnd="@dimen/margin_spacing_min"
             android:autofillHints="name"
             android:background="@drawable/ic_baseline_background_transparent_font"
-            android:ems="10"
             android:gravity="center"
             android:hint="@string/text_value_screenplay"
             android:inputType="textCapCharacters"
@@ -81,7 +80,6 @@
             android:layout_marginEnd="@dimen/margin_spacing_min"
             android:autofillHints="name"
             android:background="@drawable/ic_baseline_background_transparent_font"
-            android:ems="10"
             android:gravity="center"
             android:hint="@string/text_value_screenplay"
             android:inputType="textCapCharacters"
@@ -99,7 +97,6 @@
             android:layout_marginEnd="@dimen/margin_spacing_min"
             android:autofillHints="name"
             android:background="@drawable/ic_baseline_background_transparent_font"
-            android:ems="10"
             android:gravity="center"
             android:hint="@string/text_value_screenplay"
             android:inputType="textCapCharacters"
@@ -117,7 +114,6 @@
             android:layout_marginEnd="@dimen/margin_spacing_min"
             android:autofillHints="name"
             android:background="@drawable/ic_baseline_background_transparent_font"
-            android:ems="10"
             android:gravity="center"
             android:hint="@string/text_value_screenplay"
             android:inputType="textCapCharacters"
@@ -135,7 +131,6 @@
             android:layout_marginEnd="@dimen/margin_spacing_min"
             android:autofillHints="name"
             android:background="@drawable/ic_baseline_background_transparent_font"
-            android:ems="10"
             android:gravity="center"
             android:hint="@string/text_value_screenplay"
             android:inputType="textCapCharacters"
@@ -152,7 +147,6 @@
             android:layout_height="@dimen/spacing_edit_text"
             android:autofillHints="name"
             android:background="@drawable/ic_baseline_background_transparent_font"
-            android:ems="10"
             android:gravity="center"
             android:hint="@string/text_value_screenplay"
             android:inputType="textCapCharacters"
@@ -226,7 +220,7 @@
                 android:layout_height="wrap_content"
                 android:imeOptions="actionDone"
                 android:inputType="textMultiLine"
-                tools:ignore="TextContrastCheck,VisualLintTextFieldSize" />
+                tools:ignore="TextContrastCheck,VisualLintTextFieldSize,SpeakableTextPresentCheck,TouchTargetSizeCheck" />
 
         </com.google.android.material.textfield.TextInputLayout>
 

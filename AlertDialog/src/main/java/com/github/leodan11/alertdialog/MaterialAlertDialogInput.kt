@@ -8,7 +8,6 @@ import com.github.leodan11.alertdialog.io.models.ButtonAlertDialog
 import com.github.leodan11.alertdialog.io.models.IconAlertDialog
 import com.github.leodan11.alertdialog.io.models.IconInputDialog
 import com.github.leodan11.alertdialog.io.models.IconTintAlertDialog
-import com.github.leodan11.alertdialog.io.models.InputAlertDialog
 import com.github.leodan11.alertdialog.io.models.MessageAlertDialog
 import com.github.leodan11.alertdialog.io.models.TitleAlertDialog
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
@@ -19,10 +18,14 @@ class MaterialAlertDialogInput(
     mTintColor: IconTintAlertDialog?,
     mTitle: TitleAlertDialog?,
     mMessage: MessageAlertDialog<*>?,
+    maskedFormatter: String?,
     mCounterMaxLength: Int?,
-    mInputBase: InputAlertDialog,
     mStartIcon: IconInputDialog?,
     mEndIcon: IconInputDialog?,
+    inputTextHide: String,
+    inputTextHelper: String?,
+    inputTextError: String?,
+    inputTextDefault: String?,
     mCancelable: Boolean,
     mPositiveButton: ButtonAlertDialog?,
     mNegativeButton: ButtonAlertDialog?,
@@ -32,10 +35,14 @@ class MaterialAlertDialogInput(
     iconTintColor = mTintColor,
     title = mTitle,
     message = mMessage,
+    maskedFormatter = maskedFormatter,
     counterMax = mCounterMaxLength,
-    inputBase = mInputBase,
     startIcon = mStartIcon,
     endIcon = mEndIcon,
+    inputTextHide = inputTextHide,
+    inputTextHelper = inputTextHelper,
+    inputTextError = inputTextError,
+    inputTextDefault = inputTextDefault,
     isCancelable = mCancelable,
     positiveButton = mPositiveButton,
     negativeButton = mNegativeButton
@@ -63,18 +70,22 @@ class MaterialAlertDialogInput(
 
         override fun create(): MaterialAlertDialogInput {
             return MaterialAlertDialogInput(
-                context,
-                icon,
-                iconTintColor,
-                title,
-                message,
-                counterMaxLength,
-                inputBase,
-                startIcon,
-                endIcon,
-                isCancelable,
-                positiveButton,
-                negativeButton
+                mContext = context,
+                mIcon = icon,
+                mTintColor = iconTintColor,
+                mTitle = title,
+                mMessage = message,
+                maskedFormatter = maskedFormatter,
+                mCounterMaxLength = counterMaxLength,
+                mStartIcon = startIcon,
+                mEndIcon = endIcon,
+                inputTextHide = inputTextHide,
+                inputTextHelper = inputTextHelper,
+                inputTextError = inputTextError,
+                inputTextDefault = inputTextDefault,
+                mCancelable = isCancelable,
+                mPositiveButton = positiveButton,
+                mNegativeButton = negativeButton
             )
         }
 

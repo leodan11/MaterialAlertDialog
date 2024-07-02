@@ -10,7 +10,6 @@ import android.widget.EditText
 import android.widget.TextView
 import androidx.core.widget.addTextChangedListener
 import com.github.leodan11.alertdialog.io.content.Config.BITMAP_CONFIG
-import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
 
 object Functions {
@@ -60,13 +59,13 @@ object Functions {
      * Validate Text field has data
      *
      * @param textInputLayout Parent element [TextInputLayout].
-     * @param textInputEditText Text field [TextInputEditText].
+     * @param textInputEditText Text field [EditText].
      * @param error Error to be displayed on the element.
      * @return [Boolean] true or false.
      */
     fun onValidateTextField(
         textInputLayout: TextInputLayout,
-        textInputEditText: TextInputEditText,
+        textInputEditText: EditText,
         error: String,
     ): Boolean {
         if (TextUtils.isEmpty(textInputEditText.text.toString().trim())) {

@@ -41,9 +41,9 @@ class IOSProgressDialog(
 
         override fun create(): IOSProgressDialog {
             return IOSProgressDialog(
-                context,
-                message,
-                isCancelable
+                mContext = context,
+                message = message,
+                mCancelable = isCancelable
             )
         }
 

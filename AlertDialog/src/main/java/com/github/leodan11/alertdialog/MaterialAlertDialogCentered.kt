@@ -48,7 +48,6 @@ class MaterialAlertDialogCentered(
         builder.setCancelable(mCancelable)
         // Create and show dialog
         mDialog = builder.create()
-        mDialog?.window?.setBackgroundDrawableResource(android.R.color.transparent)
     }
 
     /**
@@ -61,18 +60,18 @@ class MaterialAlertDialogCentered(
 
         override fun create(): MaterialAlertDialogCentered {
             return MaterialAlertDialogCentered(
-                context,
-                icon,
-                bitmap,
-                jsonAnimation,
-                backgroundColorInt,
-                backgroundColorResource,
-                title,
-                message,
-                isCancelable,
-                positiveButton,
-                neutralButton,
-                negativeButton
+                mContext = context,
+                icon = icon,
+                image = bitmap,
+                jsonAnimation = jsonAnimation,
+                backgroundColorInt = backgroundColorInt,
+                backgroundColorResource = backgroundColorResource,
+                title = title,
+                message = message,
+                mCancelable = isCancelable,
+                mPositiveButton = positiveButton,
+                mNeutralButton = neutralButton,
+                mNegativeButton = negativeButton
             )
         }
     }

@@ -61,18 +61,18 @@ class AboutMaterialDialog(
 
         override fun create(): AboutMaterialDialog {
             return AboutMaterialDialog(
-                context,
-                icon,
-                backgroundIconTintColor,
-                detailsScrollHeightSpan,
-                title,
-                message,
-                span,
-                details,
-                isCancelable,
-                positiveButton,
-                neutralButton,
-                negativeButton
+                mContext = context,
+                icon = icon,
+                backgroundIconTintColor = backgroundIconTintColor,
+                detailsScrollHeightSpan = detailsScrollHeightSpan,
+                title = title,
+                message = message,
+                span = span,
+                details = details,
+                mCancelable = isCancelable,
+                mPositiveButton = positiveButton,
+                mNeutralButton = neutralButton,
+                mNegativeButton = negativeButton
             )
         }
     }

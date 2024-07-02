@@ -58,7 +58,7 @@
                 android:layout_height="wrap_content"
                 android:imeOptions="actionNext"
                 android:inputType="text"
-                tools:ignore="TextContrastCheck,VisualLintTextFieldSize" />
+                tools:ignore="TextContrastCheck,VisualLintTextFieldSize,SpeakableTextPresentCheck,TouchTargetSizeCheck" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -79,7 +79,7 @@
                 android:layout_height="wrap_content"
                 android:imeOptions="actionDone"
                 android:inputType="textPassword"
-                tools:ignore="TextContrastCheck,VisualLintTextFieldSize" />
+                tools:ignore="TextContrastCheck,VisualLintTextFieldSize,SpeakableTextPresentCheck,TouchTargetSizeCheck" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -95,7 +95,8 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="start|center"
                 android:contentDescription="@string/button_negative_speakable_text_value"
-                android:text="@string/text_value_cancel" />
+                android:text="@string/text_value_cancel"
+                tools:ignore="TextContrastCheck" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/button_action_positive_login_dialog"
@@ -104,7 +105,8 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="end|center"
                 android:contentDescription="@string/button_positive_speakable_text_value"
-                android:text="@string/text_value_login_in" />
+                android:text="@string/text_value_login_in"
+                tools:ignore="TextContrastCheck" />
 
         </androidx.coordinatorlayout.widget.CoordinatorLayout>
 

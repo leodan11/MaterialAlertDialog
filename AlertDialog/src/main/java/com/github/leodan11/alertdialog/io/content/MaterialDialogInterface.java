@@ -18,7 +18,7 @@ public interface MaterialDialogInterface {
     }
 
     interface OnClickListener {
-        void onClick(MaterialDialogInterface dialog, MaterialAlertDialog.UI whichButton);
+        void onClick(MaterialDialogInterface dialog, AlertDialog.UI whichButton);
     }
 
     interface OnClickInputListener {

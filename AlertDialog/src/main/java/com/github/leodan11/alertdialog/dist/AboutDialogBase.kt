@@ -19,9 +19,9 @@ import androidx.core.widget.addTextChangedListener
 import com.github.leodan11.alertdialog.AboutMaterialDialog
 import com.github.leodan11.alertdialog.R
 import com.github.leodan11.alertdialog.databinding.MAboutDialogBinding
+import com.github.leodan11.alertdialog.io.content.AlertDialog
 import com.github.leodan11.alertdialog.io.content.Config.DEFAULT_DETAILS_SCROLL_HEIGHT_SPAN
 import com.github.leodan11.alertdialog.io.content.Config.MATERIAL_ALERT_DIALOG_UI_NOT_ICON
-import com.github.leodan11.alertdialog.io.content.MaterialAlertDialog
 import com.github.leodan11.alertdialog.io.content.MaterialDialogInterface
 import com.github.leodan11.alertdialog.io.helpers.Functions.onTextViewTextSize
 import com.github.leodan11.alertdialog.io.models.ButtonAlertDialog
@@ -61,7 +61,8 @@ abstract class AboutDialogBase(
     ): View {
         // Inflate and set the layout for the dialog
         // Pass null as the parent view because it's going in the dialog layout
-        val binding: MAboutDialogBinding = MAboutDialogBinding.inflate(layoutInflater)
+        val binding: MAboutDialogBinding =
+            MAboutDialogBinding.inflate(layoutInflater, container, false)
         // Initialize Views
         val mIconView = binding.imageViewApplicationIcon
         val mTitleView = binding.textViewApplicationName
@@ -139,7 +140,7 @@ abstract class AboutDialogBase(
             mPositiveButtonView.setOnClickListener {
                 mPositiveButton?.onClickListener?.onClick(
                     this,
-                    MaterialAlertDialog.UI.BUTTON_POSITIVE
+                    AlertDialog.UI.BUTTON_POSITIVE
                 )
             }
         } else mPositiveButtonView.visibility = View.GONE
@@ -153,7 +154,7 @@ abstract class AboutDialogBase(
             mNeutralButtonView.setOnClickListener {
                 mNeutralButton?.onClickListener?.onClick(
                     this,
-                    MaterialAlertDialog.UI.BUTTON_NEUTRAL
+                    AlertDialog.UI.BUTTON_NEUTRAL
                 )
             }
         } else mNeutralButtonView.visibility = View.GONE
@@ -167,7 +168,7 @@ abstract class AboutDialogBase(
             mNegativeButtonView.setOnClickListener {
                 mNegativeButton?.onClickListener?.onClick(
                     this,
-                    MaterialAlertDialog.UI.BUTTON_NEGATIVE
+                    AlertDialog.UI.BUTTON_NEGATIVE
                 )
             }
         } else mNegativeButtonView.visibility = View.GONE
@@ -375,7 +376,7 @@ abstract class AboutDialogBase(
          * @return This Builder object to allow for chaining of calls to set methods
          */
         fun setApplicationName(title: String): Builder<D> {
-            return setApplicationName(title, MaterialAlertDialog.TextAlignment.CENTER)
+            return setApplicationName(title, AlertDialog.TextAlignment.CENTER)
         }
 
         /**
@@ -385,34 +386,34 @@ abstract class AboutDialogBase(
          * @return This Builder object to allow for chaining of calls to set methods
          */
         fun setApplicationName(@StringRes title: Int): Builder<D> {
-            return setApplicationName(title, MaterialAlertDialog.TextAlignment.CENTER)
+            return setApplicationName(title, AlertDialog.TextAlignment.CENTER)
         }
 
         /**
-         * Set the application name displayed in the [AboutMaterialDialog]. With text alignment: [MaterialAlertDialog.TextAlignment.START], [MaterialAlertDialog.TextAlignment.CENTER], [MaterialAlertDialog.TextAlignment.END].
+         * Set the application name displayed in the [AboutMaterialDialog]. With text alignment: [AlertDialog.TextAlignment.START], [AlertDialog.TextAlignment.CENTER], [AlertDialog.TextAlignment.END].
          *
          * @param title The title to display in the dialog.
-         * @param alignment The message alignment. Default [MaterialAlertDialog.TextAlignment.CENTER].
+         * @param alignment The message alignment. Default [AlertDialog.TextAlignment.CENTER].
          * @return This Builder object to allow for chaining of calls to set methods
          */
         fun setApplicationName(
             title: String,
-            alignment: MaterialAlertDialog.TextAlignment,
+            alignment: AlertDialog.TextAlignment,
         ): Builder<D> {
             this.title = TitleAlertDialog(title = title, textAlignment = alignment)
             return this
         }
 
         /**
-         * Set the application name displayed in the [AboutMaterialDialog]. With text alignment: [MaterialAlertDialog.TextAlignment.START], [MaterialAlertDialog.TextAlignment.CENTER], [MaterialAlertDialog.TextAlignment.END].
+         * Set the application name displayed in the [AboutMaterialDialog]. With text alignment: [AlertDialog.TextAlignment.START], [AlertDialog.TextAlignment.CENTER], [AlertDialog.TextAlignment.END].
          *
          * @param title The title to display in the dialog.
-         * @param alignment The message alignment. Default [MaterialAlertDialog.TextAlignment.CENTER].
+         * @param alignment The message alignment. Default [AlertDialog.TextAlignment.CENTER].
          * @return This Builder object to allow for chaining of calls to set methods
          */
         fun setApplicationName(
             @StringRes title: Int,
-            alignment: MaterialAlertDialog.TextAlignment,
+            alignment: AlertDialog.TextAlignment,
         ): Builder<D> {
             this.title =
                 TitleAlertDialog(title = context.getString(title), textAlignment = alignment)
@@ -426,7 +427,7 @@ abstract class AboutDialogBase(
          * @return This Builder object to allow for chaining of calls to set methods
          */
         fun setApplicationVersion(message: String): Builder<D> {
-            return setApplicationVersion(message, MaterialAlertDialog.TextAlignment.CENTER)
+            return setApplicationVersion(message, AlertDialog.TextAlignment.CENTER)
         }
 
         /**
@@ -436,34 +437,34 @@ abstract class AboutDialogBase(
          * @return This Builder object to allow for chaining of calls to set methods
          */
         fun setApplicationVersion(@StringRes message: Int): Builder<D> {
-            return setApplicationVersion(message, MaterialAlertDialog.TextAlignment.CENTER)
+            return setApplicationVersion(message, AlertDialog.TextAlignment.CENTER)
         }
 
         /**
-         * Sets the application version to display. With text alignment: [MaterialAlertDialog.TextAlignment.START], [MaterialAlertDialog.TextAlignment.CENTER], [MaterialAlertDialog.TextAlignment.END].
+         * Sets the application version to display. With text alignment: [AlertDialog.TextAlignment.START], [AlertDialog.TextAlignment.CENTER], [AlertDialog.TextAlignment.END].
          *
          * @param message The message to display in the dialog.
-         * @param alignment The message alignment. Default [MaterialAlertDialog.TextAlignment.CENTER].
+         * @param alignment The message alignment. Default [AlertDialog.TextAlignment.CENTER].
          * @return This Builder object to allow for chaining of calls to set methods
          */
         fun setApplicationVersion(
             message: String,
-            alignment: MaterialAlertDialog.TextAlignment,
+            alignment: AlertDialog.TextAlignment,
         ): Builder<D> {
             this.message = MessageAlertDialog.text(text = message, alignment = alignment)
             return this
         }
 
         /**
-         * Sets the application version to display. With text alignment: [MaterialAlertDialog.TextAlignment.START], [MaterialAlertDialog.TextAlignment.CENTER], [MaterialAlertDialog.TextAlignment.END].
+         * Sets the application version to display. With text alignment: [AlertDialog.TextAlignment.START], [AlertDialog.TextAlignment.CENTER], [AlertDialog.TextAlignment.END].
          *
          * @param message The message to display in the dialog.
-         * @param alignment The message alignment. Default [MaterialAlertDialog.TextAlignment.CENTER].
+         * @param alignment The message alignment. Default [AlertDialog.TextAlignment.CENTER].
          * @return This Builder object to allow for chaining of calls to set methods
          */
         fun setApplicationVersion(
             @StringRes message: Int,
-            alignment: MaterialAlertDialog.TextAlignment,
+            alignment: AlertDialog.TextAlignment,
         ): Builder<D> {
             this.message =
                 MessageAlertDialog.text(text = context.getString(message), alignment = alignment)
@@ -477,19 +478,19 @@ abstract class AboutDialogBase(
          * @return This Builder object to allow for chaining of calls to set methods
          */
         fun setApplicationVersion(message: Spanned): Builder<D> {
-            return setApplicationVersion(message, MaterialAlertDialog.TextAlignment.CENTER)
+            return setApplicationVersion(message, AlertDialog.TextAlignment.CENTER)
         }
 
         /**
-         * Sets the application version to display. With text alignment: [MaterialAlertDialog.TextAlignment.START], [MaterialAlertDialog.TextAlignment.CENTER], [MaterialAlertDialog.TextAlignment.END].
+         * Sets the application version to display. With text alignment: [AlertDialog.TextAlignment.START], [AlertDialog.TextAlignment.CENTER], [AlertDialog.TextAlignment.END].
          *
          * @param message The message to display in the dialog.
-         * @param alignment The message alignment. Default [MaterialAlertDialog.TextAlignment.CENTER].
+         * @param alignment The message alignment. Default [AlertDialog.TextAlignment.CENTER].
          * @return This Builder object to allow for chaining of calls to set methods
          */
         fun setApplicationVersion(
             message: Spanned,
-            alignment: MaterialAlertDialog.TextAlignment,
+            alignment: AlertDialog.TextAlignment,
         ): Builder<D> {
             this.message = MessageAlertDialog.spanned(text = message, alignment = alignment)
             return this
@@ -580,7 +581,7 @@ abstract class AboutDialogBase(
          * @return This Builder object to allow for chaining of calls to set methods
          */
         fun setPositiveButton(
-            buttonText: String?,
+            buttonText: String? = null,
             onClickListener: MaterialDialogInterface.OnClickListener,
         ): Builder<D> {
             return setPositiveButton(
@@ -615,7 +616,7 @@ abstract class AboutDialogBase(
          * @return This Builder object to allow for chaining of calls to set methods
          */
         fun setPositiveButton(
-            buttonText: String?,
+            buttonText: String? = null,
             @DrawableRes icon: Int,
             onClickListener: MaterialDialogInterface.OnClickListener,
         ): Builder<D> {
@@ -656,7 +657,7 @@ abstract class AboutDialogBase(
          * @return This Builder object to allow for chaining of calls to set methods
          */
         fun setNeutralButton(
-            buttonText: String?,
+            buttonText: String? = null,
             onClickListener: MaterialDialogInterface.OnClickListener,
         ): Builder<D> {
             return setNeutralButton(
@@ -691,7 +692,7 @@ abstract class AboutDialogBase(
          * @return This Builder object to allow for chaining of calls to set methods
          */
         fun setNeutralButton(
-            buttonText: String?,
+            buttonText: String? = null,
             @DrawableRes icon: Int,
             onClickListener: MaterialDialogInterface.OnClickListener,
         ): Builder<D> {
@@ -732,7 +733,7 @@ abstract class AboutDialogBase(
          * @return This Builder object to allow for chaining of calls to set methods
          */
         fun setNegativeButton(
-            buttonText: String?,
+            buttonText: String? = null,
             onClickListener: MaterialDialogInterface.OnClickListener,
         ): Builder<D> {
             return setNegativeButton(
@@ -767,7 +768,7 @@ abstract class AboutDialogBase(
          * @return This Builder object to allow for chaining of calls to set methods
          */
         fun setNegativeButton(
-            buttonText: String?,
+            buttonText: String? = null,
             @DrawableRes icon: Int,
             onClickListener: MaterialDialogInterface.OnClickListener,
         ): Builder<D> {

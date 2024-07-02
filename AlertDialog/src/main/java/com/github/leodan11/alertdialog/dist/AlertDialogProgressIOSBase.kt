@@ -11,7 +11,7 @@ import androidx.annotation.StringRes
 import com.github.leodan11.alertdialog.IOSProgressDialog
 import com.github.leodan11.alertdialog.R
 import com.github.leodan11.alertdialog.databinding.IosProgressAlertDialogBinding
-import com.github.leodan11.alertdialog.io.content.MaterialAlertDialog
+import com.github.leodan11.alertdialog.io.content.AlertDialog
 import com.github.leodan11.alertdialog.io.content.MaterialDialogInterface
 import com.github.leodan11.alertdialog.io.models.IconAlertDialog
 import com.github.leodan11.alertdialog.io.models.MessageAlertDialog
@@ -40,7 +40,7 @@ abstract class AlertDialogProgressIOSBase(
         // Inflate and set the layout for the dialog
         // Pass null as the parent view because it's going in the dialog layout
         val binding: IosProgressAlertDialogBinding =
-            IosProgressAlertDialogBinding.inflate(layoutInflater)
+            IosProgressAlertDialogBinding.inflate(layoutInflater, container, false)
         // Initialize Views
         val mIconView = binding.imageViewIconLogoDialogProgress
         val mMessageView = binding.textViewMessagesDialogProgress
@@ -162,8 +162,8 @@ abstract class AlertDialogProgressIOSBase(
          * @param message The message to display in the dialog.
          * @return This Builder object to allow for chaining of calls to set methods
          */
-        fun setMessage(message: String?): Builder<D> {
-            return setMessage(message, MaterialAlertDialog.TextAlignment.CENTER)
+        fun setMessage(message: String): Builder<D> {
+            return setMessage(message, AlertDialog.TextAlignment.CENTER)
         }
 
         /**
@@ -173,17 +173,17 @@ abstract class AlertDialogProgressIOSBase(
          * @return This Builder object to allow for chaining of calls to set methods
          */
         fun setMessage(@StringRes message: Int): Builder<D> {
-            return setMessage(message, MaterialAlertDialog.TextAlignment.CENTER)
+            return setMessage(message, AlertDialog.TextAlignment.CENTER)
         }
 
         /**
-         * Sets the message to display. With text alignment: [MaterialAlertDialog.TextAlignment.START], [MaterialAlertDialog.TextAlignment.CENTER], [MaterialAlertDialog.TextAlignment.END].
+         * Sets the message to display. With text alignment: [AlertDialog.TextAlignment.START], [AlertDialog.TextAlignment.CENTER], [AlertDialog.TextAlignment.END].
          *
          * @param message The message to display in the dialog.
-         * @param alignment The message alignment. Default [MaterialAlertDialog.TextAlignment.CENTER].
+         * @param alignment The message alignment. Default [AlertDialog.TextAlignment.CENTER].
          * @return This Builder object to allow for chaining of calls to set methods
          */
-        fun setMessage(message: String?, alignment: MaterialAlertDialog.TextAlignment): Builder<D> {
+        fun setMessage(message: String? = null, alignment: AlertDialog.TextAlignment): Builder<D> {
             val valueText =
                 if (message.isNullOrEmpty()) context.getString(R.string.text_value_charging_please) else message
             this.message = MessageAlertDialog.text(text = valueText, alignment = alignment)
@@ -191,15 +191,15 @@ abstract class AlertDialogProgressIOSBase(
         }
 
         /**
-         * Sets the message to display. With text alignment: [MaterialAlertDialog.TextAlignment.START], [MaterialAlertDialog.TextAlignment.CENTER], [MaterialAlertDialog.TextAlignment.END].
+         * Sets the message to display. With text alignment: [AlertDialog.TextAlignment.START], [AlertDialog.TextAlignment.CENTER], [AlertDialog.TextAlignment.END].
          *
          * @param message The message to display in the dialog.
-         * @param alignment The message alignment. Default [MaterialAlertDialog.TextAlignment.CENTER].
+         * @param alignment The message alignment. Default [AlertDialog.TextAlignment.CENTER].
          * @return This Builder object to allow for chaining of calls to set methods
          */
         fun setMessage(
             @StringRes message: Int,
-            alignment: MaterialAlertDialog.TextAlignment,
+            alignment: AlertDialog.TextAlignment,
         ): Builder<D> {
             this.message =
                 MessageAlertDialog.text(text = context.getString(message), alignment = alignment)
@@ -213,17 +213,17 @@ abstract class AlertDialogProgressIOSBase(
          * @return This Builder object to allow for chaining of calls to set methods
          */
         fun setMessage(message: Spanned): Builder<D> {
-            return setMessage(message, MaterialAlertDialog.TextAlignment.START)
+            return setMessage(message, AlertDialog.TextAlignment.START)
         }
 
         /**
-         * Sets the message to display. With text alignment: [MaterialAlertDialog.TextAlignment.START], [MaterialAlertDialog.TextAlignment.CENTER], [MaterialAlertDialog.TextAlignment.END].
+         * Sets the message to display. With text alignment: [AlertDialog.TextAlignment.START], [AlertDialog.TextAlignment.CENTER], [AlertDialog.TextAlignment.END].
          *
          * @param message The message to display in the dialog.
-         * @param alignment The message alignment. Default [MaterialAlertDialog.TextAlignment.CENTER].
+         * @param alignment The message alignment. Default [AlertDialog.TextAlignment.CENTER].
          * @return This Builder object to allow for chaining of calls to set methods
          */
-        fun setMessage(message: Spanned, alignment: MaterialAlertDialog.TextAlignment): Builder<D> {
+        fun setMessage(message: Spanned, alignment: AlertDialog.TextAlignment): Builder<D> {
             this.message = MessageAlertDialog.spanned(text = message, alignment = alignment)
             return this
         }

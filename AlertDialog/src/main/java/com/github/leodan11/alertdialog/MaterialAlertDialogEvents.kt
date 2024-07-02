@@ -4,7 +4,7 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import com.github.leodan11.alertdialog.dist.AlertDialogEventsBase
-import com.github.leodan11.alertdialog.io.content.AlertDialogEvents.TYPE
+import com.github.leodan11.alertdialog.io.content.AlertDialog
 import com.github.leodan11.alertdialog.io.models.ButtonAlertDialog
 import com.github.leodan11.alertdialog.io.models.DetailsAlertDialog
 import com.github.leodan11.alertdialog.io.models.IconAlertDialog
@@ -15,7 +15,7 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 class MaterialAlertDialogEvents(
     mContext: Context,
     icon: IconAlertDialog,
-    type: TYPE,
+    type: AlertDialog.State,
     backgroundColorSpanInt: Int?,
     backgroundColorSpanResource: Int?,
     detailsScrollHeightSpan: Int,
@@ -64,19 +64,19 @@ class MaterialAlertDialogEvents(
 
         override fun create(): MaterialAlertDialogEvents {
             return MaterialAlertDialogEvents(
-                context,
-                icon,
-                type,
-                backgroundColorSpanInt,
-                backgroundColorSpan,
-                detailsScrollHeightSpan,
-                title,
-                message,
-                details,
-                isCancelable,
-                positiveButton,
-                neutralButton,
-                negativeButton
+                mContext = context,
+                icon = icon,
+                type = type,
+                backgroundColorSpanInt = backgroundColorSpanInt,
+                backgroundColorSpanResource = backgroundColorSpan,
+                detailsScrollHeightSpan = detailsScrollHeightSpan,
+                title = title,
+                message = message,
+                details = details,
+                mCancelable = isCancelable,
+                mPositiveButton = positiveButton,
+                mNeutralButton = neutralButton,
+                mNegativeButton = negativeButton
             )
         }
     }

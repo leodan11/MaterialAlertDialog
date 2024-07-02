@@ -19,8 +19,8 @@ import androidx.core.view.isVisible
 import com.github.leodan11.alertdialog.MaterialAlertDialogSignIn
 import com.github.leodan11.alertdialog.R
 import com.github.leodan11.alertdialog.databinding.MAlertDialogLoginBinding
+import com.github.leodan11.alertdialog.io.content.AlertDialog
 import com.github.leodan11.alertdialog.io.content.Config.MATERIAL_ALERT_DIALOG_UI_NOT_ICON
-import com.github.leodan11.alertdialog.io.content.MaterialAlertDialog
 import com.github.leodan11.alertdialog.io.content.MaterialDialogInterface
 import com.github.leodan11.alertdialog.io.models.ButtonAlertDialog
 import com.github.leodan11.alertdialog.io.models.IconAlertDialog
@@ -57,7 +57,8 @@ abstract class AlertDialogSignInBase(
     ): View {
         // Inflate and set the layout for the dialog
         // Pass null as the parent view because it's going in the dialog layout
-        val binding: MAlertDialogLoginBinding = MAlertDialogLoginBinding.inflate(layoutInflater)
+        val binding: MAlertDialogLoginBinding =
+            MAlertDialogLoginBinding.inflate(layoutInflater, container, false)
         // Initialize Views
         val mIconView = binding.imageViewIconLoginDialog
         val mTitleView = binding.textViewTitleDialogLogin
@@ -91,7 +92,7 @@ abstract class AlertDialogSignInBase(
                     )
                 } else mPositiveButton?.onClickListener?.onClick(
                     this,
-                    MaterialAlertDialog.UI.BUTTON_POSITIVE
+                    AlertDialog.UI.BUTTON_POSITIVE
                 )
             }
         } else mPositiveButtonView.visibility = View.GONE
@@ -104,7 +105,7 @@ abstract class AlertDialogSignInBase(
             mNegativeButtonView.setOnClickListener {
                 mNegativeButton?.onClickListener?.onClick(
                     this,
-                    MaterialAlertDialog.UI.BUTTON_NEGATIVE
+                    AlertDialog.UI.BUTTON_NEGATIVE
                 )
             }
         } else mNegativeButtonView.visibility = View.GONE
@@ -315,8 +316,8 @@ abstract class AlertDialogSignInBase(
          * @param title The title to display in the dialog.
          * @return This Builder object to allow for chaining of calls to set methods
          */
-        fun setTitle(title: String?): Builder<D> {
-            return setTitle(title, MaterialAlertDialog.TextAlignment.START)
+        fun setTitle(title: String): Builder<D> {
+            return setTitle(title, AlertDialog.TextAlignment.START)
         }
 
         /**
@@ -326,17 +327,17 @@ abstract class AlertDialogSignInBase(
          * @return This Builder object to allow for chaining of calls to set methods
          */
         fun setTitle(@StringRes title: Int): Builder<D> {
-            return setTitle(title, MaterialAlertDialog.TextAlignment.START)
+            return setTitle(title, AlertDialog.TextAlignment.START)
         }
 
         /**
-         * Set the title displayed in the [MaterialAlertDialogSignIn]. With text alignment: [MaterialAlertDialog.TextAlignment.START], [MaterialAlertDialog.TextAlignment.CENTER], [MaterialAlertDialog.TextAlignment.END].
+         * Set the title displayed in the [MaterialAlertDialogSignIn]. With text alignment: [AlertDialog.TextAlignment.START], [AlertDialog.TextAlignment.CENTER], [AlertDialog.TextAlignment.END].
          *
          * @param title The title to display in the dialog.
-         * @param alignment The message alignment. Default [MaterialAlertDialog.TextAlignment.CENTER].
+         * @param alignment The message alignment. Default [AlertDialog.TextAlignment.CENTER].
          * @return This Builder object to allow for chaining of calls to set methods
          */
-        fun setTitle(title: String?, alignment: MaterialAlertDialog.TextAlignment): Builder<D> {
+        fun setTitle(title: String? = null, alignment: AlertDialog.TextAlignment): Builder<D> {
             val valueText = if (title.isNullOrEmpty()) context.getString(R.string.text_value_login)
             else title
             this.title = TitleAlertDialog(title = valueText, textAlignment = alignment)
@@ -344,15 +345,15 @@ abstract class AlertDialogSignInBase(
         }
 
         /**
-         * Set the title displayed in the [MaterialAlertDialogSignIn]. With text alignment: [MaterialAlertDialog.TextAlignment.START], [MaterialAlertDialog.TextAlignment.CENTER], [MaterialAlertDialog.TextAlignment.END].
+         * Set the title displayed in the [MaterialAlertDialogSignIn]. With text alignment: [AlertDialog.TextAlignment.START], [AlertDialog.TextAlignment.CENTER], [AlertDialog.TextAlignment.END].
          *
          * @param title The title to display in the dialog.
-         * @param alignment The message alignment. Default [MaterialAlertDialog.TextAlignment.CENTER].
+         * @param alignment The message alignment. Default [AlertDialog.TextAlignment.CENTER].
          * @return This Builder object to allow for chaining of calls to set methods
          */
         fun setTitle(
             @StringRes title: Int,
-            alignment: MaterialAlertDialog.TextAlignment,
+            alignment: AlertDialog.TextAlignment,
         ): Builder<D> {
             this.title =
                 TitleAlertDialog(title = context.getString(title), textAlignment = alignment)
@@ -378,7 +379,7 @@ abstract class AlertDialogSignInBase(
          * @return This Builder object to allow for chaining of calls to set methods
          */
         fun setPositiveButton(
-            buttonText: String?,
+            buttonText: String? = null,
             onClickSignInListener: MaterialDialogInterface.OnClickSignInListener,
         ): Builder<D> {
             return setPositiveButton(
@@ -415,7 +416,7 @@ abstract class AlertDialogSignInBase(
          * @return This Builder object to allow for chaining of calls to set methods
          */
         fun setPositiveButton(
-            buttonText: String?,
+            buttonText: String? = null,
             @DrawableRes icon: Int,
             onClickSignInListener: MaterialDialogInterface.OnClickSignInListener,
         ): Builder<D> {
@@ -459,7 +460,7 @@ abstract class AlertDialogSignInBase(
          * @return This Builder object to allow for chaining of calls to set methods
          */
         fun setNegativeButton(
-            buttonText: String?,
+            buttonText: String? = null,
             onClickListener: MaterialDialogInterface.OnClickListener,
         ): Builder<D> {
             return setNegativeButton(buttonText, MATERIAL_ALERT_DIALOG_UI_NOT_ICON, onClickListener)
@@ -488,7 +489,7 @@ abstract class AlertDialogSignInBase(
          * @return This Builder object to allow for chaining of calls to set methods
          */
         fun setNegativeButton(
-            buttonText: String?,
+            buttonText: String? = null,
             icon: Int,
             onClickListener: MaterialDialogInterface.OnClickListener,
         ): Builder<D> {

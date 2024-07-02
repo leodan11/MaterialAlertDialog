@@ -1,10 +1,10 @@
 package com.github.leodan11.alertdialog.io.models
 
 import com.github.leodan11.alertdialog.R
-import com.github.leodan11.alertdialog.io.content.MaterialAlertDialog
+import com.github.leodan11.alertdialog.io.content.AlertDialog
 
-data class InputAlertDialog(
-    var inputType: MaterialAlertDialog.InputType = MaterialAlertDialog.InputType.NONE,
+data class InputCodeExtra(
+    var inputType: AlertDialog.Input = AlertDialog.Input.NONE,
     var textHide: String,
     var textHelperRes: Int? = null,
     var textHelper: String? = null,

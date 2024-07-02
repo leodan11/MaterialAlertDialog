@@ -128,7 +128,7 @@ class MainActivity : AppCompatActivity() {
 
             buttonActionProgressSmall.setOnClickListener {
                 MaterialAlertDialogProgressSmall.Builder(this@MainActivity)
-                    .setMessage(null)
+                    .setMessage(com.github.leodan11.alertdialog.R.string.text_value_charging_please)
                     .create()
                     .show()
             }

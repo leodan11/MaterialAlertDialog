@@ -7,7 +7,7 @@ import com.github.leodan11.alertdialog.dist.AlertDialogVerificationCodeBase
 import com.github.leodan11.alertdialog.io.models.ButtonAlertDialog
 import com.github.leodan11.alertdialog.io.models.IconAlertDialog
 import com.github.leodan11.alertdialog.io.models.IconTintAlertDialog
-import com.github.leodan11.alertdialog.io.models.InputAlertDialog
+import com.github.leodan11.alertdialog.io.models.InputCodeExtra
 import com.github.leodan11.alertdialog.io.models.MessageAlertDialog
 import com.github.leodan11.alertdialog.io.models.TitleAlertDialog
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
@@ -20,7 +20,7 @@ class MaterialAlertDialogVerificationCode(
     message: MessageAlertDialog<*>?,
     mNeedReason: Boolean,
     mCancelable: Boolean,
-    mInputsContentValue: List<InputAlertDialog>,
+    mInputsContentValue: List<InputCodeExtra>,
     mPositiveButton: ButtonAlertDialog?,
     mNegativeButton: ButtonAlertDialog?,
 ) : AlertDialogVerificationCodeBase(
@@ -58,16 +58,16 @@ class MaterialAlertDialogVerificationCode(
 
         override fun create(): MaterialAlertDialogVerificationCode {
             return MaterialAlertDialogVerificationCode(
-                context,
-                icon,
-                tintColor,
-                title,
-                message,
-                isNeedReason,
-                isCancelable,
-                mInputsContentValue,
-                positiveButton,
-                negativeButton
+                mContext = context,
+                icon = icon,
+                tintColor = tintColor,
+                title = title,
+                message = message,
+                mNeedReason = isNeedReason,
+                mCancelable = isCancelable,
+                mInputsContentValue = mInputsContentValue,
+                mPositiveButton = positiveButton,
+                mNegativeButton = negativeButton
             )
         }
 

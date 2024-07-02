@@ -47,12 +47,12 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin_spacing">
 
-        <com.google.android.material.textfield.TextInputEditText
+        <com.vicmikhailau.maskededittext.MaskedEditText
             android:id="@+id/text_input_edit_text_alert"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:imeOptions="actionDone"
-            tools:ignore="TextContrastCheck,SpeakableTextPresentCheck" />
+            tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck,VisualLintTextFieldSize" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
