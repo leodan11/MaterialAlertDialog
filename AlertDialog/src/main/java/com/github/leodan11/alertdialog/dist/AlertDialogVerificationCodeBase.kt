@@ -1,15 +1,14 @@
 package com.github.leodan11.alertdialog.dist
 
+import android.annotation.SuppressLint
 import android.app.Dialog
 import android.content.Context
 import android.content.res.ColorStateList
 import android.graphics.Color
 import android.text.Spanned
-import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.EditText
 import android.widget.Toast
 import androidx.annotation.ColorInt
 import androidx.annotation.ColorRes
@@ -26,7 +25,6 @@ import com.github.leodan11.alertdialog.databinding.MAlertDialogInputCodeBinding
 import com.github.leodan11.alertdialog.io.content.AlertDialog
 import com.github.leodan11.alertdialog.io.content.Config.MATERIAL_ALERT_DIALOG_UI_NOT_ICON
 import com.github.leodan11.alertdialog.io.content.MaterialDialogInterface
-import com.github.leodan11.alertdialog.io.helpers.Functions.onCallbackRequestFocus
 import com.github.leodan11.alertdialog.io.helpers.Functions.onValidateTextField
 import com.github.leodan11.alertdialog.io.models.ButtonAlertDialog
 import com.github.leodan11.alertdialog.io.models.IconAlertDialog
@@ -55,6 +53,7 @@ abstract class AlertDialogVerificationCodeBase(
     protected open var mOnCancelListener: MaterialDialogInterface.OnCancelListener? = null
     protected open var mOnShowListener: MaterialDialogInterface.OnShowListener? = null
 
+    @SuppressLint("WrongConstant")
     @RestrictTo(RestrictTo.Scope.LIBRARY)
     protected open fun createView(
         layoutInflater: LayoutInflater,
@@ -70,12 +69,7 @@ abstract class AlertDialogVerificationCodeBase(
         val mTitleCodeView = binding.textViewTitleCodeDialogCodeAlert
         val mMessageView = binding.textViewMessageDialogCodeAlert
         val mHeaderLayout = binding.layoutContentHeaderCodeAlertDialog
-        val mEditTextOne = binding.editTextTextValueOne
-        val mEditTextTwo = binding.editTextTextValueTwo
-        val mEditTextThree = binding.editTextTextValueThree
-        val mEditTextFour = binding.editTextTextValueFour
-        val mEditTextFive = binding.editTextTextValueFive
-        val mEditTextSix = binding.editTextTextValueSix
+        val mOtpTextView = binding.otpTextView
         val mContentLayoutInputs = binding.containerInputs
         val mEditTextReasonLayout = binding.textInputLayoutCodeReason
         val mEditTextReasonInfo = binding.textInputEditTextCodeReason
@@ -95,12 +89,6 @@ abstract class AlertDialogVerificationCodeBase(
             mTitleView.text = title?.title
             mTitleView.textAlignment = title?.textAlignment!!.alignment
         } else mHeaderLayout.visibility = View.GONE
-        // Set Code
-        onCallbackRequestFocus(mEditTextOne, mEditTextTwo)
-        onCallbackRequestFocus(mEditTextTwo, mEditTextThree)
-        onCallbackRequestFocus(mEditTextThree, mEditTextFour)
-        onCallbackRequestFocus(mEditTextFour, mEditTextFive)
-        onCallbackRequestFocus(mEditTextFive, mEditTextSix)
 
         // Set Content
         mEditTextReasonLayout.isVisible = mNeedReason
@@ -115,7 +103,7 @@ abstract class AlertDialogVerificationCodeBase(
                         }
                         mContentLayoutInputs.visibility = View.VISIBLE
                         mEditTextPercentageLayout.visibility = View.VISIBLE
-                        onCallbackRequestFocus(mEditTextSix, mEditTextPercentageInfo)
+                        mEditTextPercentageInfo.requestFocus()
                     }
 
                     AlertDialog.Input.DECIMAL_NUMBER -> {
@@ -126,7 +114,7 @@ abstract class AlertDialogVerificationCodeBase(
                         }
                         mContentLayoutInputs.visibility = View.VISIBLE
                         mEditTextDecimalNumberLayout.visibility = View.VISIBLE
-                        onCallbackRequestFocus(mEditTextSix, mEditTextDecimalNumberInfo)
+                        mEditTextDecimalNumberInfo.requestFocus()
                     }
 
                     else -> {
@@ -137,7 +125,7 @@ abstract class AlertDialogVerificationCodeBase(
                 }
             }
         } else {
-            if (mNeedReason) onCallbackRequestFocus(mEditTextSix, mEditTextReasonInfo)
+            if (mNeedReason) mEditTextReasonInfo.requestFocus()
             else mContentLayoutInputs.visibility = View.GONE
         }
         // Set Message
@@ -154,15 +142,9 @@ abstract class AlertDialogVerificationCodeBase(
                 ContextCompat.getDrawable(mContext.applicationContext, mPositiveButton?.icon!!)
             mPositiveButtonView.setOnClickListener {
                 if (mPositiveButton?.onClickVerificationCodeListener != null) {
-                    if (validateCodeEditText(mEditTextOne) && validateCodeEditText(mEditTextTwo) && validateCodeEditText(
-                            mEditTextThree
-                        ) &&
-                        validateCodeEditText(mEditTextFour) && validateCodeEditText(mEditTextFive) && validateCodeEditText(
-                            mEditTextSix
-                        )
-                    ) {
-                        val code =
-                            "${mEditTextOne.text}${mEditTextTwo.text}${mEditTextThree.text}${mEditTextFour.text}${mEditTextFive.text}${mEditTextSix.text}"
+                    if (!mOtpTextView.otp.isNullOrEmpty() && mOtpTextView.otp!!.length == 6) {
+                        mOtpTextView.showSuccess()
+                        val code = mOtpTextView.otp ?: ""
                         if (mNeedReason) {
                             if (onValidateTextField(
                                     mEditTextReasonLayout,
@@ -301,6 +283,7 @@ abstract class AlertDialogVerificationCodeBase(
                             }
                         }
                     } else {
+                        mOtpTextView.showError()
                         Toast.makeText(
                             mContext,
                             mContext.getString(R.string.text_value_code_error),
@@ -453,10 +436,6 @@ abstract class AlertDialogVerificationCodeBase(
 
     private fun throwNullDialog() {
         throw NullPointerException("Called method on null Dialog. Create dialog using `Builder` before calling on Dialog")
-    }
-
-    private fun validateCodeEditText(editText: EditText): Boolean {
-        return !TextUtils.isEmpty(editText.text.toString().trim())
     }
 
     /**

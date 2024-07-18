@@ -11,6 +11,8 @@
     <dimen name="app_icon_size_min">24dp</dimen>
     <dimen name="spacing_edit_text">48dp</dimen>
     <dimen name="corners_shape">50dp</dimen>
+    <dimen name="box_otp_view_height">40dp</dimen>
+    <dimen name="box_otp_view_width">40dp</dimen>
     <dimen name="dialog_image_view_notification_icon_fifty_percent">40dp</dimen>
     <dimen name="dialog_image_view_notification_icon_fifty_percent_negative">-40dp</dimen>
     <dimen name="dialog_image_view_notification_icon_height">80dp</dimen>

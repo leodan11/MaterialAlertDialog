@@ -52,6 +52,7 @@ abstract class ProgressDialogBase(
     protected open var mOnCancelListener: MaterialDialogInterface.OnCancelListener? = null
     protected open var mOnShowListener: MaterialDialogInterface.OnShowListener? = null
 
+    @SuppressLint("WrongConstant")
     @RestrictTo(RestrictTo.Scope.LIBRARY)
     protected open fun createView(
         layoutInflater: LayoutInflater,

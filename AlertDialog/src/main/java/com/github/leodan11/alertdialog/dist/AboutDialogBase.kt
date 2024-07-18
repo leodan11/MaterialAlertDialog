@@ -1,5 +1,6 @@
 package com.github.leodan11.alertdialog.dist
 
+import android.annotation.SuppressLint
 import android.app.Dialog
 import android.content.Context
 import android.content.res.ColorStateList
@@ -54,6 +55,7 @@ abstract class AboutDialogBase(
     protected open var mOnCancelListener: MaterialDialogInterface.OnCancelListener? = null
     protected open var mOnShowListener: MaterialDialogInterface.OnShowListener? = null
 
+    @SuppressLint("WrongConstant")
     @RestrictTo(RestrictTo.Scope.LIBRARY)
     protected open fun onCreateViewDialogContent(
         layoutInflater: LayoutInflater,

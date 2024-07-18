@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="caution">#FFF08E13</color>
-    <color name="success">#FF68DD91</color>
-    <color name="warning">#FFDBC90A</color>
+    <color name="caution">#FFBB33</color>
+    <color name="success">#00C851</color>
+    <color name="warning">#F8E287</color>
 </resources>

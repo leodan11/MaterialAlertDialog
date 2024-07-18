@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="app_icon_size_medium">36dp</dimen>
+    <dimen name="box_otp_view_height">52dp</dimen>
+    <dimen name="box_otp_view_width">52dp</dimen>
     <dimen name="dialog_image_view_notification_icon_fifty_percent">45dp</dimen>
     <dimen name="dialog_image_view_notification_icon_fifty_percent_negative">-45dp</dimen>
     <dimen name="dialog_image_view_notification_icon_height">90dp</dimen>

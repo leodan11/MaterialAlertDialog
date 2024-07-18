@@ -1,5 +1,6 @@
 package com.github.leodan11.alertdialog.dist
 
+import android.annotation.SuppressLint
 import android.app.Dialog
 import android.content.Context
 import android.text.Spanned
@@ -32,6 +33,7 @@ abstract class AlertDialogProgressIOSBase(
     private val icon: IconAlertDialog =
         IconAlertDialog(R.drawable.ic_baseline_loader_circular_default_ios)
 
+    @SuppressLint("WrongConstant")
     @RestrictTo(RestrictTo.Scope.LIBRARY)
     protected open fun createView(
         layoutInflater: LayoutInflater,
