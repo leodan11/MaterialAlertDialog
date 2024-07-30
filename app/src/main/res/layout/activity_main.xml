@@ -101,6 +101,14 @@
             android:text="Example Simple Input Dialog!"
             tools:ignore="HardcodedText" />
 
+        <Button
+            android:id="@+id/buttonActionFragment"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/radius_min"
+            android:text="Example Simple Fragment Dialog!"
+            tools:ignore="HardcodedText" />
+
     </LinearLayout>
 
 </androidx.core.widget.NestedScrollView>

@@ -48,4 +48,11 @@
     <public name="button_positive_speakable_text_value" type="string"/>
     <public name="button_neutral_speakable_text_value" type="string"/>
     <public name="button_negative_speakable_text_value" type="string"/>
+
+    <public name="radius_min" type="dimen"/>
+    <public name="app_icon_size" type="dimen"/>
+    <public name="app_icon_size_medium" type="dimen"/>
+    <public name="app_icon_size_min" type="dimen"/>
+    <public name="box_otp_view_height_default_code" type="dimen"/>
+    <public name="box_otp_view_width_default_code" type="dimen"/>
 </resources>

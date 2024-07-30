@@ -162,6 +162,12 @@ class MainActivity : AppCompatActivity() {
                     .show()
             }
 
+            buttonActionFragment.setOnClickListener {
+                val dialog: BlankFragment = BlankFragment.newInstance()
+                dialog.isCancelable = false
+                dialog.show(supportFragmentManager, dialog.tag)
+            }
+
         }
 
     }

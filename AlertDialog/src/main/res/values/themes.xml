@@ -68,4 +68,10 @@
         <item name="android:fontFamily">@font/helvetica_light</item>
     </style>
 
+    <!-- Theme for Dialog Full Screen -->
+    <style name="Theme.MaterialDialog.FullScreen" parent="">
+        <item name="android:windowIsFloating">false</item>
+        <item name="android:windowFullscreen">false</item>
+    </style>
+
 </resources>
