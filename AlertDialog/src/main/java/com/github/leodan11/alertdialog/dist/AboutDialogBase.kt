@@ -24,7 +24,6 @@ import com.github.leodan11.alertdialog.io.content.AlertDialog
 import com.github.leodan11.alertdialog.io.content.Config.DEFAULT_DETAILS_SCROLL_HEIGHT_SPAN
 import com.github.leodan11.alertdialog.io.content.Config.MATERIAL_ALERT_DIALOG_UI_NOT_ICON
 import com.github.leodan11.alertdialog.io.content.MaterialDialogInterface
-import com.github.leodan11.alertdialog.io.helpers.Functions.onTextViewTextSize
 import com.github.leodan11.alertdialog.io.models.ButtonAlertDialog
 import com.github.leodan11.alertdialog.io.models.DetailsAlertDialog
 import com.github.leodan11.alertdialog.io.models.IconAlertDialog
@@ -33,6 +32,7 @@ import com.github.leodan11.alertdialog.io.models.MessageAlertDialog
 import com.github.leodan11.alertdialog.io.models.TitleAlertDialog
 import com.github.leodan11.k_extensions.core.colorOnSurface
 import com.github.leodan11.k_extensions.core.colorPrimary
+import com.github.leodan11.k_extensions.core.onTextViewTextSize
 import com.leodan.readmoreoption.ReadMoreOption
 
 abstract class AboutDialogBase(
@@ -123,7 +123,7 @@ abstract class AboutDialogBase(
             readMoreOption.addReadMoreTo(mDetailsView, details?.getText().toString())
             mDetailsView.addTextChangedListener {
                 it?.let {
-                    val bounds = onTextViewTextSize(mDetailsView, it.toString())
+                    val bounds = mDetailsView.onTextViewTextSize(it.toString())
                     mDetailsViewContainer.apply {
                         layoutParams.height =
                             if (bounds.width() > 6000) detailsScrollHeightSpan else ViewGroup.LayoutParams.WRAP_CONTENT

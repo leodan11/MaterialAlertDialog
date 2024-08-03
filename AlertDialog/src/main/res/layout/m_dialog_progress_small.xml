@@ -17,7 +17,7 @@
             android:layout_width="@dimen/dialog_image_view_notification_icon_width"
             android:layout_height="@dimen/dialog_image_view_notification_icon_height"
             android:contentDescription="@string/text_value_charging"
-            android:src="@drawable/ic_baseline_animated_default"
+            android:src="@drawable/ic_baseline_animated_morphing_animals"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"

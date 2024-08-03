@@ -223,7 +223,7 @@ abstract class AlertDialogProgressBase(
         protected open var icon: IconAlertDialog? = null
         protected open var tintColor: IconTintAlertDialog? = null
         protected open var iconVectorDrawable: IconAlertDialog =
-            IconAlertDialog(R.drawable.ic_baseline_animated_default)
+            IconAlertDialog(R.drawable.ic_baseline_animated_search_to_close)
         protected open var isAnimatedVectorDrawable: Boolean = true
         protected open var isAnimatedVectorDrawableLoop: Boolean = false
         protected open var title: TitleAlertDialog? = null

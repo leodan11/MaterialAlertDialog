@@ -25,7 +25,6 @@ import com.github.leodan11.alertdialog.databinding.MAlertDialogInputCodeBinding
 import com.github.leodan11.alertdialog.io.content.AlertDialog
 import com.github.leodan11.alertdialog.io.content.Config.MATERIAL_ALERT_DIALOG_UI_NOT_ICON
 import com.github.leodan11.alertdialog.io.content.MaterialDialogInterface
-import com.github.leodan11.alertdialog.io.helpers.Functions.onValidateTextField
 import com.github.leodan11.alertdialog.io.models.ButtonAlertDialog
 import com.github.leodan11.alertdialog.io.models.IconAlertDialog
 import com.github.leodan11.alertdialog.io.models.IconTintAlertDialog
@@ -34,6 +33,7 @@ import com.github.leodan11.alertdialog.io.models.MessageAlertDialog
 import com.github.leodan11.alertdialog.io.models.TitleAlertDialog
 import com.github.leodan11.k_extensions.core.colorOnSurface
 import com.github.leodan11.k_extensions.core.colorPrimary
+import com.github.leodan11.k_extensions.core.validateTextField
 
 abstract class AlertDialogVerificationCodeBase(
     protected open var mContext: Context,
@@ -146,7 +146,7 @@ abstract class AlertDialogVerificationCodeBase(
                         mOtpTextView.showSuccess()
                         val code = mOtpTextView.otp ?: ""
                         if (mNeedReason) {
-                            if (onValidateTextField(
+                            if (mContext.validateTextField(
                                     mEditTextReasonLayout,
                                     mEditTextReasonInfo,
                                     mContext.getString(R.string.text_value_reason_error)
@@ -160,7 +160,7 @@ abstract class AlertDialogVerificationCodeBase(
                                     for (item in mInputsContentValue) {
                                         when (item.inputType) {
                                             AlertDialog.Input.PERCENTAGE -> {
-                                                if (onValidateTextField(
+                                                if (mContext.validateTextField(
                                                         mEditTextPercentageLayout,
                                                         mEditTextPercentageInfo,
                                                         if (item.textError != null) item.textError!! else mContext.getString(
@@ -176,7 +176,7 @@ abstract class AlertDialogVerificationCodeBase(
                                             }
 
                                             AlertDialog.Input.DECIMAL_NUMBER -> {
-                                                if (onValidateTextField(
+                                                if (mContext.validateTextField(
                                                         mEditTextDecimalNumberLayout,
                                                         mEditTextDecimalNumberInfo,
                                                         if (item.textError != null) item.textError!! else mContext.getString(
@@ -226,7 +226,7 @@ abstract class AlertDialogVerificationCodeBase(
                                 for (item in mInputsContentValue) {
                                     when (item.inputType) {
                                         AlertDialog.Input.PERCENTAGE -> {
-                                            if (onValidateTextField(
+                                            if (mContext.validateTextField(
                                                     mEditTextPercentageLayout,
                                                     mEditTextPercentageInfo,
                                                     if (item.textError != null) item.textError!! else mContext.getString(
@@ -241,7 +241,7 @@ abstract class AlertDialogVerificationCodeBase(
                                         }
 
                                         AlertDialog.Input.DECIMAL_NUMBER -> {
-                                            if (onValidateTextField(
+                                            if (mContext.validateTextField(
                                                     mEditTextDecimalNumberLayout,
                                                     mEditTextDecimalNumberInfo,
                                                     if (item.textError != null) item.textError!! else mContext.getString(

@@ -1,5 +1,4 @@
-<animated-vector
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<animated-vector xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:aapt="http://schemas.android.com/aapt">
     <aapt:attr name="android:drawable">
         <vector
@@ -15,36 +14,36 @@
                 <path
                     android:name="tick"
                     android:pathData="M 4.8 13.4 L 9 17.6 M 10.4 16.2 L 19.6 7"
-                    android:strokeColor="#999999"
                     android:strokeWidth="2"
-                    android:strokeLineCap="square"/>
+                    android:strokeColor="?android:attr/colorControlNormal"
+                    android:strokeLineCap="square" />
             </group>
         </vector>
     </aapt:attr>
     <target android:name="grouptickcross">
         <aapt:attr name="android:animation">
             <objectAnimator
-                android:repeatMode="restart"
-                android:repeatCount="infinite"
-                android:propertyName="rotation"
                 android:duration="1000"
+                android:interpolator="@android:interpolator/fast_out_slow_in"
+                android:propertyName="rotation"
+                android:repeatCount="infinite"
+                android:repeatMode="restart"
                 android:valueFrom="0"
                 android:valueTo="180"
-                android:valueType="floatType"
-                android:interpolator="@android:interpolator/fast_out_slow_in"/>
+                android:valueType="floatType" />
         </aapt:attr>
     </target>
     <target android:name="tick">
         <aapt:attr name="android:animation">
             <objectAnimator
-                android:repeatMode="restart"
-                android:repeatCount="infinite"
-                android:propertyName="pathData"
                 android:duration="1000"
+                android:interpolator="@android:interpolator/fast_out_slow_in"
+                android:propertyName="pathData"
+                android:repeatCount="infinite"
+                android:repeatMode="restart"
                 android:valueFrom="M 4.8 13.4 L 9 17.6 M 10.4 16.2 L 19.6 7"
                 android:valueTo="M 6.4 6.4 L 17.6 17.6 M 6.4 17.6 L 17.6 6.4"
-                android:valueType="pathType"
-                android:interpolator="@android:interpolator/fast_out_slow_in"/>
+                android:valueType="pathType" />
         </aapt:attr>
     </target>
 </animated-vector>

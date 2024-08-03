@@ -32,8 +32,6 @@ import com.github.leodan11.alertdialog.io.content.Config.DEFAULT_RADIUS
 import com.github.leodan11.alertdialog.io.content.Config.MATERIAL_ALERT_DIALOG_UI_NOT_ICON
 import com.github.leodan11.alertdialog.io.content.MaterialDialogInterface
 import com.github.leodan11.alertdialog.io.helpers.DisplayUtil
-import com.github.leodan11.alertdialog.io.helpers.Functions
-import com.github.leodan11.alertdialog.io.helpers.Functions.onTextViewTextSize
 import com.github.leodan11.alertdialog.io.models.ButtonAlertDialog
 import com.github.leodan11.alertdialog.io.models.DetailsAlertDialog
 import com.github.leodan11.alertdialog.io.models.IconAlertDialog
@@ -43,6 +41,8 @@ import com.github.leodan11.k_extensions.core.colorError
 import com.github.leodan11.k_extensions.core.colorOnSurface
 import com.github.leodan11.k_extensions.core.colorPrimary
 import com.github.leodan11.k_extensions.core.colorSecondary
+import com.github.leodan11.k_extensions.core.createBitmap
+import com.github.leodan11.k_extensions.core.onTextViewTextSize
 import com.leodan.readmoreoption.ReadMoreOption
 
 abstract class AlertDialogEventsBase(
@@ -150,7 +150,7 @@ abstract class AlertDialogEventsBase(
             readMoreOption.addReadMoreTo(mDetailsView, it.getText().toString())
             mDetailsView.addTextChangedListener { editable ->
                 editable?.let {
-                    val bounds = onTextViewTextSize(mDetailsView, editable.toString())
+                    val bounds = mDetailsView.onTextViewTextSize(editable.toString())
                     mDetailsViewContainer.apply {
                         layoutParams.height =
                             if (bounds.width() > 6000) detailsScrollHeightSpan else ViewGroup.LayoutParams.WRAP_CONTENT
@@ -249,7 +249,7 @@ abstract class AlertDialogEventsBase(
      * @return [Bitmap] or null
      */
     private fun createTriangle(width: Float, height: Float): Bitmap? {
-        return if (width <= 0 || height <= 0) null else Functions.getBitmap(
+        return if (width <= 0 || height <= 0) null else mContext.createBitmap(
             width,
             height,
             getColor()

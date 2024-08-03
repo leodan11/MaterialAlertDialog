@@ -14,9 +14,11 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
-abstract class BottomSheetAlertDialogFragment<ViewBinding : ViewDataBinding>: BottomSheetDialogFragment() {
+abstract class BottomSheetAlertDialogFragment<ViewBinding : ViewDataBinding> :
+    BottomSheetDialogFragment() {
 
     private var _binding: ViewBinding? = null
+
     // This property is only valid between onCreateView and
     // onDestroyView.
     val binding get() = _binding!!
@@ -24,14 +26,34 @@ abstract class BottomSheetAlertDialogFragment<ViewBinding : ViewDataBinding>: Bo
     @get:LayoutRes
     abstract val layoutId: Int
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
         _binding = DataBindingUtil.inflate(inflater, layoutId, container, false)
-        setInitDataViewBinding()
+        setInitDataInViewBinding()
         binding.lifecycleOwner = viewLifecycleOwner
         return binding.root
     }
 
-    fun collectDataFlow(state: Lifecycle.State = Lifecycle.State.STARTED, block: suspend CoroutineScope.() -> Unit) {
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+
+
+    /**
+     * Scope to get flow type data
+     *
+     * @param state [Lifecycle.State] default [Lifecycle.State.STARTED]
+     * @param block Code block containing one or more launch
+     *
+     */
+    fun collectDataFlow(
+        state: Lifecycle.State = Lifecycle.State.STARTED,
+        block: suspend CoroutineScope.() -> Unit
+    ) {
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(state) {
                 block()
@@ -39,11 +61,10 @@ abstract class BottomSheetAlertDialogFragment<ViewBinding : ViewDataBinding>: Bo
         }
     }
 
-    open fun setInitDataViewBinding() = Unit
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
-    }
+    /**
+     * Initialize data inside data binding when inflating XML
+     *
+     */
+    open fun setInitDataInViewBinding(): Unit = Unit
 
 }

@@ -19,6 +19,7 @@ import kotlinx.coroutines.launch
 abstract class MaterialAlertDialogFragment<ViewBinding : ViewDataBinding> : DialogFragment() {
 
     private var _binding: ViewBinding? = null
+
     // This property is only valid between onCreateView and
     // onDestroyView.
     val binding get() = _binding!!
@@ -33,7 +34,11 @@ abstract class MaterialAlertDialogFragment<ViewBinding : ViewDataBinding> : Dial
         return builder.create()
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
         setInitDataInViewBinding()
         binding.lifecycleOwner = viewLifecycleOwner
         return binding.root
@@ -44,7 +49,18 @@ abstract class MaterialAlertDialogFragment<ViewBinding : ViewDataBinding> : Dial
         _binding = null
     }
 
-    fun collectDataFlow(state: Lifecycle.State = Lifecycle.State.STARTED, block: suspend CoroutineScope.() -> Unit) {
+
+    /**
+     * Scope to get flow type data
+     *
+     * @param state [Lifecycle.State] default [Lifecycle.State.STARTED]
+     * @param block Code block containing one or more launch
+     *
+     */
+    fun collectDataFlow(
+        state: Lifecycle.State = Lifecycle.State.STARTED,
+        block: suspend CoroutineScope.() -> Unit
+    ) {
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(state) {
                 block()
@@ -52,6 +68,10 @@ abstract class MaterialAlertDialogFragment<ViewBinding : ViewDataBinding> : Dial
         }
     }
 
-    open fun setInitDataInViewBinding() = Unit
+    /**
+     * Initialize data inside data binding when inflating XML
+     *
+     */
+    open fun setInitDataInViewBinding(): Unit = Unit
 
 }
