@@ -28,6 +28,7 @@ import com.github.leodan11.alertdialog.io.models.TitleAlertDialog
 import com.github.leodan11.k_extensions.core.backgroundColor
 import com.github.leodan11.k_extensions.core.colorOnSurface
 import com.github.leodan11.k_extensions.core.colorPrimary
+import com.github.leodan11.k_extensions.core.toNumberFormatPercent
 import com.google.android.material.progressindicator.CircularProgressIndicator
 import com.google.android.material.progressindicator.LinearProgressIndicator
 
@@ -197,7 +198,6 @@ abstract class ProgressDialogBase(
      * @param progress the current progress, a value between 0 and 100.
      * @param animated the animated activated, a value [Boolean].
      */
-    @SuppressLint("SetTextI18n")
     open fun setProgress(progress: Int, animated: Boolean = true) {
         when (progressType) {
             AlertDialog.Progress.CIRCULAR -> mProgressCircular.setProgressCompat(
@@ -206,8 +206,9 @@ abstract class ProgressDialogBase(
             )
 
             else -> {
+                val setProgress = progress * 0.01
                 mProgressLinear.setProgressCompat(progress, animated)
-                mTextViewLinear.text = "${progress}%"
+                mTextViewLinear.text = setProgress.toNumberFormatPercent()
             }
         }
     }
@@ -280,7 +281,7 @@ abstract class ProgressDialogBase(
          * Set the [DrawableRes] to be used in the title.
          *
          * @param icon Drawable to use as the icon.
-         * @return This Builder object to allow for chaining of calls to set methods
+         * @return [Builder] object to allow for chaining of calls to set methods
          */
         fun setIcon(@DrawableRes icon: Int): Builder<D> {
             this.icon = IconAlertDialog(mDrawableResId = icon)
@@ -291,7 +292,7 @@ abstract class ProgressDialogBase(
          * Set icon tint of [ColorInt].
          *
          * @param tintColor the color int. E.g. [Color.BLUE]
-         * @return This Builder object to allow for chaining of calls to set methods
+         * @return [Builder] object to allow for chaining of calls to set methods
          */
         fun setIconTintColor(@ColorInt tintColor: Int): Builder<D> {
             this.tintColor = IconTintAlertDialog(iconColorInt = tintColor)
@@ -306,7 +307,7 @@ abstract class ProgressDialogBase(
          * @param red to extract the red component
          * @param green to extract the green component
          * @param blue to extract the blue component
-         * @return This Builder object to allow for chaining of calls to set methods
+         * @return [Builder] object to allow for chaining of calls to set methods
          */
         fun setIconTintColor(
             @IntRange(from = 0, to = 255) red: Int,
@@ -321,7 +322,7 @@ abstract class ProgressDialogBase(
          * Set icon tint of [ColorRes].
          *
          * @param tintColor the color resource.
-         * @return This Builder object to allow for chaining of calls to set methods
+         * @return [Builder] object to allow for chaining of calls to set methods
          */
         fun setIconTintColorRes(@ColorRes tintColor: Int): Builder<D> {
             this.tintColor = IconTintAlertDialog(iconColorRes = tintColor)
@@ -332,7 +333,7 @@ abstract class ProgressDialogBase(
          * Set style progress [AlertDialog.Progress.CIRCULAR], [AlertDialog.Progress.LINEAR]
          *
          * @param style [AlertDialog.Progress]
-         * @return This Builder object to allow for chaining of calls to set methods
+         * @return [Builder] object to allow for chaining of calls to set methods
          */
         fun setStyleProgress(style: AlertDialog.Progress): Builder<D> {
             this.progressType = style
@@ -343,7 +344,7 @@ abstract class ProgressDialogBase(
          * Set the title displayed in the [ProgressMaterialDialog].
          *
          * @param title The title to display in the dialog.
-         * @return This Builder object to allow for chaining of calls to set methods
+         * @return [Builder] object to allow for chaining of calls to set methods
          */
         fun setTitle(title: String): Builder<D> {
             return setTitle(title, AlertDialog.TextAlignment.START)
@@ -353,7 +354,7 @@ abstract class ProgressDialogBase(
          * Set the title displayed in the [ProgressMaterialDialog].
          *
          * @param title The title to display in the dialog.
-         * @return This Builder object to allow for chaining of calls to set methods
+         * @return [Builder] object to allow for chaining of calls to set methods
          */
         fun setTitle(@StringRes title: Int): Builder<D> {
             return setTitle(title, AlertDialog.TextAlignment.START)
@@ -364,7 +365,7 @@ abstract class ProgressDialogBase(
          *
          * @param title The title to display in the dialog.
          * @param alignment The message alignment. Default [AlertDialog.TextAlignment.CENTER].
-         * @return This Builder object to allow for chaining of calls to set methods
+         * @return [Builder] object to allow for chaining of calls to set methods
          */
         fun setTitle(title: String? = null, alignment: AlertDialog.TextAlignment): Builder<D> {
             val valueText =
@@ -379,7 +380,7 @@ abstract class ProgressDialogBase(
          *
          * @param title The title to display in the dialog.
          * @param alignment The message alignment. Default [AlertDialog.TextAlignment.CENTER].
-         * @return This Builder object to allow for chaining of calls to set methods
+         * @return [Builder] object to allow for chaining of calls to set methods
          */
         fun setTitle(
             @StringRes title: Int,
@@ -394,7 +395,7 @@ abstract class ProgressDialogBase(
          * Sets the message to display.
          *
          * @param message The message to display in the dialog.
-         * @return This Builder object to allow for chaining of calls to set methods
+         * @return [Builder] object to allow for chaining of calls to set methods
          */
         fun setMessage(message: String): Builder<D> {
             return setMessage(message, AlertDialog.TextAlignment.START)
@@ -404,7 +405,7 @@ abstract class ProgressDialogBase(
          * Sets the message to display.
          *
          * @param message The message to display in the dialog.
-         * @return This Builder object to allow for chaining of calls to set methods
+         * @return [Builder] object to allow for chaining of calls to set methods
          */
         fun setMessage(@StringRes message: Int): Builder<D> {
             return setMessage(message, AlertDialog.TextAlignment.START)
@@ -414,7 +415,7 @@ abstract class ProgressDialogBase(
          * Sets the details to display.
          *
          * @param details The message to display in the dialog.
-         * @return This Builder object to allow for chaining of calls to set methods
+         * @return [Builder] object to allow for chaining of calls to set methods
          */
         fun setDetailsLinearProgress(details: String? = null): Builder<D> {
             this.detailsLinearProgress = MessageAlertDialog.text(
@@ -428,7 +429,7 @@ abstract class ProgressDialogBase(
          * Sets the details to display.
          *
          * @param details The message to display in the dialog.
-         * @return This Builder object to allow for chaining of calls to set methods
+         * @return [Builder] object to allow for chaining of calls to set methods
          */
         fun setDetailsLinearProgress(@StringRes details: Int): Builder<D> {
             this.detailsLinearProgress = MessageAlertDialog.text(
@@ -443,7 +444,7 @@ abstract class ProgressDialogBase(
          *
          * @param message The message to display in the dialog.
          * @param alignment The message alignment. Default [AlertDialog.TextAlignment.CENTER].
-         * @return This Builder object to allow for chaining of calls to set methods
+         * @return [Builder] object to allow for chaining of calls to set methods
          */
         fun setMessage(message: String? = null, alignment: AlertDialog.TextAlignment): Builder<D> {
             val valueText =
@@ -458,7 +459,7 @@ abstract class ProgressDialogBase(
          *
          * @param message The message to display in the dialog.
          * @param alignment The message alignment. Default [AlertDialog.TextAlignment.CENTER].
-         * @return This Builder object to allow for chaining of calls to set methods
+         * @return [Builder] object to allow for chaining of calls to set methods
          */
         fun setMessage(
             @StringRes message: Int,
@@ -473,7 +474,7 @@ abstract class ProgressDialogBase(
          * Sets the message to display.
          *
          * @param message The message to display in the dialog.
-         * @return This Builder object to allow for chaining of calls to set methods
+         * @return [Builder] object to allow for chaining of calls to set methods
          */
         fun setMessage(message: Spanned): Builder<D> {
             return setMessage(message, AlertDialog.TextAlignment.START)
@@ -484,7 +485,7 @@ abstract class ProgressDialogBase(
          *
          * @param message The message to display in the dialog.
          * @param alignment The message alignment. Default [AlertDialog.TextAlignment.CENTER].
-         * @return This Builder object to allow for chaining of calls to set methods
+         * @return [Builder] object to allow for chaining of calls to set methods
          */
         fun setMessage(message: Spanned, alignment: AlertDialog.TextAlignment): Builder<D> {
             this.message = MessageAlertDialog.spanned(text = message, alignment = alignment)
@@ -495,7 +496,7 @@ abstract class ProgressDialogBase(
          * Sets whether the dialog is cancelable or not.
          *
          * @param isCancelable is [Boolean] value. Default is true.
-         * @return This Builder object to allow for chaining of calls to set methods
+         * @return [Builder] object to allow for chaining of calls to set methods
          */
         fun setCancelable(isCancelable: Boolean): Builder<D> {
             this.isCancelable = isCancelable
@@ -516,7 +517,7 @@ abstract class ProgressDialogBase(
          *
          * @param buttonText        The text to display in negative button.
          * @param onClickListener    The [MaterialDialogInterface.OnClickListener] to use.
-         * @return This Builder object to allow for chaining of calls to set methods
+         * @return [Builder] object to allow for chaining of calls to set methods
          */
         fun setNegativeButton(
             buttonText: String? = null,
@@ -530,7 +531,7 @@ abstract class ProgressDialogBase(
          *
          * @param buttonText        The text to display in negative button.
          * @param onClickListener    The [MaterialDialogInterface.OnClickListener] to use.
-         * @return This Builder object to allow for chaining of calls to set methods
+         * @return [Builder] object to allow for chaining of calls to set methods
          */
         fun setNegativeButton(
             @StringRes buttonText: Int,
@@ -545,7 +546,7 @@ abstract class ProgressDialogBase(
          * @param buttonText        The text to display in negative button.
          * @param onClickListener    The [MaterialDialogInterface.OnClickListener] to use.
          * @param icon        The [DrawableRes] to be set as an icon for the button.
-         * @return This Builder object to allow for chaining of calls to set methods
+         * @return [Builder] object to allow for chaining of calls to set methods
          */
         fun setNegativeButton(
             buttonText: String? = null,
@@ -566,7 +567,7 @@ abstract class ProgressDialogBase(
          * @param buttonText        The text to display in negative button.
          * @param onClickListener    The [MaterialDialogInterface.OnClickListener] to use.
          * @param icon        The [DrawableRes] to be set as an icon for the button.
-         * @return This Builder object to allow for chaining of calls to set methods
+         * @return [Builder] object to allow for chaining of calls to set methods
          */
         fun setNegativeButton(
             @StringRes buttonText: Int,
@@ -587,7 +588,7 @@ abstract class ProgressDialogBase(
          * Calling this method does not display the dialog.
          * If no additional processing is needed, [show] may be called instead to both create and display the dialog.
          *
-         * @return This Builder object to allow for chaining of calls to set methods
+         * @return [D] object to allow for chaining of calls to set methods
          */
         abstract fun create(): D
 

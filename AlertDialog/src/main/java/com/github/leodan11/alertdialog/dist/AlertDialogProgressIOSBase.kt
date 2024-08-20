@@ -162,7 +162,7 @@ abstract class AlertDialogProgressIOSBase(
          * Sets the message to display.
          *
          * @param message The message to display in the dialog.
-         * @return This Builder object to allow for chaining of calls to set methods
+         * @return [Builder] object to allow for chaining of calls to set methods
          */
         fun setMessage(message: String): Builder<D> {
             return setMessage(message, AlertDialog.TextAlignment.CENTER)
@@ -172,7 +172,7 @@ abstract class AlertDialogProgressIOSBase(
          * Sets the message to display.
          *
          * @param message The message to display in the dialog.
-         * @return This Builder object to allow for chaining of calls to set methods
+         * @return [Builder] object to allow for chaining of calls to set methods
          */
         fun setMessage(@StringRes message: Int): Builder<D> {
             return setMessage(message, AlertDialog.TextAlignment.CENTER)
@@ -183,7 +183,7 @@ abstract class AlertDialogProgressIOSBase(
          *
          * @param message The message to display in the dialog.
          * @param alignment The message alignment. Default [AlertDialog.TextAlignment.CENTER].
-         * @return This Builder object to allow for chaining of calls to set methods
+         * @return [Builder] object to allow for chaining of calls to set methods
          */
         fun setMessage(message: String? = null, alignment: AlertDialog.TextAlignment): Builder<D> {
             val valueText =
@@ -197,7 +197,7 @@ abstract class AlertDialogProgressIOSBase(
          *
          * @param message The message to display in the dialog.
          * @param alignment The message alignment. Default [AlertDialog.TextAlignment.CENTER].
-         * @return This Builder object to allow for chaining of calls to set methods
+         * @return [Builder] object to allow for chaining of calls to set methods
          */
         fun setMessage(
             @StringRes message: Int,
@@ -212,7 +212,7 @@ abstract class AlertDialogProgressIOSBase(
          * Sets the message to display.
          *
          * @param message The message to display in the dialog.
-         * @return This Builder object to allow for chaining of calls to set methods
+         * @return [Builder] object to allow for chaining of calls to set methods
          */
         fun setMessage(message: Spanned): Builder<D> {
             return setMessage(message, AlertDialog.TextAlignment.START)
@@ -223,7 +223,7 @@ abstract class AlertDialogProgressIOSBase(
          *
          * @param message The message to display in the dialog.
          * @param alignment The message alignment. Default [AlertDialog.TextAlignment.CENTER].
-         * @return This Builder object to allow for chaining of calls to set methods
+         * @return [Builder] object to allow for chaining of calls to set methods
          */
         fun setMessage(message: Spanned, alignment: AlertDialog.TextAlignment): Builder<D> {
             this.message = MessageAlertDialog.spanned(text = message, alignment = alignment)
@@ -234,7 +234,7 @@ abstract class AlertDialogProgressIOSBase(
          * Sets whether the dialog is cancelable or not.
          *
          * @param isCancelable is [Boolean] value. Default is true.
-         * @return This Builder object to allow for chaining of calls to set methods
+         * @return [Builder] object to allow for chaining of calls to set methods
          */
         fun setCancelable(isCancelable: Boolean): Builder<D> {
             this.isCancelable = isCancelable
@@ -246,7 +246,7 @@ abstract class AlertDialogProgressIOSBase(
          * Calling this method does not display the dialog.
          * If no additional processing is needed, [show] may be called instead to both create and display the dialog.
          *
-         * @return This Builder object to allow for chaining of calls to set methods
+         * @return [D] object to allow for chaining of calls to set methods
          */
         abstract fun create(): D
 

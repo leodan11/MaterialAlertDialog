@@ -10,7 +10,7 @@ import android.view.ViewGroup
 import androidx.annotation.DrawableRes
 import androidx.annotation.RestrictTo
 import androidx.annotation.StringRes
-import com.github.leodan11.alertdialog.MaterialAlertDialogProgressSmall
+import com.github.leodan11.alertdialog.ProgressAlertDialog
 import com.github.leodan11.alertdialog.R
 import com.github.leodan11.alertdialog.databinding.MDialogProgressSmallBinding
 import com.github.leodan11.alertdialog.io.content.AlertDialog
@@ -22,7 +22,7 @@ import com.github.leodan11.k_extensions.core.colorOnSurface
 import com.github.leodan11.k_extensions.core.startAnimatedVectorDrawable
 import com.github.leodan11.k_extensions.core.startAnimatedVectorDrawableLoop
 
-abstract class AlertDialogProgressSmallBase(
+abstract class ProgressAlertDialogBase(
     protected open var mContext: Context,
     protected open var icon: IconAlertDialog,
     protected open var mAnimatedVectorDrawable: Boolean,
@@ -159,7 +159,7 @@ abstract class AlertDialogProgressSmallBase(
      * The default alert dialog theme is defined by [android.R.attr.alertDialogTheme] within the parent context's theme.
      * @param context – the parent context
      */
-    abstract class Builder<D : AlertDialogProgressSmallBase>(protected open val context: Context) {
+    abstract class Builder<D : ProgressAlertDialogBase>(protected open val context: Context) {
 
         protected open var icon: IconAlertDialog =
             IconAlertDialog(R.drawable.ic_baseline_animated_morphing_animals)
@@ -172,7 +172,7 @@ abstract class AlertDialogProgressSmallBase(
          * Set animated vector [DrawableRes] to be used as progress.
          *
          * @param icon Drawable to use.
-         * @return This Builder object to allow for chaining of calls to set methods
+         * @return [Builder] object to allow for chaining of calls to set methods
          */
         fun setIcon(@DrawableRes icon: Int): Builder<D> {
             this.icon = IconAlertDialog(mDrawableResId = icon)
@@ -184,7 +184,7 @@ abstract class AlertDialogProgressSmallBase(
          * Set animated vector [DrawableRes] to be used as progress.
          *
          * @param isAnimated value [Boolean]. Default value true.
-         * @return This Builder object to allow for chaining of calls to set methods
+         * @return [Builder] object to allow for chaining of calls to set methods
          */
         fun setAnimatedVectorDrawable(isAnimated: Boolean): Builder<D> {
             this.isAnimatedVectorDrawable = isAnimated
@@ -195,7 +195,7 @@ abstract class AlertDialogProgressSmallBase(
          * Set animated vector loop [DrawableRes] to be used as progress.
          *
          * @param isAnimatedLoop value [Boolean]. Default value false.
-         * @return This Builder object to allow for chaining of calls to set methods
+         * @return [Builder] object to allow for chaining of calls to set methods
          */
         fun setLoopAnimatedVectorDrawable(isAnimatedLoop: Boolean): Builder<D> {
             this.isAnimatedVectorDrawableLoop = isAnimatedLoop
@@ -206,7 +206,7 @@ abstract class AlertDialogProgressSmallBase(
          * Sets the message to display.
          *
          * @param message The message to display in the dialog.
-         * @return This Builder object to allow for chaining of calls to set methods
+         * @return [Builder] object to allow for chaining of calls to set methods
          */
         fun setMessage(message: String): Builder<D> {
             return setMessage(message, AlertDialog.TextAlignment.CENTER)
@@ -216,7 +216,7 @@ abstract class AlertDialogProgressSmallBase(
          * Sets the message to display.
          *
          * @param message The message to display in the dialog.
-         * @return This Builder object to allow for chaining of calls to set methods
+         * @return [Builder] object to allow for chaining of calls to set methods
          */
         fun setMessage(@StringRes message: Int): Builder<D> {
             return setMessage(message, AlertDialog.TextAlignment.CENTER)
@@ -227,7 +227,7 @@ abstract class AlertDialogProgressSmallBase(
          *
          * @param message The message to display in the dialog.
          * @param alignment The message alignment. Default [AlertDialog.TextAlignment.CENTER].
-         * @return This Builder object to allow for chaining of calls to set methods
+         * @return [Builder] object to allow for chaining of calls to set methods
          */
         fun setMessage(message: String? = null, alignment: AlertDialog.TextAlignment): Builder<D> {
             val valueText =
@@ -241,7 +241,7 @@ abstract class AlertDialogProgressSmallBase(
          *
          * @param message The message to display in the dialog.
          * @param alignment The message alignment. Default [AlertDialog.TextAlignment.CENTER].
-         * @return This Builder object to allow for chaining of calls to set methods
+         * @return [Builder] object to allow for chaining of calls to set methods
          */
         fun setMessage(
             @StringRes message: Int,
@@ -256,7 +256,7 @@ abstract class AlertDialogProgressSmallBase(
          * Sets the message to display.
          *
          * @param message The message to display in the dialog.
-         * @return This Builder object to allow for chaining of calls to set methods
+         * @return [Builder] object to allow for chaining of calls to set methods
          */
         fun setMessage(message: Spanned): Builder<D> {
             return setMessage(message, AlertDialog.TextAlignment.START)
@@ -267,7 +267,7 @@ abstract class AlertDialogProgressSmallBase(
          *
          * @param message The message to display in the dialog.
          * @param alignment The message alignment. Default [AlertDialog.TextAlignment.CENTER].
-         * @return This Builder object to allow for chaining of calls to set methods
+         * @return [Builder] object to allow for chaining of calls to set methods
          */
         fun setMessage(message: Spanned, alignment: AlertDialog.TextAlignment): Builder<D> {
             this.message = MessageAlertDialog.spanned(text = message, alignment = alignment)
@@ -278,7 +278,7 @@ abstract class AlertDialogProgressSmallBase(
          * Sets whether the dialog is cancelable or not.
          *
          * @param isCancelable is [Boolean] value. Default is true.
-         * @return This Builder object to allow for chaining of calls to set methods
+         * @return [Builder] object to allow for chaining of calls to set methods
          */
         fun setCancelable(isCancelable: Boolean): Builder<D> {
             this.isCancelable = isCancelable
@@ -286,11 +286,11 @@ abstract class AlertDialogProgressSmallBase(
         }
 
         /**
-         * Creates an [MaterialAlertDialogProgressSmall] with the arguments supplied to this builder.
+         * Creates an [ProgressAlertDialog] with the arguments supplied to this builder.
          * Calling this method does not display the dialog.
          * If no additional processing is needed, [show] may be called instead to both create and display the dialog.
          *
-         * @return This Builder object to allow for chaining of calls to set methods
+         * @return [D] object to allow for chaining of calls to set methods
          */
         abstract fun create(): D
 

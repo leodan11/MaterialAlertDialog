@@ -264,7 +264,7 @@ abstract class AlertDialogSignInBase(
          * Set the [DrawableRes] to be used in the title.
          *
          * @param icon Drawable to use as the icon.
-         * @return This Builder object to allow for chaining of calls to set methods
+         * @return [Builder] object to allow for chaining of calls to set methods
          */
         fun setIcon(@DrawableRes icon: Int): Builder<D> {
             this.icon = IconAlertDialog(mDrawableResId = icon)
@@ -275,7 +275,7 @@ abstract class AlertDialogSignInBase(
          * Set icon tint of [ColorInt].
          *
          * @param tintColor the color int. E.g. [Color.BLUE]
-         * @return This Builder object to allow for chaining of calls to set methods
+         * @return [Builder] object to allow for chaining of calls to set methods
          */
         fun setIconTintColor(@ColorInt tintColor: Int): Builder<D> {
             this.tintColor = IconTintAlertDialog(iconColorInt = tintColor)
@@ -290,7 +290,7 @@ abstract class AlertDialogSignInBase(
          * @param red to extract the red component
          * @param green to extract the green component
          * @param blue to extract the blue component
-         * @return This Builder object to allow for chaining of calls to set methods
+         * @return [Builder] object to allow for chaining of calls to set methods
          */
         fun setIconTintColor(
             @IntRange(from = 0, to = 255) red: Int,
@@ -305,7 +305,7 @@ abstract class AlertDialogSignInBase(
          * Set icon tint of [ColorRes].
          *
          * @param tintColor the color resource.
-         * @return This Builder object to allow for chaining of calls to set methods
+         * @return [Builder] object to allow for chaining of calls to set methods
          */
         fun setIconTintColorRes(@ColorRes tintColor: Int): Builder<D> {
             this.tintColor = IconTintAlertDialog(iconColorRes = tintColor)
@@ -316,7 +316,7 @@ abstract class AlertDialogSignInBase(
          * Set the title displayed in the [MaterialAlertDialogSignIn].
          *
          * @param title The title to display in the dialog.
-         * @return This Builder object to allow for chaining of calls to set methods
+         * @return [Builder] object to allow for chaining of calls to set methods
          */
         fun setTitle(title: String): Builder<D> {
             return setTitle(title, AlertDialog.TextAlignment.START)
@@ -326,7 +326,7 @@ abstract class AlertDialogSignInBase(
          * Set the title displayed in the [MaterialAlertDialogSignIn].
          *
          * @param title The title to display in the dialog.
-         * @return This Builder object to allow for chaining of calls to set methods
+         * @return [Builder] object to allow for chaining of calls to set methods
          */
         fun setTitle(@StringRes title: Int): Builder<D> {
             return setTitle(title, AlertDialog.TextAlignment.START)
@@ -337,7 +337,7 @@ abstract class AlertDialogSignInBase(
          *
          * @param title The title to display in the dialog.
          * @param alignment The message alignment. Default [AlertDialog.TextAlignment.CENTER].
-         * @return This Builder object to allow for chaining of calls to set methods
+         * @return [Builder] object to allow for chaining of calls to set methods
          */
         fun setTitle(title: String? = null, alignment: AlertDialog.TextAlignment): Builder<D> {
             val valueText = if (title.isNullOrEmpty()) context.getString(R.string.text_value_login)
@@ -351,7 +351,7 @@ abstract class AlertDialogSignInBase(
          *
          * @param title The title to display in the dialog.
          * @param alignment The message alignment. Default [AlertDialog.TextAlignment.CENTER].
-         * @return This Builder object to allow for chaining of calls to set methods
+         * @return [Builder] object to allow for chaining of calls to set methods
          */
         fun setTitle(
             @StringRes title: Int,
@@ -366,7 +366,7 @@ abstract class AlertDialogSignInBase(
          * Sets whether the dialog is cancelable or not.
          *
          * @param isCancelable is [Boolean] value. Default is false.
-         * @return This Builder object to allow for chaining of calls to set methods
+         * @return [Builder] object to allow for chaining of calls to set methods
          */
         fun setCancelable(isCancelable: Boolean): Builder<D> {
             this.isCancelable = isCancelable
@@ -378,7 +378,7 @@ abstract class AlertDialogSignInBase(
          *
          * @param buttonText        The text to display in positive button.
          * @param onClickSignInListener    The [MaterialDialogInterface.OnClickSignInListener] to use.
-         * @return This Builder object to allow for chaining of calls to set methods
+         * @return [Builder] object to allow for chaining of calls to set methods
          */
         fun setPositiveButton(
             buttonText: String? = null,
@@ -396,7 +396,7 @@ abstract class AlertDialogSignInBase(
          *
          * @param buttonText        The text to display in positive button.
          * @param onClickSignInListener    The [MaterialDialogInterface.OnClickSignInListener] to use.
-         * @return This Builder object to allow for chaining of calls to set methods
+         * @return [Builder] object to allow for chaining of calls to set methods
          */
         fun setPositiveButton(
             @StringRes buttonText: Int,
@@ -415,7 +415,7 @@ abstract class AlertDialogSignInBase(
          * @param buttonText        The text to display in positive button.
          * @param onClickSignInListener    The [MaterialDialogInterface.OnClickSignInListener] to use.
          * @param icon        The [DrawableRes] to be set as an icon for the button.
-         * @return This Builder object to allow for chaining of calls to set methods
+         * @return [Builder] object to allow for chaining of calls to set methods
          */
         fun setPositiveButton(
             buttonText: String? = null,
@@ -439,7 +439,7 @@ abstract class AlertDialogSignInBase(
          * @param buttonText        The text to display in positive button.
          * @param onClickSignInListener    The [MaterialDialogInterface.OnClickSignInListener] to use.
          * @param icon        The [DrawableRes] to be set as an icon for the button.
-         * @return This Builder object to allow for chaining of calls to set methods
+         * @return [Builder] object to allow for chaining of calls to set methods
          */
         fun setPositiveButton(
             @StringRes buttonText: Int,
@@ -459,7 +459,7 @@ abstract class AlertDialogSignInBase(
          *
          * @param buttonText        The text to display in negative button.
          * @param onClickListener    The [MaterialDialogInterface.OnClickListener] to use.
-         * @return This Builder object to allow for chaining of calls to set methods
+         * @return [Builder] object to allow for chaining of calls to set methods
          */
         fun setNegativeButton(
             buttonText: String? = null,
@@ -473,7 +473,7 @@ abstract class AlertDialogSignInBase(
          *
          * @param buttonText        The text to display in negative button.
          * @param onClickListener    The [MaterialDialogInterface.OnClickListener] to use.
-         * @return This Builder object to allow for chaining of calls to set methods
+         * @return [Builder] object to allow for chaining of calls to set methods
          */
         fun setNegativeButton(
             @StringRes buttonText: Int,
@@ -488,7 +488,7 @@ abstract class AlertDialogSignInBase(
          * @param buttonText        The text to display in negative button.
          * @param onClickListener    The [MaterialDialogInterface.OnClickListener] to use.
          * @param icon        The [DrawableRes] to be set as an icon for the button.
-         * @return This Builder object to allow for chaining of calls to set methods
+         * @return [Builder] object to allow for chaining of calls to set methods
          */
         fun setNegativeButton(
             buttonText: String? = null,
@@ -509,7 +509,7 @@ abstract class AlertDialogSignInBase(
          * @param buttonText        The text to display in negative button.
          * @param onClickListener    The [MaterialDialogInterface.OnClickListener] to use.
          * @param icon        The [DrawableRes] to be set as an icon for the button.
-         * @return This Builder object to allow for chaining of calls to set methods
+         * @return [Builder] object to allow for chaining of calls to set methods
          */
         fun setNegativeButton(
             @StringRes buttonText: Int,
@@ -529,7 +529,7 @@ abstract class AlertDialogSignInBase(
          * Calling this method does not display the dialog.
          * If no additional processing is needed, [show] may be called instead to both create and display the dialog.
          *
-         * @return This Builder object to allow for chaining of calls to set methods
+         * @return [D] object to allow for chaining of calls to set methods
          */
         abstract fun create(): D
 

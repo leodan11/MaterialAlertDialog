@@ -336,7 +336,7 @@ abstract class AlertDialogIOSBase(
          * [IOSDialog.Orientation.HORIZONTAL], [IOSDialog.Orientation.VERTICAL]
          *
          * @param orientation By default, it is used [IOSDialog.Orientation.HORIZONTAL].
-         * @return This Builder object to allow for chaining of calls to set methods
+         * @return [Builder] object to allow for chaining of calls to set methods
          */
         fun setOrientationButton(orientation: Orientation): Builder<D> {
             this.orientationButton = orientation
@@ -347,7 +347,7 @@ abstract class AlertDialogIOSBase(
          * Set the title displayed in the [IOSAlertDialog].
          *
          * @param title The title to display in the dialog.
-         * @return This Builder object to allow for chaining of calls to set methods
+         * @return [Builder] object to allow for chaining of calls to set methods
          */
         fun setTitle(title: String): Builder<D> {
             return setTitle(title, AlertDialog.TextAlignment.CENTER)
@@ -357,7 +357,7 @@ abstract class AlertDialogIOSBase(
          * Set the title displayed in the [IOSAlertDialog].
          *
          * @param title The title to display in the dialog.
-         * @return This Builder object to allow for chaining of calls to set methods
+         * @return [Builder] object to allow for chaining of calls to set methods
          */
         fun setTitle(@StringRes title: Int): Builder<D> {
             return setTitle(title, AlertDialog.TextAlignment.CENTER)
@@ -368,7 +368,7 @@ abstract class AlertDialogIOSBase(
          *
          * @param title The title to display in the dialog.
          * @param alignment The message alignment. Default [AlertDialog.TextAlignment.CENTER].
-         * @return This Builder object to allow for chaining of calls to set methods
+         * @return [Builder] object to allow for chaining of calls to set methods
          */
         fun setTitle(title: String, alignment: AlertDialog.TextAlignment): Builder<D> {
             this.title = TitleAlertDialog(title = title, textAlignment = alignment)
@@ -380,7 +380,7 @@ abstract class AlertDialogIOSBase(
          *
          * @param title The title to display in the dialog.
          * @param alignment The message alignment. Default [AlertDialog.TextAlignment.CENTER].
-         * @return This Builder object to allow for chaining of calls to set methods
+         * @return [Builder] object to allow for chaining of calls to set methods
          */
         fun setTitle(
             @StringRes title: Int,
@@ -395,7 +395,7 @@ abstract class AlertDialogIOSBase(
          * Sets the message to display.
          *
          * @param message The message to display in the dialog.
-         * @return This Builder object to allow for chaining of calls to set methods
+         * @return [Builder] object to allow for chaining of calls to set methods
          */
         fun setMessage(message: String): Builder<D> {
             return setMessage(message, AlertDialog.TextAlignment.CENTER)
@@ -405,7 +405,7 @@ abstract class AlertDialogIOSBase(
          * Sets the message to display.
          *
          * @param message The message to display in the dialog.
-         * @return This Builder object to allow for chaining of calls to set methods
+         * @return [Builder] object to allow for chaining of calls to set methods
          */
         fun setMessage(@StringRes message: Int): Builder<D> {
             return setMessage(message, AlertDialog.TextAlignment.CENTER)
@@ -416,7 +416,7 @@ abstract class AlertDialogIOSBase(
          *
          * @param message The message to display in the dialog.
          * @param alignment The message alignment. Default [AlertDialog.TextAlignment.CENTER].
-         * @return This Builder object to allow for chaining of calls to set methods
+         * @return [Builder] object to allow for chaining of calls to set methods
          */
         fun setMessage(message: String, alignment: AlertDialog.TextAlignment): Builder<D> {
             this.message = MessageAlertDialog.text(text = message, alignment = alignment)
@@ -428,7 +428,7 @@ abstract class AlertDialogIOSBase(
          *
          * @param message The message to display in the dialog.
          * @param alignment The message alignment. Default [AlertDialog.TextAlignment.CENTER].
-         * @return This Builder object to allow for chaining of calls to set methods
+         * @return [Builder] object to allow for chaining of calls to set methods
          */
         fun setMessage(
             @StringRes message: Int,
@@ -443,7 +443,7 @@ abstract class AlertDialogIOSBase(
          * Sets the message to display.
          *
          * @param message The message to display in the dialog.
-         * @return This Builder object to allow for chaining of calls to set methods
+         * @return [Builder] object to allow for chaining of calls to set methods
          */
         fun setMessage(message: Spanned): Builder<D> {
             return setMessage(message, AlertDialog.TextAlignment.CENTER)
@@ -454,7 +454,7 @@ abstract class AlertDialogIOSBase(
          *
          * @param message The message to display in the dialog.
          * @param alignment The message alignment. Default [AlertDialog.TextAlignment.CENTER].
-         * @return This Builder object to allow for chaining of calls to set methods
+         * @return [Builder] object to allow for chaining of calls to set methods
          */
         fun setMessage(message: Spanned, alignment: AlertDialog.TextAlignment): Builder<D> {
             this.message = MessageAlertDialog.spanned(text = message, alignment = alignment)
@@ -465,7 +465,7 @@ abstract class AlertDialogIOSBase(
          * Sets whether the dialog is cancelable or not.
          *
          * @param isCancelable is [Boolean] value. Default is true.
-         * @return This Builder object to allow for chaining of calls to set methods
+         * @return [Builder] object to allow for chaining of calls to set methods
          */
         fun setCancelable(isCancelable: Boolean): Builder<D> {
             this.isCancelable = isCancelable
@@ -477,7 +477,7 @@ abstract class AlertDialogIOSBase(
          *
          * @param buttonText        The text to display in positive button.
          * @param onClickListener    The [MaterialDialogInterface.OnClickListener] to use.
-         * @return This Builder object to allow for chaining of calls to set methods
+         * @return [Builder] object to allow for chaining of calls to set methods
          */
         fun setPositiveButton(
             buttonText: String? = null,
@@ -498,7 +498,7 @@ abstract class AlertDialogIOSBase(
          *
          * @param buttonText        The text to display in positive button.
          * @param onClickListener    The [MaterialDialogInterface.OnClickListener] to use.
-         * @return This Builder object to allow for chaining of calls to set methods
+         * @return [Builder] object to allow for chaining of calls to set methods
          */
         fun setPositiveButton(
             @StringRes buttonText: Int,
@@ -517,7 +517,7 @@ abstract class AlertDialogIOSBase(
          *
          * @param buttonText        The text to display in neutral button.
          * @param onClickListener    The [MaterialDialogInterface.OnClickListener] to use.
-         * @return This Builder object to allow for chaining of calls to set methods
+         * @return [Builder] object to allow for chaining of calls to set methods
          */
         fun setNeutralButton(
             buttonText: String? = null,
@@ -538,7 +538,7 @@ abstract class AlertDialogIOSBase(
          *
          * @param buttonText        The text to display in neutral button.
          * @param onClickListener    The [MaterialDialogInterface.OnClickListener] to use.
-         * @return This Builder object to allow for chaining of calls to set methods
+         * @return [Builder] object to allow for chaining of calls to set methods
          */
         fun setNeutralButton(
             @StringRes buttonText: Int,
@@ -557,7 +557,7 @@ abstract class AlertDialogIOSBase(
          *
          * @param buttonText        The text to display in negative button.
          * @param onClickListener    The [MaterialDialogInterface.OnClickListener] to use.
-         * @return This Builder object to allow for chaining of calls to set methods
+         * @return [Builder] object to allow for chaining of calls to set methods
          */
         fun setNegativeButton(
             buttonText: String? = null,
@@ -578,7 +578,7 @@ abstract class AlertDialogIOSBase(
          *
          * @param buttonText        The text to display in negative button.
          * @param onClickListener    The [MaterialDialogInterface.OnClickListener] to use.
-         * @return This Builder object to allow for chaining of calls to set methods
+         * @return [Builder] object to allow for chaining of calls to set methods
          */
         fun setNegativeButton(
             @StringRes buttonText: Int,
@@ -598,7 +598,7 @@ abstract class AlertDialogIOSBase(
          * Calling this method does not display the dialog.
          * If no additional processing is needed, [show] may be called instead to both create and display the dialog.
          *
-         * @return This Builder object to allow for chaining of calls to set methods
+         * @return [D] object to allow for chaining of calls to set methods
          */
         abstract fun create(): D
 

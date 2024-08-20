@@ -284,7 +284,7 @@ abstract class AlertDialogCenteredBase(
          * Set the [DrawableRes] to be used in the title.
          *
          * @param icon Drawable to use as the icon.
-         * @return This Builder object to allow for chaining of calls to set methods
+         * @return [Builder] object to allow for chaining of calls to set methods
          */
         fun setIcon(@DrawableRes icon: Int): Builder<D> {
             this.icon = IconAlertDialog(mDrawableResId = icon)
@@ -295,7 +295,7 @@ abstract class AlertDialogCenteredBase(
          * Set the [DrawableRes] to be used in the title.
          *
          * @param icon Drawable to use as the icon.
-         * @return This Builder object to allow for chaining of calls to set methods
+         * @return [Builder] object to allow for chaining of calls to set methods
          */
         fun setImage(@DrawableRes icon: Int): Builder<D> {
             this.bitmap = IconAlertDialog(mDrawableResId = icon)
@@ -306,7 +306,7 @@ abstract class AlertDialogCenteredBase(
          * Set the [RawRes] to be used in the title.
          *
          * @param source Json animation to use as the icon.
-         * @return This Builder object to allow for chaining of calls to set methods
+         * @return [Builder] object to allow for chaining of calls to set methods
          */
         fun setAnimation(@RawRes source: Int): Builder<D> {
             this.jsonAnimation = RawAlertDialog(mRawResId = source)
@@ -317,7 +317,7 @@ abstract class AlertDialogCenteredBase(
          * Set background tint [ColorInt].
          *
          * @param color Color int. E.g. [Color.BLUE]
-         * @return This Builder object to allow for chaining of calls to set methods
+         * @return [Builder] object to allow for chaining of calls to set methods
          */
         fun setIconBackgroundTint(@ColorInt color: Int): Builder<D> {
             this.backgroundColorInt = color
@@ -332,7 +332,7 @@ abstract class AlertDialogCenteredBase(
          * @param red to extract the red component
          * @param green to extract the green component
          * @param blue to extract the blue component
-         * @return This Builder object to allow for chaining of calls to set methods
+         * @return [Builder] object to allow for chaining of calls to set methods
          */
         fun setIconBackgroundTint(
             @IntRange(from = 0, to = 255) red: Int,
@@ -347,7 +347,7 @@ abstract class AlertDialogCenteredBase(
          * Set background tint [ColorRes].
          *
          * @param color Color resource.
-         * @return This Builder object to allow for chaining of calls to set methods
+         * @return [Builder] object to allow for chaining of calls to set methods
          */
         fun setIconBackgroundTintRes(@ColorRes color: Int): Builder<D> {
             this.backgroundColorResource = color
@@ -358,7 +358,7 @@ abstract class AlertDialogCenteredBase(
          * Set the title displayed in the [MaterialAlertDialogCentered].
          *
          * @param title The title to display in the dialog.
-         * @return This Builder object to allow for chaining of calls to set methods
+         * @return [Builder] object to allow for chaining of calls to set methods
          */
         fun setTitle(title: String): Builder<D> {
             return setTitle(title, AlertDialog.TextAlignment.CENTER)
@@ -368,7 +368,7 @@ abstract class AlertDialogCenteredBase(
          * Set the title displayed in the [MaterialAlertDialogCentered].
          *
          * @param title The title to display in the dialog.
-         * @return This Builder object to allow for chaining of calls to set methods
+         * @return [Builder] object to allow for chaining of calls to set methods
          */
         fun setTitle(@StringRes title: Int): Builder<D> {
             return setTitle(title, AlertDialog.TextAlignment.CENTER)
@@ -379,7 +379,7 @@ abstract class AlertDialogCenteredBase(
          *
          * @param title The title to display in the dialog.
          * @param alignment The message alignment. Default [AlertDialog.TextAlignment.CENTER].
-         * @return This Builder object to allow for chaining of calls to set methods
+         * @return [Builder] object to allow for chaining of calls to set methods
          */
         fun setTitle(title: String, alignment: AlertDialog.TextAlignment): Builder<D> {
             this.title = TitleAlertDialog(title = title, textAlignment = alignment)
@@ -391,7 +391,7 @@ abstract class AlertDialogCenteredBase(
          *
          * @param title The title to display in the dialog.
          * @param alignment The message alignment. Default [AlertDialog.TextAlignment.CENTER].
-         * @return This Builder object to allow for chaining of calls to set methods
+         * @return [Builder] object to allow for chaining of calls to set methods
          */
         fun setTitle(
             @StringRes title: Int,
@@ -406,7 +406,7 @@ abstract class AlertDialogCenteredBase(
          * Sets the message to display.
          *
          * @param message The message to display in the dialog.
-         * @return This Builder object to allow for chaining of calls to set methods
+         * @return [Builder] object to allow for chaining of calls to set methods
          */
         fun setMessage(message: String): Builder<D> {
             return setMessage(message, AlertDialog.TextAlignment.CENTER)
@@ -416,7 +416,7 @@ abstract class AlertDialogCenteredBase(
          * Sets the message to display.
          *
          * @param message The message to display in the dialog.
-         * @return This Builder object to allow for chaining of calls to set methods
+         * @return [Builder] object to allow for chaining of calls to set methods
          */
         fun setMessage(@StringRes message: Int): Builder<D> {
             return setMessage(message, AlertDialog.TextAlignment.CENTER)
@@ -427,7 +427,7 @@ abstract class AlertDialogCenteredBase(
          *
          * @param message The message to display in the dialog.
          * @param alignment The message alignment. Default [AlertDialog.TextAlignment.CENTER].
-         * @return This Builder object to allow for chaining of calls to set methods
+         * @return [Builder] object to allow for chaining of calls to set methods
          */
         fun setMessage(message: String, alignment: AlertDialog.TextAlignment): Builder<D> {
             this.message = MessageAlertDialog.text(text = message, alignment = alignment)
@@ -439,7 +439,7 @@ abstract class AlertDialogCenteredBase(
          *
          * @param message The message to display in the dialog.
          * @param alignment The message alignment. Default [AlertDialog.TextAlignment.CENTER].
-         * @return This Builder object to allow for chaining of calls to set methods
+         * @return [Builder] object to allow for chaining of calls to set methods
          */
         fun setMessage(
             @StringRes message: Int,
@@ -454,7 +454,7 @@ abstract class AlertDialogCenteredBase(
          * Sets the message to display.
          *
          * @param message The message to display in the dialog.
-         * @return This Builder object to allow for chaining of calls to set methods
+         * @return [Builder] object to allow for chaining of calls to set methods
          */
         fun setMessage(message: Spanned): Builder<D> {
             return setMessage(message, AlertDialog.TextAlignment.CENTER)
@@ -465,7 +465,7 @@ abstract class AlertDialogCenteredBase(
          *
          * @param message The message to display in the dialog.
          * @param alignment The message alignment. Default [AlertDialog.TextAlignment.CENTER].
-         * @return This Builder object to allow for chaining of calls to set methods
+         * @return [Builder] object to allow for chaining of calls to set methods
          */
         fun setMessage(message: Spanned, alignment: AlertDialog.TextAlignment): Builder<D> {
             this.message = MessageAlertDialog.spanned(text = message, alignment = alignment)
@@ -476,7 +476,7 @@ abstract class AlertDialogCenteredBase(
          * Sets whether the dialog is cancelable or not.
          *
          * @param isCancelable is [Boolean] value. Default is true.
-         * @return This Builder object to allow for chaining of calls to set methods
+         * @return [Builder] object to allow for chaining of calls to set methods
          */
         fun setCancelable(isCancelable: Boolean): Builder<D> {
             this.isCancelable = isCancelable
@@ -488,7 +488,7 @@ abstract class AlertDialogCenteredBase(
          *
          * @param buttonText        The text to display in positive button.
          * @param onClickListener    The [MaterialDialogInterface.OnClickListener] to use.
-         * @return This Builder object to allow for chaining of calls to set methods
+         * @return [Builder] object to allow for chaining of calls to set methods
          */
         fun setPositiveButton(
             buttonText: String? = null,
@@ -502,7 +502,7 @@ abstract class AlertDialogCenteredBase(
          *
          * @param buttonText        The text to display in positive button.
          * @param onClickListener    The [MaterialDialogInterface.OnClickListener] to use.
-         * @return This Builder object to allow for chaining of calls to set methods
+         * @return [Builder] object to allow for chaining of calls to set methods
          */
         fun setPositiveButton(
             @StringRes buttonText: Int,
@@ -517,7 +517,7 @@ abstract class AlertDialogCenteredBase(
          * @param buttonText        The text to display in positive button.
          * @param onClickListener    The [MaterialDialogInterface.OnClickListener] to use.
          * @param icon        The [DrawableRes] to be set as an icon for the button.
-         * @return This Builder object to allow for chaining of calls to set methods
+         * @return [Builder] object to allow for chaining of calls to set methods
          */
         fun setPositiveButton(
             buttonText: String? = null,
@@ -538,7 +538,7 @@ abstract class AlertDialogCenteredBase(
          * @param buttonText        The text to display in positive button.
          * @param onClickListener    The [MaterialDialogInterface.OnClickListener] to use.
          * @param icon        The [DrawableRes] to be set as an icon for the button.
-         * @return This Builder object to allow for chaining of calls to set methods
+         * @return [Builder] object to allow for chaining of calls to set methods
          */
         fun setPositiveButton(
             @StringRes buttonText: Int,
@@ -558,7 +558,7 @@ abstract class AlertDialogCenteredBase(
          *
          * @param buttonText        The text to display in neutral button.
          * @param onClickListener    The [MaterialDialogInterface.OnClickListener] to use.
-         * @return This Builder object to allow for chaining of calls to set methods
+         * @return [Builder] object to allow for chaining of calls to set methods
          */
         fun setNeutralButton(
             buttonText: String? = null,
@@ -572,7 +572,7 @@ abstract class AlertDialogCenteredBase(
          *
          * @param buttonText        The text to display in neutral button.
          * @param onClickListener    The [MaterialDialogInterface.OnClickListener] to use.
-         * @return This Builder object to allow for chaining of calls to set methods
+         * @return [Builder] object to allow for chaining of calls to set methods
          */
         fun setNeutralButton(
             @StringRes buttonText: Int,
@@ -587,7 +587,7 @@ abstract class AlertDialogCenteredBase(
          * @param buttonText        The text to display in neutral button.
          * @param onClickListener    The [MaterialDialogInterface.OnClickListener] to use.
          * @param icon        The [DrawableRes] to be set as an icon for the button.
-         * @return This Builder object to allow for chaining of calls to set methods
+         * @return [Builder] object to allow for chaining of calls to set methods
          */
         fun setNeutralButton(
             buttonText: String? = null,
@@ -608,7 +608,7 @@ abstract class AlertDialogCenteredBase(
          * @param buttonText        The text to display in neutral button.
          * @param onClickListener    The [MaterialDialogInterface.OnClickListener] to use.
          * @param icon        The [DrawableRes] to be set as an icon for the button.
-         * @return This Builder object to allow for chaining of calls to set methods
+         * @return [Builder] object to allow for chaining of calls to set methods
          */
         fun setNeutralButton(
             @StringRes buttonText: Int,
@@ -628,7 +628,7 @@ abstract class AlertDialogCenteredBase(
          *
          * @param buttonText        The text to display in negative button.
          * @param onClickListener    The [MaterialDialogInterface.OnClickListener] to use.
-         * @return This Builder object to allow for chaining of calls to set methods
+         * @return [Builder] object to allow for chaining of calls to set methods
          */
         fun setNegativeButton(
             buttonText: String? = null,
@@ -642,7 +642,7 @@ abstract class AlertDialogCenteredBase(
          *
          * @param buttonText        The text to display in negative button.
          * @param onClickListener    The [MaterialDialogInterface.OnClickListener] to use.
-         * @return This Builder object to allow for chaining of calls to set methods
+         * @return [Builder] object to allow for chaining of calls to set methods
          */
         fun setNegativeButton(
             @StringRes buttonText: Int,
@@ -657,7 +657,7 @@ abstract class AlertDialogCenteredBase(
          * @param buttonText        The text to display in negative button.
          * @param onClickListener    The [MaterialDialogInterface.OnClickListener] to use.
          * @param icon        The [DrawableRes] to be set as an icon for the button.
-         * @return This Builder object to allow for chaining of calls to set methods
+         * @return [Builder] object to allow for chaining of calls to set methods
          */
         fun setNegativeButton(
             buttonText: String? = null,
@@ -678,7 +678,7 @@ abstract class AlertDialogCenteredBase(
          * @param buttonText        The text to display in negative button.
          * @param onClickListener    The [MaterialDialogInterface.OnClickListener] to use.
          * @param icon        The [DrawableRes] to be set as an icon for the button.
-         * @return This Builder object to allow for chaining of calls to set methods
+         * @return [Builder] object to allow for chaining of calls to set methods
          */
         fun setNegativeButton(
             @StringRes buttonText: Int,
@@ -698,7 +698,7 @@ abstract class AlertDialogCenteredBase(
          * Calling this method does not display the dialog.
          * If no additional processing is needed, [show] may be called instead to both create and display the dialog.
          *
-         * @return This Builder object to allow for chaining of calls to set methods
+         * @return [D] object to allow for chaining of calls to set methods
          */
         abstract fun create(): D
 

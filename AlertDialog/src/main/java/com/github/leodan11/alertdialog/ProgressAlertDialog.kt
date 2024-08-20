@@ -3,19 +3,19 @@ package com.github.leodan11.alertdialog
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
-import com.github.leodan11.alertdialog.dist.AlertDialogProgressSmallBase
+import com.github.leodan11.alertdialog.dist.ProgressAlertDialogBase
 import com.github.leodan11.alertdialog.io.models.IconAlertDialog
 import com.github.leodan11.alertdialog.io.models.MessageAlertDialog
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
-class MaterialAlertDialogProgressSmall(
+class ProgressAlertDialog(
     mContext: Context,
     icon: IconAlertDialog,
     mAnimatedVectorDrawable: Boolean,
     mAnimatedVectorDrawableLoop: Boolean,
     message: MessageAlertDialog<*>?,
     mCancelable: Boolean,
-) : AlertDialogProgressSmallBase(
+) : ProgressAlertDialogBase(
     mContext = mContext,
     icon = icon,
     mAnimatedVectorDrawable = mAnimatedVectorDrawable,
@@ -42,10 +42,10 @@ class MaterialAlertDialogProgressSmall(
      * @param context the parent context
      */
     class Builder(context: Context) :
-        AlertDialogProgressSmallBase.Builder<MaterialAlertDialogProgressSmall>(context = context) {
+        ProgressAlertDialogBase.Builder<ProgressAlertDialog>(context = context) {
 
-        override fun create(): MaterialAlertDialogProgressSmall {
-            return MaterialAlertDialogProgressSmall(
+        override fun create(): ProgressAlertDialog {
+            return ProgressAlertDialog(
                 mContext = context,
                 icon = icon,
                 mAnimatedVectorDrawable = isAnimatedVectorDrawable,

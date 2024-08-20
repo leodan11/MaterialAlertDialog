@@ -30,8 +30,8 @@
     <string name="text_value_sign_in_value">Iniciar sesión en %1$s</string>
     <string name="text_value_username_error">Introduzca un nombre de usuario</string>
     <string name="text_value_password_error">Ingrese una contraseña</string>
-    <string name="text_value_username_helper">Nombre de usuario proporcionado por la entidad corporativa (<b>por ejemplo, Joe00</b>)</string>
-    <string name="text_value_username_helper_with_args">Nombre de usuario proporcionado por %1$s (<b>por ejemplo, Joe00</b>)</string>
+    <string name="text_value_username_helper">Nombre de usuario proporcionado (<b>por ejemplo, joe$Doe</b>)</string>
+    <string name="text_value_username_helper_with_args">Nombre de usuario proporcionado por %1$s (<b>por ejemplo, doe$Joe</b>)</string>
     <string name="text_value_password_helper">Seis o más caracteres, con al menos una letra minúscula y una mayúscula</string>
     <string name="text_value_reason_error">No puede dejar este campo vacío</string>
     <string name="text_value_code_error">Debes ingresar o completar el código</string>

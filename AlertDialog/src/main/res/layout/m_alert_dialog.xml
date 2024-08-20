@@ -19,9 +19,7 @@
             android:layout_height="@dimen/dialog_image_view_notification_icon_height_min"
             android:layout_gravity="center"
             android:layout_margin="@dimen/margin_spacing"
-            android:tint="?attr/colorSurface"
-            tools:ignore="ImageContrastCheck"
-            tools:src="@drawable/ic_baseline_success" />
+            tools:ignore="ImageContrastCheck" />
 
     </LinearLayout>
 

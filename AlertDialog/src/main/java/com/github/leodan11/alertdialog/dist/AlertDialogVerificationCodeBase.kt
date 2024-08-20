@@ -459,7 +459,7 @@ abstract class AlertDialogVerificationCodeBase(
          * Set the [DrawableRes] to be used in the title.
          *
          * @param icon Drawable to use as the icon.
-         * @return This Builder object to allow for chaining of calls to set methods
+         * @return [Builder] object to allow for chaining of calls to set methods
          */
         fun setIcon(@DrawableRes icon: Int): Builder<D> {
             this.icon = IconAlertDialog(mDrawableResId = icon)
@@ -470,7 +470,7 @@ abstract class AlertDialogVerificationCodeBase(
          * Set icon tint of [ColorInt].
          *
          * @param tintColor the color int. E.g. [Color.BLUE]
-         * @return This Builder object to allow for chaining of calls to set methods
+         * @return [Builder] object to allow for chaining of calls to set methods
          */
         fun setIconTintColor(@ColorInt tintColor: Int): Builder<D> {
             this.tintColor = IconTintAlertDialog(iconColorInt = tintColor)
@@ -485,7 +485,7 @@ abstract class AlertDialogVerificationCodeBase(
          * @param red to extract the red component
          * @param green to extract the green component
          * @param blue to extract the blue component
-         * @return This Builder object to allow for chaining of calls to set methods
+         * @return [Builder] object to allow for chaining of calls to set methods
          */
         fun setIconTintColor(
             @IntRange(from = 0, to = 255) red: Int,
@@ -500,7 +500,7 @@ abstract class AlertDialogVerificationCodeBase(
          * Set icon tint of [ColorRes].
          *
          * @param tintColor the color resource.
-         * @return This Builder object to allow for chaining of calls to set methods
+         * @return [Builder] object to allow for chaining of calls to set methods
          */
         fun setIconTintColorRes(@ColorRes tintColor: Int): Builder<D> {
             this.tintColor = IconTintAlertDialog(iconColorRes = tintColor)
@@ -511,7 +511,7 @@ abstract class AlertDialogVerificationCodeBase(
          * Set the title displayed in the [MaterialAlertDialogVerificationCode].
          *
          * @param title The title to display in the dialog.
-         * @return This Builder object to allow for chaining of calls to set methods
+         * @return [Builder] object to allow for chaining of calls to set methods
          */
         fun setTitle(title: String): Builder<D> {
             return setTitle(title, AlertDialog.TextAlignment.START)
@@ -521,7 +521,7 @@ abstract class AlertDialogVerificationCodeBase(
          * Set the title displayed in the [MaterialAlertDialogVerificationCode].
          *
          * @param title The title to display in the dialog.
-         * @return This Builder object to allow for chaining of calls to set methods
+         * @return [Builder] object to allow for chaining of calls to set methods
          */
         fun setTitle(@StringRes title: Int): Builder<D> {
             return setTitle(title, AlertDialog.TextAlignment.START)
@@ -532,7 +532,7 @@ abstract class AlertDialogVerificationCodeBase(
          *
          * @param title The title to display in the dialog.
          * @param alignment The message alignment. Default [AlertDialog.TextAlignment.CENTER].
-         * @return This Builder object to allow for chaining of calls to set methods
+         * @return [Builder] object to allow for chaining of calls to set methods
          */
         fun setTitle(title: String? = null, alignment: AlertDialog.TextAlignment): Builder<D> {
             val valueText =
@@ -547,7 +547,7 @@ abstract class AlertDialogVerificationCodeBase(
          *
          * @param title The title to display in the dialog.
          * @param alignment The message alignment. Default [AlertDialog.TextAlignment.CENTER].
-         * @return This Builder object to allow for chaining of calls to set methods
+         * @return [Builder] object to allow for chaining of calls to set methods
          */
         fun setTitle(
             @StringRes title: Int,
@@ -562,7 +562,7 @@ abstract class AlertDialogVerificationCodeBase(
          * Sets the message to display.
          *
          * @param message The message to display in the dialog.
-         * @return This Builder object to allow for chaining of calls to set methods
+         * @return [Builder] object to allow for chaining of calls to set methods
          */
         fun setMessage(message: String): Builder<D> {
             return setMessage(message, AlertDialog.TextAlignment.START)
@@ -572,7 +572,7 @@ abstract class AlertDialogVerificationCodeBase(
          * Sets the message to display.
          *
          * @param message The message to display in the dialog.
-         * @return This Builder object to allow for chaining of calls to set methods
+         * @return [Builder] object to allow for chaining of calls to set methods
          */
         fun setMessage(@StringRes message: Int): Builder<D> {
             return setMessage(message, AlertDialog.TextAlignment.START)
@@ -583,7 +583,7 @@ abstract class AlertDialogVerificationCodeBase(
          *
          * @param message The message to display in the dialog.
          * @param alignment The message alignment. Default [AlertDialog.TextAlignment.CENTER].
-         * @return This Builder object to allow for chaining of calls to set methods
+         * @return [Builder] object to allow for chaining of calls to set methods
          */
         fun setMessage(message: String, alignment: AlertDialog.TextAlignment): Builder<D> {
             this.message = MessageAlertDialog.text(text = message, alignment = alignment)
@@ -595,7 +595,7 @@ abstract class AlertDialogVerificationCodeBase(
          *
          * @param message The message to display in the dialog.
          * @param alignment The message alignment. Default [AlertDialog.TextAlignment.CENTER].
-         * @return This Builder object to allow for chaining of calls to set methods
+         * @return [Builder] object to allow for chaining of calls to set methods
          */
         fun setMessage(
             @StringRes message: Int,
@@ -610,7 +610,7 @@ abstract class AlertDialogVerificationCodeBase(
          * Sets the message to display.
          *
          * @param message The message to display in the dialog.
-         * @return This Builder object to allow for chaining of calls to set methods
+         * @return [Builder] object to allow for chaining of calls to set methods
          */
         fun setMessage(message: Spanned): Builder<D> {
             return setMessage(message, AlertDialog.TextAlignment.START)
@@ -621,7 +621,7 @@ abstract class AlertDialogVerificationCodeBase(
          *
          * @param message The message to display in the dialog.
          * @param alignment The message alignment. Default [AlertDialog.TextAlignment.CENTER].
-         * @return This Builder object to allow for chaining of calls to set methods
+         * @return [Builder] object to allow for chaining of calls to set methods
          */
         fun setMessage(message: Spanned, alignment: AlertDialog.TextAlignment): Builder<D> {
             this.message = MessageAlertDialog.spanned(text = message, alignment = alignment)
@@ -633,7 +633,7 @@ abstract class AlertDialogVerificationCodeBase(
          * Set inputs to be displayed. Use class [InputCodeExtra].
          *
          * @param listInputs the list of input.
-         * @return This Builder object to allow for chaining of calls to set methods
+         * @return [Builder] object to allow for chaining of calls to set methods
          */
         fun setInputs(@Size(max = 2) listInputs: List<InputCodeExtra> = arrayListOf()): Builder<D> {
             this.mInputsContentValue = listInputs
@@ -644,7 +644,7 @@ abstract class AlertDialogVerificationCodeBase(
          * Sets whether the dialog box should specify a reason for the action.
          *
          * @param isNeedReason is [Boolean] value. Default is true.
-         * @return This Builder object to allow for chaining of calls to set methods
+         * @return [Builder] object to allow for chaining of calls to set methods
          */
         fun setNeedReason(isNeedReason: Boolean): Builder<D> {
             this.isNeedReason = isNeedReason
@@ -655,7 +655,7 @@ abstract class AlertDialogVerificationCodeBase(
          * Sets whether the dialog is cancelable or not.
          *
          * @param isCancelable is [Boolean] value. Default is false.
-         * @return This Builder object to allow for chaining of calls to set methods
+         * @return [Builder] object to allow for chaining of calls to set methods
          */
         fun setCancelable(isCancelable: Boolean): Builder<D> {
             this.isCancelable = isCancelable
@@ -667,7 +667,7 @@ abstract class AlertDialogVerificationCodeBase(
          *
          * @param buttonText        The text to display in positive button.
          * @param onClickVerificationCodeListener    The [MaterialDialogInterface.OnClickVerificationCodeListener] to use.
-         * @return This Builder object to allow for chaining of calls to set methods
+         * @return [Builder] object to allow for chaining of calls to set methods
          */
         fun setPositiveButton(
             buttonText: String? = null,
@@ -685,7 +685,7 @@ abstract class AlertDialogVerificationCodeBase(
          *
          * @param buttonText        The text to display in positive button.
          * @param onClickVerificationCodeListener    The [MaterialDialogInterface.OnClickVerificationCodeListener] to use.
-         * @return This Builder object to allow for chaining of calls to set methods
+         * @return [Builder] object to allow for chaining of calls to set methods
          */
         fun setPositiveButton(
             @StringRes buttonText: Int,
@@ -704,7 +704,7 @@ abstract class AlertDialogVerificationCodeBase(
          * @param buttonText        The text to display in positive button.
          * @param onClickVerificationCodeListener    The [MaterialDialogInterface.OnClickVerificationCodeListener] to use.
          * @param icon        The [DrawableRes] to be set as an icon for the button.
-         * @return This Builder object to allow for chaining of calls to set methods
+         * @return [Builder] object to allow for chaining of calls to set methods
          */
         fun setPositiveButton(
             buttonText: String? = null,
@@ -728,7 +728,7 @@ abstract class AlertDialogVerificationCodeBase(
          * @param buttonText        The text to display in positive button.
          * @param onClickVerificationCodeListener    The [MaterialDialogInterface.OnClickVerificationCodeListener] to use.
          * @param icon        The [DrawableRes] to be set as an icon for the button.
-         * @return This Builder object to allow for chaining of calls to set methods
+         * @return [Builder] object to allow for chaining of calls to set methods
          */
         fun setPositiveButton(
             @StringRes buttonText: Int,
@@ -748,7 +748,7 @@ abstract class AlertDialogVerificationCodeBase(
          *
          * @param buttonText        The text to display in negative button.
          * @param onClickListener    The [MaterialDialogInterface.OnClickListener] to use.
-         * @return This Builder object to allow for chaining of calls to set methods
+         * @return [Builder] object to allow for chaining of calls to set methods
          */
         fun setNegativeButton(
             buttonText: String? = null,
@@ -762,7 +762,7 @@ abstract class AlertDialogVerificationCodeBase(
          *
          * @param buttonText        The text to display in negative button.
          * @param onClickListener    The [MaterialDialogInterface.OnClickListener] to use.
-         * @return This Builder object to allow for chaining of calls to set methods
+         * @return [Builder] object to allow for chaining of calls to set methods
          */
         fun setNegativeButton(
             @StringRes buttonText: Int,
@@ -777,7 +777,7 @@ abstract class AlertDialogVerificationCodeBase(
          * @param buttonText        The text to display in negative button.
          * @param onClickListener    The [MaterialDialogInterface.OnClickListener] to use.
          * @param icon        The [DrawableRes] to be set as an icon for the button.
-         * @return This Builder object to allow for chaining of calls to set methods
+         * @return [Builder] object to allow for chaining of calls to set methods
          */
         fun setNegativeButton(
             buttonText: String? = null,
@@ -798,7 +798,7 @@ abstract class AlertDialogVerificationCodeBase(
          * @param buttonText        The text to display in negative button.
          * @param onClickListener    The [MaterialDialogInterface.OnClickListener] to use.
          * @param icon        The [DrawableRes] to be set as an icon for the button.
-         * @return This Builder object to allow for chaining of calls to set methods
+         * @return [Builder] object to allow for chaining of calls to set methods
          */
         fun setNegativeButton(
             @StringRes buttonText: Int,
@@ -818,7 +818,7 @@ abstract class AlertDialogVerificationCodeBase(
          * Calling this method does not display the dialog.
          * If no additional processing is needed, [show] may be called instead to both create and display the dialog.
          *
-         * @return This Builder object to allow for chaining of calls to set methods
+         * @return [D] object to allow for chaining of calls to set methods
          */
         abstract fun create(): D
 

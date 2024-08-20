@@ -10,10 +10,11 @@ import com.github.leodan11.alertdialog.MaterialAlertDialogCentered
 import com.github.leodan11.alertdialog.MaterialAlertDialogEvents
 import com.github.leodan11.alertdialog.MaterialAlertDialogInput
 import com.github.leodan11.alertdialog.MaterialAlertDialogProgress
-import com.github.leodan11.alertdialog.MaterialAlertDialogProgressSmall
+import com.github.leodan11.alertdialog.ProgressAlertDialog
 import com.github.leodan11.alertdialog.MaterialAlertDialogSignIn
 import com.github.leodan11.alertdialog.MaterialAlertDialogVerificationCode
 import com.github.leodan11.alertdialog.ProgressMaterialDialog
+import com.github.leodan11.alertdialog.io.content.AlertDialog
 import com.github.leodan11.dialog.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
@@ -127,7 +128,7 @@ class MainActivity : AppCompatActivity() {
             }
 
             buttonActionProgressSmall.setOnClickListener {
-                MaterialAlertDialogProgressSmall.Builder(this@MainActivity)
+                ProgressAlertDialog.Builder(this@MainActivity)
                     .setMessage(com.github.leodan11.alertdialog.R.string.text_value_charging_please)
                     .create()
                     .show()

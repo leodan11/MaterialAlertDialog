@@ -351,7 +351,7 @@ abstract class AlertDialogInputBase(
          * Set the [DrawableRes] to be used in the title.
          *
          * @param icon Drawable to use as the icon.
-         * @return This Builder object to allow for chaining of calls to set methods
+         * @return [Builder] object to allow for chaining of calls to set methods
          */
         fun setIcon(@DrawableRes icon: Int): Builder<D> {
             this.icon = IconAlertDialog(mDrawableResId = icon)
@@ -362,7 +362,7 @@ abstract class AlertDialogInputBase(
          * Set icon tint of [ColorInt].
          *
          * @param tintColor The color int. E.g. [Color.BLUE]
-         * @return This Builder object to allow for chaining of calls to set methods
+         * @return [Builder] object to allow for chaining of calls to set methods
          */
         fun setIconTintColor(@ColorInt tintColor: Int): Builder<D> {
             this.iconTintColor = IconTintAlertDialog(iconColorInt = tintColor)
@@ -377,7 +377,7 @@ abstract class AlertDialogInputBase(
          * @param red to extract the red component
          * @param green to extract the green component
          * @param blue to extract the blue component
-         * @return This Builder object to allow for chaining of calls to set methods
+         * @return [Builder] object to allow for chaining of calls to set methods
          */
         fun setIconTintColor(
             @IntRange(from = 0, to = 255) red: Int,
@@ -392,7 +392,7 @@ abstract class AlertDialogInputBase(
          * Set icon tint of [ColorRes].
          *
          * @param tintColor the color resource.
-         * @return This Builder object to allow for chaining of calls to set methods
+         * @return [Builder] object to allow for chaining of calls to set methods
          */
         fun setIconTintColorRes(@ColorRes tintColor: Int): Builder<D> {
             this.iconTintColor = IconTintAlertDialog(iconColorRes = tintColor)
@@ -403,7 +403,7 @@ abstract class AlertDialogInputBase(
          * Set the title displayed in the [MaterialAlertDialogInput].
          *
          * @param title The title to display in the dialog.
-         * @return This Builder object to allow for chaining of calls to set methods
+         * @return [Builder] object to allow for chaining of calls to set methods
          */
         fun setTitle(title: String): Builder<D> {
             return setTitle(title, AlertDialog.TextAlignment.START)
@@ -413,7 +413,7 @@ abstract class AlertDialogInputBase(
          * Set the title displayed in the [MaterialAlertDialogInput].
          *
          * @param title The title to display in the dialog.
-         * @return This Builder object to allow for chaining of calls to set methods
+         * @return [Builder] object to allow for chaining of calls to set methods
          */
         fun setTitle(@StringRes title: Int): Builder<D> {
             return setTitle(title, AlertDialog.TextAlignment.START)
@@ -424,7 +424,7 @@ abstract class AlertDialogInputBase(
          *
          * @param title The title to display in the dialog.
          * @param alignment The message alignment. Default [AlertDialog.TextAlignment.CENTER].
-         * @return This Builder object to allow for chaining of calls to set methods
+         * @return [Builder] object to allow for chaining of calls to set methods
          */
         fun setTitle(title: String? = null, alignment: AlertDialog.TextAlignment): Builder<D> {
             val valueText =
@@ -438,7 +438,7 @@ abstract class AlertDialogInputBase(
          *
          * @param title The title to display in the dialog.
          * @param alignment The message alignment. Default [AlertDialog.TextAlignment.CENTER].
-         * @return This Builder object to allow for chaining of calls to set methods
+         * @return [Builder] object to allow for chaining of calls to set methods
          */
         fun setTitle(
             @StringRes title: Int,
@@ -453,7 +453,7 @@ abstract class AlertDialogInputBase(
          * Sets the message to display.
          *
          * @param message The message to display in the dialog.
-         * @return This Builder object to allow for chaining of calls to set methods
+         * @return [Builder] object to allow for chaining of calls to set methods
          */
         fun setMessage(message: String): Builder<D> {
             return setMessage(message, AlertDialog.TextAlignment.START)
@@ -463,7 +463,7 @@ abstract class AlertDialogInputBase(
          * Sets the message to display.
          *
          * @param message The message to display in the dialog.
-         * @return This Builder object to allow for chaining of calls to set methods
+         * @return [Builder] object to allow for chaining of calls to set methods
          */
         fun setMessage(@StringRes message: Int): Builder<D> {
             return setMessage(message, AlertDialog.TextAlignment.START)
@@ -474,7 +474,7 @@ abstract class AlertDialogInputBase(
          *
          * @param message The message to display in the dialog.
          * @param alignment The message alignment. Default [AlertDialog.TextAlignment.CENTER].
-         * @return This Builder object to allow for chaining of calls to set methods
+         * @return [Builder] object to allow for chaining of calls to set methods
          */
         fun setMessage(message: String, alignment: AlertDialog.TextAlignment): Builder<D> {
             this.message = MessageAlertDialog.text(text = message, alignment = alignment)
@@ -486,7 +486,7 @@ abstract class AlertDialogInputBase(
          *
          * @param message The message to display in the dialog.
          * @param alignment The message alignment. Default [AlertDialog.TextAlignment.CENTER].
-         * @return This Builder object to allow for chaining of calls to set methods
+         * @return [Builder] object to allow for chaining of calls to set methods
          */
         fun setMessage(
             @StringRes message: Int,
@@ -501,7 +501,7 @@ abstract class AlertDialogInputBase(
          * Sets the message to display.
          *
          * @param message The message to display in the dialog.
-         * @return This Builder object to allow for chaining of calls to set methods
+         * @return [Builder] object to allow for chaining of calls to set methods
          */
         fun setMessage(message: Spanned): Builder<D> {
             return setMessage(message, AlertDialog.TextAlignment.START)
@@ -512,7 +512,7 @@ abstract class AlertDialogInputBase(
          *
          * @param message The message to display in the dialog.
          * @param alignment The message alignment. Default [AlertDialog.TextAlignment.CENTER].
-         * @return This Builder object to allow for chaining of calls to set methods
+         * @return [Builder] object to allow for chaining of calls to set methods
          */
         fun setMessage(message: Spanned, alignment: AlertDialog.TextAlignment): Builder<D> {
             this.message = MessageAlertDialog.spanned(text = message, alignment = alignment)
@@ -523,7 +523,7 @@ abstract class AlertDialogInputBase(
          * Set counter-max length
          *
          * @param maxCounter Number
-         * @return This Builder object to allow for chaining of calls to set methods
+         * @return [Builder] object to allow for chaining of calls to set methods
          */
         fun setCounterMaxLength(maxCounter: Int): Builder<D> {
             this.counterMaxLength = maxCounter
@@ -534,7 +534,7 @@ abstract class AlertDialogInputBase(
          * Set masked formatter
          *
          * @param formatter The formatter to use.
-         * @return This Builder object to allow for chaining of calls to set methods
+         * @return [Builder] object to allow for chaining of calls to set methods
          */
         fun setMaskedFormatter(formatter: String): Builder<D> {
             this.maskedFormatter = formatter
@@ -545,7 +545,7 @@ abstract class AlertDialogInputBase(
          * Set input hint
          *
          * @param hint The hint to use.
-         * @return This Builder object to allow for chaining of calls to set methods
+         * @return [Builder] object to allow for chaining of calls to set methods
          */
         fun setInputHint(hint: String): Builder<D> {
             this.inputTextHide = hint
@@ -556,7 +556,7 @@ abstract class AlertDialogInputBase(
          * Set input hint
          *
          * @param hint The hint to use.
-         * @return This Builder object to allow for chaining of calls to set methods
+         * @return [Builder] object to allow for chaining of calls to set methods
          */
         fun setInputHint(@StringRes hint: Int): Builder<D> {
             this.inputTextHide = context.getString(hint)
@@ -567,7 +567,7 @@ abstract class AlertDialogInputBase(
          * Set input error
          *
          * @param error The error to use.
-         * @return This Builder object to allow for chaining of calls to set methods
+         * @return [Builder] object to allow for chaining of calls to set methods
          */
         fun setInputError(error: String): Builder<D> {
             this.inputTextError = error
@@ -578,7 +578,7 @@ abstract class AlertDialogInputBase(
          * Set input error
          *
          * @param error The error to use.
-         * @return This Builder object to allow for chaining of calls to set methods
+         * @return [Builder] object to allow for chaining of calls to set methods
          */
         fun setInputError(@StringRes error: Int): Builder<D> {
             this.inputTextError = context.getString(error)
@@ -589,7 +589,7 @@ abstract class AlertDialogInputBase(
          * Set input helper text
          *
          * @param helperText The helper text to use.
-         * @return This Builder object to allow for chaining of calls to set methods
+         * @return [Builder] object to allow for chaining of calls to set methods
          */
         fun setInputHelperText(helperText: String): Builder<D> {
             this.inputTextHelper = helperText
@@ -600,7 +600,7 @@ abstract class AlertDialogInputBase(
          * Set input helper text
          *
          * @param helperText The helper text to use.
-         * @return This Builder object to allow for chaining of calls to set methods
+         * @return [Builder] object to allow for chaining of calls to set methods
          */
         fun setInputHelperText(@StringRes helperText: Int): Builder<D> {
             this.inputTextHelper = context.getString(helperText)
@@ -611,7 +611,7 @@ abstract class AlertDialogInputBase(
          * Set input default value
          *
          * @param valueHolder The default value to use.
-         * @return This Builder object to allow for chaining of calls to set methods
+         * @return [Builder] object to allow for chaining of calls to set methods
          */
         fun setInputDefaultValue(valueHolder: String): Builder<D> {
             this.inputTextDefault = valueHolder
@@ -622,7 +622,7 @@ abstract class AlertDialogInputBase(
          * Sets whether the dialog is cancelable or not.
          *
          * @param isCancelable is [Boolean] value. Default is false.
-         * @return This Builder object to allow for chaining of calls to set methods
+         * @return [Builder] object to allow for chaining of calls to set methods
          */
         fun setCancelable(isCancelable: Boolean): Builder<D> {
             this.isCancelable = isCancelable
@@ -635,7 +635,7 @@ abstract class AlertDialogInputBase(
          * @param startIcon Display icon
          * @param contentDescription Brief description about icon displayed
          * @param listener Listener when the icon is precious. Null by default
-         * @return This Builder object to allow for chaining of calls to set methods
+         * @return [Builder] object to allow for chaining of calls to set methods
          */
         fun setStartIconLayoutInput(
             @DrawableRes startIcon: Int,
@@ -652,7 +652,7 @@ abstract class AlertDialogInputBase(
          * @param startIcon Display icon
          * @param contentDescription Brief description about icon displayed
          * @param listener Listener when the icon is precious. Null by default
-         * @return This Builder object to allow for chaining of calls to set methods
+         * @return [Builder] object to allow for chaining of calls to set methods
          */
         fun setStartIconLayoutInput(
             @DrawableRes startIcon: Int,
@@ -673,7 +673,7 @@ abstract class AlertDialogInputBase(
          * @param endIcon Display icon
          * @param contentDescription Brief description about icon displayed
          * @param listener Listener when the icon is precious. Null by default
-         * @return This Builder object to allow for chaining of calls to set methods
+         * @return [Builder] object to allow for chaining of calls to set methods
          */
         fun setEndIconLayoutInput(
             @DrawableRes endIcon: Int,
@@ -690,7 +690,7 @@ abstract class AlertDialogInputBase(
          * @param endIcon Display icon
          * @param contentDescription Brief description about icon displayed
          * @param listener Listener when the icon is precious. Null by default
-         * @return This Builder object to allow for chaining of calls to set methods
+         * @return [Builder] object to allow for chaining of calls to set methods
          */
         fun setEndIconLayoutInput(
             @DrawableRes endIcon: Int,
@@ -710,7 +710,7 @@ abstract class AlertDialogInputBase(
          *
          * @param buttonText        The text to display in positive button.
          * @param onClickListenerInput    The [MaterialDialogInterface.OnClickInputListener] to use.
-         * @return This Builder object to allow for chaining of calls to set methods
+         * @return [Builder] object to allow for chaining of calls to set methods
          */
         fun setPositiveButton(
             buttonText: String? = null,
@@ -728,7 +728,7 @@ abstract class AlertDialogInputBase(
          *
          * @param buttonText        The text to display in positive button.
          * @param onClickListenerInput    The [MaterialDialogInterface.OnClickInputListener] to use.
-         * @return This Builder object to allow for chaining of calls to set methods
+         * @return [Builder] object to allow for chaining of calls to set methods
          */
         fun setPositiveButton(
             @StringRes buttonText: Int,
@@ -747,7 +747,7 @@ abstract class AlertDialogInputBase(
          * @param buttonText        The text to display in positive button.
          * @param onClickListenerInput    The [MaterialDialogInterface.OnClickInputListener] to use.
          * @param icon        The [DrawableRes] to be set as an icon for the button.
-         * @return This Builder object to allow for chaining of calls to set methods
+         * @return [Builder] object to allow for chaining of calls to set methods
          */
         fun setPositiveButton(
             buttonText: String? = null,
@@ -770,7 +770,7 @@ abstract class AlertDialogInputBase(
          * @param buttonText        The text to display in positive button.
          * @param onClickListenerInput    The [MaterialDialogInterface.OnClickInputListener] to use.
          * @param icon        The [DrawableRes] to be set as an icon for the button.
-         * @return This Builder object to allow for chaining of calls to set methods
+         * @return [Builder] object to allow for chaining of calls to set methods
          */
         fun setPositiveButton(
             @StringRes buttonText: Int,
@@ -790,7 +790,7 @@ abstract class AlertDialogInputBase(
          *
          * @param buttonText        The text to display in negative button.
          * @param onClickListener    The [MaterialDialogInterface.OnClickListener] to use.
-         * @return This Builder object to allow for chaining of calls to set methods
+         * @return [Builder] object to allow for chaining of calls to set methods
          */
         fun setNegativeButton(
             buttonText: String? = null,
@@ -804,7 +804,7 @@ abstract class AlertDialogInputBase(
          *
          * @param buttonText        The text to display in negative button.
          * @param onClickListener    The [MaterialDialogInterface.OnClickListener] to use.
-         * @return This Builder object to allow for chaining of calls to set methods
+         * @return [Builder] object to allow for chaining of calls to set methods
          */
         fun setNegativeButton(
             @StringRes buttonText: Int,
@@ -819,7 +819,7 @@ abstract class AlertDialogInputBase(
          * @param buttonText        The text to display in negative button.
          * @param onClickListener    The [MaterialDialogInterface.OnClickListener] to use.
          * @param icon        The [DrawableRes] to be set as an icon for the button.
-         * @return This Builder object to allow for chaining of calls to set methods
+         * @return [Builder] object to allow for chaining of calls to set methods
          */
         fun setNegativeButton(
             buttonText: String? = null,
@@ -839,7 +839,7 @@ abstract class AlertDialogInputBase(
          * @param buttonText        The text to display in negative button.
          * @param onClickListener    The [MaterialDialogInterface.OnClickListener] to use.
          * @param icon        The [DrawableRes] to be set as an icon for the button.
-         * @return This Builder object to allow for chaining of calls to set methods
+         * @return [Builder] object to allow for chaining of calls to set methods
          */
         fun setNegativeButton(
             @StringRes buttonText: Int,
@@ -860,7 +860,7 @@ abstract class AlertDialogInputBase(
          * Calling this method does not display the dialog.
          * If no additional processing is needed, [show] may be called instead to both create and display the dialog.
          *
-         * @return This Builder object to allow for chaining of calls to set methods
+         * @return [D] object to allow for chaining of calls to set methods
          */
         abstract fun create(): D
     }
