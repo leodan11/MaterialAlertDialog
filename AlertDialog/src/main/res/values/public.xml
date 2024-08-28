@@ -47,14 +47,35 @@
     <public name="text_value_reason_error" type="string" />
     <public name="text_value_code_error" type="string" />
     <public name="text_value_unknown_input_type" type="string" />
+    <public name="text_value_title_settings_dialog" type="string" />
+    <public name="text_value_rationale_ask" type="string" />
+    <public name="text_value_rationale_ask_again" type="string" />
     <public name="button_positive_speakable_text_value" type="string" />
     <public name="button_neutral_speakable_text_value" type="string" />
     <public name="button_negative_speakable_text_value" type="string" />
 
     <public name="radius_min" type="dimen" />
+    <public name="margin_spacing_min" type="dimen" />
+    <public name="margin_spacing" type="dimen" />
+    <public name="margin_spacing_medium" type="dimen" />
+    <public name="radiusTop" type="dimen" />
+    <public name="paddingTop" type="dimen" />
     <public name="app_icon_size" type="dimen" />
     <public name="app_icon_size_medium" type="dimen" />
     <public name="app_icon_size_min" type="dimen" />
+    <public name="spacing_edit_text" type="dimen" />
+    <public name="corners_shape" type="dimen" />
     <public name="box_otp_view_height_default_code" type="dimen" />
     <public name="box_otp_view_width_default_code" type="dimen" />
+    <public name="dialog_image_view_notification_icon_fifty_percent" type="dimen" />
+    <public name="dialog_image_view_notification_icon_height" type="dimen" />
+    <public name="dialog_image_view_notification_icon_width" type="dimen" />
+    <public name="dialog_image_view_notification_icon_height_min" type="dimen" />
+    <public name="dialog_image_view_notification_icon_width_min" type="dimen" />
+    <public name="dialog_image_view_notification_icon_height_medium" type="dimen" />
+    <public name="dialog_image_view_notification_icon_width_medium" type="dimen" />
+    <public name="dialog_image_view_notification_icon_height_large" type="dimen" />
+    <public name="dialog_image_view_notification_icon_width_large" type="dimen" />
+    <public name="text_title_size" type="dimen" />
+    <public name="text_message_size" type="dimen" />
 </resources>

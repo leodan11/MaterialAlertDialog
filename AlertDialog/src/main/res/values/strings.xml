@@ -42,6 +42,10 @@
     <string name="text_value_code_error">You must enter or complete the code</string>
     <string name="text_value_unknown_input_type">Unknown input type</string>
 
+    <string name="text_value_rationale_ask">❖ This app may not work correctly without the requested permissions.</string>
+    <string name="text_value_rationale_ask_again">❖ This app may not work correctly without the requested permissions.\n❖ Open the app settings screen to modify app permissions.</string>
+    <string name="text_value_title_settings_dialog">Permissions Required</string>
+
     <string name="button_positive_speakable_text_value">Positive choice of dialogue</string>
     <string name="button_neutral_speakable_text_value">Dialogue neutral option</string>
     <string name="button_negative_speakable_text_value">Negative option of the dialogue</string>

@@ -2,6 +2,7 @@ package com.github.leodan11.dialog
 
 import android.os.Bundle
 import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import com.github.leodan11.alertdialog.AboutMaterialDialog
 import com.github.leodan11.alertdialog.IOSAlertDialog
@@ -10,16 +11,19 @@ import com.github.leodan11.alertdialog.MaterialAlertDialogCentered
 import com.github.leodan11.alertdialog.MaterialAlertDialogEvents
 import com.github.leodan11.alertdialog.MaterialAlertDialogInput
 import com.github.leodan11.alertdialog.MaterialAlertDialogProgress
-import com.github.leodan11.alertdialog.ProgressAlertDialog
 import com.github.leodan11.alertdialog.MaterialAlertDialogSignIn
 import com.github.leodan11.alertdialog.MaterialAlertDialogVerificationCode
+import com.github.leodan11.alertdialog.ProgressAlertDialog
 import com.github.leodan11.alertdialog.ProgressMaterialDialog
-import com.github.leodan11.alertdialog.io.content.AlertDialog
+import com.github.leodan11.alertdialog.SettingsAlertDialog
 import com.github.leodan11.dialog.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
+    private val launchSettings = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
+        Toast.makeText(this, "Settings activity closed", Toast.LENGTH_SHORT).show()
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -167,6 +171,16 @@ class MainActivity : AppCompatActivity() {
                 val dialog: BlankFragment = BlankFragment.newInstance()
                 dialog.isCancelable = false
                 dialog.show(supportFragmentManager, dialog.tag)
+            }
+
+            buttonActionSettings.setOnClickListener {
+                SettingsAlertDialog.Builder(this@MainActivity)
+                    .setLaunch(launchSettings)
+                    .setCancelable(false)
+                    .setPositiveButton { dialog, _ -> dialog.dismiss() }
+                    .setNegativeButton { dialog, _ -> dialog.dismiss() }
+                    .create()
+                    .show()
             }
 
         }

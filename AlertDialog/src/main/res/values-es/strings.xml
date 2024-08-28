@@ -38,4 +38,7 @@
     <string name="text_value_unknown_input_type">Tipo de entrada desconocido</string>
     <string name="text_value_close">Cerrar</string>
     <string name="text_value_enter_a_value_below">Ingrese un valor a continuación</string>
+    <string name="text_value_rationale_ask">❖ Es posible que esta aplicación no funcione correctamente sin los permisos solicitados.</string>
+    <string name="text_value_rationale_ask_again">❖ Es posible que esta aplicación no funcione correctamente sin los permisos solicitados.\n❖ Abra la pantalla de configuración de la aplicación para modificar los permisos de la aplicación.</string>
+    <string name="text_value_title_settings_dialog">Permisos requeridos</string>
 </resources>
