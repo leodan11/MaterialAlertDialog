@@ -1,7 +1,7 @@
 # MaterialAlertDialog
 
 [![](https://jitpack.io/v/leodan11/MaterialAlertDialog.svg)](https://jitpack.io/#leodan11/MaterialAlertDialog)
-[![API](https://img.shields.io/badge/API-24%2B-brightgreen.svg?style=flat)](https://android-arsenal.com/api?level=24)
+[![API](https://img.shields.io/badge/API-21%2B-brightgreen.svg?style=flat)](https://android-arsenal.com/api?level=21)
 
 A fluent and extensible dialog API for Kotlin and Android.
 
