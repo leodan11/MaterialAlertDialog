@@ -30,8 +30,8 @@ import com.github.leodan11.alertdialog.io.models.IconInputDialog
 import com.github.leodan11.alertdialog.io.models.IconTintAlertDialog
 import com.github.leodan11.alertdialog.io.models.MessageAlertDialog
 import com.github.leodan11.alertdialog.io.models.TitleAlertDialog
-import com.github.leodan11.k_extensions.core.colorOnSurface
-import com.github.leodan11.k_extensions.core.colorPrimary
+import com.github.leodan11.k_extensions.color.colorOnSurface
+import com.github.leodan11.k_extensions.color.colorPrimary
 import com.google.android.material.textfield.TextInputLayout
 import com.vicmikhailau.maskededittext.MaskedFormatter
 import com.vicmikhailau.maskededittext.MaskedWatcher

@@ -19,20 +19,20 @@ import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import com.github.leodan11.alertdialog.MaterialAlertDialogProgress
 import com.github.leodan11.alertdialog.R
-import com.github.leodan11.alertdialog.io.content.Config.MATERIAL_ALERT_DIALOG_UI_NOT_ICON
 import com.github.leodan11.alertdialog.databinding.MDialogProgressBinding
 import com.github.leodan11.alertdialog.io.content.AlertDialog
+import com.github.leodan11.alertdialog.io.content.Config.MATERIAL_ALERT_DIALOG_UI_NOT_ICON
 import com.github.leodan11.alertdialog.io.content.MaterialDialogInterface
 import com.github.leodan11.alertdialog.io.models.ButtonAlertDialog
 import com.github.leodan11.alertdialog.io.models.IconAlertDialog
 import com.github.leodan11.alertdialog.io.models.IconTintAlertDialog
 import com.github.leodan11.alertdialog.io.models.MessageAlertDialog
 import com.github.leodan11.alertdialog.io.models.TitleAlertDialog
-import com.github.leodan11.k_extensions.core.backgroundColor
-import com.github.leodan11.k_extensions.core.colorOnSurface
-import com.github.leodan11.k_extensions.core.colorPrimary
-import com.github.leodan11.k_extensions.core.startAnimatedVectorDrawable
-import com.github.leodan11.k_extensions.core.startAnimatedVectorDrawableLoop
+import com.github.leodan11.k_extensions.color.backgroundColor
+import com.github.leodan11.k_extensions.color.colorOnSurface
+import com.github.leodan11.k_extensions.color.colorPrimary
+import com.github.leodan11.k_extensions.view.startAnimatedVectorDrawable
+import com.github.leodan11.k_extensions.view.startAnimatedVectorDrawableLoop
 
 abstract class AlertDialogProgressBase(
     protected open var mContext: Context,

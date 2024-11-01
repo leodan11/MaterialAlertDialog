@@ -14,15 +14,17 @@ import androidx.annotation.StringRes
 import androidx.core.view.isVisible
 import com.github.leodan11.alertdialog.IOSAlertDialog
 import com.github.leodan11.alertdialog.R
-import com.github.leodan11.alertdialog.io.content.Config.MATERIAL_ALERT_DIALOG_UI_NOT_ICON
 import com.github.leodan11.alertdialog.databinding.IosAlertDialogBinding
 import com.github.leodan11.alertdialog.io.content.AlertDialog
+import com.github.leodan11.alertdialog.io.content.Config.MATERIAL_ALERT_DIALOG_UI_NOT_ICON
 import com.github.leodan11.alertdialog.io.content.IOSDialog
 import com.github.leodan11.alertdialog.io.content.IOSDialog.Orientation
 import com.github.leodan11.alertdialog.io.content.MaterialDialogInterface
-import com.github.leodan11.alertdialog.io.models.*
-import com.github.leodan11.k_extensions.core.colorOnSurface
-import com.github.leodan11.k_extensions.core.isNightModeActive
+import com.github.leodan11.alertdialog.io.models.ButtonAlertDialog
+import com.github.leodan11.alertdialog.io.models.MessageAlertDialog
+import com.github.leodan11.alertdialog.io.models.TitleAlertDialog
+import com.github.leodan11.k_extensions.color.colorOnSurface
+import com.github.leodan11.k_extensions.context.isNightModeActive
 
 abstract class AlertDialogIOSBase(
     protected open var mContext: Context,

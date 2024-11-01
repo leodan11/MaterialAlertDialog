@@ -9,6 +9,7 @@ import android.graphics.Color
 import android.graphics.Paint
 import android.graphics.drawable.ShapeDrawable
 import android.graphics.drawable.shapes.RoundRectShape
+import android.os.Build
 import android.text.Spanned
 import android.view.LayoutInflater
 import android.view.View
@@ -37,13 +38,13 @@ import com.github.leodan11.alertdialog.io.models.DetailsAlertDialog
 import com.github.leodan11.alertdialog.io.models.IconAlertDialog
 import com.github.leodan11.alertdialog.io.models.MessageAlertDialog
 import com.github.leodan11.alertdialog.io.models.TitleAlertDialog
-import com.github.leodan11.k_extensions.core.colorError
-import com.github.leodan11.k_extensions.core.colorOnSurface
-import com.github.leodan11.k_extensions.core.colorPrimary
-import com.github.leodan11.k_extensions.core.colorSecondary
-import com.github.leodan11.k_extensions.core.colorSurface
-import com.github.leodan11.k_extensions.core.createBitmap
-import com.github.leodan11.k_extensions.core.onTextViewTextSize
+import com.github.leodan11.k_extensions.color.colorError
+import com.github.leodan11.k_extensions.color.colorOnSurface
+import com.github.leodan11.k_extensions.color.colorPrimary
+import com.github.leodan11.k_extensions.color.colorSecondary
+import com.github.leodan11.k_extensions.color.colorSurface
+import com.github.leodan11.k_extensions.context.createBitmap
+import com.github.leodan11.k_extensions.view.onTextViewTextSize
 import com.leodan.readmoreoption.ReadMoreOption
 
 abstract class AlertDialogEventsBase(
@@ -348,15 +349,23 @@ abstract class AlertDialogEventsBase(
             AlertDialog.State.ERROR -> mContext.colorError()
             AlertDialog.State.HELP -> mContext.colorSecondary()
             AlertDialog.State.INFORMATION -> mContext.colorPrimary()
-            AlertDialog.State.SUCCESS -> mContext.getColor(R.color.success)
-            AlertDialog.State.WARNING -> mContext.getColor(R.color.warning)
-            AlertDialog.State.WITHOUT_INTERNET -> mContext.getColor(R.color.caution)
+            AlertDialog.State.SUCCESS -> getColorCallback(R.color.success)
+            AlertDialog.State.WARNING -> getColorCallback(R.color.warning)
+            AlertDialog.State.WITHOUT_INTERNET -> getColorCallback(R.color.caution)
             else -> {
                 if (backgroundColorSpanInt != null) backgroundColorSpanInt!!
-                else if (backgroundColorSpanResource != null) mContext.getColor(
+                else if (backgroundColorSpanResource != null) getColorCallback(
                     backgroundColorSpanResource!!
                 ) else mContext.colorSecondary()
             }
+        }
+    }
+
+    private fun getColorCallback(@ColorRes color: Int): Int {
+        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            mContext.getColor(color)
+        } else {
+            ContextCompat.getColor(mContext, color)
         }
     }
 

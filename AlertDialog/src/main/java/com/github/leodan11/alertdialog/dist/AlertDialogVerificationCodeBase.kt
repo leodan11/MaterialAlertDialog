@@ -31,9 +31,9 @@ import com.github.leodan11.alertdialog.io.models.IconTintAlertDialog
 import com.github.leodan11.alertdialog.io.models.InputCodeExtra
 import com.github.leodan11.alertdialog.io.models.MessageAlertDialog
 import com.github.leodan11.alertdialog.io.models.TitleAlertDialog
-import com.github.leodan11.k_extensions.core.colorOnSurface
-import com.github.leodan11.k_extensions.core.colorPrimary
-import com.github.leodan11.k_extensions.core.validateTextField
+import com.github.leodan11.k_extensions.color.colorOnSurface
+import com.github.leodan11.k_extensions.color.colorPrimary
+import com.github.leodan11.k_extensions.context.validateTextField
 
 abstract class AlertDialogVerificationCodeBase(
     protected open var mContext: Context,
@@ -149,7 +149,7 @@ abstract class AlertDialogVerificationCodeBase(
                             if (mContext.validateTextField(
                                     mEditTextReasonLayout,
                                     mEditTextReasonInfo,
-                                    mContext.getString(R.string.text_value_reason_error)
+                                    message = mContext.getString(R.string.text_value_reason_error)
                                 )
                             ) {
                                 val reason = mEditTextReasonInfo.text.toString()
@@ -163,7 +163,7 @@ abstract class AlertDialogVerificationCodeBase(
                                                 if (mContext.validateTextField(
                                                         mEditTextPercentageLayout,
                                                         mEditTextPercentageInfo,
-                                                        if (item.textError != null) item.textError!! else mContext.getString(
+                                                        message = if (item.textError != null) item.textError!! else mContext.getString(
                                                             item.textErrorRes
                                                         )
                                                     )
@@ -179,7 +179,7 @@ abstract class AlertDialogVerificationCodeBase(
                                                 if (mContext.validateTextField(
                                                         mEditTextDecimalNumberLayout,
                                                         mEditTextDecimalNumberInfo,
-                                                        if (item.textError != null) item.textError!! else mContext.getString(
+                                                        message = if (item.textError != null) item.textError!! else mContext.getString(
                                                             item.textErrorRes
                                                         )
                                                     )
@@ -229,7 +229,7 @@ abstract class AlertDialogVerificationCodeBase(
                                             if (mContext.validateTextField(
                                                     mEditTextPercentageLayout,
                                                     mEditTextPercentageInfo,
-                                                    if (item.textError != null) item.textError!! else mContext.getString(
+                                                    message = if (item.textError != null) item.textError!! else mContext.getString(
                                                         item.textErrorRes
                                                     )
                                                 )
@@ -244,7 +244,7 @@ abstract class AlertDialogVerificationCodeBase(
                                             if (mContext.validateTextField(
                                                     mEditTextDecimalNumberLayout,
                                                     mEditTextDecimalNumberInfo,
-                                                    if (item.textError != null) item.textError!! else mContext.getString(
+                                                    message = if (item.textError != null) item.textError!! else mContext.getString(
                                                         item.textErrorRes
                                                     )
                                                 )

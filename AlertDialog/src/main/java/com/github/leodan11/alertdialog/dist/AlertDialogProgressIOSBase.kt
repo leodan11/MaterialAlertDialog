@@ -16,9 +16,9 @@ import com.github.leodan11.alertdialog.io.content.AlertDialog
 import com.github.leodan11.alertdialog.io.content.MaterialDialogInterface
 import com.github.leodan11.alertdialog.io.models.IconAlertDialog
 import com.github.leodan11.alertdialog.io.models.MessageAlertDialog
-import com.github.leodan11.k_extensions.core.backgroundColor
-import com.github.leodan11.k_extensions.core.colorOnSurface
-import com.github.leodan11.k_extensions.core.startAnimatedVectorDrawableLoop
+import com.github.leodan11.k_extensions.color.backgroundColor
+import com.github.leodan11.k_extensions.color.colorOnSurface
+import com.github.leodan11.k_extensions.view.startAnimatedVectorDrawableLoop
 
 abstract class AlertDialogProgressIOSBase(
     protected open var mContext: Context,

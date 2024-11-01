@@ -10,7 +10,7 @@ android {
     compileSdk 34
 
     defaultConfig {
-        minSdk 24
+        minSdk 21
         targetSdk 34
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
@@ -48,15 +48,21 @@ android {
 
 dependencies {
 
+    def k_extensions_version = "2.0.0"
+
     implementation 'androidx.core:core-ktx:1.13.1'
     implementation 'androidx.appcompat:appcompat:1.7.0'
     implementation 'com.google.android.material:material:1.12.0'
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.2.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.6.1'
-    implementation 'com.airbnb.android:lottie:6.5.1' // Lottie for Android
-    implementation 'com.github.leodan11:KExtensions:1.3.4' // KTX Extension
-    implementation 'com.github.leodan11:OtpView:v2.0.2' // OtpView
+    implementation 'com.airbnb.android:lottie:6.6.0' // Lottie for Android
+    implementation "com.github.leodan11.KExtensions:core:$k_extensions_version" // KTX Extension
+    implementation "com.github.leodan11.KExtensions:color:$k_extensions_version"
+    implementation "com.github.leodan11.KExtensions:context:$k_extensions_version"
+    implementation "com.github.leodan11.KExtensions:number:$k_extensions_version"
+    implementation "com.github.leodan11.KExtensions:views:$k_extensions_version"
+    implementation 'com.github.leodan11:OtpView:v2.0.4' // OtpView
     implementation 'com.github.leodan11:ReadMoreOptions:1.1.6' // ReadMoreTextView
     implementation 'io.github.vicmikhailau:MaskedEditText:5.0.2' // MaskedEditText
 }
@@ -69,7 +75,7 @@ afterEvaluate {
                 from components.release
                 groupId = 'com.github.leodan11'
                 artifactId = 'MaterialAlertDialog'
-                version = '1.11.2'
+                version = '1.11.3'
 
                 pom {
                     name = "MaterialAlertDialog"

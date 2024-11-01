@@ -6,6 +6,7 @@ import android.content.Context
 import android.content.res.ColorStateList
 import android.graphics.Color
 import android.graphics.PorterDuff
+import android.os.Build
 import android.text.Spanned
 import android.view.LayoutInflater
 import android.view.View
@@ -20,17 +21,17 @@ import androidx.annotation.StringRes
 import androidx.core.content.ContextCompat
 import com.github.leodan11.alertdialog.MaterialAlertDialogCentered
 import com.github.leodan11.alertdialog.R
-import com.github.leodan11.alertdialog.io.content.Config.MATERIAL_ALERT_DIALOG_UI_NOT_ICON
 import com.github.leodan11.alertdialog.databinding.MAlertDialogCenteredBinding
 import com.github.leodan11.alertdialog.io.content.AlertDialog
+import com.github.leodan11.alertdialog.io.content.Config.MATERIAL_ALERT_DIALOG_UI_NOT_ICON
 import com.github.leodan11.alertdialog.io.content.MaterialDialogInterface
 import com.github.leodan11.alertdialog.io.models.ButtonAlertDialog
 import com.github.leodan11.alertdialog.io.models.IconAlertDialog
 import com.github.leodan11.alertdialog.io.models.MessageAlertDialog
 import com.github.leodan11.alertdialog.io.models.RawAlertDialog
 import com.github.leodan11.alertdialog.io.models.TitleAlertDialog
-import com.github.leodan11.k_extensions.core.colorOnSurface
-import com.github.leodan11.k_extensions.core.colorPrimary
+import com.github.leodan11.k_extensions.color.colorOnSurface
+import com.github.leodan11.k_extensions.color.colorPrimary
 
 abstract class AlertDialogCenteredBase(
     protected open var mContext: Context,
@@ -90,7 +91,7 @@ abstract class AlertDialogCenteredBase(
         backgroundColorInt?.let { mIconView.setColorFilter(it, PorterDuff.Mode.SRC_IN) }
         backgroundColorResource?.let {
             mIconView.setColorFilter(
-                mContext.getColor(it),
+                getColorCallback(it),
                 PorterDuff.Mode.SRC_IN
             )
         }
@@ -259,6 +260,14 @@ abstract class AlertDialogCenteredBase(
 
     private fun throwNullDialog() {
         throw NullPointerException("Called method on null Dialog. Create dialog using `Builder` before calling on Dialog")
+    }
+
+    private fun getColorCallback(@ColorRes color: Int): Int {
+        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            mContext.getColor(color)
+        } else {
+            ContextCompat.getColor(mContext, color)
+        }
     }
 
     /**
