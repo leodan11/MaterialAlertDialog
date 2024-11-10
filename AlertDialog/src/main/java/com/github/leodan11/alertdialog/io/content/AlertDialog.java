@@ -5,7 +5,7 @@ import android.view.View;
 public abstract class AlertDialog {
 
     public enum State {
-        CUSTOM, ERROR, HELP, INFORMATION, SUCCESS, WARNING, WITHOUT_INTERNET
+        CUSTOM, DELETE, ERROR, HELP, INFORMATION, SUCCESS, WARNING, WITHOUT_INTERNET, WITHOUT_INTERNET_MOBILE, WITHOUT_INTERNET_WIFI
     }
 
     public enum Input {

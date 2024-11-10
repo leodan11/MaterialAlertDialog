@@ -90,6 +90,11 @@ abstract class AlertDialogEventsBase(
 
         // Set Icon
         when (type) {
+            AlertDialog.State.DELETE -> mIconView.apply {
+                setImageResource(R.drawable.ic_baseline_delete)
+                imageTintList = ColorStateList.valueOf(mContext.colorSurface())
+            }
+
             AlertDialog.State.ERROR -> mIconView.apply {
                 setImageResource(R.drawable.ic_baseline_error)
                 imageTintList = ColorStateList.valueOf(mContext.colorSurface())
@@ -116,6 +121,16 @@ abstract class AlertDialogEventsBase(
             }
 
             AlertDialog.State.WITHOUT_INTERNET -> mIconView.apply {
+                setImageResource(R.drawable.ic_baseline_cloud)
+                imageTintList = ColorStateList.valueOf(mContext.colorSurface())
+            }
+
+            AlertDialog.State.WITHOUT_INTERNET_MOBILE -> mIconView.apply {
+                setImageResource(R.drawable.ic_baseline_mobile_alert)
+                imageTintList = ColorStateList.valueOf(mContext.colorSurface())
+            }
+
+            AlertDialog.State.WITHOUT_INTERNET_WIFI -> mIconView.apply {
                 setImageResource(R.drawable.ic_baseline_wifi_alert)
                 imageTintList = ColorStateList.valueOf(mContext.colorSurface())
             }
@@ -168,8 +183,8 @@ abstract class AlertDialogEventsBase(
             val readMoreOption: ReadMoreOption = ReadMoreOption.Builder(mContext.applicationContext)
                 .textLength(4)
                 .textLengthType(ReadMoreOption.TYPE_LINE)
-                .moreLabelColor(mContext.colorPrimary())
-                .lessLabelColor(mContext.colorPrimary())
+                .moreLabelColor(getColor())
+                .lessLabelColor(getColor())
                 .labelUnderLine(true)
                 .expandAnimation(true)
                 .build()
@@ -233,7 +248,7 @@ abstract class AlertDialogEventsBase(
             // Set Details Text Color
             mDetailsView.setTextColor(mContext.colorOnSurface())
             // Set Background Tint
-            val mBackgroundTint: ColorStateList = ColorStateList.valueOf(mContext.colorPrimary())
+            val mBackgroundTint: ColorStateList = ColorStateList.valueOf(getColor())
             // Set Positive Button Icon Tint
             val mPositiveButtonTint: ColorStateList = mBackgroundTint
             mPositiveButtonView.setTextColor(mPositiveButtonTint)
@@ -346,12 +361,16 @@ abstract class AlertDialogEventsBase(
 
     private fun getColor(): Int {
         return when (type) {
+            AlertDialog.State.DELETE -> getColorCallback(R.color.delete)
             AlertDialog.State.ERROR -> mContext.colorError()
             AlertDialog.State.HELP -> mContext.colorSecondary()
             AlertDialog.State.INFORMATION -> mContext.colorPrimary()
             AlertDialog.State.SUCCESS -> getColorCallback(R.color.success)
             AlertDialog.State.WARNING -> getColorCallback(R.color.warning)
-            AlertDialog.State.WITHOUT_INTERNET -> getColorCallback(R.color.caution)
+            AlertDialog.State.WITHOUT_INTERNET, AlertDialog.State.WITHOUT_INTERNET_MOBILE, AlertDialog.State.WITHOUT_INTERNET_WIFI -> {
+                getColorCallback(R.color.caution)
+            }
+
             else -> {
                 if (backgroundColorSpanInt != null) backgroundColorSpanInt!!
                 else if (backgroundColorSpanResource != null) getColorCallback(

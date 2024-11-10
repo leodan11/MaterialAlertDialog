@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="caution">#FFBB33</color>
-    <color name="success">#00C851</color>
-    <color name="warning">#F8E287</color>
+    <color name="caution">#7C580D</color>
+    <color name="delete">#415F91</color>
+    <color name="success">#37693D</color>
+    <color name="warning">#6D5E0F</color>
 </resources>
