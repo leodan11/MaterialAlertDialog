@@ -64,7 +64,7 @@ dependencies {
     implementation "com.github.leodan11.KExtensions:views:$k_extensions_version"
     implementation 'com.github.leodan11:OtpView:v2.0.4' // OtpView
     implementation 'com.github.leodan11:ReadMoreOptions:1.1.6' // ReadMoreTextView
-    implementation 'io.github.vicmikhailau:MaskedEditText:5.0.2' // MaskedEditText
+    implementation 'io.github.vicmikhailau:MaskedEditText:5.0.3' // MaskedEditText
 }
 
 afterEvaluate {
