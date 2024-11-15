@@ -231,7 +231,7 @@ abstract class ProgressAlertDialogBase(
          */
         fun setMessage(message: String? = null, alignment: AlertDialog.TextAlignment): Builder<D> {
             val valueText =
-                if (message.isNullOrEmpty()) context.getString(R.string.text_value_charging_please) else message
+                if (message.isNullOrEmpty()) context.getString(R.string.label_text_charging_please) else message
             this.message = MessageAlertDialog.text(text = valueText, alignment = alignment)
             return this
         }

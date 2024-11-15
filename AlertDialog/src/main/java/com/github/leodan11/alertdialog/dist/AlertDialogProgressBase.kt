@@ -394,7 +394,7 @@ abstract class AlertDialogProgressBase(
          */
         fun setMessage(message: String? = null, alignment: AlertDialog.TextAlignment): Builder<D> {
             val valueText =
-                if (message.isNullOrEmpty()) context.getString(R.string.text_value_charging_please)
+                if (message.isNullOrEmpty()) context.getString(R.string.label_text_charging_please)
                 else message
             this.message = MessageAlertDialog.text(text = valueText, alignment = alignment)
             return this
@@ -491,7 +491,7 @@ abstract class AlertDialogProgressBase(
             onClickListener: MaterialDialogInterface.OnClickListener,
         ): Builder<D> {
             val valueText =
-                if (buttonText.isNullOrEmpty()) context.getString(R.string.text_value_cancel)
+                if (buttonText.isNullOrEmpty()) context.getString(R.string.label_text_cancel)
                 else buttonText
             negativeButton =
                 ButtonAlertDialog(title = valueText, icon = icon, onClickListener = onClickListener)

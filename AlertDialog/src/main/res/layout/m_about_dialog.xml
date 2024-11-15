@@ -68,7 +68,7 @@
             android:layout_marginTop="@dimen/paddingTop"
             android:layout_marginEnd="@dimen/margin_spacing_min"
             android:layout_marginBottom="@dimen/margin_spacing_min"
-            android:contentDescription="@string/text_value_information"
+            android:contentDescription="@string/label_text_information"
             android:scrollbars="none"
             android:visibility="gone"
             tools:visibility="visible">

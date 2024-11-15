@@ -234,12 +234,12 @@ abstract class AlertDialogSignInBase(
 
     private fun onValidateInputValue(): Boolean {
         if (TextUtils.isEmpty(mTextInputEditTextUsername.text.toString().trim())) {
-            mTextInputLayoutUsername.error = mContext.getString(R.string.text_value_username_error)
+            mTextInputLayoutUsername.error = mContext.getString(R.string.label_text_username_error)
             mTextInputLayoutUsername.isErrorEnabled = true
             return false
         } else mTextInputLayoutUsername.isErrorEnabled = false
         if (TextUtils.isEmpty(mTextInputEditTextPassword.text.toString().trim())) {
-            mTextInputLayoutPassword.error = mContext.getString(R.string.text_value_password_error)
+            mTextInputLayoutPassword.error = mContext.getString(R.string.label_text_password_error)
             mTextInputLayoutPassword.isErrorEnabled = true
             return false
         } else mTextInputLayoutPassword.isErrorEnabled = false
@@ -340,7 +340,7 @@ abstract class AlertDialogSignInBase(
          * @return [Builder] object to allow for chaining of calls to set methods
          */
         fun setTitle(title: String? = null, alignment: AlertDialog.TextAlignment): Builder<D> {
-            val valueText = if (title.isNullOrEmpty()) context.getString(R.string.text_value_login)
+            val valueText = if (title.isNullOrEmpty()) context.getString(R.string.label_text_login)
             else title
             this.title = TitleAlertDialog(title = valueText, textAlignment = alignment)
             return this
@@ -423,7 +423,7 @@ abstract class AlertDialogSignInBase(
             onClickSignInListener: MaterialDialogInterface.OnClickSignInListener,
         ): Builder<D> {
             val valueText =
-                if (buttonText.isNullOrEmpty()) context.getString(R.string.text_value_login_in)
+                if (buttonText.isNullOrEmpty()) context.getString(R.string.label_text_login_in)
                 else buttonText
             positiveButton = ButtonAlertDialog(
                 title = valueText,
@@ -496,7 +496,7 @@ abstract class AlertDialogSignInBase(
             onClickListener: MaterialDialogInterface.OnClickListener,
         ): Builder<D> {
             val valueText =
-                if (buttonText.isNullOrEmpty()) context.getString(R.string.text_value_cancel)
+                if (buttonText.isNullOrEmpty()) context.getString(R.string.label_text_cancel)
                 else buttonText
             negativeButton =
                 ButtonAlertDialog(title = valueText, icon = icon, onClickListener = onClickListener)

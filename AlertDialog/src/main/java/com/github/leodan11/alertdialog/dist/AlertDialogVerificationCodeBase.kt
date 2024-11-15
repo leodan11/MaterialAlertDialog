@@ -149,7 +149,7 @@ abstract class AlertDialogVerificationCodeBase(
                             if (mContext.validateTextField(
                                     mEditTextReasonLayout,
                                     mEditTextReasonInfo,
-                                    message = mContext.getString(R.string.text_value_reason_error)
+                                    message = mContext.getString(R.string.label_text_reason_error)
                                 )
                             ) {
                                 val reason = mEditTextReasonInfo.text.toString()
@@ -194,7 +194,7 @@ abstract class AlertDialogVerificationCodeBase(
                                             else -> {
                                                 Toast.makeText(
                                                     mContext,
-                                                    mContext.getString(R.string.text_value_unknown_input_type),
+                                                    mContext.getString(R.string.label_text_unknown_input_type),
                                                     Toast.LENGTH_LONG
                                                 ).show()
                                                 isFinish = false
@@ -258,7 +258,7 @@ abstract class AlertDialogVerificationCodeBase(
                                         else -> {
                                             Toast.makeText(
                                                 mContext,
-                                                mContext.getString(R.string.text_value_unknown_input_type),
+                                                mContext.getString(R.string.label_text_unknown_input_type),
                                                 Toast.LENGTH_LONG
                                             ).show()
                                             isFinish = false
@@ -286,7 +286,7 @@ abstract class AlertDialogVerificationCodeBase(
                         mOtpTextView.showError()
                         Toast.makeText(
                             mContext,
-                            mContext.getString(R.string.text_value_code_error),
+                            mContext.getString(R.string.label_text_code_error),
                             Toast.LENGTH_LONG
                         ).show()
                     }
@@ -536,7 +536,7 @@ abstract class AlertDialogVerificationCodeBase(
          */
         fun setTitle(title: String? = null, alignment: AlertDialog.TextAlignment): Builder<D> {
             val valueText =
-                if (title.isNullOrEmpty()) context.getString(R.string.text_value_information)
+                if (title.isNullOrEmpty()) context.getString(R.string.label_text_information)
                 else title
             this.title = TitleAlertDialog(title = valueText, textAlignment = alignment)
             return this
@@ -712,7 +712,7 @@ abstract class AlertDialogVerificationCodeBase(
             onClickVerificationCodeListener: MaterialDialogInterface.OnClickVerificationCodeListener,
         ): Builder<D> {
             val valueText =
-                if (buttonText.isNullOrEmpty()) context.getString(R.string.text_value_accept)
+                if (buttonText.isNullOrEmpty()) context.getString(R.string.label_text_accept)
                 else buttonText
             positiveButton = ButtonAlertDialog(
                 title = valueText,
@@ -785,7 +785,7 @@ abstract class AlertDialogVerificationCodeBase(
             onClickListener: MaterialDialogInterface.OnClickListener,
         ): Builder<D> {
             val valueText =
-                if (buttonText.isNullOrEmpty()) context.getString(R.string.text_value_cancel)
+                if (buttonText.isNullOrEmpty()) context.getString(R.string.label_text_cancel)
                 else buttonText
             negativeButton =
                 ButtonAlertDialog(title = valueText, icon = icon, onClickListener = onClickListener)

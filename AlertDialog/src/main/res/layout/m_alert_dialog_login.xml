@@ -37,7 +37,7 @@
                 android:layout_marginTop="0dp"
                 android:layout_toEndOf="@id/image_view_icon_login_dialog"
                 android:gravity="start"
-                android:text="@string/text_value_login" />
+                android:text="@string/label_text_login" />
 
         </RelativeLayout>
 
@@ -46,10 +46,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/paddingTop"
-            android:hint="@string/text_value_username"
+            android:hint="@string/label_text_username"
             app:endIconMode="clear_text"
             app:errorEnabled="true"
-            app:helperText="@string/text_value_username_helper"
+            app:helperText="@string/label_text_username_helper"
             app:helperTextEnabled="true">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -67,10 +67,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/margin_spacing_min"
-            android:hint="@string/text_value_password"
+            android:hint="@string/label_text_password"
             app:endIconMode="password_toggle"
             app:errorEnabled="true"
-            app:helperText="@string/text_value_password_helper"
+            app:helperText="@string/label_text_password_helper"
             app:helperTextEnabled="true">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -95,7 +95,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="start|center"
                 android:contentDescription="@string/button_negative_speakable_text_value"
-                android:text="@string/text_value_cancel"
+                android:text="@string/label_text_cancel"
                 tools:ignore="TextContrastCheck" />
 
             <com.google.android.material.button.MaterialButton
@@ -105,7 +105,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="end|center"
                 android:contentDescription="@string/button_positive_speakable_text_value"
-                android:text="@string/text_value_login_in"
+                android:text="@string/label_text_login_in"
                 tools:ignore="TextContrastCheck" />
 
         </androidx.coordinatorlayout.widget.CoordinatorLayout>

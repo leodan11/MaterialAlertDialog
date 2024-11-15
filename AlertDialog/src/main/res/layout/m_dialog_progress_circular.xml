@@ -132,7 +132,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="end"
             android:contentDescription="@string/button_negative_speakable_text_value"
-            android:text="@string/text_value_cancel"
+            android:text="@string/label_text_cancel"
             tools:ignore="TextContrastCheck" />
 
     </LinearLayout>

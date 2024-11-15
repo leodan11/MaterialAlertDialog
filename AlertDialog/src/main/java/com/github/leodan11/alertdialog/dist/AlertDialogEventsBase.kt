@@ -7,15 +7,23 @@ import android.content.res.ColorStateList
 import android.graphics.Bitmap
 import android.graphics.Color
 import android.graphics.Paint
+import android.graphics.Typeface
 import android.graphics.drawable.ShapeDrawable
 import android.graphics.drawable.shapes.RoundRectShape
 import android.os.Build
+import android.text.Editable
+import android.text.Layout
+import android.text.SpannableStringBuilder
 import android.text.Spanned
+import android.text.TextWatcher
+import android.text.style.AlignmentSpan
+import android.text.style.StyleSpan
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.LinearLayout
+import android.widget.TextView
 import androidx.annotation.ColorInt
 import androidx.annotation.ColorRes
 import androidx.annotation.DrawableRes
@@ -23,11 +31,13 @@ import androidx.annotation.IntRange
 import androidx.annotation.RestrictTo
 import androidx.annotation.StringRes
 import androidx.core.content.ContextCompat
-import androidx.core.widget.addTextChangedListener
+import androidx.core.view.isVisible
+import androidx.core.widget.NestedScrollView
 import com.github.leodan11.alertdialog.MaterialAlertDialogEvents
 import com.github.leodan11.alertdialog.R
 import com.github.leodan11.alertdialog.databinding.MAlertDialogBinding
 import com.github.leodan11.alertdialog.io.content.AlertDialog
+import com.github.leodan11.alertdialog.io.content.Config.DEFAULT_CHART_SEQUENCE_LENGTH
 import com.github.leodan11.alertdialog.io.content.Config.DEFAULT_DETAILS_SCROLL_HEIGHT_SPAN
 import com.github.leodan11.alertdialog.io.content.Config.DEFAULT_RADIUS
 import com.github.leodan11.alertdialog.io.content.Config.MATERIAL_ALERT_DIALOG_UI_NOT_ICON
@@ -53,6 +63,7 @@ abstract class AlertDialogEventsBase(
     protected open var type: AlertDialog.State,
     protected open var backgroundColorSpanInt: Int?,
     protected open var backgroundColorSpanResource: Int?,
+    protected open var messageSpanLengthMax: Int,
     protected open var detailsScrollHeightSpan: Int,
     protected open var title: TitleAlertDialog?,
     protected open var message: MessageAlertDialog<*>?,
@@ -167,78 +178,82 @@ abstract class AlertDialogEventsBase(
         shapeDrawable.paint.setColor(getColor())
         binding.llTop.background = shapeDrawable
         // Set Title
-        if (title != null) {
-            mTitleView.visibility = View.VISIBLE
-            mTitleView.text = title?.title
-            mTitleView.textAlignment = title?.textAlignment!!.alignment
-        } else mTitleView.visibility = View.GONE
-        // Set Message
-        if (message != null) {
-            mMessageView.visibility = View.VISIBLE
-            mMessageView.text = message?.getText()
-            mMessageView.textAlignment = message?.textAlignment!!.alignment
-        } else mMessageView.visibility = View.GONE
-        // Set Details
-        details?.let {
-            val readMoreOption: ReadMoreOption = ReadMoreOption.Builder(mContext.applicationContext)
-                .textLength(4)
-                .textLengthType(ReadMoreOption.TYPE_LINE)
-                .moreLabelColor(getColor())
-                .lessLabelColor(getColor())
-                .labelUnderLine(true)
-                .expandAnimation(true)
-                .build()
-            readMoreOption.addReadMoreTo(mDetailsView, it.getText().toString())
-            mDetailsView.addTextChangedListener { editable ->
-                editable?.let {
-                    val bounds = mDetailsView.onTextViewTextSize(editable.toString())
-                    mDetailsViewContainer.apply {
-                        layoutParams.height =
-                            if (bounds.width() > 6000) detailsScrollHeightSpan else ViewGroup.LayoutParams.WRAP_CONTENT
-                    }
+        mTitleView.isVisible = title != null
+        title?.let {
+            mTitleView.text = it.title
+            mTitleView.textAlignment = it.textAlignment.alignment
+        }
+        //Set Message and Details
+        mMessageView.isVisible = message != null
+        if (message != null && details != null) {
+            val messageText = message?.getText() ?: ""
+            val detailsText = details?.getText() ?: ""
+            if (messageText.length > messageSpanLengthMax) {
+                message?.let { mMessageView.textAlignment = it.textAlignment.alignment }
+                setMessageDetailsIfExists(
+                    messageText,
+                    mMessageView,
+                    detailsText,
+                    mDetailsView,
+                    mDetailsViewContainer
+                )
+            } else {
+                message?.let {
+                    mMessageView.text = messageText
+                    mMessageView.textAlignment = it.textAlignment.alignment
+                }
+                setDetailsIfExists(detailsText, mDetailsView, mDetailsViewContainer)
+            }
+        } else if (message != null) {
+            val messageText = message?.getText() ?: ""
+            if (messageText.length > messageSpanLengthMax) {
+                message?.let { mMessageView.textAlignment = it.textAlignment.alignment }
+                setMessageDetailsIfExists(
+                    mContext.getString(R.string.label_text_details_are_specified_below),
+                    mMessageView,
+                    messageText,
+                    mDetailsView,
+                    mDetailsViewContainer
+                )
+            } else {
+                message?.let {
+                    mMessageView.text = messageText
+                    mMessageView.textAlignment = it.textAlignment.alignment
                 }
             }
-            mDetailsViewContainer.visibility = View.VISIBLE
+        } else if (details != null) {
+            setDetailsIfExists(details?.getText() ?: "", mDetailsView, mDetailsViewContainer)
         }
         // Set Positive Button
-        if (mPositiveButton != null) {
-            mPositiveButtonView.visibility = View.VISIBLE
-            mPositiveButtonView.text = mPositiveButton?.title
-            if (mPositiveButton?.icon != MATERIAL_ALERT_DIALOG_UI_NOT_ICON) mPositiveButtonView.icon =
-                ContextCompat.getDrawable(mContext.applicationContext, mPositiveButton?.icon!!)
+        mPositiveButtonView.isVisible = mPositiveButton != null
+        mPositiveButton?.let {
+            mPositiveButtonView.text = it.title
+            if (it.icon != MATERIAL_ALERT_DIALOG_UI_NOT_ICON) mPositiveButtonView.icon =
+                ContextCompat.getDrawable(mContext.applicationContext, it.icon)
             mPositiveButtonView.setOnClickListener {
-                mPositiveButton?.onClickListener?.onClick(
-                    this,
-                    AlertDialog.UI.BUTTON_POSITIVE
-                )
+                mPositiveButton?.onClickListener?.onClick(this, AlertDialog.UI.BUTTON_POSITIVE)
             }
-        } else mPositiveButtonView.visibility = View.GONE
+        }
         // Set Neutral Button
-        if (mNeutralButton != null) {
-            mNeutralButtonView.visibility = View.VISIBLE
-            mNeutralButtonView.text = mNeutralButton?.title
+        mNeutralButtonView.isVisible = mNeutralButton != null
+        mNeutralButton?.let {
+            mNeutralButtonView.text = it.title
             if (mNeutralButton?.icon != MATERIAL_ALERT_DIALOG_UI_NOT_ICON) mNeutralButtonView.icon =
-                ContextCompat.getDrawable(mContext.applicationContext, mNeutralButton?.icon!!)
+                ContextCompat.getDrawable(mContext.applicationContext, it.icon)
             mNeutralButtonView.setOnClickListener {
-                mNeutralButton?.onClickListener?.onClick(
-                    this,
-                    AlertDialog.UI.BUTTON_NEUTRAL
-                )
+                mNeutralButton?.onClickListener?.onClick(this, AlertDialog.UI.BUTTON_NEUTRAL)
             }
-        } else mNeutralButtonView.visibility = View.GONE
+        }
         // Set Negative Button
-        if (mNegativeButton != null) {
-            mNegativeButtonView.visibility = View.VISIBLE
-            mNegativeButtonView.text = mNegativeButton?.title
+        mNegativeButtonView.isVisible = mNegativeButton != null
+        mNegativeButton?.let {
+            mNegativeButtonView.text = it.title
             if (mNegativeButton?.icon != MATERIAL_ALERT_DIALOG_UI_NOT_ICON) mNegativeButtonView.icon =
-                ContextCompat.getDrawable(mContext.applicationContext, mNegativeButton?.icon!!)
+                ContextCompat.getDrawable(mContext.applicationContext, it.icon)
             mNegativeButtonView.setOnClickListener {
-                mNegativeButton?.onClickListener?.onClick(
-                    this,
-                    AlertDialog.UI.BUTTON_NEGATIVE
-                )
+                mNegativeButton?.onClickListener?.onClick(this, AlertDialog.UI.BUTTON_NEGATIVE)
             }
-        } else mNegativeButtonView.visibility = View.GONE
+        }
         // Apply Styles
         try {
             // Set Title Text Color
@@ -388,6 +403,89 @@ abstract class AlertDialogEventsBase(
         }
     }
 
+    private fun setDetailsIfExists(
+        detailsText: CharSequence,
+        mDetailsView: TextView,
+        mDetailsViewContainer: NestedScrollView
+    ) {
+        val readMoreOption: ReadMoreOption = ReadMoreOption.Builder(mContext.applicationContext)
+            .textLength(6)
+            .textLengthType(ReadMoreOption.TYPE_LINE)
+            .moreLabelColor(getColor())
+            .lessLabelColor(getColor())
+            .labelUnderLine(true)
+            .expandAnimation(true)
+            .build()
+        readMoreOption.addReadMoreTo(mDetailsView, detailsText)
+        mDetailsView.addTextChangedListener(object : TextWatcher {
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) =
+                Unit
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) = Unit
+
+            override fun afterTextChanged(s: Editable?) {
+                s?.let {
+                    val bounds = mDetailsView.onTextViewTextSize(it.toString())
+                    mDetailsViewContainer.apply {
+                        layoutParams.height =
+                            if (bounds.width() > 6000) detailsScrollHeightSpan else ViewGroup.LayoutParams.WRAP_CONTENT
+                    }
+                }
+            }
+
+        })
+        mDetailsViewContainer.visibility = View.VISIBLE
+    }
+
+    private fun setMessageDetailsIfExists(
+        messageText: CharSequence,
+        mMessageView: TextView,
+        detailsText: CharSequence,
+        mDetailsView: TextView,
+        mDetailsViewContainer: NestedScrollView
+    ) {
+        if (messageText.length > messageSpanLengthMax) {
+            val spannableString = SpannableStringBuilder()
+
+            val spanMessage = SpannableStringBuilder()
+            spanMessage.append(messageText)
+            spanMessage.setSpan(StyleSpan(Typeface.BOLD), 0, spanMessage.length, 0)
+            spanMessage.setSpan(
+                AlignmentSpan.Standard(Layout.Alignment.ALIGN_CENTER),
+                0,
+                spanMessage.length,
+                0
+            )
+
+            spannableString.append(spanMessage)
+            spannableString.append("\n\n")
+
+            val spanDetails = SpannableStringBuilder()
+            spanDetails.append("------------------- ")
+            spanDetails.append(mContext.getString(R.string.label_text_additional_details))
+            spanDetails.append(" -------------------")
+            spanDetails.setSpan(
+                AlignmentSpan.Standard(Layout.Alignment.ALIGN_CENTER),
+                0,
+                spanDetails.length,
+                0
+            )
+
+            spannableString.append(spanDetails)
+            spannableString.append("\n\n")
+
+            spannableString.append(detailsText)
+
+            mMessageView.text = mContext.getString(R.string.label_text_details_are_specified_below)
+            setDetailsIfExists(spannableString, mDetailsView, mDetailsViewContainer)
+
+        } else {
+            mMessageView.text = messageText
+            setDetailsIfExists(detailsText, mDetailsView, mDetailsViewContainer)
+        }
+    }
+
     private fun showCallback() {
         mOnShowListener?.onShow(this)
     }
@@ -407,6 +505,7 @@ abstract class AlertDialogEventsBase(
         protected open var backgroundColorSpanInt: Int? = null
         protected open var backgroundColorSpan: Int? = null
         protected open var detailsScrollHeightSpan: Int = DEFAULT_DETAILS_SCROLL_HEIGHT_SPAN
+        protected open var messageSpanLengthMax: Int = DEFAULT_CHART_SEQUENCE_LENGTH
         protected open var type: AlertDialog.State = AlertDialog.State.CUSTOM
         protected open var title: TitleAlertDialog? = null
         protected open var message: MessageAlertDialog<*>? = null
@@ -612,6 +711,17 @@ abstract class AlertDialogEventsBase(
         }
 
         /**
+         * Set the message span length max. Default [DEFAULT_CHART_SEQUENCE_LENGTH].
+         *
+         * @param messageSpanLengthMax The message span length max.
+         * @return [Builder] object to allow for chaining of calls to set methods
+         */
+        fun setMessageSpanLengthMax(messageSpanLengthMax: Int): Builder<D> {
+            this.messageSpanLengthMax = messageSpanLengthMax
+            return this
+        }
+
+        /**
          * Set the message details to display.
          *
          * @param detail The details to display in the dialog.
@@ -697,7 +807,7 @@ abstract class AlertDialogEventsBase(
             onClickListener: MaterialDialogInterface.OnClickListener,
         ): Builder<D> {
             val valueText =
-                if (buttonText.isNullOrEmpty()) context.getString(R.string.text_value_accept)
+                if (buttonText.isNullOrEmpty()) context.getString(R.string.label_text_accept)
                 else buttonText
             positiveButton =
                 ButtonAlertDialog(title = valueText, icon = icon, onClickListener = onClickListener)
@@ -767,7 +877,7 @@ abstract class AlertDialogEventsBase(
             onClickListener: MaterialDialogInterface.OnClickListener,
         ): Builder<D> {
             val valueText =
-                if (buttonText.isNullOrEmpty()) context.getString(R.string.text_value_decline)
+                if (buttonText.isNullOrEmpty()) context.getString(R.string.label_text_decline)
                 else buttonText
             neutralButton =
                 ButtonAlertDialog(title = valueText, icon = icon, onClickListener = onClickListener)
@@ -837,7 +947,7 @@ abstract class AlertDialogEventsBase(
             onClickListener: MaterialDialogInterface.OnClickListener,
         ): Builder<D> {
             val valueText =
-                if (buttonText.isNullOrEmpty()) context.getString(R.string.text_value_cancel)
+                if (buttonText.isNullOrEmpty()) context.getString(R.string.label_text_cancel)
                 else buttonText
             negativeButton =
                 ButtonAlertDialog(title = valueText, icon = icon, onClickListener = onClickListener)

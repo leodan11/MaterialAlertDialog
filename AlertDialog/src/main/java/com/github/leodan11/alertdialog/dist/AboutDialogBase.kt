@@ -113,7 +113,7 @@ abstract class AboutDialogBase(
         // Set Details
         if (details != null) {
             val readMoreOption: ReadMoreOption = ReadMoreOption.Builder(mContext.applicationContext)
-                .textLength(4)
+                .textLength(6)
                 .textLengthType(ReadMoreOption.TYPE_LINE)
                 .moreLabelColor(mContext.colorPrimary())
                 .lessLabelColor(mContext.colorPrimary())
@@ -623,7 +623,7 @@ abstract class AboutDialogBase(
             onClickListener: MaterialDialogInterface.OnClickListener,
         ): Builder<D> {
             val valueText =
-                if (buttonText.isNullOrEmpty()) context.getString(R.string.text_value_accept)
+                if (buttonText.isNullOrEmpty()) context.getString(R.string.label_text_accept)
                 else buttonText
             positiveButton =
                 ButtonAlertDialog(title = valueText, icon = icon, onClickListener = onClickListener)
@@ -699,7 +699,7 @@ abstract class AboutDialogBase(
             onClickListener: MaterialDialogInterface.OnClickListener,
         ): Builder<D> {
             val valueText =
-                if (buttonText.isNullOrEmpty()) context.getString(R.string.text_value_decline)
+                if (buttonText.isNullOrEmpty()) context.getString(R.string.label_text_decline)
                 else buttonText
             neutralButton =
                 ButtonAlertDialog(title = valueText, icon = icon, onClickListener = onClickListener)
@@ -775,7 +775,7 @@ abstract class AboutDialogBase(
             onClickListener: MaterialDialogInterface.OnClickListener,
         ): Builder<D> {
             val valueText =
-                if (buttonText.isNullOrEmpty()) context.getString(R.string.text_value_cancel)
+                if (buttonText.isNullOrEmpty()) context.getString(R.string.label_text_cancel)
                 else buttonText
             negativeButton =
                 ButtonAlertDialog(title = valueText, icon = icon, onClickListener = onClickListener)

@@ -486,7 +486,7 @@ abstract class AlertDialogIOSBase(
             onClickListener: MaterialDialogInterface.OnClickListener,
         ): Builder<D> {
             val valueText =
-                if (buttonText.isNullOrEmpty()) context.getString(R.string.text_value_accept) else buttonText
+                if (buttonText.isNullOrEmpty()) context.getString(R.string.label_text_accept) else buttonText
             positiveButton = ButtonAlertDialog(
                 title = valueText,
                 icon = MATERIAL_ALERT_DIALOG_UI_NOT_ICON,
@@ -526,7 +526,7 @@ abstract class AlertDialogIOSBase(
             onClickListener: MaterialDialogInterface.OnClickListener,
         ): Builder<D> {
             val valueText =
-                if (buttonText.isNullOrEmpty()) context.getString(R.string.text_value_decline) else buttonText
+                if (buttonText.isNullOrEmpty()) context.getString(R.string.label_text_decline) else buttonText
             neutralButton = ButtonAlertDialog(
                 title = valueText,
                 icon = MATERIAL_ALERT_DIALOG_UI_NOT_ICON,
@@ -566,7 +566,7 @@ abstract class AlertDialogIOSBase(
             onClickListener: MaterialDialogInterface.OnClickListener,
         ): Builder<D> {
             val valueText =
-                if (buttonText.isNullOrEmpty()) context.getString(R.string.text_value_cancel) else buttonText
+                if (buttonText.isNullOrEmpty()) context.getString(R.string.label_text_cancel) else buttonText
             negativeButton = ButtonAlertDialog(
                 title = valueText,
                 icon = MATERIAL_ALERT_DIALOG_UI_NOT_ICON,

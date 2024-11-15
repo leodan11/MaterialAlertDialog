@@ -317,7 +317,7 @@ abstract class AlertDialogInputBase(
         } else {
             textInputLayoutAlert.isErrorEnabled = true
             textInputLayoutAlert.error =
-                textError ?: mContext.getString(R.string.text_value_this_field_is_required)
+                textError ?: mContext.getString(R.string.label_text_this_field_is_required)
             false
         }
     }
@@ -338,7 +338,7 @@ abstract class AlertDialogInputBase(
         protected open var startIcon: IconInputDialog? = null
         protected open var endIcon: IconInputDialog? = null
         protected open var inputTextHide: String =
-            context.getString(R.string.text_value_enter_a_value_below)
+            context.getString(R.string.label_text_enter_a_value_below)
         protected open var inputTextHelper: String? = null
         protected open var inputTextError: String? = null
         protected open var inputTextDefault: String? = null
@@ -428,7 +428,7 @@ abstract class AlertDialogInputBase(
          */
         fun setTitle(title: String? = null, alignment: AlertDialog.TextAlignment): Builder<D> {
             val valueText =
-                if (title.isNullOrEmpty()) context.getString(R.string.text_value_information) else title
+                if (title.isNullOrEmpty()) context.getString(R.string.label_text_information) else title
             this.title = TitleAlertDialog(title = valueText, textAlignment = alignment)
             return this
         }
@@ -755,7 +755,7 @@ abstract class AlertDialogInputBase(
             onClickListenerInput: MaterialDialogInterface.OnClickInputListener,
         ): Builder<D> {
             val valueText =
-                if (buttonText.isNullOrEmpty()) context.getString(R.string.text_value_accept) else buttonText
+                if (buttonText.isNullOrEmpty()) context.getString(R.string.label_text_accept) else buttonText
             this.positiveButton = ButtonAlertDialog(
                 title = valueText,
                 icon = icon,
@@ -827,7 +827,7 @@ abstract class AlertDialogInputBase(
             onClickListener: MaterialDialogInterface.OnClickListener,
         ): Builder<D> {
             val valueText =
-                if (buttonText.isNullOrEmpty()) context.getString(R.string.text_value_cancel) else buttonText
+                if (buttonText.isNullOrEmpty()) context.getString(R.string.label_text_cancel) else buttonText
             this.negativeButton =
                 ButtonAlertDialog(title = valueText, icon = icon, onClickListener = onClickListener)
             return this

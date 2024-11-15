@@ -27,7 +27,7 @@ class BlankFragment : MaterialAlertDialogFragment<FragmentBlankBinding>() {
                 if (TextUtils.isEmpty(textInputEditText.text.toString().trim())) {
                     textInputLayout.isErrorEnabled = true
                     textInputLayout.error =
-                        getString(com.github.leodan11.alertdialog.R.string.text_value_error)
+                        getString(com.github.leodan11.alertdialog.R.string.label_text_error)
                 } else {
                     textInputLayout.isErrorEnabled = false
                     Toast.makeText(

@@ -9,6 +9,6 @@ data class InputCodeExtra(
     var textHelperRes: Int? = null,
     var textHelper: String? = null,
     var textDefaultValue: String? = null,
-    var textErrorRes: Int = R.string.text_value_this_field_is_required,
+    var textErrorRes: Int = R.string.label_text_this_field_is_required,
     var textError: String? = null,
 )

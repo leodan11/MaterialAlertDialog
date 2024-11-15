@@ -1,50 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="text_value_screenplay" translatable="false">-</string>
+    <string name="label_value_screenplay" translatable="false">-</string>
 
-    <string name="text_value_username">Username</string>
-    <string name="text_value_username_helper">Username provided (<b>e.g., joe$Doe</b>)</string>
-    <string name="text_value_username_helper_with_args">Username provided by %1$s (<b>e.g., doe$Joe</b>)</string>
-    <string name="text_value_username_error">Enter a username</string>
-    <string name="text_value_password">Password</string>
-    <string name="text_value_password_helper">Six or more characters, with at least one lowercase and one uppercase letter</string>
-    <string name="text_value_password_error">Enter a password</string>
-    <string name="text_value_login">Login</string>
-    <string name="text_value_login_in">Login In</string>
-    <string name="text_value_sign_in_value">Sign in to %1$s</string>
+    <string name="label_text_username">Username</string>
+    <string name="label_text_username_helper">Username provided (<b>e.g., joe$Doe</b>)</string>
+    <string name="label_text_username_helper_with_args">Username provided by %1$s (<b>e.g., doe$Joe</b>)</string>
+    <string name="label_text_username_error">Enter a username</string>
+    <string name="label_text_password">Password</string>
+    <string name="label_text_password_helper">Six or more characters, with at least one lowercase and one uppercase letter</string>
+    <string name="label_text_password_error">Enter a password</string>
+    <string name="label_text_login">Login</string>
+    <string name="label_text_login_in">Login In</string>
+    <string name="label_text_sign_in_value">Sign in to %1$s</string>
 
-    <string name="text_value_error">Error</string>
-    <string name="text_value_unknown_error">Unknown error occurred</string>
-    <string name="text_value_help">Help</string>
-    <string name="text_value_information">Information</string>
-    <string name="text_value_success">Success</string>
-    <string name="text_value_warning">Warning</string>
+    <string name="label_text_error">Error</string>
+    <string name="label_text_unknown_error">Unknown error occurred</string>
+    <string name="label_text_details_are_specified_below">Details are specified below</string>
+    <string name="label_text_additional_details">Additional details</string>
+    <string name="label_text_help">Help</string>
+    <string name="label_text_information">Information</string>
+    <string name="label_text_success">Success</string>
+    <string name="label_text_warning">Warning</string>
 
-    <string name="text_value_yes">Yes</string>
-    <string name="text_value_not">Not</string>
-    <string name="text_value_cancel">Cancel</string>
-    <string name="text_value_accept">Accept</string>
-    <string name="text_value_close">Close</string>
-    <string name="text_value_later">Later</string>
-    <string name="text_value_decline">Decline</string>
-    <string name="text_value_discard">Discard</string>
-    <string name="text_value_got_it">Got It</string>
-    <string name="text_value_charging">Charging…</string>
-    <string name="text_value_charging_please">Charging. Please wait…</string>
+    <string name="label_text_yes">Yes</string>
+    <string name="label_text_not">Not</string>
+    <string name="label_text_cancel">Cancel</string>
+    <string name="label_text_accept">Accept</string>
+    <string name="label_text_close">Close</string>
+    <string name="label_text_later">Later</string>
+    <string name="label_text_decline">Decline</string>
+    <string name="label_text_discard">Discard</string>
+    <string name="label_text_got_it">Got It</string>
+    <string name="label_text_charging">Charging…</string>
+    <string name="label_text_charging_please">Charging. Please wait…</string>
 
-    <string name="text_value_enter_a_value_below">Enter a value below</string>
-    <string name="text_value_code">Enter the code below</string>
-    <string name="text_value_this_field_is_required">The field is required</string>
-    <string name="text_value_reason_hint">Share additional details</string>
-    <string name="text_value_reason_helper">Specify the reasons why this action is performed</string>
-    <string name="text_value_reason_error">You cannot leave this field empty</string>
-    <string name="text_value_code_error">You must enter or complete the code</string>
-    <string name="text_value_unknown_input_type">Unknown input type</string>
+    <string name="label_text_enter_a_value_below">Enter a value below</string>
+    <string name="label_text_enter_the_code_below">Enter the code below</string>
+    <string name="label_text_this_field_is_required">The field is required</string>
+    <string name="label_text_reason_hint">Share additional details</string>
+    <string name="label_text_reason_helper">Specify the reasons why this action is performed</string>
+    <string name="label_text_reason_error">You cannot leave this field empty</string>
+    <string name="label_text_code_error">You must enter or complete the code</string>
+    <string name="label_text_unknown_input_type">Unknown input type</string>
 
-    <string name="text_value_rationale_ask">❖ This app may not work correctly without the requested permissions.</string>
-    <string name="text_value_rationale_ask_again">❖ This app may not work correctly without the requested permissions.\n❖ Open the app settings screen to modify app permissions.</string>
-    <string name="text_value_title_settings_dialog">Permissions Required</string>
+    <string name="label_text_rationale_ask">❖ This app may not work correctly without the requested permissions.</string>
+    <string name="label_text_rationale_ask_again">❖ This app may not work correctly without the requested permissions.\n❖ Open the app settings screen to modify app permissions.</string>
+    <string name="label_text_title_settings_dialog">Permissions Required</string>
 
     <string name="button_positive_speakable_text_value">Positive choice of dialogue</string>
     <string name="button_neutral_speakable_text_value">Dialogue neutral option</string>

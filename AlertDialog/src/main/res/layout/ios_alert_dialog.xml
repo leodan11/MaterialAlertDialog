@@ -76,7 +76,7 @@
                     android:layout_weight="1"
                     android:background="@drawable/ic_baseline_border_drawable_end"
                     android:gravity="center"
-                    tools:text="@string/text_value_cancel" />
+                    tools:text="@string/label_text_cancel" />
 
                 <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/buttonActionNeutralAlertDialogHorizontal"
@@ -86,7 +86,7 @@
                     android:layout_weight="1"
                     android:background="@drawable/ic_baseline_border_drawable_end"
                     android:gravity="center"
-                    tools:text="@string/text_value_decline" />
+                    tools:text="@string/label_text_decline" />
 
                 <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/buttonActionPositiveAlertDialogHorizontal"
@@ -95,7 +95,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:gravity="center"
-                    tools:text="@string/text_value_accept" />
+                    tools:text="@string/label_text_accept" />
 
             </LinearLayout>
 
@@ -116,7 +116,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    tools:text="@string/text_value_cancel" />
+                    tools:text="@string/label_text_cancel" />
 
                 <com.google.android.material.divider.MaterialDivider
                     android:id="@+id/split_negative_neutral_vertical"
@@ -129,7 +129,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    tools:text="@string/text_value_decline" />
+                    tools:text="@string/label_text_decline" />
 
                 <com.google.android.material.divider.MaterialDivider
                     android:id="@+id/split_neutral_positive_vertical"
@@ -142,7 +142,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    tools:text="@string/text_value_accept" />
+                    tools:text="@string/label_text_accept" />
 
             </LinearLayout>
 

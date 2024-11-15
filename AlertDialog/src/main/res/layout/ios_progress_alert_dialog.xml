@@ -22,7 +22,7 @@
                 android:id="@+id/imageViewIconLogoDialogProgress"
                 android:layout_width="@dimen/dialog_image_view_notification_icon_width_min"
                 android:layout_height="@dimen/dialog_image_view_notification_icon_height_min"
-                android:contentDescription="@string/text_value_charging"
+                android:contentDescription="@string/label_text_charging"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"

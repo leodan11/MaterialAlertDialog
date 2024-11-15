@@ -12,47 +12,50 @@
     <public name="ic_baseline_warning" type="drawable" />
     <public name="ic_baseline_wifi_alert" type="drawable" />
 
-    <public name="text_value_username" type="string" />
-    <public name="text_value_username_helper" type="string" />
-    <public name="text_value_username_helper_with_args" type="string" />
-    <public name="text_value_username_error" type="string" />
-    <public name="text_value_password" type="string" />
-    <public name="text_value_password_helper" type="string" />
-    <public name="text_value_password_error" type="string" />
-    <public name="text_value_login" type="string" />
-    <public name="text_value_login_in" type="string" />
-    <public name="text_value_sign_in_value" type="string" />
-    <public name="text_value_error" type="string" />
-    <public name="text_value_unknown_error" type="string" />
-    <public name="text_value_help" type="string" />
-    <public name="text_value_information" type="string" />
-    <public name="text_value_success" type="string" />
-    <public name="text_value_warning" type="string" />
-    <public name="text_value_yes" type="string" />
-    <public name="text_value_not" type="string" />
-    <public name="text_value_cancel" type="string" />
-    <public name="text_value_accept" type="string" />
-    <public name="text_value_close" type="string" />
-    <public name="text_value_later" type="string" />
-    <public name="text_value_decline" type="string" />
-    <public name="text_value_discard" type="string" />
-    <public name="text_value_got_it" type="string" />
-    <public name="text_value_charging" type="string" />
-    <public name="text_value_charging_please" type="string" />
-    <public name="text_value_enter_a_value_below" type="string" />
-    <public name="text_value_code" type="string" />
-    <public name="text_value_this_field_is_required" type="string" />
-    <public name="text_value_reason_hint" type="string" />
-    <public name="text_value_reason_helper" type="string" />
-    <public name="text_value_reason_error" type="string" />
-    <public name="text_value_code_error" type="string" />
-    <public name="text_value_unknown_input_type" type="string" />
-    <public name="text_value_title_settings_dialog" type="string" />
-    <public name="text_value_rationale_ask" type="string" />
-    <public name="text_value_rationale_ask_again" type="string" />
+    <public name="label_value_screenplay" type="string" />
+    <public name="label_text_username" type="string" />
+    <public name="label_text_username_helper" type="string" />
+    <public name="label_text_username_helper_with_args" type="string" />
+    <public name="label_text_username_error" type="string" />
+    <public name="label_text_password" type="string" />
+    <public name="label_text_password_helper" type="string" />
+    <public name="label_text_password_error" type="string" />
+    <public name="label_text_login" type="string" />
+    <public name="label_text_login_in" type="string" />
+    <public name="label_text_sign_in_value" type="string" />
+    <public name="label_text_error" type="string" />
+    <public name="label_text_unknown_error" type="string" />
+    <public name="label_text_help" type="string" />
+    <public name="label_text_information" type="string" />
+    <public name="label_text_success" type="string" />
+    <public name="label_text_warning" type="string" />
+    <public name="label_text_yes" type="string" />
+    <public name="label_text_not" type="string" />
+    <public name="label_text_cancel" type="string" />
+    <public name="label_text_accept" type="string" />
+    <public name="label_text_close" type="string" />
+    <public name="label_text_later" type="string" />
+    <public name="label_text_decline" type="string" />
+    <public name="label_text_discard" type="string" />
+    <public name="label_text_got_it" type="string" />
+    <public name="label_text_charging" type="string" />
+    <public name="label_text_charging_please" type="string" />
+    <public name="label_text_enter_a_value_below" type="string" />
+    <public name="label_text_enter_the_code_below" type="string" />
+    <public name="label_text_this_field_is_required" type="string" />
+    <public name="label_text_reason_hint" type="string" />
+    <public name="label_text_reason_helper" type="string" />
+    <public name="label_text_reason_error" type="string" />
+    <public name="label_text_code_error" type="string" />
+    <public name="label_text_unknown_input_type" type="string" />
+    <public name="label_text_title_settings_dialog" type="string" />
+    <public name="label_text_rationale_ask" type="string" />
+    <public name="label_text_rationale_ask_again" type="string" />
     <public name="button_positive_speakable_text_value" type="string" />
     <public name="button_neutral_speakable_text_value" type="string" />
     <public name="button_negative_speakable_text_value" type="string" />
+    <public name="label_details_are_specified_below" type="string" />
+    <public name="label_additional_details" type="string" />
 
     <public name="radius_min" type="dimen" />
     <public name="margin_spacing_min" type="dimen" />

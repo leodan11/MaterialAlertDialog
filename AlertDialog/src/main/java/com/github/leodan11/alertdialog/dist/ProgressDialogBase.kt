@@ -373,7 +373,7 @@ abstract class ProgressDialogBase(
          */
         fun setTitle(title: String? = null, alignment: AlertDialog.TextAlignment): Builder<D> {
             val valueText =
-                if (title.isNullOrEmpty()) context.getString(R.string.text_value_information)
+                if (title.isNullOrEmpty()) context.getString(R.string.label_text_information)
                 else title
             this.title = TitleAlertDialog(title = valueText, textAlignment = alignment)
             return this
@@ -423,7 +423,7 @@ abstract class ProgressDialogBase(
          */
         fun setDetailsLinearProgress(details: String? = null): Builder<D> {
             this.detailsLinearProgress = MessageAlertDialog.text(
-                text = details ?: context.getString(R.string.text_value_charging),
+                text = details ?: context.getString(R.string.label_text_charging),
                 alignment = AlertDialog.TextAlignment.END
             )
             return this
@@ -452,7 +452,7 @@ abstract class ProgressDialogBase(
          */
         fun setMessage(message: String? = null, alignment: AlertDialog.TextAlignment): Builder<D> {
             val valueText =
-                if (message.isNullOrEmpty()) context.getString(R.string.text_value_charging)
+                if (message.isNullOrEmpty()) context.getString(R.string.label_text_charging)
                 else message
             this.message = MessageAlertDialog.text(text = valueText, alignment = alignment)
             return this
@@ -558,7 +558,7 @@ abstract class ProgressDialogBase(
             onClickListener: MaterialDialogInterface.OnClickListener,
         ): Builder<D> {
             val valueText =
-                if (buttonText.isNullOrEmpty()) context.getString(R.string.text_value_cancel)
+                if (buttonText.isNullOrEmpty()) context.getString(R.string.label_text_cancel)
                 else buttonText
             negativeButton =
                 ButtonAlertDialog(title = valueText, icon = icon, onClickListener = onClickListener)

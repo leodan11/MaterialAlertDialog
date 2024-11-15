@@ -133,7 +133,7 @@ class MainActivity : AppCompatActivity() {
 
             buttonActionProgressSmall.setOnClickListener {
                 ProgressAlertDialog.Builder(this@MainActivity)
-                    .setMessage(com.github.leodan11.alertdialog.R.string.text_value_charging_please)
+                    .setMessage(com.github.leodan11.alertdialog.R.string.label_text_charging_please)
                     .create()
                     .show()
             }
