@@ -1,0 +1,31 @@
+[versions]
+appcompat = "1.7.0"
+constraintlayout = "2.2.0"
+kExtensions = "2.0.2"
+coreKtx = "1.13.1"
+espressoCore = "3.6.1"
+junit = "4.13.2"
+junitVersion = "1.2.1"
+lottie = "6.6.0"
+maskededittext = "5.0.3"
+material = "1.12.0"
+otpview = "v2.0.4"
+readmoreoptions = "1.1.6"
+
+[libraries]
+androidx-appcompat = { module = "androidx.appcompat:appcompat", version.ref = "appcompat" }
+androidx-constraintlayout = { module = "androidx.constraintlayout:constraintlayout", version.ref = "constraintlayout" }
+androidx-core-ktx = { module = "androidx.core:core-ktx", version.ref = "coreKtx" }
+androidx-espresso-core = { module = "androidx.test.espresso:espresso-core", version.ref = "espressoCore" }
+androidx-junit = { module = "androidx.test.ext:junit", version.ref = "junitVersion" }
+junit = { module = "junit:junit", version.ref = "junit" }
+k-extensions-color = { module = "com.github.leodan11.KExtensions:color", version.ref = "kExtensions" }
+k-extensions-context = { module = "com.github.leodan11.KExtensions:context", version.ref = "kExtensions" }
+k-extensions-core = { module = "com.github.leodan11.KExtensions:core", version.ref = "kExtensions" }
+k-extensions-number = { module = "com.github.leodan11.KExtensions:number", version.ref = "kExtensions" }
+k-extensions-views = { module = "com.github.leodan11.KExtensions:views", version.ref = "kExtensions" }
+lottie = { module = "com.airbnb.android:lottie", version.ref = "lottie" }
+maskededittext = { module = "io.github.vicmikhailau:MaskedEditText", version.ref = "maskededittext" }
+material = { module = "com.google.android.material:material", version.ref = "material" }
+otpview = { module = "com.github.leodan11:OtpView", version.ref = "otpview" }
+readmoreoptions = { module = "com.github.leodan11:ReadMoreOptions", version.ref = "readmoreoptions" }

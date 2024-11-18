@@ -57,6 +57,15 @@
     <public name="label_details_are_specified_below" type="string" />
     <public name="label_additional_details" type="string" />
 
+    <public name="channel_alpha" type="string" />
+    <public name="channel_red" type="string" />
+    <public name="channel_green" type="string" />
+    <public name="channel_blue" type="string" />
+
+    <public name="channel_hue" type="string" />
+    <public name="channel_saturation" type="string" />
+    <public name="channel_value" type="string" />
+
     <public name="radius_min" type="dimen" />
     <public name="margin_spacing_min" type="dimen" />
     <public name="margin_spacing" type="dimen" />
@@ -81,4 +90,10 @@
     <public name="dialog_image_view_notification_icon_width_large" type="dimen" />
     <public name="text_title_size" type="dimen" />
     <public name="text_message_size" type="dimen" />
+    <public name="color_view_height" type="dimen" />
+    <public name="color_view_width" type="dimen" />
+    <public name="chroma_dialog_width" type="dimen" />
+    <public name="chroma_dialog_height" type="dimen" />
+    <public name="channel_view_margin_top" type="dimen" />
+    <public name="channel_view_margin_bottom" type="dimen" />
 </resources>

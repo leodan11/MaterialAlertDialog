@@ -10,7 +10,7 @@ import com.github.leodan11.alertdialog.io.models.MessageAlertDialog
 import com.github.leodan11.alertdialog.io.models.TitleAlertDialog
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
-class IOSAlertDialog(
+class IOSAlertDialog private constructor(
     mContext: Context,
     mOrientationButton: Orientation,
     mTitle: TitleAlertDialog?,

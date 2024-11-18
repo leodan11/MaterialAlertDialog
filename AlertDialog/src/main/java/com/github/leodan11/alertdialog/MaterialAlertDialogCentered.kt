@@ -11,7 +11,7 @@ import com.github.leodan11.alertdialog.io.models.RawAlertDialog
 import com.github.leodan11.alertdialog.io.models.TitleAlertDialog
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
-class MaterialAlertDialogCentered(
+class MaterialAlertDialogCentered private constructor(
     mContext: Context,
     icon: IconAlertDialog?,
     image: IconAlertDialog?,

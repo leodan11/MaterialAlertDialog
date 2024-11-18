@@ -35,6 +35,15 @@
     <string name="label_text_charging">Charging…</string>
     <string name="label_text_charging_please">Charging. Please wait…</string>
 
+    <string name="channel_alpha" translatable="false">A</string>
+    <string name="channel_red" translatable="false">R</string>
+    <string name="channel_green" translatable="false">G</string>
+    <string name="channel_blue" translatable="false">B</string>
+
+    <string name="channel_hue" translatable="false">H</string>
+    <string name="channel_saturation" translatable="false">S</string>
+    <string name="channel_value" translatable="false">V</string>
+
     <string name="label_text_enter_a_value_below">Enter a value below</string>
     <string name="label_text_enter_the_code_below">Enter the code below</string>
     <string name="label_text_this_field_is_required">The field is required</string>

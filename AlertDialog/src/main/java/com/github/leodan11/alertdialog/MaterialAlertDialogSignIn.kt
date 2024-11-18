@@ -10,7 +10,7 @@ import com.github.leodan11.alertdialog.io.models.IconTintAlertDialog
 import com.github.leodan11.alertdialog.io.models.TitleAlertDialog
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
-class MaterialAlertDialogSignIn(
+class MaterialAlertDialogSignIn private constructor(
     mContext: Context,
     icon: IconAlertDialog?,
     tintColor: IconTintAlertDialog?,

@@ -11,7 +11,7 @@ import com.github.leodan11.alertdialog.io.models.MessageAlertDialog
 import com.github.leodan11.alertdialog.io.models.TitleAlertDialog
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
-class MaterialAlertDialogProgress(
+class MaterialAlertDialogProgress private constructor(
     mContext: Context,
     icon: IconAlertDialog?,
     tintColor: IconTintAlertDialog?,

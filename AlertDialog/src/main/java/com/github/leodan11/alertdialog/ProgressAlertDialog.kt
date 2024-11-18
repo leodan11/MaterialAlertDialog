@@ -8,7 +8,7 @@ import com.github.leodan11.alertdialog.io.models.IconAlertDialog
 import com.github.leodan11.alertdialog.io.models.MessageAlertDialog
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
-class ProgressAlertDialog(
+class ProgressAlertDialog private constructor(
     mContext: Context,
     icon: IconAlertDialog,
     mAnimatedVectorDrawable: Boolean,

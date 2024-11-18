@@ -13,7 +13,7 @@ import com.github.leodan11.alertdialog.io.models.MessageAlertDialog
 import com.github.leodan11.alertdialog.io.models.TitleAlertDialog
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
-class SettingsAlertDialog(
+class SettingsAlertDialog private constructor(
     mContext: Context,
     icon: IconAlertDialog,
     title: TitleAlertDialog,

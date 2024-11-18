@@ -7,7 +7,7 @@ import com.github.leodan11.alertdialog.dist.AlertDialogProgressIOSBase
 import com.github.leodan11.alertdialog.io.models.MessageAlertDialog
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
-class IOSProgressDialog(
+class IOSProgressDialog private constructor(
     mContext: Context,
     message: MessageAlertDialog<*>?,
     mCancelable: Boolean,

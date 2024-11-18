@@ -1,5 +1,6 @@
 package com.github.leodan11.dialog
 
+import android.graphics.Color
 import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
@@ -16,6 +17,9 @@ import com.github.leodan11.alertdialog.MaterialAlertDialogVerificationCode
 import com.github.leodan11.alertdialog.ProgressAlertDialog
 import com.github.leodan11.alertdialog.ProgressMaterialDialog
 import com.github.leodan11.alertdialog.SettingsAlertDialog
+import com.github.leodan11.alertdialog.chroma.ColorMode
+import com.github.leodan11.alertdialog.chroma.ColorSelectListener
+import com.github.leodan11.alertdialog.chroma.MaterialChromaDialog
 import com.github.leodan11.dialog.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
@@ -181,6 +185,19 @@ class MainActivity : AppCompatActivity() {
                     .setNegativeButton { dialog, _ -> dialog.dismiss() }
                     .create()
                     .show()
+            }
+
+            buttonActionChroma.setOnClickListener {
+                MaterialChromaDialog.Builder()
+                    .initialColor(Color.BLUE)
+                    .colorMode(ColorMode.HSV)
+                    .onColorSelected(object :ColorSelectListener {
+                        override fun onColorSelected(color: Int) {
+                            buttonActionChroma.setBackgroundColor(color)
+                        }
+                    })
+                    .create()
+                    .show(supportFragmentManager, "ChromaDialog")
             }
 
         }
