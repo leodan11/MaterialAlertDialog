@@ -4,6 +4,7 @@
     <public name="ic_baseline_animated_morphing_animals" type="drawable" />
     <public name="ic_baseline_animated_search_to_close" type="drawable" />
     <public name="ic_baseline_error" type="drawable" />
+    <public name="ic_baseline_git_svg" type="drawable" />
     <public name="ic_baseline_help" type="drawable" />
     <public name="ic_baseline_information" type="drawable" />
     <public name="ic_baseline_security" type="drawable" />

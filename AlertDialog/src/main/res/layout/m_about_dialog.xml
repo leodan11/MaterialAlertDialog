@@ -42,12 +42,29 @@
                     android:layout_height="wrap_content"
                     android:textAppearance="@style/TextAppearance.Material3.TitleLarge" />
 
-                <TextView
-                    android:id="@+id/textViewApplicationVersion"
+                <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/radius_min"
-                    android:textAppearance="@style/TextAppearance.Material3.TitleSmall" />
+                    android:layout_marginTop="@dimen/radius_min">
+
+                    <com.google.android.material.imageview.ShapeableImageView
+                        android:id="@+id/imageViewApplicationVersion"
+                        android:layout_width="@dimen/app_icon_size_medium"
+                        android:layout_height="@dimen/app_icon_size_medium"
+                        android:layout_alignParentStart="true"
+                        android:layout_centerInParent="true"
+                        tools:src="@tools:sample/avatars" />
+
+                    <TextView
+                        android:id="@+id/textViewApplicationVersion"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:layout_marginStart="@dimen/margin_spacing"
+                        android:layout_toEndOf="@id/imageViewApplicationVersion"
+                        android:textAppearance="@style/TextAppearance.Material3.TitleSmall" />
+
+                </RelativeLayout>
 
                 <TextView
                     android:id="@+id/textViewApplicationLegalese"

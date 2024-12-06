@@ -16,6 +16,7 @@ import androidx.annotation.IntRange
 import androidx.annotation.RestrictTo
 import androidx.annotation.StringRes
 import androidx.core.content.ContextCompat
+import androidx.core.view.isVisible
 import androidx.core.widget.addTextChangedListener
 import com.github.leodan11.alertdialog.AboutMaterialDialog
 import com.github.leodan11.alertdialog.R
@@ -38,6 +39,7 @@ import com.leodan.readmoreoption.ReadMoreOption
 abstract class AboutDialogBase(
     protected open var mContext: Context,
     protected open var icon: IconAlertDialog,
+    protected open var iconStore: IconAlertDialog,
     protected open var backgroundIconTintColor: IconTintAlertDialog?,
     protected open var detailsScrollHeightSpan: Int,
     protected open var title: TitleAlertDialog?,
@@ -45,6 +47,7 @@ abstract class AboutDialogBase(
     protected open var span: DetailsAlertDialog<*>?,
     protected open var details: DetailsAlertDialog<*>?,
     protected open var mCancelable: Boolean,
+    protected open var mIconStore: Boolean,
     protected open var mPositiveButton: ButtonAlertDialog?,
     protected open var mNeutralButton: ButtonAlertDialog?,
     protected open var mNegativeButton: ButtonAlertDialog?,
@@ -67,6 +70,7 @@ abstract class AboutDialogBase(
             MAboutDialogBinding.inflate(layoutInflater, container, false)
         // Initialize Views
         val mIconView = binding.imageViewApplicationIcon
+        val mIconStoreView = binding.imageViewApplicationVersion
         val mTitleView = binding.textViewApplicationName
         val mMessageView = binding.textViewApplicationVersion
         val mSpanView = binding.textViewApplicationLegalese
@@ -78,6 +82,10 @@ abstract class AboutDialogBase(
 
         // Set Icon
         mIconView.setImageResource(icon.mDrawableResId)
+        mIconStoreView.apply {
+            setImageResource(iconStore.mDrawableResId)
+            isVisible = mIconStore
+        }
 
         // Set Icon Tint
         backgroundIconTintColor?.let {
@@ -296,6 +304,8 @@ abstract class AboutDialogBase(
     abstract class Builder<D : AboutDialogBase>(protected val context: Context) {
 
         protected open var icon: IconAlertDialog = IconAlertDialog(context.applicationInfo.icon)
+        protected open var iconStore: IconAlertDialog =
+            IconAlertDialog(R.drawable.ic_baseline_git_svg)
         protected open var backgroundIconTintColor: IconTintAlertDialog? = null
         protected open var detailsScrollHeightSpan: Int = DEFAULT_DETAILS_SCROLL_HEIGHT_SPAN
         protected open var title: TitleAlertDialog? = null
@@ -303,6 +313,7 @@ abstract class AboutDialogBase(
         protected open var span: DetailsAlertDialog<*>? = null
         protected open var details: DetailsAlertDialog<*>? = null
         protected open var isCancelable: Boolean = true
+        protected open var isIconStore: Boolean = true
         protected open var positiveButton: ButtonAlertDialog? = null
         protected open var neutralButton: ButtonAlertDialog? = null
         protected open var negativeButton: ButtonAlertDialog? = null
@@ -315,6 +326,17 @@ abstract class AboutDialogBase(
          */
         fun setApplicationIcon(@DrawableRes icon: Int): Builder<D> {
             this.icon = IconAlertDialog(mDrawableResId = icon)
+            return this
+        }
+
+        /**
+         * Set the [DrawableRes] to be used in the version.
+         *
+         * @param icon Drawable to use as the store.
+         * @return [Builder] object to allow for chaining of calls to set methods
+         */
+        fun setApplicationIconStore(@DrawableRes icon: Int): Builder<D> {
+            this.iconStore = IconAlertDialog(mDrawableResId = icon)
             return this
         }
 
@@ -561,6 +583,17 @@ abstract class AboutDialogBase(
          */
         fun setApplicationDetails(details: Spanned): Builder<D> {
             this.details = DetailsAlertDialog.spanned(text = details)
+            return this
+        }
+
+        /**
+         * Sets whether the dialog shows store icon or not.
+         *
+         * @param isVisible is [Boolean] value. Default is true.
+         * @return [Builder] object to allow for chaining of calls to set methods
+         */
+        fun setIconStoreVisible(isVisible: Boolean): Builder<D> {
+            this.isIconStore = isVisible
             return this
         }
 

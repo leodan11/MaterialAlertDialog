@@ -15,6 +15,7 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 class AboutMaterialDialog private constructor(
     mContext: Context,
     icon: IconAlertDialog,
+    iconStore: IconAlertDialog,
     backgroundIconTintColor: IconTintAlertDialog?,
     detailsScrollHeightSpan: Int,
     title: TitleAlertDialog?,
@@ -22,12 +23,14 @@ class AboutMaterialDialog private constructor(
     span: DetailsAlertDialog<*>?,
     details: DetailsAlertDialog<*>?,
     mCancelable: Boolean,
+    mIconStore: Boolean,
     mPositiveButton: ButtonAlertDialog?,
     mNeutralButton: ButtonAlertDialog?,
     mNegativeButton: ButtonAlertDialog?,
 ) : AboutDialogBase(
     mContext = mContext,
     icon = icon,
+    iconStore = iconStore,
     backgroundIconTintColor = backgroundIconTintColor,
     detailsScrollHeightSpan = detailsScrollHeightSpan,
     title = title,
@@ -35,6 +38,7 @@ class AboutMaterialDialog private constructor(
     span = span,
     details = details,
     mCancelable = mCancelable,
+    mIconStore = mIconStore,
     mPositiveButton = mPositiveButton,
     mNeutralButton = mNeutralButton,
     mNegativeButton = mNegativeButton
@@ -63,6 +67,7 @@ class AboutMaterialDialog private constructor(
             return AboutMaterialDialog(
                 mContext = context,
                 icon = icon,
+                iconStore = iconStore,
                 backgroundIconTintColor = backgroundIconTintColor,
                 detailsScrollHeightSpan = detailsScrollHeightSpan,
                 title = title,
@@ -70,6 +75,7 @@ class AboutMaterialDialog private constructor(
                 span = span,
                 details = details,
                 mCancelable = isCancelable,
+                mIconStore = isIconStore,
                 mPositiveButton = positiveButton,
                 mNeutralButton = neutralButton,
                 mNegativeButton = negativeButton
