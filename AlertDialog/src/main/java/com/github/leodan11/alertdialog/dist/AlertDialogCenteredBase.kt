@@ -6,7 +6,6 @@ import android.content.Context
 import android.content.res.ColorStateList
 import android.graphics.Color
 import android.graphics.PorterDuff
-import android.os.Build
 import android.text.Spanned
 import android.view.LayoutInflater
 import android.view.View
@@ -263,11 +262,7 @@ abstract class AlertDialogCenteredBase(
     }
 
     private fun getColorCallback(@ColorRes color: Int): Int {
-        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            mContext.getColor(color)
-        } else {
-            ContextCompat.getColor(mContext, color)
-        }
+        return mContext.getColor(color)
     }
 
     /**

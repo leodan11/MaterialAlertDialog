@@ -31,10 +31,10 @@ import com.github.leodan11.alertdialog.io.models.IconAlertDialog
 import com.github.leodan11.alertdialog.io.models.IconTintAlertDialog
 import com.github.leodan11.alertdialog.io.models.MessageAlertDialog
 import com.github.leodan11.alertdialog.io.models.TitleAlertDialog
+import com.github.leodan11.customview.core.ReadMoreOption
 import com.github.leodan11.k_extensions.color.colorOnSurface
 import com.github.leodan11.k_extensions.color.colorPrimary
 import com.github.leodan11.k_extensions.view.onTextViewTextSize
-import com.leodan.readmoreoption.ReadMoreOption
 
 abstract class AboutDialogBase(
     protected open var mContext: Context,

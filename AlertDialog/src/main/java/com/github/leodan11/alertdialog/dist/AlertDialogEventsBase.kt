@@ -10,7 +10,6 @@ import android.graphics.Paint
 import android.graphics.Typeface
 import android.graphics.drawable.ShapeDrawable
 import android.graphics.drawable.shapes.RoundRectShape
-import android.os.Build
 import android.text.Editable
 import android.text.Layout
 import android.text.SpannableStringBuilder
@@ -48,6 +47,7 @@ import com.github.leodan11.alertdialog.io.models.DetailsAlertDialog
 import com.github.leodan11.alertdialog.io.models.IconAlertDialog
 import com.github.leodan11.alertdialog.io.models.MessageAlertDialog
 import com.github.leodan11.alertdialog.io.models.TitleAlertDialog
+import com.github.leodan11.customview.core.ReadMoreOption
 import com.github.leodan11.k_extensions.color.colorError
 import com.github.leodan11.k_extensions.color.colorOnSurface
 import com.github.leodan11.k_extensions.color.colorPrimary
@@ -55,7 +55,6 @@ import com.github.leodan11.k_extensions.color.colorSecondary
 import com.github.leodan11.k_extensions.color.colorSurface
 import com.github.leodan11.k_extensions.context.createBitmap
 import com.github.leodan11.k_extensions.view.onTextViewTextSize
-import com.leodan.readmoreoption.ReadMoreOption
 
 abstract class AlertDialogEventsBase(
     protected open var mContext: Context,
@@ -396,11 +395,7 @@ abstract class AlertDialogEventsBase(
     }
 
     private fun getColorCallback(@ColorRes color: Int): Int {
-        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            mContext.getColor(color)
-        } else {
-            ContextCompat.getColor(mContext, color)
-        }
+        return mContext.getColor(color)
     }
 
     private fun setDetailsIfExists(
