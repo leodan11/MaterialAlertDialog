@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import com.github.leodan11.alertdialog.dist.AlertDialogSignInBase
 import com.github.leodan11.alertdialog.io.models.ButtonAlertDialog
+import com.github.leodan11.alertdialog.io.models.ButtonCountDownTimer
 import com.github.leodan11.alertdialog.io.models.IconAlertDialog
 import com.github.leodan11.alertdialog.io.models.IconTintAlertDialog
 import com.github.leodan11.alertdialog.io.models.TitleAlertDialog
@@ -15,6 +16,7 @@ class MaterialAlertDialogSignIn private constructor(
     icon: IconAlertDialog?,
     tintColor: IconTintAlertDialog?,
     title: TitleAlertDialog?,
+    mCountDownTimer: ButtonCountDownTimer?,
     mCancelable: Boolean,
     mPositiveButton: ButtonAlertDialog?,
     mNegativeButton: ButtonAlertDialog?,
@@ -23,6 +25,7 @@ class MaterialAlertDialogSignIn private constructor(
     icon = icon,
     tintColor = tintColor,
     title = title,
+    countDownTimer = mCountDownTimer,
     mCancelable = mCancelable,
     mPositiveButton = mPositiveButton,
     mNegativeButton = mNegativeButton
@@ -54,6 +57,7 @@ class MaterialAlertDialogSignIn private constructor(
                 icon = icon,
                 tintColor = tintColor,
                 title = title,
+                mCountDownTimer = countDownTimer,
                 mCancelable = isCancelable,
                 mPositiveButton = positiveButton,
                 mNegativeButton = negativeButton

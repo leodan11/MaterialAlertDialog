@@ -33,8 +33,10 @@ import com.github.leodan11.k_extensions.color.backgroundColor
 import com.github.leodan11.k_extensions.color.colorOnSurface
 import com.github.leodan11.k_extensions.color.colorPrimary
 import com.github.leodan11.k_extensions.number.toNumberFormatPercent
+import com.google.android.material.button.MaterialButton
 import com.google.android.material.progressindicator.CircularProgressIndicator
 import com.google.android.material.progressindicator.LinearProgressIndicator
+import kotlin.jvm.Throws
 
 abstract class ProgressDialogBase(
     protected open var mContext: Context,
@@ -49,6 +51,8 @@ abstract class ProgressDialogBase(
     protected open var mNegativeButton: ButtonAlertDialog?,
 ) : MaterialDialogInterface {
 
+    open val isShowing: Boolean get() = mDialog?.isShowing ?: false
+    private lateinit var binding: MDialogProgressCircularBinding
     protected open var mDialog: Dialog? = null
     protected open lateinit var mProgressCircular: CircularProgressIndicator
     protected open lateinit var mProgressLinear: LinearProgressIndicator
@@ -65,8 +69,7 @@ abstract class ProgressDialogBase(
     ): View {
         // Inflate and set the layout for the dialog
         // Pass null as the parent view because it's going in the dialog layout
-        val binding: MDialogProgressCircularBinding =
-            MDialogProgressCircularBinding.inflate(layoutInflater, container, false)
+        binding = MDialogProgressCircularBinding.inflate(layoutInflater, container, false)
         // Initialize Views
         val mIconView = binding.imageViewIconProgressIndicator
         val mTitleView = binding.textViewTitleDialogProgressIndicator
@@ -193,6 +196,25 @@ abstract class ProgressDialogBase(
     fun show() {
         if (mDialog != null) mDialog?.show()
         else throwNullDialog()
+    }
+
+
+    /**
+     * Get the button with the specified type.
+     *
+     * @param which The type of button.
+     *
+     * @return [MaterialButton]
+     *
+     * @throws IllegalArgumentException
+     *
+     */
+    @Throws(IllegalArgumentException::class)
+    fun getButton(which: AlertDialog.UI): MaterialButton {
+        return when (which) {
+            AlertDialog.UI.BUTTON_NEGATIVE -> binding.buttonActionNegativeCircularProgressIndicator
+            else -> throw IllegalArgumentException("Button type not supported")
+        }
     }
 
 

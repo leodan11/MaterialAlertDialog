@@ -6,6 +6,7 @@ import android.view.View
 import com.github.leodan11.alertdialog.dist.AlertDialogIOSBase
 import com.github.leodan11.alertdialog.io.content.IOSDialog.Orientation
 import com.github.leodan11.alertdialog.io.models.ButtonAlertDialog
+import com.github.leodan11.alertdialog.io.models.ButtonCountDownTimer
 import com.github.leodan11.alertdialog.io.models.MessageAlertDialog
 import com.github.leodan11.alertdialog.io.models.TitleAlertDialog
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
@@ -15,6 +16,7 @@ class IOSAlertDialog private constructor(
     mOrientationButton: Orientation,
     mTitle: TitleAlertDialog?,
     mMessage: MessageAlertDialog<*>?,
+    mCountDownTimer: ButtonCountDownTimer?,
     mCancelable: Boolean,
     mPositiveButton: ButtonAlertDialog?,
     mNeutralButton: ButtonAlertDialog?,
@@ -24,6 +26,7 @@ class IOSAlertDialog private constructor(
     orientationButton = mOrientationButton,
     title = mTitle,
     message = mMessage,
+    countDownTimer = mCountDownTimer,
     mCancelable = mCancelable,
     mPositiveButton = mPositiveButton,
     mNeutralButton = mNeutralButton,
@@ -57,6 +60,7 @@ class IOSAlertDialog private constructor(
                 mOrientationButton = orientationButton,
                 mTitle = title,
                 mMessage = message,
+                mCountDownTimer = countDownTimer,
                 mCancelable = isCancelable,
                 mPositiveButton = positiveButton,
                 mNeutralButton = neutralButton,

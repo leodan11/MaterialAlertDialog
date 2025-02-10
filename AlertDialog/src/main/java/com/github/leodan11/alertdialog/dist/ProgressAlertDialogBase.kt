@@ -31,6 +31,7 @@ abstract class ProgressAlertDialogBase(
     protected open var mCancelable: Boolean,
 ) : MaterialDialogInterface {
 
+    open val isShowing: Boolean get() = mDialog?.isShowing ?: false
     protected open var mDialog: Dialog? = null
     protected open var mOnDismissListener: MaterialDialogInterface.OnDismissListener? = null
     protected open var mOnCancelListener: MaterialDialogInterface.OnCancelListener? = null

@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import com.github.leodan11.alertdialog.dist.AlertDialogCenteredBase
 import com.github.leodan11.alertdialog.io.models.ButtonAlertDialog
+import com.github.leodan11.alertdialog.io.models.ButtonCountDownTimer
 import com.github.leodan11.alertdialog.io.models.IconAlertDialog
 import com.github.leodan11.alertdialog.io.models.MessageAlertDialog
 import com.github.leodan11.alertdialog.io.models.RawAlertDialog
@@ -18,6 +19,7 @@ class MaterialAlertDialogCentered private constructor(
     jsonAnimation: RawAlertDialog?,
     backgroundColorInt: Int?,
     backgroundColorResource: Int?,
+    mCountDownTimer: ButtonCountDownTimer?,
     title: TitleAlertDialog?,
     message: MessageAlertDialog<*>?,
     mCancelable: Boolean,
@@ -31,6 +33,7 @@ class MaterialAlertDialogCentered private constructor(
     jsonAnimation = jsonAnimation,
     backgroundColorInt = backgroundColorInt,
     backgroundColorResource = backgroundColorResource,
+    countDownTimer = mCountDownTimer,
     title = title,
     message = message,
     mCancelable = mCancelable,
@@ -68,6 +71,7 @@ class MaterialAlertDialogCentered private constructor(
                 backgroundColorResource = backgroundColorResource,
                 title = title,
                 message = message,
+                mCountDownTimer = countDownTimer,
                 mCancelable = isCancelable,
                 mPositiveButton = positiveButton,
                 mNeutralButton = neutralButton,

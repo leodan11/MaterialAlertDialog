@@ -5,6 +5,7 @@ import android.app.Dialog
 import android.content.Context
 import android.content.res.ColorStateList
 import android.graphics.Color
+import android.os.CountDownTimer
 import android.text.Spanned
 import android.view.LayoutInflater
 import android.view.View
@@ -21,14 +22,19 @@ import com.github.leodan11.alertdialog.io.content.IOSDialog
 import com.github.leodan11.alertdialog.io.content.IOSDialog.Orientation
 import com.github.leodan11.alertdialog.io.content.MaterialDialogInterface
 import com.github.leodan11.alertdialog.io.models.ButtonAlertDialog
+import com.github.leodan11.alertdialog.io.models.ButtonCountDownTimer
 import com.github.leodan11.alertdialog.io.models.MessageAlertDialog
 import com.github.leodan11.alertdialog.io.models.TitleAlertDialog
 import com.github.leodan11.k_extensions.color.colorOnSurface
 import com.github.leodan11.k_extensions.context.isNightModeActive
+import com.google.android.material.textview.MaterialTextView
+import java.util.Locale
+import java.util.concurrent.TimeUnit
 
 abstract class AlertDialogIOSBase(
     protected open var mContext: Context,
     protected open var orientationButton: Orientation,
+    protected open var countDownTimer: ButtonCountDownTimer?,
     protected open var title: TitleAlertDialog?,
     protected open var message: MessageAlertDialog<*>?,
     protected open var mCancelable: Boolean,
@@ -37,6 +43,9 @@ abstract class AlertDialogIOSBase(
     protected open var mNegativeButton: ButtonAlertDialog?,
 ) : MaterialDialogInterface {
 
+    open val isShowing: Boolean get() = mDialog?.isShowing ?: false
+    private lateinit var binding: IosAlertDialogBinding
+    private var mCountDownTimer: CountDownTimer? = null
     protected open var mDialog: Dialog? = null
     protected open var mOnDismissListener: MaterialDialogInterface.OnDismissListener? = null
     protected open var mOnCancelListener: MaterialDialogInterface.OnCancelListener? = null
@@ -50,8 +59,7 @@ abstract class AlertDialogIOSBase(
     ): View {
         // Inflate and set the layout for the dialog
         // Pass null as the parent view because it's going in the dialog layout
-        val binding: IosAlertDialogBinding =
-            IosAlertDialogBinding.inflate(layoutInflater, container, false)
+        binding = IosAlertDialogBinding.inflate(layoutInflater, container, false)
         // Initialize Views
         val mTitleView = binding.textViewTitleAlertDialog
         val mMessageView = binding.textViewMessageAlertDialog
@@ -231,6 +239,35 @@ abstract class AlertDialogIOSBase(
                  */
                 buttonActionNegativeAlertDialogVertical.setTextColor(mNegativeButtonTint)
             }
+            // Set CountDownTimer to button
+            countDownTimer?.let { timer ->
+                val button = getButton(timer.button)
+                val buttonText = button.text
+                mCountDownTimer = object : CountDownTimer(timer.millis, timer.countInterval) {
+                    override fun onTick(millisUntilFinished: Long) {
+                        button.apply {
+                            isEnabled = false
+                            alpha = 0.5f
+                            text = String.format(
+                                Locale.getDefault(),
+                                "%s (%d)",
+                                buttonText,
+                                TimeUnit.MILLISECONDS.toSeconds(millisUntilFinished) + 1
+                            )
+                        }
+                    }
+
+                    override fun onFinish() {
+                        if (isShowing) {
+                            button.apply {
+                                isEnabled = true
+                                alpha = 1f
+                                text = buttonText
+                            }
+                        }
+                    }
+                }
+            }
         } catch (e: Exception) {
             e.printStackTrace()
         }
@@ -244,8 +281,10 @@ abstract class AlertDialogIOSBase(
      *
      */
     override fun cancel() {
-        if (mDialog != null) mDialog?.cancel()
-        else throwNullDialog()
+        if (mDialog != null) {
+            mCountDownTimer?.cancel()
+            mDialog?.cancel()
+        } else throwNullDialog()
     }
 
     /**
@@ -255,8 +294,10 @@ abstract class AlertDialogIOSBase(
      *
      */
     override fun dismiss() {
-        if (mDialog != null) mDialog?.dismiss()
-        else throwNullDialog()
+        if (mDialog != null) {
+            mCountDownTimer?.cancel()
+            mDialog?.dismiss()
+        } else throwNullDialog()
     }
 
     /**
@@ -266,8 +307,35 @@ abstract class AlertDialogIOSBase(
      *
      */
     fun show() {
-        if (mDialog != null) mDialog?.show()
-        else throwNullDialog()
+        if (mDialog != null) {
+            mDialog?.show()
+            mCountDownTimer?.start()
+        } else throwNullDialog()
+    }
+
+    /**
+     * Get the button with the specified type.
+     *
+     * @param which The type of button.
+     *
+     * @return [MaterialTextView]
+     *
+     * @throws IllegalArgumentException
+     *
+     */
+    @Throws(IllegalArgumentException::class)
+    fun getButton(which: AlertDialog.UI): MaterialTextView {
+        return if (orientationButton == Orientation.HORIZONTAL) {
+            when (which) {
+                AlertDialog.UI.BUTTON_POSITIVE -> binding.buttonActionPositiveAlertDialogHorizontal
+                AlertDialog.UI.BUTTON_NEGATIVE -> binding.buttonActionNegativeAlertDialogHorizontal
+                AlertDialog.UI.BUTTON_NEUTRAL -> binding.buttonActionNeutralAlertDialogHorizontal
+            }
+        } else when (which) {
+            AlertDialog.UI.BUTTON_POSITIVE -> binding.buttonActionPositiveAlertDialogVertical
+            AlertDialog.UI.BUTTON_NEGATIVE -> binding.buttonActionNegativeAlertDialogVertical
+            AlertDialog.UI.BUTTON_NEUTRAL -> binding.buttonActionNeutralAlertDialogVertical
+        }
     }
 
 
@@ -327,6 +395,7 @@ abstract class AlertDialogIOSBase(
         protected open var orientationButton: Orientation = Orientation.HORIZONTAL
         protected open var title: TitleAlertDialog? = null
         protected open var message: MessageAlertDialog<*>? = null
+        protected open var countDownTimer: ButtonCountDownTimer? = null
         protected open var isCancelable: Boolean = true
         protected open var positiveButton: ButtonAlertDialog? = null
         protected open var neutralButton: ButtonAlertDialog? = null
@@ -460,6 +529,37 @@ abstract class AlertDialogIOSBase(
          */
         fun setMessage(message: Spanned, alignment: AlertDialog.TextAlignment): Builder<D> {
             this.message = MessageAlertDialog.spanned(text = message, alignment = alignment)
+            return this
+        }
+
+        /**
+         * Set count down timer. Default `1000`
+         *
+         * @param button [AlertDialog.UI] `AlertDialog.UI.BUTTON_POSITIVE`, `AlertDialog.UI.BUTTON_NEGATIVE` or `AlertDialog.UI.BUTTON_NEUTRAL`
+         * @param millis [Long] time in milliseconds.
+         *
+         * @return [Builder] object to allow for chaining of calls to set methods
+         */
+        fun setCountDownTimer(button: AlertDialog.UI, millis: Long): Builder<D> {
+            this.countDownTimer = ButtonCountDownTimer(button, millis)
+            return this
+        }
+
+        /**
+         * Set count down timer.
+         *
+         * @param button [AlertDialog.UI] `AlertDialog.UI.BUTTON_POSITIVE`, `AlertDialog.UI.BUTTON_NEGATIVE` or `AlertDialog.UI.BUTTON_NEUTRAL`
+         * @param millis [Long] time in milliseconds.
+         * @param countInterval [Long] time in milliseconds.
+         *
+         * @return [Builder] object to allow for chaining of calls to set methods
+         */
+        fun setCountDownTimer(
+            button: AlertDialog.UI,
+            millis: Long,
+            countInterval: Long
+        ): Builder<D> {
+            this.countDownTimer = ButtonCountDownTimer(button, millis, countInterval)
             return this
         }
 

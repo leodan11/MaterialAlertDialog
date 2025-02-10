@@ -6,6 +6,7 @@ import android.view.View
 import com.github.leodan11.alertdialog.dist.AlertDialogEventsBase
 import com.github.leodan11.alertdialog.io.content.AlertDialog
 import com.github.leodan11.alertdialog.io.models.ButtonAlertDialog
+import com.github.leodan11.alertdialog.io.models.ButtonCountDownTimer
 import com.github.leodan11.alertdialog.io.models.DetailsAlertDialog
 import com.github.leodan11.alertdialog.io.models.IconAlertDialog
 import com.github.leodan11.alertdialog.io.models.MessageAlertDialog
@@ -18,6 +19,7 @@ class MaterialAlertDialogEvents private constructor(
     type: AlertDialog.State,
     backgroundColorSpanInt: Int?,
     backgroundColorSpanResource: Int?,
+    mCountDownTimer: ButtonCountDownTimer?,
     messageSpanLengthMax: Int,
     detailsScrollHeightSpan: Int,
     title: TitleAlertDialog?,
@@ -33,6 +35,7 @@ class MaterialAlertDialogEvents private constructor(
     type = type,
     backgroundColorSpanInt = backgroundColorSpanInt,
     backgroundColorSpanResource = backgroundColorSpanResource,
+    countDownTimer = mCountDownTimer,
     messageSpanLengthMax = messageSpanLengthMax,
     detailsScrollHeightSpan = detailsScrollHeightSpan,
     title = title,
@@ -71,6 +74,7 @@ class MaterialAlertDialogEvents private constructor(
                 type = type,
                 backgroundColorSpanInt = backgroundColorSpanInt,
                 backgroundColorSpanResource = backgroundColorSpan,
+                mCountDownTimer = countDownTimer,
                 messageSpanLengthMax = messageSpanLengthMax,
                 detailsScrollHeightSpan = detailsScrollHeightSpan,
                 title = title,

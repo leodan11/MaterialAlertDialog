@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import com.github.leodan11.alertdialog.dist.AboutDialogBase
 import com.github.leodan11.alertdialog.io.models.ButtonAlertDialog
+import com.github.leodan11.alertdialog.io.models.ButtonCountDownTimer
 import com.github.leodan11.alertdialog.io.models.DetailsAlertDialog
 import com.github.leodan11.alertdialog.io.models.IconAlertDialog
 import com.github.leodan11.alertdialog.io.models.IconTintAlertDialog
@@ -17,6 +18,7 @@ class AboutMaterialDialog private constructor(
     icon: IconAlertDialog,
     iconStore: IconAlertDialog,
     backgroundIconTintColor: IconTintAlertDialog?,
+    mCountDownTimer: ButtonCountDownTimer?,
     detailsScrollHeightSpan: Int,
     title: TitleAlertDialog?,
     message: MessageAlertDialog<*>?,
@@ -32,6 +34,7 @@ class AboutMaterialDialog private constructor(
     icon = icon,
     iconStore = iconStore,
     backgroundIconTintColor = backgroundIconTintColor,
+    countDownTimer = mCountDownTimer,
     detailsScrollHeightSpan = detailsScrollHeightSpan,
     title = title,
     message = message,
@@ -74,6 +77,7 @@ class AboutMaterialDialog private constructor(
                 message = message,
                 span = span,
                 details = details,
+                mCountDownTimer = countDownTimer,
                 mCancelable = isCancelable,
                 mIconStore = isIconStore,
                 mPositiveButton = positiveButton,

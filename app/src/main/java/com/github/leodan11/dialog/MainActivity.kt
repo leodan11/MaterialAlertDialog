@@ -20,14 +20,16 @@ import com.github.leodan11.alertdialog.SettingsAlertDialog
 import com.github.leodan11.alertdialog.chroma.ColorMode
 import com.github.leodan11.alertdialog.chroma.ColorSelectListener
 import com.github.leodan11.alertdialog.chroma.MaterialChromaDialog
+import com.github.leodan11.alertdialog.io.content.AlertDialog
 import com.github.leodan11.dialog.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
-    private val launchSettings = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
-        Toast.makeText(this, "Settings activity closed", Toast.LENGTH_SHORT).show()
-    }
+    private val launchSettings =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
+            Toast.makeText(this, "Settings activity closed", Toast.LENGTH_SHORT).show()
+        }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,6 +43,7 @@ class MainActivity : AppCompatActivity() {
                 AboutMaterialDialog.Builder(this@MainActivity)
                     .setApplicationIcon(R.mipmap.ic_launcher_round)
                     .setApplicationName(R.string.app_name)
+                    .setCountDownTimer(AlertDialog.UI.BUTTON_POSITIVE, 16000)
                     .setApplicationVersion("Lorem Ipsum")
                     .setApplicationLegalese("What is Lorem Ipsum?")
                     .setCancelable(false)
@@ -54,6 +57,7 @@ class MainActivity : AppCompatActivity() {
                     .setTitle("Lorem Ipsum")
                     .setMessage("What is Lorem Ipsum?")
                     .setCancelable(false)
+                    .setCountDownTimer(AlertDialog.UI.BUTTON_POSITIVE, 16000)
                     .setPositiveButton(
                         null,
                         R.drawable.ic_baseline_light_mode
@@ -67,6 +71,7 @@ class MainActivity : AppCompatActivity() {
                     .setTitle("Lorem Ipsum")
                     .setMessage("What is Lorem Ipsum?")
                     .setCancelable(false)
+                    .setCountDownTimer(AlertDialog.UI.BUTTON_POSITIVE, 16000)
                     .setPositiveButton(null) { dialog, _ -> dialog?.dismiss() }
                     .setNegativeButton(null) { dialog, _ -> dialog?.dismiss() }
                     .create()
@@ -77,6 +82,7 @@ class MainActivity : AppCompatActivity() {
                 MaterialAlertDialogEvents.Builder(this@MainActivity)
                     .setIcon(R.drawable.ic_baseline_light_mode)
                     .setBackgroundColorSpan(60, 100, 200)
+                    .setCountDownTimer(AlertDialog.UI.BUTTON_POSITIVE, 16000)
                     .setTitle("Lorem Ipsum")
                     .setMessage("What is Lorem Ipsum?")
                     .setDetails("Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Elettra sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.")
@@ -97,6 +103,7 @@ class MainActivity : AppCompatActivity() {
                     .setTitle("Lorem Ipsum")
                     .setMessage("What is Lorem Ipsum?")
                     .setCancelable(false)
+                    .setCountDownTimer(AlertDialog.UI.BUTTON_POSITIVE, 16000)
                     .setPositiveButton(null) { dialog, _, _, _, _ -> dialog.dismiss() }
                     .setNegativeButton(
                         null,
@@ -110,6 +117,7 @@ class MainActivity : AppCompatActivity() {
                 MaterialAlertDialogSignIn.Builder(this@MainActivity)
                     .setIcon(R.drawable.ic_baseline_light_mode)
                     .setTitle("Lorem Ipsum")
+                    .setCountDownTimer(AlertDialog.UI.BUTTON_POSITIVE, 16000)
                     .setCancelable(false)
                     .setPositiveButton(null) { dialog, _, _ -> dialog?.dismiss() }
                     .setNegativeButton(
@@ -162,6 +170,7 @@ class MainActivity : AppCompatActivity() {
                     .setIcon(R.drawable.ic_baseline_light_mode)
                     .setTitle("Lorem Ipsum")
                     .setMessage("What is Lorem Ipsum?")
+                    .setCountDownTimer(AlertDialog.UI.BUTTON_POSITIVE, 6000)
                     .setCancelable(false)
                     .setPositiveButton(null, R.drawable.ic_baseline_close) { dialog, contentValue ->
                         Toast.makeText(this@MainActivity, contentValue, Toast.LENGTH_LONG).show()
@@ -191,7 +200,7 @@ class MainActivity : AppCompatActivity() {
                 MaterialChromaDialog.Builder()
                     .initialColor(Color.BLUE)
                     .colorMode(ColorMode.HSV)
-                    .onColorSelected(object :ColorSelectListener {
+                    .onColorSelected(object : ColorSelectListener {
                         override fun onColorSelected(color: Int) {
                             buttonActionChroma.setBackgroundColor(color)
                         }

@@ -33,6 +33,8 @@ import com.github.leodan11.k_extensions.color.colorOnSurface
 import com.github.leodan11.k_extensions.color.colorPrimary
 import com.github.leodan11.k_extensions.view.startAnimatedVectorDrawable
 import com.github.leodan11.k_extensions.view.startAnimatedVectorDrawableLoop
+import com.google.android.material.button.MaterialButton
+import kotlin.jvm.Throws
 
 abstract class AlertDialogProgressBase(
     protected open var mContext: Context,
@@ -47,6 +49,8 @@ abstract class AlertDialogProgressBase(
     protected open var mNegativeButton: ButtonAlertDialog?,
 ) : MaterialDialogInterface {
 
+    open val isShowing: Boolean get() = mDialog?.isShowing ?: false
+    private lateinit var binding: MDialogProgressBinding
     protected open var mDialog: Dialog? = null
     protected open var mOnDismissListener: MaterialDialogInterface.OnDismissListener? = null
     protected open var mOnCancelListener: MaterialDialogInterface.OnCancelListener? = null
@@ -60,8 +64,7 @@ abstract class AlertDialogProgressBase(
     ): View {
         // Inflate and set the layout for the dialog
         // Pass null as the parent view because it's going in the dialog layout
-        val binding: MDialogProgressBinding =
-            MDialogProgressBinding.inflate(layoutInflater, container, false)
+        binding = MDialogProgressBinding.inflate(layoutInflater, container, false)
         // Initialize Views
         val mIconView = binding.imageViewIconProgressIndicator
         val mIconViewVectorDrawable = binding.imageViewIconLogoDialogProgress
@@ -166,6 +169,24 @@ abstract class AlertDialogProgressBase(
         if (mDialog != null) mDialog?.show()
         else throwNullDialog()
     }
+
+
+    /**
+     * Get the button with the specified type.
+     *
+     * @return [MaterialButton]
+     *
+     * @throws IllegalArgumentException
+     *
+     */
+    @Throws(IllegalArgumentException::class)
+    fun getButton(which: AlertDialog.UI): MaterialButton {
+        return when (which) {
+            AlertDialog.UI.BUTTON_NEGATIVE -> binding.buttonActionNegativeCircularProgressIndicator
+            else -> throw IllegalArgumentException("Button type not supported")
+        }
+    }
+
 
     /**
      * Set the interface for callback events when the dialog is canceled.

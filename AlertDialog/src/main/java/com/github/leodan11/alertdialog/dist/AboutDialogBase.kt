@@ -5,6 +5,7 @@ import android.app.Dialog
 import android.content.Context
 import android.content.res.ColorStateList
 import android.graphics.Color
+import android.os.CountDownTimer
 import android.text.Spanned
 import android.view.LayoutInflater
 import android.view.View
@@ -26,6 +27,7 @@ import com.github.leodan11.alertdialog.io.content.Config.DEFAULT_DETAILS_SCROLL_
 import com.github.leodan11.alertdialog.io.content.Config.MATERIAL_ALERT_DIALOG_UI_NOT_ICON
 import com.github.leodan11.alertdialog.io.content.MaterialDialogInterface
 import com.github.leodan11.alertdialog.io.models.ButtonAlertDialog
+import com.github.leodan11.alertdialog.io.models.ButtonCountDownTimer
 import com.github.leodan11.alertdialog.io.models.DetailsAlertDialog
 import com.github.leodan11.alertdialog.io.models.IconAlertDialog
 import com.github.leodan11.alertdialog.io.models.IconTintAlertDialog
@@ -35,12 +37,16 @@ import com.github.leodan11.customview.core.ReadMoreOption
 import com.github.leodan11.k_extensions.color.colorOnSurface
 import com.github.leodan11.k_extensions.color.colorPrimary
 import com.github.leodan11.k_extensions.view.onTextViewTextSize
+import com.google.android.material.button.MaterialButton
+import java.util.Locale
+import java.util.concurrent.TimeUnit
 
 abstract class AboutDialogBase(
     protected open var mContext: Context,
     protected open var icon: IconAlertDialog,
     protected open var iconStore: IconAlertDialog,
     protected open var backgroundIconTintColor: IconTintAlertDialog?,
+    protected open var countDownTimer: ButtonCountDownTimer?,
     protected open var detailsScrollHeightSpan: Int,
     protected open var title: TitleAlertDialog?,
     protected open var message: MessageAlertDialog<*>?,
@@ -53,6 +59,9 @@ abstract class AboutDialogBase(
     protected open var mNegativeButton: ButtonAlertDialog?,
 ) : MaterialDialogInterface {
 
+    open val isShowing: Boolean get() = mDialog?.isShowing ?: false
+    private lateinit var binding: MAboutDialogBinding
+    private var mCountDownTimer: CountDownTimer? = null
     protected open var mDialog: Dialog? = null
     protected open var mOnDismissListener: MaterialDialogInterface.OnDismissListener? = null
     protected open var mOnCancelListener: MaterialDialogInterface.OnCancelListener? = null
@@ -66,8 +75,7 @@ abstract class AboutDialogBase(
     ): View {
         // Inflate and set the layout for the dialog
         // Pass null as the parent view because it's going in the dialog layout
-        val binding: MAboutDialogBinding =
-            MAboutDialogBinding.inflate(layoutInflater, container, false)
+        binding = MAboutDialogBinding.inflate(layoutInflater, container, false)
         // Initialize Views
         val mIconView = binding.imageViewApplicationIcon
         val mIconStoreView = binding.imageViewApplicationVersion
@@ -206,10 +214,35 @@ abstract class AboutDialogBase(
             val mNegativeButtonTint: ColorStateList = mBackgroundTint
             mNegativeButtonView.setTextColor(mNegativeButtonTint)
             mNegativeButtonView.iconTint = mNegativeButtonTint
-            // Set Button Ripple Color
-            mPositiveButtonView.rippleColor = mBackgroundTint.withAlpha(75)
-            mNeutralButtonView.rippleColor = mBackgroundTint.withAlpha(75)
-            mNegativeButtonView.rippleColor = mBackgroundTint.withAlpha(75)
+            // Set CountDownTimer to button
+            countDownTimer?.let { timer ->
+                val button = getButton(timer.button)
+                val buttonText = button.text
+                mCountDownTimer = object : CountDownTimer(timer.millis, timer.countInterval) {
+                    override fun onTick(millisUntilFinished: Long) {
+                        button.apply {
+                            isEnabled = false
+                            alpha = 0.5f
+                            text = String.format(
+                                Locale.getDefault(),
+                                "%s (%d)",
+                                buttonText,
+                                TimeUnit.MILLISECONDS.toSeconds(millisUntilFinished) + 1
+                            )
+                        }
+                    }
+
+                    override fun onFinish() {
+                        if (isShowing) {
+                            button.apply {
+                                isEnabled = true
+                                alpha = 1f
+                                text = buttonText
+                            }
+                        }
+                    }
+                }
+            }
         } catch (e: Exception) {
             e.printStackTrace()
         }
@@ -223,8 +256,10 @@ abstract class AboutDialogBase(
      *
      */
     override fun cancel() {
-        if (mDialog != null) mDialog?.cancel()
-        else throwNullDialog()
+        if (mDialog != null) {
+            mCountDownTimer?.cancel()
+            mDialog?.cancel()
+        } else throwNullDialog()
     }
 
     /**
@@ -234,8 +269,10 @@ abstract class AboutDialogBase(
      *
      */
     override fun dismiss() {
-        if (mDialog != null) mDialog?.dismiss()
-        else throwNullDialog()
+        if (mDialog != null) {
+            mCountDownTimer?.cancel()
+            mDialog?.dismiss()
+        } else throwNullDialog()
     }
 
     /**
@@ -245,8 +282,29 @@ abstract class AboutDialogBase(
      *
      */
     fun show() {
-        if (mDialog != null) mDialog?.show()
-        else throwNullDialog()
+        if (mDialog != null) {
+            mDialog?.show()
+            mCountDownTimer?.start()
+        } else throwNullDialog()
+    }
+
+    /**
+     * Get the button with the specified type.
+     *
+     * @param which The type of button.
+     *
+     * @return [MaterialButton]
+     *
+     * @throws IllegalArgumentException
+     *
+     */
+    @Throws(IllegalArgumentException::class)
+    fun getButton(which: AlertDialog.UI): MaterialButton {
+        return when (which) {
+            AlertDialog.UI.BUTTON_POSITIVE -> binding.buttonActionPositiveAlertDialog
+            AlertDialog.UI.BUTTON_NEGATIVE -> binding.buttonActionNegativeAlertDialog
+            AlertDialog.UI.BUTTON_NEUTRAL -> binding.buttonActionNeutralAlertDialog
+        }
     }
 
 
@@ -307,6 +365,7 @@ abstract class AboutDialogBase(
         protected open var iconStore: IconAlertDialog =
             IconAlertDialog(R.drawable.ic_baseline_git_svg)
         protected open var backgroundIconTintColor: IconTintAlertDialog? = null
+        protected open var countDownTimer: ButtonCountDownTimer? = null
         protected open var detailsScrollHeightSpan: Int = DEFAULT_DETAILS_SCROLL_HEIGHT_SPAN
         protected open var title: TitleAlertDialog? = null
         protected open var message: MessageAlertDialog<*>? = null
@@ -583,6 +642,37 @@ abstract class AboutDialogBase(
          */
         fun setApplicationDetails(details: Spanned): Builder<D> {
             this.details = DetailsAlertDialog.spanned(text = details)
+            return this
+        }
+
+        /**
+         * Set count down timer. Default `1000`
+         *
+         * @param button [AlertDialog.UI] `AlertDialog.UI.BUTTON_POSITIVE`, `AlertDialog.UI.BUTTON_NEGATIVE` or `AlertDialog.UI.BUTTON_NEUTRAL`
+         * @param millis [Long] time in milliseconds.
+         *
+         * @return [Builder] object to allow for chaining of calls to set methods
+         */
+        fun setCountDownTimer(button: AlertDialog.UI, millis: Long): Builder<D> {
+            this.countDownTimer = ButtonCountDownTimer(button, millis)
+            return this
+        }
+
+        /**
+         * Set count down timer.
+         *
+         * @param button [AlertDialog.UI] `AlertDialog.UI.BUTTON_POSITIVE`, `AlertDialog.UI.BUTTON_NEGATIVE` or `AlertDialog.UI.BUTTON_NEUTRAL`
+         * @param millis [Long] time in milliseconds.
+         * @param countInterval [Long] time in milliseconds.
+         *
+         * @return [Builder] object to allow for chaining of calls to set methods
+         */
+        fun setCountDownTimer(
+            button: AlertDialog.UI,
+            millis: Long,
+            countInterval: Long
+        ): Builder<D> {
+            this.countDownTimer = ButtonCountDownTimer(button, millis, countInterval)
             return this
         }
 
