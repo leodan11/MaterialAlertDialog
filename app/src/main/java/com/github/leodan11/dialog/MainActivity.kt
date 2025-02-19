@@ -43,11 +43,11 @@ class MainActivity : AppCompatActivity() {
                 AboutMaterialDialog.Builder(this@MainActivity)
                     .setApplicationIcon(R.mipmap.ic_launcher_round)
                     .setApplicationName(R.string.app_name)
-                    .setCountDownTimer(AlertDialog.UI.BUTTON_POSITIVE, 16000)
+                    .setCountDownTimer(AlertDialog.UI.BUTTON_POSITIVE, 2000)
                     .setApplicationVersion("Lorem Ipsum")
                     .setApplicationLegalese("What is Lorem Ipsum?")
                     .setCancelable(false)
-                    .setPositiveButton(null) { dialog, _ -> dialog?.dismiss() }
+                    .setPositiveButton(null) { dialog, _ -> dialog.dismiss() }
                     .create()
                     .show()
             }
@@ -57,11 +57,8 @@ class MainActivity : AppCompatActivity() {
                     .setTitle("Lorem Ipsum")
                     .setMessage("What is Lorem Ipsum?")
                     .setCancelable(false)
-                    .setCountDownTimer(AlertDialog.UI.BUTTON_POSITIVE, 16000)
-                    .setPositiveButton(
-                        null,
-                        R.drawable.ic_baseline_light_mode
-                    ) { dialog, _ -> dialog?.dismiss() }
+                    .setCountDownTimer(AlertDialog.UI.BUTTON_POSITIVE, 4000)
+                    .setPositiveButton(icon = R.drawable.ic_baseline_light_mode) { dialog, _ -> dialog.dismiss() }
                     .create()
                     .show()
             }
@@ -71,9 +68,9 @@ class MainActivity : AppCompatActivity() {
                     .setTitle("Lorem Ipsum")
                     .setMessage("What is Lorem Ipsum?")
                     .setCancelable(false)
-                    .setCountDownTimer(AlertDialog.UI.BUTTON_POSITIVE, 16000)
-                    .setPositiveButton(null) { dialog, _ -> dialog?.dismiss() }
-                    .setNegativeButton(null) { dialog, _ -> dialog?.dismiss() }
+                    .setCountDownTimer(AlertDialog.UI.BUTTON_POSITIVE, 6000)
+                    .setPositiveButton(null) { dialog, _ -> dialog.dismiss() }
+                    .setNegativeButton(null) { dialog, _ -> dialog.dismiss() }
                     .create()
                     .show()
             }
@@ -82,17 +79,14 @@ class MainActivity : AppCompatActivity() {
                 MaterialAlertDialogEvents.Builder(this@MainActivity)
                     .setIcon(R.drawable.ic_baseline_light_mode)
                     .setBackgroundColorSpan(60, 100, 200)
-                    .setCountDownTimer(AlertDialog.UI.BUTTON_POSITIVE, 16000)
+                    .setCountDownTimer(AlertDialog.UI.BUTTON_POSITIVE, 8000)
                     .setTitle("Lorem Ipsum")
                     .setMessage("What is Lorem Ipsum?")
                     .setDetails("Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Elettra sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.")
                     .setCancelable(false)
-                    .setPositiveButton(null) { dialog, _ -> dialog?.dismiss() }
-                    .setNeutralButton(null) { dialog, _ -> dialog?.dismiss() }
-                    .setNegativeButton(
-                        null,
-                        R.drawable.ic_baseline_close
-                    ) { dialog, _ -> dialog?.dismiss() }
+                    .setPositiveButton(null) { dialog, _ -> dialog.dismiss() }
+                    .setNeutralButton(null) { dialog, _ -> dialog.dismiss() }
+                    .setNegativeButton(icon = R.drawable.ic_baseline_close) { dialog, _ -> dialog.dismiss() }
                     .create()
                     .show()
             }
@@ -103,12 +97,9 @@ class MainActivity : AppCompatActivity() {
                     .setTitle("Lorem Ipsum")
                     .setMessage("What is Lorem Ipsum?")
                     .setCancelable(false)
-                    .setCountDownTimer(AlertDialog.UI.BUTTON_POSITIVE, 16000)
+                    .setCountDownTimer(AlertDialog.UI.BUTTON_POSITIVE, 2000)
                     .setPositiveButton(null) { dialog, _, _, _, _ -> dialog.dismiss() }
-                    .setNegativeButton(
-                        null,
-                        R.drawable.ic_baseline_close
-                    ) { dialog, _ -> dialog?.dismiss() }
+                    .setNegativeButton(icon = R.drawable.ic_baseline_close) { dialog, _ -> dialog.dismiss() }
                     .create()
                     .show()
             }
@@ -117,13 +108,10 @@ class MainActivity : AppCompatActivity() {
                 MaterialAlertDialogSignIn.Builder(this@MainActivity)
                     .setIcon(R.drawable.ic_baseline_light_mode)
                     .setTitle("Lorem Ipsum")
-                    .setCountDownTimer(AlertDialog.UI.BUTTON_POSITIVE, 16000)
+                    .setCountDownTimer(AlertDialog.UI.BUTTON_POSITIVE, 4000)
                     .setCancelable(false)
-                    .setPositiveButton(null) { dialog, _, _ -> dialog?.dismiss() }
-                    .setNegativeButton(
-                        null,
-                        R.drawable.ic_baseline_close
-                    ) { dialog, _ -> dialog?.dismiss() }
+                    .setPositiveButton(null) { dialog, _, _ -> dialog.dismiss() }
+                    .setNegativeButton(icon = R.drawable.ic_baseline_close) { dialog, _ -> dialog.dismiss() }
                     .create()
                     .show()
             }
@@ -157,10 +145,7 @@ class MainActivity : AppCompatActivity() {
                     .setMessage("What is Lorem Ipsum?")
                     .setIndeterminable(true)
                     .setCancelable(false)
-                    .setNegativeButton(
-                        null,
-                        R.drawable.ic_baseline_close
-                    ) { dialog, _ -> dialog?.dismiss() }
+                    .setNegativeButton(icon = R.drawable.ic_baseline_close) { dialog, _ -> dialog.dismiss() }
                     .create()
                     .show()
             }

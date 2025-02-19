@@ -75,51 +75,66 @@
         android:layout_marginBottom="@dimen/margin_spacing_min"
         android:orientation="vertical">
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/text_input_layout_code_decimal_number"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/dimen_16"
-            android:visibility="gone"
-            app:boxCornerRadiusBottomEnd="@dimen/dimen_10"
-            app:boxCornerRadiusBottomStart="@dimen/dimen_10"
-            app:boxCornerRadiusTopEnd="@dimen/dimen_10"
-            app:boxCornerRadiusTopStart="@dimen/dimen_10"
-            app:endIconMode="clear_text"
-            app:errorEnabled="true">
+            android:layout_marginBottom="@dimen/dimen_18">
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/text_input_edit_text_code_decimal_number"
-                android:layout_width="match_parent"
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/text_input_layout_code_decimal_number"
+                android:layout_width="@dimen/dimen_0"
                 android:layout_height="wrap_content"
-                android:imeOptions="actionDone"
-                android:inputType="numberDecimal"
-                tools:ignore="TextContrastCheck" />
+                android:layout_marginStart="@dimen/dimen_8"
+                android:layout_marginEnd="@dimen/dimen_8"
+                android:visibility="gone"
+                app:boxCornerRadiusBottomEnd="@dimen/dimen_10"
+                app:boxCornerRadiusBottomStart="@dimen/dimen_10"
+                app:boxCornerRadiusTopEnd="@dimen/dimen_10"
+                app:boxCornerRadiusTopStart="@dimen/dimen_10"
+                app:endIconMode="clear_text"
+                app:errorEnabled="true"
+                app:layout_constraintEnd_toStartOf="@id/text_input_layout_code_percentage"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
 
-        </com.google.android.material.textfield.TextInputLayout>
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/text_input_edit_text_code_decimal_number"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:imeOptions="actionDone"
+                    android:inputType="numberDecimal"
+                    tools:ignore="TextContrastCheck" />
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/text_input_layout_code_percentage"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/dimen_16"
-            android:visibility="gone"
-            app:boxCornerRadiusBottomEnd="@dimen/dimen_10"
-            app:boxCornerRadiusBottomStart="@dimen/dimen_10"
-            app:boxCornerRadiusTopEnd="@dimen/dimen_10"
-            app:boxCornerRadiusTopStart="@dimen/dimen_10"
-            app:endIconMode="clear_text"
-            app:errorEnabled="true">
+            </com.google.android.material.textfield.TextInputLayout>
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/text_input_edit_text_code_percentage"
-                android:layout_width="match_parent"
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/text_input_layout_code_percentage"
+                android:layout_width="@dimen/dimen_0"
                 android:layout_height="wrap_content"
-                android:imeOptions="actionDone"
-                android:inputType="numberDecimal"
-                tools:ignore="TextContrastCheck" />
+                android:layout_marginStart="@dimen/dimen_8"
+                android:layout_marginEnd="@dimen/dimen_8"
+                android:visibility="gone"
+                app:boxCornerRadiusBottomEnd="@dimen/dimen_10"
+                app:boxCornerRadiusBottomStart="@dimen/dimen_10"
+                app:boxCornerRadiusTopEnd="@dimen/dimen_10"
+                app:boxCornerRadiusTopStart="@dimen/dimen_10"
+                app:endIconMode="clear_text"
+                app:errorEnabled="true"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/text_input_layout_code_decimal_number"
+                app:layout_constraintTop_toTopOf="parent">
 
-        </com.google.android.material.textfield.TextInputLayout>
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/text_input_edit_text_code_percentage"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:imeOptions="actionDone"
+                    android:inputType="numberDecimal"
+                    tools:ignore="TextContrastCheck" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/text_input_layout_code_reason"

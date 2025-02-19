@@ -45,7 +45,11 @@
         android:id="@+id/text_input_layout_alert"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/margin_spacing">
+        android:layout_marginTop="@dimen/margin_spacing"
+        app:boxCornerRadiusBottomEnd="@dimen/dimen_10"
+        app:boxCornerRadiusBottomStart="@dimen/dimen_10"
+        app:boxCornerRadiusTopEnd="@dimen/dimen_10"
+        app:boxCornerRadiusTopStart="@dimen/dimen_10">
 
         <com.vicmikhailau.maskededittext.MaskedEditText
             android:id="@+id/text_input_edit_text_alert"
