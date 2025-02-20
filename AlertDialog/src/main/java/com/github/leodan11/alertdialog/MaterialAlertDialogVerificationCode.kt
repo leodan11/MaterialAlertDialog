@@ -4,6 +4,7 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import com.github.leodan11.alertdialog.dist.AlertDialogVerificationCodeBase
+import com.github.leodan11.alertdialog.io.models.BoxCornerRadiusTextField
 import com.github.leodan11.alertdialog.io.models.ButtonAlertDialog
 import com.github.leodan11.alertdialog.io.models.ButtonCountDownTimer
 import com.github.leodan11.alertdialog.io.models.IconAlertDialog
@@ -20,6 +21,7 @@ class MaterialAlertDialogVerificationCode private constructor(
     title: TitleAlertDialog?,
     message: MessageAlertDialog<*>?,
     mNeedReason: Boolean,
+    mBoxCornerRadius: BoxCornerRadiusTextField?,
     mCountDownTimer: ButtonCountDownTimer?,
     mCancelable: Boolean,
     mInputsContentValue: List<InputCodeExtra>,
@@ -32,6 +34,7 @@ class MaterialAlertDialogVerificationCode private constructor(
     title = title,
     message = message,
     mNeedReason = mNeedReason,
+    boxCornerRadius = mBoxCornerRadius,
     countDownTimer = mCountDownTimer,
     mCancelable = mCancelable,
     mInputsContentValue = mInputsContentValue,
@@ -67,6 +70,7 @@ class MaterialAlertDialogVerificationCode private constructor(
                 title = title,
                 message = message,
                 mNeedReason = isNeedReason,
+                mBoxCornerRadius = boxCornerRadius,
                 mCountDownTimer = countDownTimer,
                 mCancelable = isCancelable,
                 mInputsContentValue = mInputsContentValue,

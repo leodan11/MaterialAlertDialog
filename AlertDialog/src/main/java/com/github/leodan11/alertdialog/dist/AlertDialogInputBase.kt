@@ -25,6 +25,7 @@ import com.github.leodan11.alertdialog.databinding.MAlertDialogInputBinding
 import com.github.leodan11.alertdialog.io.content.AlertDialog
 import com.github.leodan11.alertdialog.io.content.Config.MATERIAL_ALERT_DIALOG_UI_NOT_ICON
 import com.github.leodan11.alertdialog.io.content.MaterialDialogInterface
+import com.github.leodan11.alertdialog.io.models.BoxCornerRadiusTextField
 import com.github.leodan11.alertdialog.io.models.ButtonAlertDialog
 import com.github.leodan11.alertdialog.io.models.ButtonCountDownTimer
 import com.github.leodan11.alertdialog.io.models.IconAlertDialog
@@ -48,6 +49,7 @@ abstract class AlertDialogInputBase(
     protected open var title: TitleAlertDialog?,
     protected open var message: MessageAlertDialog<*>?,
     protected open var maskedFormatter: String?,
+    protected open var boxCornerRadius: BoxCornerRadiusTextField?,
     protected open var counterMax: Int?,
     protected open var countDownTimer: ButtonCountDownTimer?,
     protected open var startIcon: IconInputDialog?,
@@ -118,6 +120,14 @@ abstract class AlertDialogInputBase(
             inputTextError?.let { error = it }
             isErrorEnabled = !inputTextError.isNullOrEmpty()
             endIconMode = TextInputLayout.END_ICON_CLEAR_TEXT
+            boxCornerRadius?.let { boxCorner ->
+                setBoxCornerRadii(
+                    boxCorner.topStart,
+                    boxCorner.topEnd,
+                    boxCorner.bottomStart,
+                    boxCorner.bottomEnd
+                )
+            }
         }
         inputTextDefault?.let { mTextInputEditTextAlert.setText(it) }
         maskedFormatter?.let {
@@ -394,6 +404,7 @@ abstract class AlertDialogInputBase(
         protected open var title: TitleAlertDialog? = null
         protected open var message: MessageAlertDialog<*>? = null
         protected open var maskedFormatter: String? = null
+        protected open var boxCornerRadius: BoxCornerRadiusTextField? = null
         protected open var counterMaxLength: Int? = null
         protected open var countDownTimer: ButtonCountDownTimer? = null
         protected open var startIcon: IconInputDialog? = null
@@ -718,6 +729,37 @@ abstract class AlertDialogInputBase(
          */
         fun setCancelable(isCancelable: Boolean): Builder<D> {
             this.isCancelable = isCancelable
+            return this
+        }
+
+        /**
+         *  Set the corner radius of the [TextInputLayout]
+         *
+         * @param radius The radius to use.
+         * @return [Builder] object to allow for chaining of calls to set methods
+         */
+        fun setBoxCornerRadius(radius: Float): Builder<D> {
+            this.boxCornerRadius = BoxCornerRadiusTextField(radius, radius, radius, radius)
+            return this
+        }
+
+        /**
+         *  Set the corner radius of the [TextInputLayout]
+         *
+         * @param topStart The top start radius to use.
+         * @param topEnd The top end radius to use.
+         * @param bottomStart The bottom start radius to use.
+         * @param bottomEnd The bottom end radius to use.
+         * @return [Builder] object to allow for chaining of calls to set methods
+         */
+        fun setBoxCornerRadius(
+            topStart: Float,
+            topEnd: Float,
+            bottomStart: Float,
+            bottomEnd: Float
+        ): Builder<D> {
+            this.boxCornerRadius =
+                BoxCornerRadiusTextField(topStart, topEnd, bottomStart, bottomEnd)
             return this
         }
 

@@ -46,7 +46,7 @@
             android:layout_marginTop="@dimen/margin_spacing_medium"
             android:layout_marginBottom="@dimen/margin_spacing_medium">
 
-            <androidx.appcompat.widget.AppCompatImageView
+            <com.google.android.material.imageview.ShapeableImageView
                 android:id="@+id/imageViewIconLogoDialogProgress"
                 android:layout_width="@android:dimen/notification_large_icon_width"
                 android:layout_height="@android:dimen/notification_large_icon_height"

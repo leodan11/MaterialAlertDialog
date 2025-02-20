@@ -24,6 +24,7 @@ import com.github.leodan11.alertdialog.databinding.MAlertDialogLoginBinding
 import com.github.leodan11.alertdialog.io.content.AlertDialog
 import com.github.leodan11.alertdialog.io.content.Config.MATERIAL_ALERT_DIALOG_UI_NOT_ICON
 import com.github.leodan11.alertdialog.io.content.MaterialDialogInterface
+import com.github.leodan11.alertdialog.io.models.BoxCornerRadiusTextField
 import com.github.leodan11.alertdialog.io.models.ButtonAlertDialog
 import com.github.leodan11.alertdialog.io.models.ButtonCountDownTimer
 import com.github.leodan11.alertdialog.io.models.IconAlertDialog
@@ -36,13 +37,13 @@ import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
 import java.util.Locale
 import java.util.concurrent.TimeUnit
-import kotlin.jvm.Throws
 
 abstract class AlertDialogSignInBase(
     protected open var mContext: Context,
     protected open var icon: IconAlertDialog?,
     protected open var tintColor: IconTintAlertDialog?,
     protected open var title: TitleAlertDialog?,
+    protected open var boxCornerRadius: BoxCornerRadiusTextField?,
     protected open var countDownTimer: ButtonCountDownTimer?,
     protected open var mCancelable: Boolean,
     protected open var mPositiveButton: ButtonAlertDialog?,
@@ -142,6 +143,8 @@ abstract class AlertDialogSignInBase(
             mTextInputLayoutPassword.boxStrokeColor = mContext.colorPrimary()
             mTextInputLayoutPassword.hintTextColor =
                 ColorStateList.valueOf(mContext.colorPrimary())
+            // Set InputsLayout Box Corner Radius
+            setBoxCustomCornerRadius()
             // Set Background Tint
             val mBackgroundTint: ColorStateList =
                 ColorStateList.valueOf(mContext.colorPrimary())
@@ -307,6 +310,23 @@ abstract class AlertDialogSignInBase(
         return true
     }
 
+    private fun setBoxCustomCornerRadius() {
+        boxCornerRadius?.let {
+            mTextInputLayoutUsername.setBoxCornerRadii(
+                it.topStart,
+                it.topEnd,
+                it.bottomStart,
+                it.bottomEnd
+            )
+            mTextInputLayoutPassword.setBoxCornerRadii(
+                it.topStart,
+                it.topEnd,
+                it.bottomStart,
+                it.bottomEnd
+            )
+        }
+    }
+
     /**
      * Creates a builder for an alert dialog that uses the default alert dialog theme.
      * The default alert dialog theme is defined by [android.R.attr.alertDialogTheme] within the parent context's theme.
@@ -317,6 +337,7 @@ abstract class AlertDialogSignInBase(
         protected open var icon: IconAlertDialog? = null
         protected open var tintColor: IconTintAlertDialog? = null
         protected open var title: TitleAlertDialog? = null
+        protected open var boxCornerRadius: BoxCornerRadiusTextField? = null
         protected open var countDownTimer: ButtonCountDownTimer? = null
         protected open var isCancelable: Boolean = false
         protected open var positiveButton: ButtonAlertDialog? = null
@@ -452,6 +473,37 @@ abstract class AlertDialogSignInBase(
         ): Builder<D> {
             this.title =
                 TitleAlertDialog(title = context.getString(title), textAlignment = alignment)
+            return this
+        }
+
+        /**
+         *  Set the corner radius of the [TextInputLayout]
+         *
+         * @param radius The radius to use.
+         * @return [Builder] object to allow for chaining of calls to set methods
+         */
+        fun setBoxCornerRadius(radius: Float): Builder<D> {
+            this.boxCornerRadius = BoxCornerRadiusTextField(radius, radius, radius, radius)
+            return this
+        }
+
+        /**
+         *  Set the corner radius of the [TextInputLayout]
+         *
+         * @param topStart The top start radius to use.
+         * @param topEnd The top end radius to use.
+         * @param bottomStart The bottom start radius to use.
+         * @param bottomEnd The bottom end radius to use.
+         * @return [Builder] object to allow for chaining of calls to set methods
+         */
+        fun setBoxCornerRadius(
+            topStart: Float,
+            topEnd: Float,
+            bottomStart: Float,
+            bottomEnd: Float
+        ): Builder<D> {
+            this.boxCornerRadius =
+                BoxCornerRadiusTextField(topStart, topEnd, bottomStart, bottomEnd)
             return this
         }
 

@@ -4,6 +4,7 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import com.github.leodan11.alertdialog.dist.AlertDialogInputBase
+import com.github.leodan11.alertdialog.io.models.BoxCornerRadiusTextField
 import com.github.leodan11.alertdialog.io.models.ButtonAlertDialog
 import com.github.leodan11.alertdialog.io.models.ButtonCountDownTimer
 import com.github.leodan11.alertdialog.io.models.IconAlertDialog
@@ -22,6 +23,7 @@ class MaterialAlertDialogInput private constructor(
     maskedFormatter: String?,
     mCountDownTimer: ButtonCountDownTimer?,
     mCounterMaxLength: Int?,
+    mBoxCornerRadius: BoxCornerRadiusTextField?,
     mStartIcon: IconInputDialog?,
     mEndIcon: IconInputDialog?,
     inputTextHide: String,
@@ -39,6 +41,7 @@ class MaterialAlertDialogInput private constructor(
     message = mMessage,
     maskedFormatter = maskedFormatter,
     counterMax = mCounterMaxLength,
+    boxCornerRadius = mBoxCornerRadius,
     countDownTimer = mCountDownTimer,
     startIcon = mStartIcon,
     endIcon = mEndIcon,
@@ -81,6 +84,7 @@ class MaterialAlertDialogInput private constructor(
                 maskedFormatter = maskedFormatter,
                 mCountDownTimer = countDownTimer,
                 mCounterMaxLength = counterMaxLength,
+                mBoxCornerRadius = boxCornerRadius,
                 mStartIcon = startIcon,
                 mEndIcon = endIcon,
                 inputTextHide = inputTextHide,

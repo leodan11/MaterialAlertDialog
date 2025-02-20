@@ -108,6 +108,7 @@ class MainActivity : AppCompatActivity() {
                 MaterialAlertDialogSignIn.Builder(this@MainActivity)
                     .setIcon(R.drawable.ic_baseline_light_mode)
                     .setTitle("Lorem Ipsum")
+                    .setBoxCornerRadius(30f)
                     .setCountDownTimer(AlertDialog.UI.BUTTON_POSITIVE, 4000)
                     .setCancelable(false)
                     .setPositiveButton(null) { dialog, _, _ -> dialog.dismiss() }
