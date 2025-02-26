@@ -9,13 +9,13 @@
         style="?attr/buttonBarNegativeButtonStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/label_text_cancel"/>
+        android:text="@string/label_text_cancel" />
 
     <Button
         android:id="@+id/positive_button"
         style="?attr/buttonBarPositiveButtonStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/label_text_accept"/>
+        android:text="@string/label_text_accept" />
 
 </LinearLayout>

@@ -98,7 +98,7 @@ abstract class AlertDialogProgressIOSBase(
      * Note that you should not override this method to do initialization when the dialog is shown.
      *
      */
-    fun show() {
+    open fun show() {
         if (mDialog != null) mDialog?.show()
         else throwNullDialog()
     }

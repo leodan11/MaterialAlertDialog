@@ -165,7 +165,7 @@ abstract class AlertDialogProgressBase(
      * Note that you should not override this method to do initialization when the dialog is shown.
      *
      */
-    fun show() {
+    open fun show() {
         if (mDialog != null) mDialog?.show()
         else throwNullDialog()
     }
@@ -180,7 +180,7 @@ abstract class AlertDialogProgressBase(
      *
      */
     @Throws(IllegalArgumentException::class)
-    fun getButton(which: AlertDialog.UI): MaterialButton {
+    open fun getButton(which: AlertDialog.UI): MaterialButton {
         return when (which) {
             AlertDialog.UI.BUTTON_NEGATIVE -> binding.buttonActionNegativeCircularProgressIndicator
             else -> throw IllegalArgumentException("Button type not supported")

@@ -5,7 +5,12 @@ import android.app.Dialog
 import android.content.Context
 import android.content.res.ColorStateList
 import android.graphics.Color
+import android.graphics.Typeface
+import android.os.Handler
+import android.text.Spannable
+import android.text.SpannableString
 import android.text.Spanned
+import android.text.style.StyleSpan
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -20,7 +25,7 @@ import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import com.github.leodan11.alertdialog.ProgressMaterialDialog
 import com.github.leodan11.alertdialog.R
-import com.github.leodan11.alertdialog.databinding.MDialogProgressCircularBinding
+import com.github.leodan11.alertdialog.databinding.MDialogProgressBarBinding
 import com.github.leodan11.alertdialog.io.content.AlertDialog
 import com.github.leodan11.alertdialog.io.content.Config.MATERIAL_ALERT_DIALOG_UI_NOT_ICON
 import com.github.leodan11.alertdialog.io.content.MaterialDialogInterface
@@ -32,11 +37,11 @@ import com.github.leodan11.alertdialog.io.models.TitleAlertDialog
 import com.github.leodan11.k_extensions.color.backgroundColor
 import com.github.leodan11.k_extensions.color.colorOnSurface
 import com.github.leodan11.k_extensions.color.colorPrimary
-import com.github.leodan11.k_extensions.number.toNumberFormatPercent
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.progressindicator.CircularProgressIndicator
 import com.google.android.material.progressindicator.LinearProgressIndicator
-import kotlin.jvm.Throws
+import java.text.NumberFormat
+import java.util.Locale
 
 abstract class ProgressDialogBase(
     protected open var mContext: Context,
@@ -48,11 +53,19 @@ abstract class ProgressDialogBase(
     protected open var detailsLinearProgress: MessageAlertDialog<*>?,
     protected open var mCancelable: Boolean,
     protected open var mIndeterminate: Boolean,
+    protected open var mMax: Int,
     protected open var mNegativeButton: ButtonAlertDialog?,
 ) : MaterialDialogInterface {
 
     open val isShowing: Boolean get() = mDialog?.isShowing ?: false
-    private lateinit var binding: MDialogProgressCircularBinding
+    private lateinit var binding: MDialogProgressBarBinding
+    private val mProgressPercentFormat: NumberFormat by lazy {
+        NumberFormat.getPercentInstance().apply {
+            maximumFractionDigits = 0
+        }
+    }
+    private var mViewUpdateHandler: Handler? = null
+    private val mProgressNumberFormat: String = "%1d/%2d"
     protected open var mDialog: Dialog? = null
     protected open lateinit var mProgressCircular: CircularProgressIndicator
     protected open lateinit var mProgressLinear: LinearProgressIndicator
@@ -69,7 +82,7 @@ abstract class ProgressDialogBase(
     ): View {
         // Inflate and set the layout for the dialog
         // Pass null as the parent view because it's going in the dialog layout
-        binding = MDialogProgressCircularBinding.inflate(layoutInflater, container, false)
+        binding = MDialogProgressBarBinding.inflate(layoutInflater, container, false)
         // Initialize Views
         val mIconView = binding.imageViewIconProgressIndicator
         val mTitleView = binding.textViewTitleDialogProgressIndicator
@@ -98,6 +111,11 @@ abstract class ProgressDialogBase(
             mMessageView.text = message?.getText()
             mMessageView.textAlignment = message?.textAlignment!!.alignment
         } else mMessageView.visibility = View.GONE
+        // Set Max
+        if (mMax > 0) {
+            if (progressType === AlertDialog.Progress.CIRCULAR) mProgressCircular.max = mMax
+            else mProgressLinear.max = mMax
+        }
         // Set Negative Button
         if (mNegativeButton != null) {
             mNegativeButtonView.visibility = View.VISIBLE
@@ -142,13 +160,35 @@ abstract class ProgressDialogBase(
                 else -> {
                     // set Indeterminate Progress Linear & Tint
                     mProgressLinear.isIndeterminate = mIndeterminate
+                    binding.textViewProgressDialogLinearIndicator.isVisible = !mIndeterminate
+                    binding.textViewNumberDialogLinearIndicator.isVisible =
+                        !mIndeterminate || detailsLinearProgress != null
+                    if (!mIndeterminate) {
+                        mViewUpdateHandler = Handler(mContext.mainLooper) {
+                            val progress = mProgressLinear.progress
+                            val max = mProgressLinear.max
+                            binding.textViewNumberDialogLinearIndicator.text = String.format(
+                                Locale.getDefault(),
+                                mProgressNumberFormat,
+                                progress,
+                                max
+                            )
+                            val percent = progress.toDouble() / max.toDouble()
+                            val tmp = SpannableString(mProgressPercentFormat.format(percent))
+                            tmp.setSpan(
+                                StyleSpan(Typeface.BOLD),
+                                0,
+                                tmp.length,
+                                Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+                            )
+                            binding.textViewProgressDialogLinearIndicator.text = tmp
+                            true
+                        }
+                    }
+                    detailsLinearProgress?.let {
+                        binding.textViewNumberDialogLinearIndicator.text = it.getText()
+                    }
                     mProgressLinear.setIndicatorColor(mContext.colorPrimary())
-                    mTextViewLinear.visibility = if (mIndeterminate) View.GONE else View.VISIBLE
-                    if (detailsLinearProgress != null) {
-                        binding.textViewDescriptionDialogLinearIndicator.text =
-                            detailsLinearProgress?.getText()
-                        binding.textViewDescriptionDialogLinearIndicator.visibility = View.VISIBLE
-                    } else binding.textViewDescriptionDialogLinearIndicator.visibility = View.GONE
                     binding.layoutContentBodyCircularProgressIndicator.visibility = View.GONE
                     binding.layoutContentBodyLinearProgressIndicator.visibility = View.VISIBLE
                 }
@@ -158,7 +198,7 @@ abstract class ProgressDialogBase(
                 ColorStateList.valueOf(mContext.colorPrimary())
             mNegativeButtonView.setTextColor(mNegativeButtonTint)
             mNegativeButtonView.iconTint = mNegativeButtonTint
-            mNegativeButtonView.rippleColor = mNegativeButtonTint.withAlpha(75)
+            onProgressChanged()
         } catch (e: Exception) {
             e.printStackTrace()
         }
@@ -193,7 +233,7 @@ abstract class ProgressDialogBase(
      * Note that you should not override this method to do initialization when the dialog is shown.
      *
      */
-    fun show() {
+    open fun show() {
         if (mDialog != null) mDialog?.show()
         else throwNullDialog()
     }
@@ -210,13 +250,43 @@ abstract class ProgressDialogBase(
      *
      */
     @Throws(IllegalArgumentException::class)
-    fun getButton(which: AlertDialog.UI): MaterialButton {
+    open fun getButton(which: AlertDialog.UI): MaterialButton {
         return when (which) {
             AlertDialog.UI.BUTTON_NEGATIVE -> binding.buttonActionNegativeCircularProgressIndicator
             else -> throw IllegalArgumentException("Button type not supported")
         }
     }
 
+    /**
+     * Gets the maximum allowed progress value. The default value is 100.
+     *
+     * @return the maximum value
+     */
+    open fun getMax(): Int {
+        return if (progressType === AlertDialog.Progress.CIRCULAR) mProgressCircular.max
+        else mProgressLinear.max
+    }
+
+    /**
+     * Gets the current progress.
+     *
+     * @return the current progress, a value between 0 and max.
+     */
+    open fun getProgress(): Int {
+        return if (progressType === AlertDialog.Progress.CIRCULAR) mProgressCircular.progress
+        else mProgressLinear.progress
+    }
+
+    /**
+     * Sets the maximum allowed progress value.
+     *
+     * @param max the maximum value
+     */
+    open fun setMax(max: Int) {
+        if (progressType === AlertDialog.Progress.CIRCULAR) mProgressCircular.max = max
+        else mProgressLinear.max = max
+        onProgressChanged()
+    }
 
     /**
      * Sets the current progress.
@@ -225,18 +295,12 @@ abstract class ProgressDialogBase(
      * @param animated the animated activated, a value [Boolean].
      */
     open fun setProgress(progress: Int, animated: Boolean = true) {
-        when (progressType) {
-            AlertDialog.Progress.CIRCULAR -> mProgressCircular.setProgressCompat(
-                progress,
-                animated
-            )
-
-            else -> {
-                val setProgress = progress * 0.01
-                mProgressLinear.setProgressCompat(progress, animated)
-                mTextViewLinear.text = setProgress.toNumberFormatPercent()
-            }
+        if (!mProgressCircular.isIndeterminate && progressType === AlertDialog.Progress.CIRCULAR) {
+            mProgressCircular.setProgressCompat(progress, animated)
+        } else if (!mProgressLinear.isIndeterminate && progressType === AlertDialog.Progress.LINEAR) {
+            mProgressLinear.setProgressCompat(progress, animated)
         }
+        onProgressChanged()
     }
 
     /**
@@ -269,6 +333,13 @@ abstract class ProgressDialogBase(
         mDialog?.setOnShowListener { showCallback() }
     }
 
+    private fun onProgressChanged() {
+        if (progressType === AlertDialog.Progress.LINEAR) {
+            if (mViewUpdateHandler != null && !mViewUpdateHandler!!.hasMessages(0)) {
+                mViewUpdateHandler!!.sendEmptyMessage(0)
+            }
+        }
+    }
 
     private fun cancelCallback() {
         mOnCancelListener?.onCancel(this)
@@ -299,6 +370,7 @@ abstract class ProgressDialogBase(
         protected open var message: MessageAlertDialog<*>? = null
         protected open var detailsLinearProgress: MessageAlertDialog<*>? = null
         protected open var progressType: AlertDialog.Progress = AlertDialog.Progress.CIRCULAR
+        protected open var max: Int = 0
         protected open var isCancelable: Boolean = true
         protected open var isIndeterminate: Boolean = false
         protected open var negativeButton: ButtonAlertDialog? = null
@@ -393,10 +465,8 @@ abstract class ProgressDialogBase(
          * @param alignment The message alignment. Default [AlertDialog.TextAlignment.CENTER].
          * @return [Builder] object to allow for chaining of calls to set methods
          */
-        fun setTitle(title: String? = null, alignment: AlertDialog.TextAlignment): Builder<D> {
-            val valueText =
-                if (title.isNullOrEmpty()) context.getString(R.string.label_text_information)
-                else title
+        fun setTitle(title: String, alignment: AlertDialog.TextAlignment): Builder<D> {
+            val valueText = title.ifEmpty { context.getString(R.string.label_text_information) }
             this.title = TitleAlertDialog(title = valueText, textAlignment = alignment)
             return this
         }
@@ -438,14 +508,22 @@ abstract class ProgressDialogBase(
         }
 
         /**
+         * Sets the maximum allowed progress value.
+         */
+        fun setMax(max: Int): Builder<D> {
+            this.max = max
+            return this
+        }
+
+        /**
          * Sets the details to display.
          *
          * @param details The message to display in the dialog.
          * @return [Builder] object to allow for chaining of calls to set methods
          */
-        fun setDetailsLinearProgress(details: String? = null): Builder<D> {
+        fun setDetailsLinearProgress(details: String): Builder<D> {
             this.detailsLinearProgress = MessageAlertDialog.text(
-                text = details ?: context.getString(R.string.label_text_charging),
+                text = details,
                 alignment = AlertDialog.TextAlignment.END
             )
             return this
@@ -472,10 +550,8 @@ abstract class ProgressDialogBase(
          * @param alignment The message alignment. Default [AlertDialog.TextAlignment.CENTER].
          * @return [Builder] object to allow for chaining of calls to set methods
          */
-        fun setMessage(message: String? = null, alignment: AlertDialog.TextAlignment): Builder<D> {
-            val valueText =
-                if (message.isNullOrEmpty()) context.getString(R.string.label_text_charging)
-                else message
+        fun setMessage(message: String, alignment: AlertDialog.TextAlignment): Builder<D> {
+            val valueText = message.ifEmpty { context.getString(R.string.label_text_charging) }
             this.message = MessageAlertDialog.text(text = valueText, alignment = alignment)
             return this
         }

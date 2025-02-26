@@ -11,37 +11,37 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentLeft="true"
         android:layout_centerVertical="true"
-        android:layout_marginStart="24dp"
-        android:layout_marginLeft="24dp"
+        android:layout_marginStart="@dimen/dimen_24"
+        android:layout_marginLeft="@dimen/dimen_24"
         android:fontFamily="sans-serif-medium"
         tools:ignore="TextContrastCheck"
         tools:text="R" />
 
     <TextView
         android:id="@+id/progress_text"
-        android:layout_width="30dp"
+        android:layout_width="@dimen/dimen_30"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
-        android:layout_marginEnd="24dp"
-        android:layout_marginRight="24dp"
+        android:layout_marginEnd="@dimen/dimen_24"
+        android:layout_marginRight="@dimen/dimen_24"
         android:fontFamily="sans-serif-light"
         android:gravity="center"
-        tools:text="255"/>
+        tools:text="255" />
 
     <SeekBar
         android:id="@+id/seekbar"
-        android:saveEnabled="false"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
-        android:layout_marginEnd="8dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginStart="16dp"
-        android:layout_toEndOf="@id/label"
+        android:layout_marginStart="@dimen/dimen_16"
+        android:layout_marginLeft="@dimen/dimen_16"
+        android:layout_marginEnd="@dimen/dimen_8"
+        android:layout_marginRight="@dimen/dimen_8"
+        android:layout_toStartOf="@id/progress_text"
         android:layout_toLeftOf="@id/progress_text"
+        android:layout_toEndOf="@id/label"
         android:layout_toRightOf="@id/label"
-        android:layout_toStartOf="@id/progress_text"/>
+        android:saveEnabled="false" />
 </merge>

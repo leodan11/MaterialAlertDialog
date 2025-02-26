@@ -78,7 +78,7 @@
             <TextView
                 android:id="@+id/text_view_messages_dialog_linear_progress_indicator"
                 style="@style/Theme.MaterialDialog.Message"
-                android:layout_width="0dp"
+                android:layout_width="@dimen/dimen_0"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/margin_spacing_min"
                 android:layout_marginEnd="@dimen/margin_spacing_min"
@@ -88,7 +88,7 @@
 
             <com.google.android.material.progressindicator.LinearProgressIndicator
                 android:id="@+id/linearProgressIndicator"
-                android:layout_width="0dp"
+                android:layout_width="@dimen/dimen_0"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
                 android:layout_marginStart="@dimen/margin_spacing_min"
@@ -102,17 +102,19 @@
             <TextView
                 android:id="@+id/text_view_progress_dialog_linear_indicator"
                 style="@style/Theme.MaterialDialog.Message"
-                android:layout_width="wrap_content"
+                android:layout_width="@dimen/dimen_0"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/margin_spacing_medium"
                 android:layout_marginTop="@dimen/margin_spacing"
+                android:textAlignment="textStart"
+                app:layout_constraintEnd_toStartOf="@id/text_view_number_dialog_linear_indicator"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/linearProgressIndicator" />
 
             <TextView
-                android:id="@+id/text_view_description_dialog_linear_indicator"
+                android:id="@+id/text_view_number_dialog_linear_indicator"
                 style="@style/Theme.MaterialDialog.Message"
-                android:layout_width="0dp"
+                android:layout_width="@dimen/dimen_0"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/margin_spacing"
                 android:layout_marginTop="@dimen/margin_spacing"

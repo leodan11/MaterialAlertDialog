@@ -47,11 +47,11 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/paddingTop"
             android:hint="@string/label_text_username"
-            app:endIconMode="clear_text"
             app:boxCornerRadiusBottomEnd="@dimen/dimen_10"
             app:boxCornerRadiusBottomStart="@dimen/dimen_10"
             app:boxCornerRadiusTopEnd="@dimen/dimen_10"
             app:boxCornerRadiusTopStart="@dimen/dimen_10"
+            app:endIconMode="clear_text"
             app:errorEnabled="true"
             app:helperText="@string/label_text_username_helper"
             app:helperTextEnabled="true">

@@ -246,7 +246,7 @@ abstract class AlertDialogCenteredBase(
      * Note that you should not override this method to do initialization when the dialog is shown.
      *
      */
-    fun show() {
+    open fun show() {
         if (mDialog != null) {
             mDialog?.show()
             mCountDownTimer?.start()
@@ -264,7 +264,7 @@ abstract class AlertDialogCenteredBase(
      *
      */
     @Throws(IllegalArgumentException::class)
-    fun getButton(which: AlertDialog.UI): MaterialButton {
+    open fun getButton(which: AlertDialog.UI): MaterialButton {
         return when (which) {
             AlertDialog.UI.BUTTON_POSITIVE -> binding.buttonActionPositiveAlertDialog
             AlertDialog.UI.BUTTON_NEGATIVE -> binding.buttonActionNegativeAlertDialog
@@ -368,7 +368,7 @@ abstract class AlertDialogCenteredBase(
         /**
          * Set the [RawRes] to be used in the title.
          *
-         * @param source Json animation to use as the icon.
+         * @param source JSON animation to use as the icon.
          * @return [Builder] object to allow for chaining of calls to set methods
          */
         fun setAnimation(@RawRes source: Int): Builder<D> {

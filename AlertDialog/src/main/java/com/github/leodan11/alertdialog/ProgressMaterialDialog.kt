@@ -22,6 +22,7 @@ class ProgressMaterialDialog private constructor(
     detailsLinearProgress: MessageAlertDialog<*>?,
     mCancelable: Boolean,
     mIndeterminate: Boolean,
+    mMax: Int,
     mNegativeButton: ButtonAlertDialog?,
 ) : ProgressDialogBase(
     mContext = mContext,
@@ -31,6 +32,7 @@ class ProgressMaterialDialog private constructor(
     title = title,
     message = message,
     detailsLinearProgress = detailsLinearProgress,
+    mMax = mMax,
     mCancelable = mCancelable,
     mIndeterminate = mIndeterminate,
     mNegativeButton = mNegativeButton
@@ -68,6 +70,7 @@ class ProgressMaterialDialog private constructor(
                 detailsLinearProgress = detailsLinearProgress,
                 mCancelable = isCancelable,
                 mIndeterminate = isIndeterminate,
+                mMax = max,
                 mNegativeButton = negativeButton
             )
         }
