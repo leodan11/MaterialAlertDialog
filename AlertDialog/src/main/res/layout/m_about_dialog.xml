@@ -112,7 +112,7 @@
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/buttonActionNegativeAlertDialog"
-                style="@style/MaterialDialog.NegativeButton"
+                style="?attr/buttonBarNegativeButtonStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:contentDescription="@string/button_negative_speakable_text_value"
@@ -129,7 +129,7 @@
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/buttonActionNeutralAlertDialog"
-                    style="@style/MaterialDialog.NeutralButton"
+                    style="?attr/buttonBarNeutralButtonStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
@@ -139,7 +139,7 @@
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/buttonActionPositiveAlertDialog"
-                    style="@style/MaterialDialog.PositiveButton"
+                    style="?attr/buttonBarPositiveButtonStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"

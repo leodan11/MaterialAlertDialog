@@ -35,24 +35,6 @@
         <item name="android:gravity">start</item>
     </style>
 
-    <!-- Theme for Dialog Positive Button -->
-    <style name="MaterialDialog.PositiveButton" parent="Widget.Material3.Button.TextButton.Dialog.Icon">
-        <item name="android:letterSpacing">0.025</item>
-        <item name="android:fontFamily">@font/montserrat_bold</item>
-    </style>
-
-    <!-- Theme for Dialog Negative Button -->
-    <style name="MaterialDialog.NegativeButton" parent="Widget.Material3.Button.TextButton.Dialog.Icon">
-        <item name="android:letterSpacing">0.025</item>
-        <item name="android:fontFamily">@font/montserrat_semi_bold</item>
-    </style>
-
-    <!-- Theme for Dialog Neutral Button -->
-    <style name="MaterialDialog.NeutralButton" parent="Widget.Material3.Button.TextButton.Dialog.Flush">
-        <item name="android:letterSpacing">0.025</item>
-        <item name="android:fontFamily">@font/montserrat_semi_bold</item>
-    </style>
-
     <!-- Theme for Dialog Button IOS -->
     <style name="MaterialDialog.Button.Positive.IOS" parent="TextAppearance.Material3.BodyMedium">
         <item name="android:textStyle">bold</item>

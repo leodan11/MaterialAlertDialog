@@ -98,7 +98,7 @@
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/button_action_negative_login_dialog"
-                style="@style/MaterialDialog.NegativeButton"
+                style="?attr/buttonBarNegativeButtonStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="start|center"
@@ -108,7 +108,7 @@
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/button_action_positive_login_dialog"
-                style="@style/MaterialDialog.PositiveButton"
+                style="?attr/buttonBarPositiveButtonStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="end|center"

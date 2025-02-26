@@ -42,18 +42,14 @@
                     android:layout_height="@dimen/dialog_image_view_notification_icon_height_large"
                     android:layout_gravity="center"
                     android:scaleType="centerCrop"
-                    android:visibility="gone"
-                    tools:ignore="ImageContrastCheck"
-                    tools:src="@drawable/ic_bitmap_example" />
+                    android:visibility="gone" />
 
                 <com.google.android.material.imageview.ShapeableImageView
                     android:id="@+id/imageViewIconAlertDialog"
                     android:layout_width="@dimen/notification_icon_width"
                     android:layout_height="@dimen/notification_icon_height"
                     android:layout_gravity="center"
-                    android:layout_marginTop="@dimen/margin_spacing"
-                    tools:ignore="ImageContrastCheck"
-                    tools:src="@drawable/ic_baseline_information" />
+                    android:layout_marginTop="@dimen/margin_spacing" />
 
             </LinearLayout>
 
@@ -83,13 +79,13 @@
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/buttonActionNegativeAlertDialog"
-                style="@style/MaterialDialog.NegativeButton"
+                style="?attr/buttonBarNegativeButtonStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:contentDescription="@string/button_negative_speakable_text_value"
+                android:fontFamily="@font/montserrat_semi_bold"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:ignore="VisualLintButtonSize" />
+                app:layout_constraintTop_toTopOf="parent" />
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -100,22 +96,22 @@
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/buttonActionNeutralAlertDialog"
-                    style="@style/MaterialDialog.NeutralButton"
+                    style="?attr/buttonBarNeutralButtonStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_marginEnd="@dimen/margin_spacing_min"
                     android:contentDescription="@string/button_neutral_speakable_text_value"
-                    tools:ignore="VisualLintButtonSize" />
+                    android:fontFamily="@font/montserrat_semi_bold" />
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/buttonActionPositiveAlertDialog"
-                    style="@style/MaterialDialog.PositiveButton"
+                    style="?attr/buttonBarPositiveButtonStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:contentDescription="@string/button_positive_speakable_text_value"
-                    tools:ignore="VisualLintButtonSize" />
+                    android:fontFamily="@font/montserrat_semi_bold" />
 
             </LinearLayout>
 

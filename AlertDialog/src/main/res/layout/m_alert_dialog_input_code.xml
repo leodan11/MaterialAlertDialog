@@ -153,19 +153,21 @@
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/button_action_negative_alert_dialog_code"
-            style="@style/MaterialDialog.NegativeButton"
+            style="?attr/buttonBarNegativeButtonStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="start|center"
-            android:contentDescription="@string/button_negative_speakable_text_value" />
+            android:contentDescription="@string/button_negative_speakable_text_value"
+            android:fontFamily="@font/montserrat_semi_bold" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/button_action_positive_alert_dialog_code"
-            style="@style/MaterialDialog.PositiveButton"
+            style="?attr/buttonBarPositiveButtonStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="end|center"
-            android:contentDescription="@string/button_positive_speakable_text_value" />
+            android:contentDescription="@string/button_positive_speakable_text_value"
+            android:fontFamily="@font/montserrat_semi_bold" />
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
