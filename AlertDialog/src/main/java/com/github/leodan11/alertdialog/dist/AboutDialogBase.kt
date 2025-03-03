@@ -40,7 +40,6 @@ import com.github.leodan11.alertdialog.io.models.TitleAlert
 import com.github.leodan11.k_extensions.color.colorPrimary
 import com.google.android.material.button.MaterialButton
 
-
 abstract class AboutDialogBase protected constructor(
     protected open var mContext: Context,
     protected open var icon: IconAlert,
