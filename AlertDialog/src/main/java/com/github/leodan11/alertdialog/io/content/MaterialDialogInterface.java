@@ -14,7 +14,7 @@ public interface MaterialDialogInterface {
     }
 
     interface OnClickVerificationCodeListener {
-        void onClick(@NonNull MaterialDialogInterface dialog, @NonNull String code, @Nullable String reason, @Nullable Double decimal, @Nullable Double percentage);
+        void onClick(@NonNull MaterialDialogInterface dialog, @NonNull String code, @Nullable String reason, @Nullable String firstInput, @Nullable String secondInput);
     }
 
     interface OnClickSignInListener {

@@ -7,19 +7,19 @@ import com.github.leodan11.alertdialog.dist.AlertDialogInputBase
 import com.github.leodan11.alertdialog.io.models.BoxCornerRadiusTextField
 import com.github.leodan11.alertdialog.io.models.ButtonAlertDialog
 import com.github.leodan11.alertdialog.io.models.ButtonCountDownTimer
-import com.github.leodan11.alertdialog.io.models.IconAlertDialog
+import com.github.leodan11.alertdialog.io.models.IconAlert
 import com.github.leodan11.alertdialog.io.models.IconInputDialog
-import com.github.leodan11.alertdialog.io.models.IconTintAlertDialog
-import com.github.leodan11.alertdialog.io.models.MessageAlertDialog
-import com.github.leodan11.alertdialog.io.models.TitleAlertDialog
+import com.github.leodan11.alertdialog.io.models.IconTintAlert
+import com.github.leodan11.alertdialog.io.models.MessageAlert
+import com.github.leodan11.alertdialog.io.models.TitleAlert
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
 class MaterialAlertDialogInput private constructor(
     mContext: Context,
-    mIcon: IconAlertDialog?,
-    mTintColor: IconTintAlertDialog?,
-    mTitle: TitleAlertDialog?,
-    mMessage: MessageAlertDialog<*>?,
+    mIcon: IconAlert?,
+    mTintColor: IconTintAlert?,
+    mTitle: TitleAlert?,
+    mMessage: MessageAlert<*>?,
     maskedFormatter: String?,
     mCountDownTimer: ButtonCountDownTimer?,
     mCounterMaxLength: Int?,

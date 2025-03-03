@@ -6,20 +6,20 @@ import android.view.View
 import com.github.leodan11.alertdialog.dist.ProgressDialogBase
 import com.github.leodan11.alertdialog.io.content.AlertDialog
 import com.github.leodan11.alertdialog.io.models.ButtonAlertDialog
-import com.github.leodan11.alertdialog.io.models.IconAlertDialog
-import com.github.leodan11.alertdialog.io.models.IconTintAlertDialog
-import com.github.leodan11.alertdialog.io.models.MessageAlertDialog
-import com.github.leodan11.alertdialog.io.models.TitleAlertDialog
+import com.github.leodan11.alertdialog.io.models.IconAlert
+import com.github.leodan11.alertdialog.io.models.IconTintAlert
+import com.github.leodan11.alertdialog.io.models.MessageAlert
+import com.github.leodan11.alertdialog.io.models.TitleAlert
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
 class ProgressMaterialDialog private constructor(
     mContext: Context,
-    icon: IconAlertDialog?,
-    tintColor: IconTintAlertDialog?,
+    icon: IconAlert?,
+    tintColor: IconTintAlert?,
     progressType: AlertDialog.Progress,
-    title: TitleAlertDialog?,
-    message: MessageAlertDialog<*>?,
-    detailsLinearProgress: MessageAlertDialog<*>?,
+    title: TitleAlert?,
+    message: MessageAlert<*>?,
+    detailsLinearProgress: MessageAlert<*>?,
     mCancelable: Boolean,
     mIndeterminate: Boolean,
     mMax: Int,
@@ -54,16 +54,18 @@ class ProgressMaterialDialog private constructor(
      * Creates a builder for a circular progress alert dialog
      * that uses the default alert dialog theme.
      * The default alert dialog theme is defined by [android.R.attr.alertDialogTheme] within the parent context's theme.
+     *
      * @param context the parent context
+     *
      */
     class Builder(context: Context) :
-        ProgressDialogBase.Builder<ProgressMaterialDialog>(context = context) {
+        ProgressDialogBase.Builder<ProgressMaterialDialog>(context) {
 
         override fun create(): ProgressMaterialDialog {
             return ProgressMaterialDialog(
                 mContext = context,
                 icon = icon,
-                tintColor = tintColor,
+                tintColor = iconTint,
                 progressType = progressType,
                 title = title,
                 message = message,

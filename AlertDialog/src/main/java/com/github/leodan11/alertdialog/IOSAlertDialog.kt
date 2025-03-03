@@ -7,15 +7,15 @@ import com.github.leodan11.alertdialog.dist.AlertDialogIOSBase
 import com.github.leodan11.alertdialog.io.content.IOSDialog.Orientation
 import com.github.leodan11.alertdialog.io.models.ButtonAlertDialog
 import com.github.leodan11.alertdialog.io.models.ButtonCountDownTimer
-import com.github.leodan11.alertdialog.io.models.MessageAlertDialog
-import com.github.leodan11.alertdialog.io.models.TitleAlertDialog
+import com.github.leodan11.alertdialog.io.models.MessageAlert
+import com.github.leodan11.alertdialog.io.models.TitleAlert
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
 class IOSAlertDialog private constructor(
     mContext: Context,
     mOrientationButton: Orientation,
-    mTitle: TitleAlertDialog?,
-    mMessage: MessageAlertDialog<*>?,
+    mTitle: TitleAlert?,
+    mMessage: MessageAlert<*>?,
     mCountDownTimer: ButtonCountDownTimer?,
     mCancelable: Boolean,
     mPositiveButton: ButtonAlertDialog?,

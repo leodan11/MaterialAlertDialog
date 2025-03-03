@@ -4,12 +4,12 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import com.github.leodan11.alertdialog.dist.AlertDialogProgressIOSBase
-import com.github.leodan11.alertdialog.io.models.MessageAlertDialog
+import com.github.leodan11.alertdialog.io.models.MessageAlert
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
 class IOSProgressDialog private constructor(
     mContext: Context,
-    message: MessageAlertDialog<*>?,
+    message: MessageAlert<*>?,
     mCancelable: Boolean,
 ) : AlertDialogProgressIOSBase(
     mContext = mContext,

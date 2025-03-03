@@ -7,19 +7,19 @@ import com.github.leodan11.alertdialog.dist.AlertDialogVerificationCodeBase
 import com.github.leodan11.alertdialog.io.models.BoxCornerRadiusTextField
 import com.github.leodan11.alertdialog.io.models.ButtonAlertDialog
 import com.github.leodan11.alertdialog.io.models.ButtonCountDownTimer
-import com.github.leodan11.alertdialog.io.models.IconAlertDialog
-import com.github.leodan11.alertdialog.io.models.IconTintAlertDialog
+import com.github.leodan11.alertdialog.io.models.IconAlert
+import com.github.leodan11.alertdialog.io.models.IconTintAlert
 import com.github.leodan11.alertdialog.io.models.InputCodeExtra
-import com.github.leodan11.alertdialog.io.models.MessageAlertDialog
-import com.github.leodan11.alertdialog.io.models.TitleAlertDialog
+import com.github.leodan11.alertdialog.io.models.MessageAlert
+import com.github.leodan11.alertdialog.io.models.TitleAlert
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
 class MaterialAlertDialogVerificationCode private constructor(
     mContext: Context,
-    icon: IconAlertDialog?,
-    tintColor: IconTintAlertDialog?,
-    title: TitleAlertDialog?,
-    message: MessageAlertDialog<*>?,
+    icon: IconAlert?,
+    tintColor: IconTintAlert?,
+    title: TitleAlert?,
+    message: MessageAlert<*>?,
     mNeedReason: Boolean,
     mBoxCornerRadius: BoxCornerRadiusTextField?,
     mCountDownTimer: ButtonCountDownTimer?,

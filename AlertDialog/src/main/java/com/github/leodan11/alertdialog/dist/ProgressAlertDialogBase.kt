@@ -1,8 +1,8 @@
 package com.github.leodan11.alertdialog.dist
 
-import android.annotation.SuppressLint
 import android.app.Dialog
 import android.content.Context
+import android.graphics.drawable.Drawable
 import android.text.Spanned
 import android.view.LayoutInflater
 import android.view.View
@@ -13,21 +13,22 @@ import androidx.annotation.StringRes
 import com.github.leodan11.alertdialog.ProgressAlertDialog
 import com.github.leodan11.alertdialog.R
 import com.github.leodan11.alertdialog.databinding.MDialogProgressSmallBinding
+import com.github.leodan11.alertdialog.dist.base.AlertBuilder
 import com.github.leodan11.alertdialog.io.content.AlertDialog
 import com.github.leodan11.alertdialog.io.content.MaterialDialogInterface
-import com.github.leodan11.alertdialog.io.models.IconAlertDialog
-import com.github.leodan11.alertdialog.io.models.MessageAlertDialog
-import com.github.leodan11.k_extensions.color.backgroundColor
-import com.github.leodan11.k_extensions.color.colorOnSurface
+import com.github.leodan11.alertdialog.io.helpers.toImageView
+import com.github.leodan11.alertdialog.io.helpers.toMessageView
+import com.github.leodan11.alertdialog.io.models.IconAlert
+import com.github.leodan11.alertdialog.io.models.MessageAlert
 import com.github.leodan11.k_extensions.view.startAnimatedVectorDrawable
 import com.github.leodan11.k_extensions.view.startAnimatedVectorDrawableLoop
 
 abstract class ProgressAlertDialogBase(
     protected open var mContext: Context,
-    protected open var icon: IconAlertDialog,
+    protected open var icon: IconAlert,
     protected open var mAnimatedVectorDrawable: Boolean,
     protected open var mAnimatedVectorDrawableLoop: Boolean,
-    protected open var message: MessageAlertDialog<*>?,
+    protected open var message: MessageAlert<*>?,
     protected open var mCancelable: Boolean,
 ) : MaterialDialogInterface {
 
@@ -37,7 +38,6 @@ abstract class ProgressAlertDialogBase(
     protected open var mOnCancelListener: MaterialDialogInterface.OnCancelListener? = null
     protected open var mOnShowListener: MaterialDialogInterface.OnShowListener? = null
 
-    @SuppressLint("WrongConstant")
     @RestrictTo(RestrictTo.Scope.LIBRARY)
     protected open fun createView(
         layoutInflater: LayoutInflater,
@@ -48,28 +48,19 @@ abstract class ProgressAlertDialogBase(
         val binding: MDialogProgressSmallBinding =
             MDialogProgressSmallBinding.inflate(layoutInflater, container, false)
         // Initialize Views
-        val mIconView = binding.imageViewIconLogoDialogProgress
-        val mMessageView = binding.textViewMessagesDialogProgress
-
-        // Set Icon
-        mIconView.setImageResource(icon.mDrawableResId)
-        // Set Icon Animator
-        if (mAnimatedVectorDrawable) {
-            if (mAnimatedVectorDrawableLoop) mIconView.startAnimatedVectorDrawableLoop()
-            else mIconView.startAnimatedVectorDrawable()
-        }
-        // Set Message
-        if (message != null) {
-            mMessageView.visibility = View.VISIBLE
-            mMessageView.text = message?.getText()
-            mMessageView.textAlignment = message?.textAlignment!!.alignment
-        } else mMessageView.visibility = View.GONE
-        // Apply Styles
         try {
-            // Set Dialog Background
-            binding.root.setBackgroundColor(mContext.backgroundColor())
-            // Set Message Text Color
-            mMessageView.setTextColor(mContext.colorOnSurface())
+            with(binding) {
+                // Set icon
+                imageViewIconLogoDialogProgress.apply {
+                    icon.toImageView(this)
+                    if (mAnimatedVectorDrawable) {
+                        if (mAnimatedVectorDrawableLoop) startAnimatedVectorDrawableLoop()
+                        else startAnimatedVectorDrawable()
+                    }
+                }
+                // Set Message
+                message.toMessageView(textViewMessagesDialogProgress)
+            }
         } catch (e: Exception) {
             e.printStackTrace()
         }
@@ -160,23 +151,40 @@ abstract class ProgressAlertDialogBase(
      * The default alert dialog theme is defined by [android.R.attr.alertDialogTheme] within the parent context's theme.
      * @param context – the parent context
      */
-    abstract class Builder<D : ProgressAlertDialogBase>(protected open val context: Context) {
+    abstract class Builder<D : ProgressAlertDialogBase>(protected open val context: Context) :
+        AlertBuilder() {
 
-        protected open var icon: IconAlertDialog =
-            IconAlertDialog(R.drawable.ic_baseline_animated_morphing_animals)
+        protected open var icon: IconAlert =
+            IconAlert(R.drawable.ic_baseline_animated_morphing_animals)
         protected open var isAnimatedVectorDrawable: Boolean = true
         protected open var isAnimatedVectorDrawableLoop: Boolean = false
-        protected open var message: MessageAlertDialog<*>? = null
+        protected open var message: MessageAlert<*>? = null
         protected open var isCancelable: Boolean = true
 
         /**
-         * Set animated vector [DrawableRes] to be used as progress.
+         * Set the [Drawable] to be used in the title.
          *
-         * @param icon Drawable to use.
+         * @param icon Drawable to use as the icon.
+         *
          * @return [Builder] object to allow for chaining of calls to set methods
+         *
+         */
+        fun setIcon(icon: Drawable): Builder<D> {
+            this.icon = IconAlert(icon)
+            return this
+        }
+
+
+        /**
+         * Set the [DrawableRes] to be used in the title.
+         *
+         * @param icon Drawable to use as the icon.
+         *
+         * @return [Builder] object to allow for chaining of calls to set methods
+         *
          */
         fun setIcon(@DrawableRes icon: Int): Builder<D> {
-            this.icon = IconAlertDialog(mDrawableResId = icon)
+            this.icon = IconAlert(icon)
             return this
         }
 
@@ -207,71 +215,87 @@ abstract class ProgressAlertDialogBase(
          * Sets the message to display.
          *
          * @param message The message to display in the dialog.
+         *
          * @return [Builder] object to allow for chaining of calls to set methods
+         *
          */
         fun setMessage(message: String): Builder<D> {
             return setMessage(message, AlertDialog.TextAlignment.CENTER)
         }
 
+
         /**
          * Sets the message to display.
          *
          * @param message The message to display in the dialog.
+         *
          * @return [Builder] object to allow for chaining of calls to set methods
+         *
          */
         fun setMessage(@StringRes message: Int): Builder<D> {
             return setMessage(message, AlertDialog.TextAlignment.CENTER)
         }
 
+
         /**
-         * Sets the message to display. With text alignment: [AlertDialog.TextAlignment.START], [AlertDialog.TextAlignment.CENTER], [AlertDialog.TextAlignment.END].
+         * Sets the message to display. With text alignment.
+         *
+         * @see [AlertDialog.TextAlignment]
          *
          * @param message The message to display in the dialog.
-         * @param alignment The message alignment. Default [AlertDialog.TextAlignment.CENTER].
+         * @param alignment The message alignment.
+         *
          * @return [Builder] object to allow for chaining of calls to set methods
+         *
          */
-        fun setMessage(message: String? = null, alignment: AlertDialog.TextAlignment): Builder<D> {
-            val valueText =
-                if (message.isNullOrEmpty()) context.getString(R.string.label_text_charging_please) else message
-            this.message = MessageAlertDialog.text(text = valueText, alignment = alignment)
+        fun setMessage(message: String, alignment: AlertDialog.TextAlignment): Builder<D> {
+            this.message = MessageAlert.text(message, alignment)
             return this
         }
 
+
         /**
-         * Sets the message to display. With text alignment: [AlertDialog.TextAlignment.START], [AlertDialog.TextAlignment.CENTER], [AlertDialog.TextAlignment.END].
+         * Sets the message to display. With text alignment.
+         *
+         * @see [AlertDialog.TextAlignment]
          *
          * @param message The message to display in the dialog.
-         * @param alignment The message alignment. Default [AlertDialog.TextAlignment.CENTER].
+         * @param alignment The message alignment.
+         *
          * @return [Builder] object to allow for chaining of calls to set methods
+         *
          */
-        fun setMessage(
-            @StringRes message: Int,
-            alignment: AlertDialog.TextAlignment,
-        ): Builder<D> {
-            this.message =
-                MessageAlertDialog.text(text = context.getString(message), alignment = alignment)
+        fun setMessage(@StringRes message: Int, alignment: AlertDialog.TextAlignment): Builder<D> {
+            this.message = MessageAlert.text(context.getString(message), alignment)
             return this
         }
+
 
         /**
          * Sets the message to display.
          *
          * @param message The message to display in the dialog.
+         *
          * @return [Builder] object to allow for chaining of calls to set methods
+         *
          */
         fun setMessage(message: Spanned): Builder<D> {
-            return setMessage(message, AlertDialog.TextAlignment.START)
+            return setMessage(message, AlertDialog.TextAlignment.CENTER)
         }
 
+
         /**
-         * Sets the message to display. With text alignment: [AlertDialog.TextAlignment.START], [AlertDialog.TextAlignment.CENTER], [AlertDialog.TextAlignment.END].
+         * Sets the message to display. With text alignment.
+         *
+         * @see [AlertDialog.TextAlignment]
          *
          * @param message The message to display in the dialog.
-         * @param alignment The message alignment. Default [AlertDialog.TextAlignment.CENTER].
+         * @param alignment The message alignment.
+         *
          * @return [Builder] object to allow for chaining of calls to set methods
          */
         fun setMessage(message: Spanned, alignment: AlertDialog.TextAlignment): Builder<D> {
-            this.message = MessageAlertDialog.spanned(text = message, alignment = alignment)
+            this.message = MessageAlert.spanned(text = message, alignment = alignment)
             return this
         }
 

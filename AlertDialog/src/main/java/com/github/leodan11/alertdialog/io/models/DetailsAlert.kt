@@ -4,7 +4,7 @@ import android.text.Spanned
 import androidx.annotation.RestrictTo
 
 @RestrictTo(RestrictTo.Scope.LIBRARY)
-abstract class DetailsAlertDialog<T: CharSequence>{
+abstract class DetailsAlert<T: CharSequence>{
 
     companion object{
         @JvmStatic
@@ -16,7 +16,7 @@ abstract class DetailsAlertDialog<T: CharSequence>{
 
     abstract fun getText(): T
 
-    class SpannedDetails(private val text: Spanned) : DetailsAlertDialog<Spanned>() {
+    class SpannedDetails(private val text: Spanned) : DetailsAlert<Spanned>() {
 
         override fun getText(): Spanned {
             return text
@@ -24,7 +24,7 @@ abstract class DetailsAlertDialog<T: CharSequence>{
 
     }
 
-    class TextDetails(private val text: String): DetailsAlertDialog<String>() {
+    class TextDetails(private val text: String): DetailsAlert<String>() {
 
         override fun getText(): String {
             return text

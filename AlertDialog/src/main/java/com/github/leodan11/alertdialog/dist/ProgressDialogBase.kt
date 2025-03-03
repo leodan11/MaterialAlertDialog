@@ -1,11 +1,11 @@
 package com.github.leodan11.alertdialog.dist
 
-import android.annotation.SuppressLint
 import android.app.Dialog
 import android.content.Context
 import android.content.res.ColorStateList
 import android.graphics.Color
 import android.graphics.Typeface
+import android.graphics.drawable.Drawable
 import android.os.Handler
 import android.text.Spannable
 import android.text.SpannableString
@@ -21,21 +21,24 @@ import androidx.annotation.DrawableRes
 import androidx.annotation.IntRange
 import androidx.annotation.RestrictTo
 import androidx.annotation.StringRes
-import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import com.github.leodan11.alertdialog.ProgressMaterialDialog
 import com.github.leodan11.alertdialog.R
 import com.github.leodan11.alertdialog.databinding.MDialogProgressBarBinding
+import com.github.leodan11.alertdialog.dist.base.AlertBuilder
 import com.github.leodan11.alertdialog.io.content.AlertDialog
 import com.github.leodan11.alertdialog.io.content.Config.MATERIAL_ALERT_DIALOG_UI_NOT_ICON
 import com.github.leodan11.alertdialog.io.content.MaterialDialogInterface
+import com.github.leodan11.alertdialog.io.helpers.toButtonView
+import com.github.leodan11.alertdialog.io.helpers.toImageView
+import com.github.leodan11.alertdialog.io.helpers.toMessageView
+import com.github.leodan11.alertdialog.io.helpers.toTitleView
 import com.github.leodan11.alertdialog.io.models.ButtonAlertDialog
-import com.github.leodan11.alertdialog.io.models.IconAlertDialog
-import com.github.leodan11.alertdialog.io.models.IconTintAlertDialog
-import com.github.leodan11.alertdialog.io.models.MessageAlertDialog
-import com.github.leodan11.alertdialog.io.models.TitleAlertDialog
-import com.github.leodan11.k_extensions.color.backgroundColor
-import com.github.leodan11.k_extensions.color.colorOnSurface
+import com.github.leodan11.alertdialog.io.models.ButtonIconAlert
+import com.github.leodan11.alertdialog.io.models.IconAlert
+import com.github.leodan11.alertdialog.io.models.IconTintAlert
+import com.github.leodan11.alertdialog.io.models.MessageAlert
+import com.github.leodan11.alertdialog.io.models.TitleAlert
 import com.github.leodan11.k_extensions.color.colorPrimary
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.progressindicator.CircularProgressIndicator
@@ -45,12 +48,12 @@ import java.util.Locale
 
 abstract class ProgressDialogBase(
     protected open var mContext: Context,
-    protected open var icon: IconAlertDialog?,
-    protected open var tintColor: IconTintAlertDialog?,
+    protected open var icon: IconAlert?,
+    protected open var tintColor: IconTintAlert?,
     protected open var progressType: AlertDialog.Progress,
-    protected open var title: TitleAlertDialog?,
-    protected open var message: MessageAlertDialog<*>?,
-    protected open var detailsLinearProgress: MessageAlertDialog<*>?,
+    protected open var title: TitleAlert?,
+    protected open var message: MessageAlert<*>?,
+    protected open var detailsLinearProgress: MessageAlert<*>?,
     protected open var mCancelable: Boolean,
     protected open var mIndeterminate: Boolean,
     protected open var mMax: Int,
@@ -74,7 +77,6 @@ abstract class ProgressDialogBase(
     protected open var mOnCancelListener: MaterialDialogInterface.OnCancelListener? = null
     protected open var mOnShowListener: MaterialDialogInterface.OnShowListener? = null
 
-    @SuppressLint("WrongConstant")
     @RestrictTo(RestrictTo.Scope.LIBRARY)
     protected open fun createView(
         layoutInflater: LayoutInflater,
@@ -84,121 +86,93 @@ abstract class ProgressDialogBase(
         // Pass null as the parent view because it's going in the dialog layout
         binding = MDialogProgressBarBinding.inflate(layoutInflater, container, false)
         // Initialize Views
-        val mIconView = binding.imageViewIconProgressIndicator
-        val mTitleView = binding.textViewTitleDialogProgressIndicator
-        val mHeaderLayout = binding.layoutContentHeaderProgressIndicator
-        val mMessageView = when (progressType) {
-            AlertDialog.Progress.CIRCULAR -> binding.textViewMessagesDialogCircularProgressIndicator
-            else -> binding.textViewMessagesDialogLinearProgressIndicator
-        }
         mProgressCircular = binding.circularProgressIndicator
         mProgressLinear = binding.linearProgressIndicator
-        mTextViewLinear = binding.textViewProgressDialogLinearIndicator
-        val mNegativeButtonView = binding.buttonActionNegativeCircularProgressIndicator
-
-        // Set Icon
-        mIconView.isVisible = icon != null
-        icon?.let { mIconView.setImageResource(it.mDrawableResId) }
-        // Set Title
-        if (title != null) {
-            mTitleView.visibility = View.VISIBLE
-            mTitleView.text = title?.title
-            mTitleView.textAlignment = title?.textAlignment!!.alignment
-        } else mHeaderLayout.visibility = View.GONE
-        // Set Message
-        if (message != null) {
-            mMessageView.visibility = View.VISIBLE
-            mMessageView.text = message?.getText()
-            mMessageView.textAlignment = message?.textAlignment!!.alignment
-        } else mMessageView.visibility = View.GONE
-        // Set Max
-        if (mMax > 0) {
-            if (progressType === AlertDialog.Progress.CIRCULAR) mProgressCircular.max = mMax
-            else mProgressLinear.max = mMax
-        }
-        // Set Negative Button
-        if (mNegativeButton != null) {
-            mNegativeButtonView.visibility = View.VISIBLE
-            mNegativeButtonView.text = mNegativeButton?.title
-            if (mNegativeButton?.icon != MATERIAL_ALERT_DIALOG_UI_NOT_ICON) mNegativeButtonView.icon =
-                ContextCompat.getDrawable(mContext.applicationContext, mNegativeButton?.icon!!)
-            mNegativeButtonView.setOnClickListener {
-                mNegativeButton?.onClickListener?.onClick(
-                    this,
-                    AlertDialog.UI.BUTTON_NEGATIVE
-                )
-            }
-        } else mNegativeButtonView.visibility = View.GONE
-        // Apply Styles
+        mTextViewLinear = binding.textViewNumberDialogLinearIndicator
         try {
-            // Set Dialog Background
-            binding.root.setBackgroundColor(mContext.backgroundColor())
-            // Set Icon Color
-            if (tintColor != null) {
-                if (tintColor?.iconColorRes != null) mIconView.setColorFilter(
-                    ContextCompat.getColor(
-                        mContext.applicationContext,
-                        tintColor?.iconColorRes!!
-                    )
-                )
-                else if (tintColor?.iconColorInt != null) mIconView.setColorFilter(tintColor?.iconColorInt!!)
-            }
-            // Set Title Text Color
-            mTitleView.setTextColor(mContext.colorOnSurface())
-            // Set Message Text Color
-            mMessageView.setTextColor(mContext.colorOnSurface())
-            // Set Content
-            when (progressType) {
-                AlertDialog.Progress.CIRCULAR -> {
-                    // set Indeterminate Progress Circular & Tint
-                    mProgressCircular.isIndeterminate = mIndeterminate
-                    mProgressCircular.setIndicatorColor(mContext.colorPrimary())
-                    binding.layoutContentBodyCircularProgressIndicator.visibility = View.VISIBLE
-                    binding.layoutContentBodyLinearProgressIndicator.visibility = View.GONE
-                }
-
-                else -> {
-                    // set Indeterminate Progress Linear & Tint
-                    mProgressLinear.isIndeterminate = mIndeterminate
-                    binding.textViewProgressDialogLinearIndicator.isVisible = !mIndeterminate
-                    binding.textViewNumberDialogLinearIndicator.isVisible =
-                        !mIndeterminate || detailsLinearProgress != null
-                    if (!mIndeterminate) {
-                        mViewUpdateHandler = Handler(mContext.mainLooper) {
-                            val progress = mProgressLinear.progress
-                            val max = mProgressLinear.max
-                            binding.textViewNumberDialogLinearIndicator.text = String.format(
-                                Locale.getDefault(),
-                                mProgressNumberFormat,
-                                progress,
-                                max
-                            )
-                            val percent = progress.toDouble() / max.toDouble()
-                            val tmp = SpannableString(mProgressPercentFormat.format(percent))
-                            tmp.setSpan(
-                                StyleSpan(Typeface.BOLD),
-                                0,
-                                tmp.length,
-                                Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
-                            )
-                            binding.textViewProgressDialogLinearIndicator.text = tmp
-                            true
+            with(binding) {
+                // Set header layout
+                layoutContentHeaderProgressIndicator.isVisible = title != null || icon != null
+                // Set icon
+                icon.toImageView(imageViewIconProgressIndicator, tintColor)
+                // Set Title
+                title.toTitleView(textViewTitleDialogProgressIndicator)
+                // Set header
+                layoutContentHeaderProgressIndicator.isVisible = icon != null || title != null
+                // Set content
+                layoutContentBodyCircularProgressIndicator.isVisible =
+                    progressType == AlertDialog.Progress.CIRCULAR
+                layoutContentBodyLinearProgressIndicator.isVisible =
+                    progressType == AlertDialog.Progress.LINEAR
+                // Set Background Tint
+                val mBackgroundTint: ColorStateList =
+                    ColorStateList.valueOf(mContext.colorPrimary())
+                // Set type
+                when (progressType) {
+                    AlertDialog.Progress.CIRCULAR -> {
+                        // Set Message
+                        message.toMessageView(textViewMessagesDialogCircularProgressIndicator)
+                        // Set Progress
+                        mProgressCircular.apply {
+                            setIndicatorColor(mContext.colorPrimary())
+                            isIndeterminate = mIndeterminate
                         }
                     }
-                    detailsLinearProgress?.let {
-                        binding.textViewNumberDialogLinearIndicator.text = it.getText()
+
+                    AlertDialog.Progress.LINEAR -> {
+                        // Set Message
+                        message.toMessageView(textViewMessagesDialogLinearProgressIndicator)
+                        // Set Progress
+                        mProgressLinear.apply {
+                            if (mMax != 0) {
+                                this@ProgressDialogBase.setMax(mMax)
+                            }
+                            setIndicatorColor(mContext.colorPrimary())
+                            isIndeterminate = mIndeterminate
+                            textViewProgressDialogLinearIndicator.isVisible = !mIndeterminate
+                            textViewNumberDialogLinearIndicator.isVisible =
+                                !mIndeterminate || detailsLinearProgress != null
+                            if (!mIndeterminate) {
+                                mViewUpdateHandler = Handler(mContext.mainLooper) {
+                                    val progress = mProgressLinear.progress
+                                    val max = mProgressLinear.max
+                                    textViewNumberDialogLinearIndicator.text = String.format(
+                                        Locale.getDefault(),
+                                        mProgressNumberFormat,
+                                        progress,
+                                        max
+                                    )
+                                    val percent = progress.toDouble() / max.toDouble()
+                                    val tmp =
+                                        SpannableString(mProgressPercentFormat.format(percent))
+                                    tmp.setSpan(
+                                        StyleSpan(Typeface.BOLD),
+                                        0,
+                                        tmp.length,
+                                        Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+                                    )
+                                    textViewProgressDialogLinearIndicator.text = tmp
+                                    true
+                                }
+                            }
+                            detailsLinearProgress?.let {
+                                textViewNumberDialogLinearIndicator.text = it.getText()
+                            }
+                        }
                     }
-                    mProgressLinear.setIndicatorColor(mContext.colorPrimary())
-                    binding.layoutContentBodyCircularProgressIndicator.visibility = View.GONE
-                    binding.layoutContentBodyLinearProgressIndicator.visibility = View.VISIBLE
                 }
+                // Set Negative Button
+                buttonActionNegativeCircularProgressIndicator.apply {
+                    mNegativeButton.toButtonView(mContext, this, mBackgroundTint)
+                    setOnClickListener {
+                        mNegativeButton?.onClickListener?.onClick(
+                            this@ProgressDialogBase,
+                            AlertDialog.UI.BUTTON_NEGATIVE
+                        )
+                    }
+                }
+
             }
-            // Set Negative Button Icon & Text Tint
-            val mNegativeButtonTint: ColorStateList =
-                ColorStateList.valueOf(mContext.colorPrimary())
-            mNegativeButtonView.setTextColor(mNegativeButtonTint)
-            mNegativeButtonView.iconTint = mNegativeButtonTint
-            onProgressChanged()
         } catch (e: Exception) {
             e.printStackTrace()
         }
@@ -360,70 +334,118 @@ abstract class ProgressDialogBase(
     /**
      * Creates a builder for an alert dialog that uses the default alert dialog theme.
      * The default alert dialog theme is defined by [android.R.attr.alertDialogTheme] within the parent context's theme.
+     *
      * @param context – the parent context
+     *
      */
-    abstract class Builder<D : ProgressDialogBase>(protected open val context: Context) {
+    abstract class Builder<D>(protected open val context: Context) : AlertBuilder() {
 
-        protected open var icon: IconAlertDialog? = null
-        protected open var tintColor: IconTintAlertDialog? = null
-        protected open var title: TitleAlertDialog? = null
-        protected open var message: MessageAlertDialog<*>? = null
-        protected open var detailsLinearProgress: MessageAlertDialog<*>? = null
+        protected open var icon: IconAlert? = null
+        protected open var iconTint: IconTintAlert? = null
+        protected open var title: TitleAlert? = null
+        protected open var message: MessageAlert<*>? = null
+        protected open var detailsLinearProgress: MessageAlert<*>? = null
         protected open var progressType: AlertDialog.Progress = AlertDialog.Progress.CIRCULAR
-        protected open var max: Int = 0
         protected open var isCancelable: Boolean = true
+        protected open var max: Int = 0
         protected open var isIndeterminate: Boolean = false
         protected open var negativeButton: ButtonAlertDialog? = null
+
+        /**
+         * Set the [Drawable] to be used in the title.
+         *
+         * @param icon Drawable to use as the icon.
+         *
+         * @return [Builder] object to allow for chaining of calls to set methods
+         *
+         */
+        fun setIcon(icon: Drawable): Builder<D> {
+            this.icon = IconAlert(icon)
+            return this
+        }
+
 
         /**
          * Set the [DrawableRes] to be used in the title.
          *
          * @param icon Drawable to use as the icon.
+         *
          * @return [Builder] object to allow for chaining of calls to set methods
+         *
          */
         fun setIcon(@DrawableRes icon: Int): Builder<D> {
-            this.icon = IconAlertDialog(mDrawableResId = icon)
+            this.icon = IconAlert(icon)
             return this
         }
 
+
         /**
-         * Set icon tint of [ColorInt].
+         * Set icon tint.
          *
-         * @param tintColor the color int. E.g. [Color.BLUE]
+         * @see [ColorStateList]
+         *
+         * @param tint the color state list.
+         *
          * @return [Builder] object to allow for chaining of calls to set methods
+         *
          */
-        fun setIconTintColor(@ColorInt tintColor: Int): Builder<D> {
-            this.tintColor = IconTintAlertDialog(iconColorInt = tintColor)
+        fun setIconTint(tint: ColorStateList): Builder<D> {
+            this.iconTint = IconTintAlert(tint)
             return this
         }
+
+
+        /**
+         * Set icon tint.
+         *
+         * @see [ColorInt]
+         *
+         * @param tint the color int. E.g. [Color.BLUE]
+         *
+         * @return [Builder] object to allow for chaining of calls to set methods
+         *
+         */
+        fun setIconTint(@ColorInt tint: Int): Builder<D> {
+            this.iconTint = IconTintAlert().apply { tintColorInt = tint }
+            return this
+        }
+
 
         /**
          * Set icon tint color, Return a color-int from red, green, blue components.
+         *
          * These component values should be [0..255],
          * so if they are out of range, the returned color is undefined.
          *
          * @param red to extract the red component
          * @param green to extract the green component
          * @param blue to extract the blue component
+         *
          * @return [Builder] object to allow for chaining of calls to set methods
+         *
          */
-        fun setIconTintColor(
+        fun setIconTint(
             @IntRange(from = 0, to = 255) red: Int,
             @IntRange(from = 0, to = 255) green: Int,
-            @IntRange(from = 0, to = 255) blue: Int,
+            @IntRange(from = 0, to = 255) blue: Int
         ): Builder<D> {
-            this.tintColor = IconTintAlertDialog(iconColorInt = Color.rgb(red, green, blue))
+            this.iconTint = IconTintAlert().apply { tintColorInt = Color.rgb(red, green, blue) }
             return this
         }
 
+
         /**
-         * Set icon tint of [ColorRes].
+         * Set icon tint.
+         *
+         * @see [ColorRes]
          *
          * @param tintColor the color resource.
+         *
          * @return [Builder] object to allow for chaining of calls to set methods
+         *
          */
-        fun setIconTintColorRes(@ColorRes tintColor: Int): Builder<D> {
-            this.tintColor = IconTintAlertDialog(iconColorRes = tintColor)
+        fun setIconTintRes(@ColorRes tintColor: Int): Builder<D> {
+            this.iconTint = IconTintAlert(tintColor)
             return this
         }
 
@@ -439,79 +461,158 @@ abstract class ProgressDialogBase(
         }
 
         /**
-         * Set the title displayed in the [ProgressMaterialDialog].
+         * Sets the maximum allowed progress value.
+         */
+        fun setMax(max: Int): Builder<D> {
+            this.max = max
+            return this
+        }
+
+        /**
+         * Set the title displayed in the dialog.
          *
          * @param title The title to display in the dialog.
+         *
          * @return [Builder] object to allow for chaining of calls to set methods
+         *
          */
         fun setTitle(title: String): Builder<D> {
             return setTitle(title, AlertDialog.TextAlignment.START)
         }
 
+
         /**
-         * Set the title displayed in the [ProgressMaterialDialog].
+         * Set the title displayed in the dialog.
          *
          * @param title The title to display in the dialog.
+         *
          * @return [Builder] object to allow for chaining of calls to set methods
+         *
          */
         fun setTitle(@StringRes title: Int): Builder<D> {
             return setTitle(title, AlertDialog.TextAlignment.START)
         }
 
+
         /**
-         * Set the title displayed in the [ProgressMaterialDialog]. With text alignment: [AlertDialog.TextAlignment.START], [AlertDialog.TextAlignment.CENTER], [AlertDialog.TextAlignment.END].
+         * Set the title displayed in the dialog. With text alignment.
+         *
+         * @see [AlertDialog.TextAlignment]
          *
          * @param title The title to display in the dialog.
-         * @param alignment The message alignment. Default [AlertDialog.TextAlignment.CENTER].
+         * @param alignment The message alignment.
+         *
          * @return [Builder] object to allow for chaining of calls to set methods
+         *
          */
         fun setTitle(title: String, alignment: AlertDialog.TextAlignment): Builder<D> {
-            val valueText = title.ifEmpty { context.getString(R.string.label_text_information) }
-            this.title = TitleAlertDialog(title = valueText, textAlignment = alignment)
+            this.title = TitleAlert(title, alignment)
             return this
         }
 
+
         /**
-         * Set the title displayed in the [ProgressMaterialDialog]. With text alignment: [AlertDialog.TextAlignment.START], [AlertDialog.TextAlignment.CENTER], [AlertDialog.TextAlignment.END].
+         * Set the title displayed in the dialog. With text alignment.
+         *
+         * @see [AlertDialog.TextAlignment]
          *
          * @param title The title to display in the dialog.
-         * @param alignment The message alignment. Default [AlertDialog.TextAlignment.CENTER].
+         * @param alignment The message alignment.
+         *
          * @return [Builder] object to allow for chaining of calls to set methods
+         *
          */
-        fun setTitle(
-            @StringRes title: Int,
-            alignment: AlertDialog.TextAlignment,
-        ): Builder<D> {
-            this.title =
-                TitleAlertDialog(title = context.getString(title), textAlignment = alignment)
+        fun setTitle(@StringRes title: Int, alignment: AlertDialog.TextAlignment): Builder<D> {
+            this.title = TitleAlert(context.getString(title), alignment)
             return this
         }
 
+
         /**
          * Sets the message to display.
          *
          * @param message The message to display in the dialog.
+         *
          * @return [Builder] object to allow for chaining of calls to set methods
+         *
          */
         fun setMessage(message: String): Builder<D> {
-            return setMessage(message, AlertDialog.TextAlignment.START)
+            return setMessage(message, AlertDialog.TextAlignment.CENTER)
         }
+
 
         /**
          * Sets the message to display.
          *
          * @param message The message to display in the dialog.
+         *
          * @return [Builder] object to allow for chaining of calls to set methods
+         *
          */
         fun setMessage(@StringRes message: Int): Builder<D> {
-            return setMessage(message, AlertDialog.TextAlignment.START)
+            return setMessage(message, AlertDialog.TextAlignment.CENTER)
         }
 
+
         /**
-         * Sets the maximum allowed progress value.
+         * Sets the message to display. With text alignment.
+         *
+         * @see [AlertDialog.TextAlignment]
+         *
+         * @param message The message to display in the dialog.
+         * @param alignment The message alignment.
+         *
+         * @return [Builder] object to allow for chaining of calls to set methods
+         *
          */
-        fun setMax(max: Int): Builder<D> {
-            this.max = max
+        fun setMessage(message: String, alignment: AlertDialog.TextAlignment): Builder<D> {
+            this.message = MessageAlert.text(message, alignment)
+            return this
+        }
+
+
+        /**
+         * Sets the message to display. With text alignment.
+         *
+         * @see [AlertDialog.TextAlignment]
+         *
+         * @param message The message to display in the dialog.
+         * @param alignment The message alignment.
+         *
+         * @return [Builder] object to allow for chaining of calls to set methods
+         *
+         */
+        fun setMessage(@StringRes message: Int, alignment: AlertDialog.TextAlignment): Builder<D> {
+            this.message = MessageAlert.text(context.getString(message), alignment)
+            return this
+        }
+
+
+        /**
+         * Sets the message to display.
+         *
+         * @param message The message to display in the dialog.
+         *
+         * @return [Builder] object to allow for chaining of calls to set methods
+         *
+         */
+        fun setMessage(message: Spanned): Builder<D> {
+            return setMessage(message, AlertDialog.TextAlignment.CENTER)
+        }
+
+
+        /**
+         * Sets the message to display. With text alignment.
+         *
+         * @see [AlertDialog.TextAlignment]
+         *
+         * @param message The message to display in the dialog.
+         * @param alignment The message alignment.
+         *
+         * @return [Builder] object to allow for chaining of calls to set methods
+         */
+        fun setMessage(message: Spanned, alignment: AlertDialog.TextAlignment): Builder<D> {
+            this.message = MessageAlert.spanned(text = message, alignment = alignment)
             return this
         }
 
@@ -522,7 +623,7 @@ abstract class ProgressDialogBase(
          * @return [Builder] object to allow for chaining of calls to set methods
          */
         fun setDetailsLinearProgress(details: String): Builder<D> {
-            this.detailsLinearProgress = MessageAlertDialog.text(
+            this.detailsLinearProgress = MessageAlert.text(
                 text = details,
                 alignment = AlertDialog.TextAlignment.END
             )
@@ -536,7 +637,7 @@ abstract class ProgressDialogBase(
          * @return [Builder] object to allow for chaining of calls to set methods
          */
         fun setDetailsLinearProgress(@StringRes details: Int): Builder<D> {
-            this.detailsLinearProgress = MessageAlertDialog.text(
+            this.detailsLinearProgress = MessageAlert.text(
                 text = context.getString(details),
                 alignment = AlertDialog.TextAlignment.END
             )
@@ -544,61 +645,12 @@ abstract class ProgressDialogBase(
         }
 
         /**
-         * Sets the message to display. With text alignment: [AlertDialog.TextAlignment.START], [AlertDialog.TextAlignment.CENTER], [AlertDialog.TextAlignment.END].
-         *
-         * @param message The message to display in the dialog.
-         * @param alignment The message alignment. Default [AlertDialog.TextAlignment.CENTER].
-         * @return [Builder] object to allow for chaining of calls to set methods
-         */
-        fun setMessage(message: String, alignment: AlertDialog.TextAlignment): Builder<D> {
-            val valueText = message.ifEmpty { context.getString(R.string.label_text_charging) }
-            this.message = MessageAlertDialog.text(text = valueText, alignment = alignment)
-            return this
-        }
-
-        /**
-         * Sets the message to display. With text alignment: [AlertDialog.TextAlignment.START], [AlertDialog.TextAlignment.CENTER], [AlertDialog.TextAlignment.END].
-         *
-         * @param message The message to display in the dialog.
-         * @param alignment The message alignment. Default [AlertDialog.TextAlignment.CENTER].
-         * @return [Builder] object to allow for chaining of calls to set methods
-         */
-        fun setMessage(
-            @StringRes message: Int,
-            alignment: AlertDialog.TextAlignment,
-        ): Builder<D> {
-            this.message =
-                MessageAlertDialog.text(text = context.getString(message), alignment = alignment)
-            return this
-        }
-
-        /**
-         * Sets the message to display.
-         *
-         * @param message The message to display in the dialog.
-         * @return [Builder] object to allow for chaining of calls to set methods
-         */
-        fun setMessage(message: Spanned): Builder<D> {
-            return setMessage(message, AlertDialog.TextAlignment.START)
-        }
-
-        /**
-         * Sets the message to display. With text alignment: [AlertDialog.TextAlignment.START], [AlertDialog.TextAlignment.CENTER], [AlertDialog.TextAlignment.END].
-         *
-         * @param message The message to display in the dialog.
-         * @param alignment The message alignment. Default [AlertDialog.TextAlignment.CENTER].
-         * @return [Builder] object to allow for chaining of calls to set methods
-         */
-        fun setMessage(message: Spanned, alignment: AlertDialog.TextAlignment): Builder<D> {
-            this.message = MessageAlertDialog.spanned(text = message, alignment = alignment)
-            return this
-        }
-
-        /**
          * Sets whether the dialog is cancelable or not.
          *
          * @param isCancelable is [Boolean] value. Default is true.
+         *
          * @return [Builder] object to allow for chaining of calls to set methods
+         *
          */
         fun setCancelable(isCancelable: Boolean): Builder<D> {
             this.isCancelable = isCancelable
@@ -606,8 +658,12 @@ abstract class ProgressDialogBase(
         }
 
         /**
+         * Sets Indeterminable property of Material Dialog.
+         *
          * @param isIndeterminate Sets Indeterminable property of Material Dialog.
+         *
          * @return this, for chaining.
+         *
          */
         fun setIndeterminable(isIndeterminate: Boolean): Builder<D> {
             this.isIndeterminate = isIndeterminate
@@ -617,80 +673,138 @@ abstract class ProgressDialogBase(
         /**
          * Set a listener to be invoked when the negative button of the dialog is pressed.
          *
-         * @param buttonText        The text to display in negative button.
-         * @param onClickListener    The [MaterialDialogInterface.OnClickListener] to use.
-         * @return [Builder] object to allow for chaining of calls to set methods
-         */
-        fun setNegativeButton(
-            buttonText: String? = null,
-            onClickListener: MaterialDialogInterface.OnClickListener,
-        ): Builder<D> {
-            return setNegativeButton(buttonText, MATERIAL_ALERT_DIALOG_UI_NOT_ICON, onClickListener)
-        }
-
-        /**
-         * Set a listener to be invoked when the negative button of the dialog is pressed.
+         * - Default button text is [R.string.label_text_cancel].
          *
-         * @param buttonText        The text to display in negative button.
          * @param onClickListener    The [MaterialDialogInterface.OnClickListener] to use.
          * @return [Builder] object to allow for chaining of calls to set methods
          */
-        fun setNegativeButton(
-            @StringRes buttonText: Int,
-            onClickListener: MaterialDialogInterface.OnClickListener,
-        ): Builder<D> {
-            return setNegativeButton(buttonText, MATERIAL_ALERT_DIALOG_UI_NOT_ICON, onClickListener)
-        }
-
-        /**
-         * Set a listener to be invoked when the negative button of the dialog is pressed.
-         *
-         * @param buttonText        The text to display in negative button.
-         * @param onClickListener    The [MaterialDialogInterface.OnClickListener] to use.
-         * @param icon        The [DrawableRes] to be set as an icon for the button.
-         * @return [Builder] object to allow for chaining of calls to set methods
-         */
-        fun setNegativeButton(
-            buttonText: String? = null,
-            icon: Int,
-            onClickListener: MaterialDialogInterface.OnClickListener,
-        ): Builder<D> {
-            val valueText =
-                if (buttonText.isNullOrEmpty()) context.getString(R.string.label_text_cancel)
-                else buttonText
-            negativeButton =
-                ButtonAlertDialog(title = valueText, icon = icon, onClickListener = onClickListener)
-            return this
-        }
-
-        /**
-         * Set a listener to be invoked when the negative button of the dialog is pressed.
-         *
-         * @param buttonText        The text to display in negative button.
-         * @param onClickListener    The [MaterialDialogInterface.OnClickListener] to use.
-         * @param icon        The [DrawableRes] to be set as an icon for the button.
-         * @return [Builder] object to allow for chaining of calls to set methods
-         */
-        fun setNegativeButton(
-            @StringRes buttonText: Int,
-            icon: Int,
-            onClickListener: MaterialDialogInterface.OnClickListener,
-        ): Builder<D> {
-            negativeButton = ButtonAlertDialog(
-                title = context.getString(buttonText),
-                icon = icon,
-                onClickListener = onClickListener
+        fun setNegativeButton(onClickListener: MaterialDialogInterface.OnClickListener): Builder<D> {
+            return setNegativeButton(
+                R.string.label_text_cancel,
+                ButtonIconAlert(MATERIAL_ALERT_DIALOG_UI_NOT_ICON),
+                onClickListener
             )
+        }
+
+
+        /**
+         * Set a listener to be invoked when the negative button of the dialog is pressed.
+         *
+         * @param text        The text to display in negative button.
+         * @param onClickListener    The [MaterialDialogInterface.OnClickListener] to use.
+         *
+         * @return [Builder] object to allow for chaining of calls to set methods
+         *
+         */
+        fun setNegativeButton(
+            text: String,
+            onClickListener: MaterialDialogInterface.OnClickListener
+        ): Builder<D> {
+            return setNegativeButton(
+                text,
+                ButtonIconAlert(MATERIAL_ALERT_DIALOG_UI_NOT_ICON),
+                onClickListener
+            )
+        }
+
+
+        /**
+         * Set a listener to be invoked when the negative button of the dialog is pressed.
+         *
+         * - Default button text is [R.string.label_text_cancel].
+         *
+         * @param icon        The [ButtonIconAlert] to be set as an icon for the button.
+         * @param onClickListener    The [MaterialDialogInterface.OnClickListener] to use.
+         *
+         * @return [Builder] object to allow for chaining of calls to set methods
+         *
+         */
+        fun setNegativeButton(
+            icon: ButtonIconAlert,
+            onClickListener: MaterialDialogInterface.OnClickListener
+        ): Builder<D> {
+            return setNegativeButton(R.string.label_text_cancel, icon, onClickListener)
+        }
+
+
+        /**
+         * Set a listener to be invoked when the negative button of the dialog is pressed.
+         *
+         * @param text        The text to display in negative button.
+         * @param onClickListener    The [MaterialDialogInterface.OnClickListener] to use.
+         *
+         * @return [Builder] object to allow for chaining of calls to set methods
+         *
+         */
+        fun setNegativeButton(
+            @StringRes text: Int,
+            onClickListener: MaterialDialogInterface.OnClickListener
+        ): Builder<D> {
+            return setNegativeButton(
+                text,
+                ButtonIconAlert(MATERIAL_ALERT_DIALOG_UI_NOT_ICON),
+                onClickListener
+            )
+        }
+
+
+        /**
+         * Set a listener to be invoked when the negative button of the dialog is pressed.
+         *
+         * @param text        The text to display in negative button.
+         * @param icon        The [ButtonIconAlert] to be set as an icon for the button.
+         * @param onClickListener    The [MaterialDialogInterface.OnClickListener] to use.
+         *
+         * @return [Builder] object to allow for chaining of calls to set methods
+         *
+         */
+        fun setNegativeButton(
+            text: String,
+            icon: ButtonIconAlert,
+            onClickListener: MaterialDialogInterface.OnClickListener
+        ): Builder<D> {
+            this.negativeButton = initNegativeButton(text, icon, onClickListener)
             return this
         }
 
+
+        /**
+         * Set a listener to be invoked when the negative button of the dialog is pressed.
+         *
+         * @param text        The text to display in negative button.
+         * @param icon        The [ButtonIconAlert] to be set as an icon for the button.
+         * @param onClickListener    The [MaterialDialogInterface.OnClickListener] to use.
+         *
+         * @return [Builder] object to allow for chaining of calls to set methods
+         *
+         */
+        fun setNegativeButton(
+            @StringRes text: Int,
+            icon: ButtonIconAlert,
+            onClickListener: MaterialDialogInterface.OnClickListener
+        ): Builder<D> {
+            this.negativeButton = initNegativeButton(context.getString(text), icon, onClickListener)
+            return this
+        }
 
         /**
          * Creates an [ProgressMaterialDialog] with the arguments supplied to this builder.
          * Calling this method does not display the dialog.
          * If no additional processing is needed, [show] may be called instead to both create and display the dialog.
          *
+         * ```kotlin
+         *
+         * val dialog = ProgressMaterialDialog.Builder(context)
+         *     ...
+         *     .create()
+         * dialog.show()
+         *
+         * ```
+         *
+         * @see [show]
+         *
          * @return [D] object to allow for chaining of calls to set methods
+         *
          */
         abstract fun create(): D
 

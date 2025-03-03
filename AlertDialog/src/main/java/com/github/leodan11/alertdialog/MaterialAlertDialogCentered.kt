@@ -6,22 +6,22 @@ import android.view.View
 import com.github.leodan11.alertdialog.dist.AlertDialogCenteredBase
 import com.github.leodan11.alertdialog.io.models.ButtonAlertDialog
 import com.github.leodan11.alertdialog.io.models.ButtonCountDownTimer
-import com.github.leodan11.alertdialog.io.models.IconAlertDialog
-import com.github.leodan11.alertdialog.io.models.MessageAlertDialog
+import com.github.leodan11.alertdialog.io.models.IconAlert
+import com.github.leodan11.alertdialog.io.models.IconTintAlert
+import com.github.leodan11.alertdialog.io.models.MessageAlert
 import com.github.leodan11.alertdialog.io.models.RawAlertDialog
-import com.github.leodan11.alertdialog.io.models.TitleAlertDialog
+import com.github.leodan11.alertdialog.io.models.TitleAlert
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
 class MaterialAlertDialogCentered private constructor(
     mContext: Context,
-    icon: IconAlertDialog?,
-    image: IconAlertDialog?,
+    icon: IconAlert?,
+    image: IconAlert?,
     jsonAnimation: RawAlertDialog?,
-    backgroundColorInt: Int?,
-    backgroundColorResource: Int?,
+    backgroundColorTint: IconTintAlert?,
     mCountDownTimer: ButtonCountDownTimer?,
-    title: TitleAlertDialog?,
-    message: MessageAlertDialog<*>?,
+    title: TitleAlert?,
+    message: MessageAlert<*>?,
     mCancelable: Boolean,
     mPositiveButton: ButtonAlertDialog?,
     mNeutralButton: ButtonAlertDialog?,
@@ -31,8 +31,7 @@ class MaterialAlertDialogCentered private constructor(
     icon = icon,
     bitmap = image,
     jsonAnimation = jsonAnimation,
-    backgroundColorInt = backgroundColorInt,
-    backgroundColorResource = backgroundColorResource,
+    iconTint = backgroundColorTint,
     countDownTimer = mCountDownTimer,
     title = title,
     message = message,
@@ -67,8 +66,7 @@ class MaterialAlertDialogCentered private constructor(
                 icon = icon,
                 image = bitmap,
                 jsonAnimation = jsonAnimation,
-                backgroundColorInt = backgroundColorInt,
-                backgroundColorResource = backgroundColorResource,
+                backgroundColorTint = iconTint,
                 title = title,
                 message = message,
                 mCountDownTimer = countDownTimer,

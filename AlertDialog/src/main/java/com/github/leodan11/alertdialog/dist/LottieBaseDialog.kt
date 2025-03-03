@@ -2,63 +2,62 @@ package com.github.leodan11.alertdialog.dist
 
 import android.app.Dialog
 import android.content.Context
-import android.text.Spanned
+import android.os.Handler
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.annotation.RawRes
 import androidx.annotation.RestrictTo
-import androidx.annotation.StringRes
-import com.github.leodan11.alertdialog.IOSProgressDialog
-import com.github.leodan11.alertdialog.R
-import com.github.leodan11.alertdialog.databinding.IosProgressAlertDialogBinding
-import com.github.leodan11.alertdialog.dist.base.AlertBuilder
-import com.github.leodan11.alertdialog.io.content.AlertDialog
+import com.airbnb.lottie.LottieAnimationView
+import com.github.leodan11.alertdialog.LottieAlertDialog
+import com.github.leodan11.alertdialog.databinding.MAlertDialogLottieBinding
 import com.github.leodan11.alertdialog.io.content.MaterialDialogInterface
-import com.github.leodan11.alertdialog.io.helpers.toImageView
-import com.github.leodan11.alertdialog.io.helpers.toMessageView
-import com.github.leodan11.alertdialog.io.models.IconAlert
-import com.github.leodan11.alertdialog.io.models.MessageAlert
-import com.github.leodan11.k_extensions.view.startAnimatedVectorDrawableLoop
 
-abstract class AlertDialogProgressIOSBase(
+abstract class LottieBaseDialog protected constructor(
     protected open var mContext: Context,
-    protected open var message: MessageAlert<*>?,
+    protected open var mAnimationAsset: String?,
+    protected open var mAnimationRaw: Int?,
+    protected open var mAnimationRepeatCount: Int?,
+    protected open var mAnimationSpeed: Float?,
+    protected open var mAnimationUrl: String?,
     protected open var mCancelable: Boolean,
+    protected open var mLayoutHeight: Int? = null,
+    protected open var mTimeout: Long? = null,
 ) : MaterialDialogInterface {
 
     open val isShowing: Boolean get() = mDialog?.isShowing ?: false
+    private lateinit var animationView: LottieAnimationView
+    private lateinit var binding: MAlertDialogLottieBinding
     protected open var mDialog: Dialog? = null
     protected open var mOnDismissListener: MaterialDialogInterface.OnDismissListener? = null
     protected open var mOnCancelListener: MaterialDialogInterface.OnCancelListener? = null
     protected open var mOnShowListener: MaterialDialogInterface.OnShowListener? = null
-    private val icon: IconAlert =
-        IconAlert(R.drawable.ic_baseline_loader_circular_default_ios)
 
     @RestrictTo(RestrictTo.Scope.LIBRARY)
-    protected open fun createView(
+    protected open fun onCreateViewDialogContent(
         layoutInflater: LayoutInflater,
-        container: ViewGroup? = null,
+        container: ViewGroup? = null
     ): View {
-        // Inflate and set the layout for the dialog
-        // Pass null as the parent view because it's going in the dialog layout
-        val binding: IosProgressAlertDialogBinding =
-            IosProgressAlertDialogBinding.inflate(layoutInflater, container, false)
-        // Initialize Views
+        binding = MAlertDialogLottieBinding.inflate(layoutInflater, container, false)
+        animationView = binding.lottieAnimationView
         try {
             with(binding) {
-                // Set icon
-                imageViewIconLogoDialogProgress.apply {
-                    icon.toImageView(this)
-                    startAnimatedVectorDrawableLoop()
+                lottieAnimationView.apply {
+                    mAnimationAsset?.let { setAnimation(it) }
+                    mAnimationRaw?.let { setAnimation(it) }
+                    mAnimationRepeatCount?.let { setRepeatCount(it) }
+                    mAnimationSpeed?.let { speed = it }
+                    mAnimationUrl?.let { setAnimationFromUrl(it) }
+                    mLayoutHeight?.let { layoutParams = ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, it) }
                 }
-                // Set Message
-                message.toMessageView(textViewMessagesDialogProgress)
+                mTimeout?.let { setTimeout(it) }
             }
         } catch (e: Exception) {
             e.printStackTrace()
         }
         return binding.root
     }
+
 
     /**
      * Cancel this dialog, removing it from the screen.
@@ -67,8 +66,10 @@ abstract class AlertDialogProgressIOSBase(
      *
      */
     override fun cancel() {
-        if (mDialog != null) mDialog?.cancel()
-        else throwNullDialog()
+        if (mDialog != null) {
+            animationView.cancelAnimation()
+            mDialog?.cancel()
+        } else throwNullDialog()
     }
 
     /**
@@ -78,8 +79,10 @@ abstract class AlertDialogProgressIOSBase(
      *
      */
     override fun dismiss() {
-        if (mDialog != null) mDialog?.dismiss()
-        else throwNullDialog()
+        if (mDialog != null) {
+            animationView.cancelAnimation()
+            mDialog?.dismiss()
+        } else throwNullDialog()
     }
 
     /**
@@ -89,8 +92,9 @@ abstract class AlertDialogProgressIOSBase(
      *
      */
     open fun show() {
-        if (mDialog != null) mDialog?.show()
-        else throwNullDialog()
+        if (mDialog != null) {
+            mDialog?.show()
+        } else throwNullDialog()
     }
 
     /**
@@ -123,6 +127,19 @@ abstract class AlertDialogProgressIOSBase(
         mDialog?.setOnShowListener { showCallback() }
     }
 
+    /**
+     * Sets a timeout for the dialog to automatically dismiss after a specified duration.
+     *
+     * @param milliseconds The duration in milliseconds before the dialog is automatically dismissed.
+     *
+     */
+    open fun setTimeout(milliseconds: Long) {
+        Handler(mContext.mainLooper).postDelayed({
+            if (mDialog?.isShowing == true) mDialog?.dismiss()
+        }, milliseconds)
+    }
+
+
     private fun cancelCallback() {
         mOnCancelListener?.onCancel(this)
     }
@@ -144,97 +161,69 @@ abstract class AlertDialogProgressIOSBase(
      * The default alert dialog theme is defined by [android.R.attr.alertDialogTheme] within the parent context's theme.
      * @param context – the parent context
      */
-    abstract class Builder<D : AlertDialogProgressIOSBase>(protected open val context: Context) :
-        AlertBuilder() {
+    abstract class Builder<D : LottieBaseDialog>(protected val context: Context) {
 
-        protected open var message: MessageAlert<*>? = null
         protected open var isCancelable: Boolean = true
+        protected open var lottieAnimationAsset: String? = null
+        protected open var lottieAnimationRaw: Int? = null
+        protected open var lottieAnimationRepeatCount: Int? = null
+        protected open var lottieAnimationSpeed: Float? = null
+        protected open var lottieAnimationUrl: String? = null
+        protected open var lottieLayoutHeight: Int? = null
+        protected open var onTimeout: Long? = null
 
         /**
-         * Sets the message to display.
+         * Sets the animation asset to be used in the dialog.
          *
-         * @param message The message to display in the dialog.
-         *
+         * @param asset is [String] value. Default is null.
          * @return [Builder] object to allow for chaining of calls to set methods
-         *
          */
-        fun setMessage(message: String): Builder<D> {
-            return setMessage(message, AlertDialog.TextAlignment.CENTER)
-        }
-
-
-        /**
-         * Sets the message to display.
-         *
-         * @param message The message to display in the dialog.
-         *
-         * @return [Builder] object to allow for chaining of calls to set methods
-         *
-         */
-        fun setMessage(@StringRes message: Int): Builder<D> {
-            return setMessage(message, AlertDialog.TextAlignment.CENTER)
-        }
-
-
-        /**
-         * Sets the message to display. With text alignment.
-         *
-         * @see [AlertDialog.TextAlignment]
-         *
-         * @param message The message to display in the dialog.
-         * @param alignment The message alignment.
-         *
-         * @return [Builder] object to allow for chaining of calls to set methods
-         *
-         */
-        fun setMessage(message: String, alignment: AlertDialog.TextAlignment): Builder<D> {
-            this.message = MessageAlert.text(message, alignment)
+        fun setAnimation(asset: String): Builder<D> {
+            lottieAnimationAsset = asset
             return this
         }
 
-
         /**
-         * Sets the message to display. With text alignment.
+         * Sets the animation raw to be used in the dialog.
          *
-         * @see [AlertDialog.TextAlignment]
-         *
-         * @param message The message to display in the dialog.
-         * @param alignment The message alignment.
-         *
+         * @param raw is [Int] value. Default is null.
          * @return [Builder] object to allow for chaining of calls to set methods
-         *
          */
-        fun setMessage(@StringRes message: Int, alignment: AlertDialog.TextAlignment): Builder<D> {
-            this.message = MessageAlert.text(context.getString(message), alignment)
+        fun setAnimation(@RawRes raw: Int): Builder<D> {
+            lottieAnimationRaw = raw
             return this
         }
 
-
         /**
-         * Sets the message to display.
+         * Sets the animation url to be used in the dialog.
          *
-         * @param message The message to display in the dialog.
-         *
+         * @param url is [String] value. Default is null.
          * @return [Builder] object to allow for chaining of calls to set methods
-         *
          */
-        fun setMessage(message: Spanned): Builder<D> {
-            return setMessage(message, AlertDialog.TextAlignment.CENTER)
+        fun setAnimationFromUrl(url: String): Builder<D> {
+            lottieAnimationUrl = url
+            return this
         }
 
-
         /**
-         * Sets the message to display. With text alignment.
+         * Sets the animation repeat count to be used in the dialog.
          *
-         * @see [AlertDialog.TextAlignment]
-         *
-         * @param message The message to display in the dialog.
-         * @param alignment The message alignment.
-         *
+         * @param repeatCount is [Int] value. Default is null.
          * @return [Builder] object to allow for chaining of calls to set methods
          */
-        fun setMessage(message: Spanned, alignment: AlertDialog.TextAlignment): Builder<D> {
-            this.message = MessageAlert.spanned(text = message, alignment = alignment)
+        fun setAnimationRepeatCount(repeatCount: Int): Builder<D> {
+            lottieAnimationRepeatCount = repeatCount
+            return this
+        }
+
+        /**
+         * Sets the animation speed to be used in the dialog.
+         *
+         * @param speed is [Float] value. Default is null.
+         * @return [Builder] object to allow for chaining of calls to set methods
+         */
+        fun setAnimationSpeed(speed: Float): Builder<D> {
+            lottieAnimationSpeed = speed
             return this
         }
 
@@ -250,13 +239,37 @@ abstract class AlertDialogProgressIOSBase(
         }
 
         /**
-         * Creates an [IOSProgressDialog] with the arguments supplied to this builder.
+         * Sets the layout params for the dialog.
+         *
+         * @param layoutParamsHeight the layout params to set
+         * @return [Builder] object to allow for chaining of calls to set methods
+         */
+        fun setLayoutParams(layoutParamsHeight: Int): Builder<D> {
+            lottieLayoutHeight = layoutParamsHeight
+            return this
+        }
+
+
+        /**
+         * Sets the timeout for the dialog.
+         *
+         * @param milliseconds the timeout in milliseconds
+         * @return [Builder] object to allow for chaining of calls to set methods
+         */
+        fun setTimeout(milliseconds: Long): Builder<D> {
+            onTimeout = milliseconds
+            return this
+        }
+
+
+        /**
+         * Creates an [LottieAlertDialog] with the arguments supplied to this builder.
          * Calling this method does not display the dialog.
          * If no additional processing is needed, [show] may be called instead to both create and display the dialog.
          *
          * ```kotlin
          *
-         * val dialog = IOSProgressDialog.Builder(context)
+         * val dialog = LottieAlertDialog.Builder(context)
          *     ...
          *     .create()
          * dialog.show()

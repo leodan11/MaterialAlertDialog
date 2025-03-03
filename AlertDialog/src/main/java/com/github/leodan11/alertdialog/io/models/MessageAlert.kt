@@ -5,7 +5,7 @@ import androidx.annotation.RestrictTo
 import com.github.leodan11.alertdialog.io.content.AlertDialog
 
 @RestrictTo(RestrictTo.Scope.LIBRARY)
-abstract class MessageAlertDialog<T: CharSequence>(val textAlignment: AlertDialog.TextAlignment){
+abstract class MessageAlert<T: CharSequence>(val textAlignment: AlertDialog.TextAlignment){
 
     companion object{
         @JvmStatic
@@ -17,7 +17,7 @@ abstract class MessageAlertDialog<T: CharSequence>(val textAlignment: AlertDialo
 
     abstract fun getText(): T
 
-    class SpannedMessage(private val text: Spanned, textAlignment: AlertDialog.TextAlignment) : MessageAlertDialog<Spanned>(textAlignment) {
+    class SpannedMessage(private val text: Spanned, textAlignment: AlertDialog.TextAlignment) : MessageAlert<Spanned>(textAlignment) {
 
         override fun getText(): Spanned {
             return text
@@ -25,7 +25,7 @@ abstract class MessageAlertDialog<T: CharSequence>(val textAlignment: AlertDialo
 
     }
 
-    class TextMessage(private val text: String, textAlignment: AlertDialog.TextAlignment): MessageAlertDialog<String>(textAlignment) {
+    class TextMessage(private val text: String, textAlignment: AlertDialog.TextAlignment): MessageAlert<String>(textAlignment) {
 
         override fun getText(): String {
             return text

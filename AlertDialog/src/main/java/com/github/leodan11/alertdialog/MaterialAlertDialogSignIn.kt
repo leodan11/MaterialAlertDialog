@@ -7,16 +7,16 @@ import com.github.leodan11.alertdialog.dist.AlertDialogSignInBase
 import com.github.leodan11.alertdialog.io.models.BoxCornerRadiusTextField
 import com.github.leodan11.alertdialog.io.models.ButtonAlertDialog
 import com.github.leodan11.alertdialog.io.models.ButtonCountDownTimer
-import com.github.leodan11.alertdialog.io.models.IconAlertDialog
-import com.github.leodan11.alertdialog.io.models.IconTintAlertDialog
-import com.github.leodan11.alertdialog.io.models.TitleAlertDialog
+import com.github.leodan11.alertdialog.io.models.IconAlert
+import com.github.leodan11.alertdialog.io.models.IconTintAlert
+import com.github.leodan11.alertdialog.io.models.TitleAlert
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
 class MaterialAlertDialogSignIn private constructor(
     mContext: Context,
-    icon: IconAlertDialog?,
-    tintColor: IconTintAlertDialog?,
-    title: TitleAlertDialog?,
+    icon: IconAlert?,
+    tintColor: IconTintAlert?,
+    title: TitleAlert?,
     mBoxCornerRadius: BoxCornerRadiusTextField?,
     mCountDownTimer: ButtonCountDownTimer?,
     mCancelable: Boolean,

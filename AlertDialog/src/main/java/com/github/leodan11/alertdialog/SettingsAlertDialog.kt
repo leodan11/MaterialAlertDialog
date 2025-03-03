@@ -8,16 +8,16 @@ import android.provider.Settings
 import androidx.activity.result.ActivityResultLauncher
 import com.github.leodan11.alertdialog.dist.AlertDialogSettingsBase
 import com.github.leodan11.alertdialog.io.models.ButtonAlertDialog
-import com.github.leodan11.alertdialog.io.models.IconAlertDialog
-import com.github.leodan11.alertdialog.io.models.MessageAlertDialog
-import com.github.leodan11.alertdialog.io.models.TitleAlertDialog
+import com.github.leodan11.alertdialog.io.models.IconAlert
+import com.github.leodan11.alertdialog.io.models.MessageAlert
+import com.github.leodan11.alertdialog.io.models.TitleAlert
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
 class SettingsAlertDialog private constructor(
     mContext: Context,
-    icon: IconAlertDialog,
-    title: TitleAlertDialog,
-    message: MessageAlertDialog<*>,
+    icon: IconAlert,
+    title: TitleAlert,
+    message: MessageAlert<*>,
     launch: ActivityResultLauncher<Intent>,
     openOnNewTask: Boolean,
     mCancelable: Boolean,

@@ -4,24 +4,17 @@ import android.content.Context;
 import android.graphics.Point;
 import android.view.WindowManager;
 
-import androidx.annotation.NonNull;
+import org.jetbrains.annotations.NotNull;
 
 public class DisplayUtil {
 
-    public static int dp2px(@NonNull Context context, float dpValue) {
+    public static int dp2px(@NotNull Context context, float dpValue) {
         final float scale = context.getResources().getDisplayMetrics().density;
         return (int) (dpValue * scale + 0.5f);
     }
 
-
-    public static int px2dp(@NonNull Context context, float pxValue) {
-        final float scale = context.getResources().getDisplayMetrics().density;
-        return (int) (pxValue / scale + 0.5f);
-    }
-
-
-    @NonNull
-    public static Point getScreenSize(@NonNull Context context) {
+    @NotNull
+    public static Point getScreenSize(@NotNull Context context) {
         Point point = new Point();
         WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
         wm.getDefaultDisplay().getSize(point);

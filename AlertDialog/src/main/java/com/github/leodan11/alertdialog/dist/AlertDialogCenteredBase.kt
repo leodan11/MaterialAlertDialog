@@ -1,11 +1,10 @@
 package com.github.leodan11.alertdialog.dist
 
-import android.annotation.SuppressLint
 import android.app.Dialog
 import android.content.Context
 import android.content.res.ColorStateList
 import android.graphics.Color
-import android.graphics.PorterDuff
+import android.graphics.drawable.Drawable
 import android.os.CountDownTimer
 import android.text.Spanned
 import android.view.LayoutInflater
@@ -18,35 +17,38 @@ import androidx.annotation.IntRange
 import androidx.annotation.RawRes
 import androidx.annotation.RestrictTo
 import androidx.annotation.StringRes
-import androidx.core.content.ContextCompat
+import androidx.core.view.isVisible
 import com.github.leodan11.alertdialog.MaterialAlertDialogCentered
 import com.github.leodan11.alertdialog.R
 import com.github.leodan11.alertdialog.databinding.MAlertDialogCenteredBinding
+import com.github.leodan11.alertdialog.dist.base.AlertBuilder
 import com.github.leodan11.alertdialog.io.content.AlertDialog
 import com.github.leodan11.alertdialog.io.content.Config.MATERIAL_ALERT_DIALOG_UI_NOT_ICON
 import com.github.leodan11.alertdialog.io.content.MaterialDialogInterface
+import com.github.leodan11.alertdialog.io.helpers.toButtonView
+import com.github.leodan11.alertdialog.io.helpers.toImageView
+import com.github.leodan11.alertdialog.io.helpers.toMessageView
+import com.github.leodan11.alertdialog.io.helpers.toTitleView
 import com.github.leodan11.alertdialog.io.models.ButtonAlertDialog
 import com.github.leodan11.alertdialog.io.models.ButtonCountDownTimer
-import com.github.leodan11.alertdialog.io.models.IconAlertDialog
-import com.github.leodan11.alertdialog.io.models.MessageAlertDialog
+import com.github.leodan11.alertdialog.io.models.ButtonIconAlert
+import com.github.leodan11.alertdialog.io.models.IconAlert
+import com.github.leodan11.alertdialog.io.models.IconTintAlert
+import com.github.leodan11.alertdialog.io.models.MessageAlert
 import com.github.leodan11.alertdialog.io.models.RawAlertDialog
-import com.github.leodan11.alertdialog.io.models.TitleAlertDialog
-import com.github.leodan11.k_extensions.color.colorOnSurface
+import com.github.leodan11.alertdialog.io.models.TitleAlert
 import com.github.leodan11.k_extensions.color.colorPrimary
 import com.google.android.material.button.MaterialButton
-import java.util.Locale
-import java.util.concurrent.TimeUnit
 
 abstract class AlertDialogCenteredBase(
     protected open var mContext: Context,
-    protected open var icon: IconAlertDialog?,
-    protected open var bitmap: IconAlertDialog?,
+    protected open var icon: IconAlert?,
+    protected open var iconTint: IconTintAlert?,
+    protected open var bitmap: IconAlert?,
     protected open var jsonAnimation: RawAlertDialog?,
-    protected open var backgroundColorInt: Int?,
-    protected open var backgroundColorResource: Int?,
     protected open var countDownTimer: ButtonCountDownTimer?,
-    protected open var title: TitleAlertDialog?,
-    protected open var message: MessageAlertDialog<*>?,
+    protected open var title: TitleAlert?,
+    protected open var message: MessageAlert<*>?,
     protected open var mCancelable: Boolean,
     protected open var mPositiveButton: ButtonAlertDialog?,
     protected open var mNeutralButton: ButtonAlertDialog?,
@@ -61,151 +63,65 @@ abstract class AlertDialogCenteredBase(
     protected open var mOnCancelListener: MaterialDialogInterface.OnCancelListener? = null
     protected open var mOnShowListener: MaterialDialogInterface.OnShowListener? = null
 
-    @SuppressLint("WrongConstant")
     @RestrictTo(RestrictTo.Scope.LIBRARY)
     protected open fun onCreateViewDialogContent(
         layoutInflater: LayoutInflater,
-        container: ViewGroup? = null,
+        container: ViewGroup? = null
     ): View {
         // Inflate and set the layout for the dialog
         // Pass null as the parent view because it's going in the dialog layout
         binding = MAlertDialogCenteredBinding.inflate(layoutInflater, container, false)
         // Initialize Views
-        val mIconView = binding.imageViewIconAlertDialog
-        val mTitleView = binding.textViewTitleAlertDialog
-        val mMessageView = binding.textViewMessageAlertDialog
-        val mPositiveButtonView = binding.buttonActionPositiveAlertDialog
-        val mNeutralButtonView = binding.buttonActionNeutralAlertDialog
-        val mNegativeButtonView = binding.buttonActionNegativeAlertDialog
-        // Set Icon
-        if (icon != null) {
-            binding.animationViewAlertDialog.visibility = View.GONE
-            binding.imageViewBitmapAlertDialog.visibility = View.GONE
-            mIconView.setImageResource(icon!!.mDrawableResId)
-            mIconView.visibility = View.VISIBLE
-        } else if (bitmap != null) {
-            binding.animationViewAlertDialog.visibility = View.GONE
-            mIconView.visibility = View.GONE
-            binding.imageViewBitmapAlertDialog.setImageResource(bitmap!!.mDrawableResId)
-            binding.imageViewBitmapAlertDialog.visibility = View.VISIBLE
-        } else if (jsonAnimation != null) {
-            binding.imageViewBitmapAlertDialog.visibility = View.GONE
-            mIconView.visibility = View.GONE
-            binding.animationViewAlertDialog.setAnimation(jsonAnimation!!.mRawResId)
-            binding.animationViewAlertDialog.visibility = View.VISIBLE
-        } else binding.headerHolderAlertDialog.visibility = View.GONE
-        // Set Icon BackgroundTint
-        backgroundColorInt?.let { mIconView.setColorFilter(it, PorterDuff.Mode.SRC_IN) }
-        backgroundColorResource?.let {
-            mIconView.setColorFilter(
-                getColorCallback(it),
-                PorterDuff.Mode.SRC_IN
-            )
-        }
-        // Set Title
-        if (title != null) {
-            mTitleView.visibility = View.VISIBLE
-            mTitleView.text = title?.title
-            mTitleView.textAlignment = title?.textAlignment!!.alignment
-        } else mTitleView.visibility = View.GONE
-        // Set Message
-        if (message != null) {
-            mMessageView.visibility = View.VISIBLE
-            mMessageView.text = message?.getText()
-            mMessageView.textAlignment = message?.textAlignment!!.alignment
-        } else mMessageView.visibility = View.GONE
-        // Set Positive Button
-        if (mPositiveButton != null) {
-            mPositiveButtonView.visibility = View.VISIBLE
-            mPositiveButtonView.text = mPositiveButton?.title
-            mPositiveButton?.let {
-                if (it.icon != MATERIAL_ALERT_DIALOG_UI_NOT_ICON) mPositiveButtonView.icon =
-                    ContextCompat.getDrawable(mContext.applicationContext, it.icon)
-            }
-            mPositiveButtonView.setOnClickListener {
-                mPositiveButton?.onClickListener?.onClick(
-                    this,
-                    AlertDialog.UI.BUTTON_POSITIVE
-                )
-            }
-        } else mPositiveButtonView.visibility = View.GONE
-        // Set Neutral Button
-        if (mNeutralButton != null) {
-            mNeutralButtonView.visibility = View.VISIBLE
-            mNeutralButtonView.text = mNeutralButton?.title
-            mNeutralButton?.let {
-                if (it.icon != MATERIAL_ALERT_DIALOG_UI_NOT_ICON) mNeutralButtonView.icon =
-                    ContextCompat.getDrawable(mContext.applicationContext, it.icon)
-            }
-            mNeutralButtonView.setOnClickListener {
-                mNeutralButton?.onClickListener?.onClick(
-                    this,
-                    AlertDialog.UI.BUTTON_NEUTRAL
-                )
-            }
-        } else mNeutralButtonView.visibility = View.GONE
-        // Set Negative Button
-        if (mNegativeButton != null) {
-            mNegativeButtonView.visibility = View.VISIBLE
-            mNegativeButtonView.text = mNegativeButton?.title
-            mNegativeButton?.let {
-                if (it.icon != MATERIAL_ALERT_DIALOG_UI_NOT_ICON) mNegativeButtonView.icon =
-                    ContextCompat.getDrawable(mContext.applicationContext, it.icon)
-            }
-            mNegativeButtonView.setOnClickListener {
-                mNegativeButton?.onClickListener?.onClick(
-                    this,
-                    AlertDialog.UI.BUTTON_NEGATIVE
-                )
-            }
-        } else mNegativeButtonView.visibility = View.GONE
-        // Apply Styles
         try {
-            // Set Title Text Color
-            mTitleView.setTextColor(mContext.colorOnSurface())
-            // Set Message Text Color
-            mMessageView.setTextColor(mContext.colorOnSurface())
-            // Set Background Tint
-            val mBackgroundTint: ColorStateList = ColorStateList.valueOf(mContext.colorPrimary())
-            // Set Positive Button Icon Tint
-            val mPositiveButtonTint: ColorStateList = mBackgroundTint
-            mPositiveButtonView.setTextColor(mPositiveButtonTint)
-            mPositiveButtonView.iconTint = mPositiveButtonTint
-            // Set Neutral Button Icon & Text Tint
-            val mNeutralButtonTint: ColorStateList = mBackgroundTint
-            mNeutralButtonView.setTextColor(mNeutralButtonTint)
-            mNeutralButtonView.iconTint = mNeutralButtonTint
-            // Set Negative Button Icon & Text Tint
-            val mNegativeButtonTint: ColorStateList = mBackgroundTint
-            mNegativeButtonView.setTextColor(mNegativeButtonTint)
-            mNegativeButtonView.iconTint = mNegativeButtonTint
-            // Set CountDownTimer to button
-            countDownTimer?.let { timer ->
-                val button = getButton(timer.button)
-                val buttonText = button.text
-                mCountDownTimer = object : CountDownTimer(timer.millis, timer.countInterval) {
-                    override fun onTick(millisUntilFinished: Long) {
-                        button.apply {
-                            isEnabled = false
-                            alpha = 0.5f
-                            text = String.format(
-                                Locale.getDefault(),
-                                "%s (%d)",
-                                buttonText,
-                                TimeUnit.MILLISECONDS.toSeconds(millisUntilFinished) + 1
-                            )
-                        }
+            with(binding) {
+                // Set header layout
+                headerHolderAlertDialog.isVisible = icon != null || bitmap != null || jsonAnimation != null
+                // Set Icon
+                icon.toImageView(imageViewIconAlertDialog, iconTint)
+                bitmap.toImageView(imageViewBitmapAlertDialog)
+                animationViewAlertDialog.isVisible = jsonAnimation != null
+                jsonAnimation?.let { animationViewAlertDialog.setAnimation(it.mRawResId) }
+                // Set Background Tint
+                val mBackgroundTint: ColorStateList =
+                    ColorStateList.valueOf(mContext.colorPrimary())
+                // Set Title
+                title.toTitleView(textViewTitleAlertDialog)
+                // Set Message
+                message.toMessageView(textViewMessageAlertDialog)
+                // Set Negative Button
+                buttonActionNegativeAlertDialog.apply {
+                    mNegativeButton.toButtonView(mContext, this, mBackgroundTint)
+                    setOnClickListener {
+                        mNegativeButton?.onClickListener?.onClick(
+                            this@AlertDialogCenteredBase,
+                            AlertDialog.UI.BUTTON_NEGATIVE
+                        )
                     }
-
-                    override fun onFinish() {
-                        if (isShowing) {
-                            button.apply {
-                                isEnabled = true
-                                alpha = 1f
-                                text = buttonText
-                            }
-                        }
+                }
+                // Set Neutral Button
+                buttonActionNeutralAlertDialog.apply {
+                    mNeutralButton.toButtonView(mContext, this, mBackgroundTint)
+                    setOnClickListener {
+                        mNeutralButton?.onClickListener?.onClick(
+                            this@AlertDialogCenteredBase,
+                            AlertDialog.UI.BUTTON_NEUTRAL
+                        )
                     }
+                }
+                // Set Positive Button
+                buttonActionPositiveAlertDialog.apply {
+                    mPositiveButton.toButtonView(mContext, this, mBackgroundTint)
+                    setOnClickListener {
+                        mPositiveButton?.onClickListener?.onClick(
+                            this@AlertDialogCenteredBase,
+                            AlertDialog.UI.BUTTON_POSITIVE
+                        )
+                    }
+                }
+                // CountDownTimer to button
+                countDownTimer?.let {
+                    val button = getButton(it.button)
+                    mCountDownTimer = it.toButtonView(button)
                 }
             }
         } catch (e: Exception) {
@@ -319,38 +235,121 @@ abstract class AlertDialogCenteredBase(
         throw NullPointerException("Called method on null Dialog. Create dialog using `Builder` before calling on Dialog")
     }
 
-    private fun getColorCallback(@ColorRes color: Int): Int {
-        return mContext.getColor(color)
-    }
-
     /**
      * Creates a builder for an alert dialog that uses the default alert dialog theme.
      * The default alert dialog theme is defined by [android.R.attr.alertDialogTheme] within the parent context's theme.
      * @param context – the parent context
      */
-    abstract class Builder<D : AlertDialogCenteredBase>(protected open val context: Context) {
+    abstract class Builder<D : AlertDialogCenteredBase>(protected open val context: Context) :
+        AlertBuilder() {
 
-        protected open var icon: IconAlertDialog? = null
-        protected open var bitmap: IconAlertDialog? = null
+        protected open var icon: IconAlert? = null
+        protected open var iconTint: IconTintAlert? = null
+        protected open var bitmap: IconAlert? = null
         protected open var jsonAnimation: RawAlertDialog? = null
-        protected open var backgroundColorResource: Int? = null
-        protected open var backgroundColorInt: Int? = null
         protected open var countDownTimer: ButtonCountDownTimer? = null
-        protected open var title: TitleAlertDialog? = null
-        protected open var message: MessageAlertDialog<*>? = null
+        protected open var title: TitleAlert? = null
+        protected open var message: MessageAlert<*>? = null
         protected open var isCancelable: Boolean = true
         protected open var positiveButton: ButtonAlertDialog? = null
         protected open var neutralButton: ButtonAlertDialog? = null
         protected open var negativeButton: ButtonAlertDialog? = null
 
         /**
+         * Set the [Drawable] to be used in the title.
+         *
+         * @param icon Drawable to use as the icon.
+         *
+         * @return [Builder] object to allow for chaining of calls to set methods
+         *
+         */
+        fun setIcon(icon: Drawable): Builder<D> {
+            this.icon = IconAlert(icon)
+            return this
+        }
+
+
+        /**
          * Set the [DrawableRes] to be used in the title.
          *
          * @param icon Drawable to use as the icon.
+         *
          * @return [Builder] object to allow for chaining of calls to set methods
+         *
          */
         fun setIcon(@DrawableRes icon: Int): Builder<D> {
-            this.icon = IconAlertDialog(mDrawableResId = icon)
+            this.icon = IconAlert(icon)
+            return this
+        }
+
+
+        /**
+         * Set icon tint.
+         *
+         * @see [ColorStateList]
+         *
+         * @param tint the color state list.
+         *
+         * @return [Builder] object to allow for chaining of calls to set methods
+         *
+         */
+        fun setIconTint(tint: ColorStateList): Builder<D> {
+            this.iconTint = IconTintAlert(tint)
+            return this
+        }
+
+
+        /**
+         * Set icon tint.
+         *
+         * @see [ColorInt]
+         *
+         * @param tint the color int. E.g. [Color.BLUE]
+         *
+         * @return [Builder] object to allow for chaining of calls to set methods
+         *
+         */
+        fun setIconTint(@ColorInt tint: Int): Builder<D> {
+            this.iconTint = IconTintAlert().apply { tintColorInt = tint }
+            return this
+        }
+
+
+        /**
+         * Set icon tint color, Return a color-int from red, green, blue components.
+         *
+         * These component values should be [0..255],
+         * so if they are out of range, the returned color is undefined.
+         *
+         * @param red to extract the red component
+         * @param green to extract the green component
+         * @param blue to extract the blue component
+         *
+         * @return [Builder] object to allow for chaining of calls to set methods
+         *
+         */
+        fun setIconTint(
+            @IntRange(from = 0, to = 255) red: Int,
+            @IntRange(from = 0, to = 255) green: Int,
+            @IntRange(from = 0, to = 255) blue: Int
+        ): Builder<D> {
+            this.iconTint = IconTintAlert().apply { tintColorInt = Color.rgb(red, green, blue) }
+            return this
+        }
+
+
+        /**
+         * Set icon tint.
+         *
+         * @see [ColorRes]
+         *
+         * @param tintColor the color resource.
+         *
+         * @return [Builder] object to allow for chaining of calls to set methods
+         *
+         */
+        fun setIconTintRes(@ColorRes tintColor: Int): Builder<D> {
+            this.iconTint = IconTintAlert(tintColor)
             return this
         }
 
@@ -361,7 +360,7 @@ abstract class AlertDialogCenteredBase(
          * @return [Builder] object to allow for chaining of calls to set methods
          */
         fun setImage(@DrawableRes icon: Int): Builder<D> {
-            this.bitmap = IconAlertDialog(mDrawableResId = icon)
+            this.bitmap = IconAlert(icon)
             return this
         }
 
@@ -377,58 +376,19 @@ abstract class AlertDialogCenteredBase(
         }
 
         /**
-         * Set background tint [ColorInt].
-         *
-         * @param color Color int. E.g. [Color.BLUE]
-         * @return [Builder] object to allow for chaining of calls to set methods
-         */
-        fun setIconBackgroundTint(@ColorInt color: Int): Builder<D> {
-            this.backgroundColorInt = color
-            return this
-        }
-
-        /**
-         * Set background tint color, Return a color-int from red, green, blue components.
-         * These component values should be [0..255],
-         * so if they are out of range, the returned color is undefined.
-         *
-         * @param red to extract the red component
-         * @param green to extract the green component
-         * @param blue to extract the blue component
-         * @return [Builder] object to allow for chaining of calls to set methods
-         */
-        fun setIconBackgroundTint(
-            @IntRange(from = 0, to = 255) red: Int,
-            @IntRange(from = 0, to = 255) green: Int,
-            @IntRange(from = 0, to = 255) blue: Int,
-        ): Builder<D> {
-            this.backgroundColorInt = Color.rgb(red, green, blue)
-            return this
-        }
-
-        /**
-         * Set background tint [ColorRes].
-         *
-         * @param color Color resource.
-         * @return [Builder] object to allow for chaining of calls to set methods
-         */
-        fun setIconBackgroundTintRes(@ColorRes color: Int): Builder<D> {
-            this.backgroundColorResource = color
-            return this
-        }
-
-        /**
-         * Set count down timer. Default `1000`
+         * Set count down timer. Default interval `1000`
          *
          * @param button [AlertDialog.UI] `AlertDialog.UI.BUTTON_POSITIVE`, `AlertDialog.UI.BUTTON_NEGATIVE` or `AlertDialog.UI.BUTTON_NEUTRAL`
          * @param millis [Long] time in milliseconds.
          *
-         * @return [Builder] object to allow for chaining of calls to set methods
+         * @return [AlertBuilder] object to allow for chaining of calls to set methods
+         *
          */
         fun setCountDownTimer(button: AlertDialog.UI, millis: Long): Builder<D> {
             this.countDownTimer = ButtonCountDownTimer(button, millis)
             return this
         }
+
 
         /**
          * Set count down timer.
@@ -437,7 +397,7 @@ abstract class AlertDialogCenteredBase(
          * @param millis [Long] time in milliseconds.
          * @param countInterval [Long] time in milliseconds.
          *
-         * @return [Builder] object to allow for chaining of calls to set methods
+         * @return Builder object to allow for chaining of calls to set methods
          */
         fun setCountDownTimer(
             button: AlertDialog.UI,
@@ -448,51 +408,83 @@ abstract class AlertDialogCenteredBase(
             return this
         }
 
-        /**
-         * Set the title displayed in the [MaterialAlertDialogCentered].
-         *
-         * @param title The title to display in the dialog.
-         * @return [Builder] object to allow for chaining of calls to set methods
-         */
-        fun setTitle(title: String): Builder<D> {
-            return setTitle(title, AlertDialog.TextAlignment.CENTER)
-        }
 
         /**
-         * Set the title displayed in the [MaterialAlertDialogCentered].
+         * Set count down timer.
          *
-         * @param title The title to display in the dialog.
-         * @return [Builder] object to allow for chaining of calls to set methods
-         */
-        fun setTitle(@StringRes title: Int): Builder<D> {
-            return setTitle(title, AlertDialog.TextAlignment.CENTER)
-        }
-
-        /**
-         * Set the title displayed in the [MaterialAlertDialogCentered]. With text alignment: [AlertDialog.TextAlignment.START], [AlertDialog.TextAlignment.CENTER], [AlertDialog.TextAlignment.END].
+         * @param button [AlertDialog.UI] `AlertDialog.UI.BUTTON_POSITIVE`, `AlertDialog.UI.BUTTON_NEGATIVE` or `AlertDialog.UI.BUTTON_NEUTRAL`
+         * @param millis [Long] time in milliseconds.
+         * @param countInterval [Long] time in milliseconds.
+         * @param format the format of the countdown timer. Default `%s (%d)`
          *
-         * @param title The title to display in the dialog.
-         * @param alignment The message alignment. Default [AlertDialog.TextAlignment.CENTER].
-         * @return [Builder] object to allow for chaining of calls to set methods
+         * @return Builder object to allow for chaining of calls to set methods
          */
-        fun setTitle(title: String, alignment: AlertDialog.TextAlignment): Builder<D> {
-            this.title = TitleAlertDialog(title = title, textAlignment = alignment)
+        fun setCountDownTimer(
+            button: AlertDialog.UI,
+            millis: Long,
+            countInterval: Long,
+            format: String
+        ): Builder<D> {
+            this.countDownTimer = ButtonCountDownTimer(button, millis, countInterval, format)
             return this
         }
 
         /**
-         * Set the title displayed in the [MaterialAlertDialogCentered]. With text alignment: [AlertDialog.TextAlignment.START], [AlertDialog.TextAlignment.CENTER], [AlertDialog.TextAlignment.END].
+         * Set the title displayed in the dialog.
          *
          * @param title The title to display in the dialog.
-         * @param alignment The message alignment. Default [AlertDialog.TextAlignment.CENTER].
-         * @return [Builder] object to allow for chaining of calls to set methods
+         *
+         * @return Builder object to allow for chaining of calls to set methods
+         *
          */
-        fun setTitle(
-            @StringRes title: Int,
-            alignment: AlertDialog.TextAlignment,
-        ): Builder<D> {
-            this.title =
-                TitleAlertDialog(title = context.getString(title), textAlignment = alignment)
+        fun setTitle(title: String): Builder<D> {
+            return setTitle(title, AlertDialog.TextAlignment.START)
+        }
+
+
+        /**
+         * Set the title displayed in the dialog.
+         *
+         * @param title The title to display in the dialog.
+         *
+         * @return [Builder] object to allow for chaining of calls to set methods
+         *
+         */
+        fun setTitle(@StringRes title: Int): Builder<D> {
+            return setTitle(title, AlertDialog.TextAlignment.START)
+        }
+
+
+        /**
+         * Set the title displayed in the dialog. With text alignment.
+         *
+         * @see [AlertDialog.TextAlignment]
+         *
+         * @param title The title to display in the dialog.
+         * @param alignment The message alignment.
+         *
+         * @return [Builder] object to allow for chaining of calls to set methods
+         *
+         */
+        fun setTitle(title: String, alignment: AlertDialog.TextAlignment): Builder<D> {
+            this.title = TitleAlert(title, alignment)
+            return this
+        }
+
+
+        /**
+         * Set the title displayed in the dialog. With text alignment.
+         *
+         * @see [AlertDialog.TextAlignment]
+         *
+         * @param title The title to display in the dialog.
+         * @param alignment The message alignment.
+         *
+         * @return [Builder] object to allow for chaining of calls to set methods
+         *
+         */
+        fun setTitle(@StringRes title: Int, alignment: AlertDialog.TextAlignment): Builder<D> {
+            this.title = TitleAlert(context.getString(title), alignment)
             return this
         }
 
@@ -500,69 +492,87 @@ abstract class AlertDialogCenteredBase(
          * Sets the message to display.
          *
          * @param message The message to display in the dialog.
+         *
          * @return [Builder] object to allow for chaining of calls to set methods
+         *
          */
         fun setMessage(message: String): Builder<D> {
             return setMessage(message, AlertDialog.TextAlignment.CENTER)
         }
 
+
         /**
          * Sets the message to display.
          *
          * @param message The message to display in the dialog.
+         *
          * @return [Builder] object to allow for chaining of calls to set methods
+         *
          */
         fun setMessage(@StringRes message: Int): Builder<D> {
             return setMessage(message, AlertDialog.TextAlignment.CENTER)
         }
 
+
         /**
-         * Sets the message to display. With text alignment: [AlertDialog.TextAlignment.START], [AlertDialog.TextAlignment.CENTER], [AlertDialog.TextAlignment.END].
+         * Sets the message to display. With text alignment.
+         *
+         * @see [AlertDialog.TextAlignment]
          *
          * @param message The message to display in the dialog.
-         * @param alignment The message alignment. Default [AlertDialog.TextAlignment.CENTER].
+         * @param alignment The message alignment.
+         *
          * @return [Builder] object to allow for chaining of calls to set methods
+         *
          */
         fun setMessage(message: String, alignment: AlertDialog.TextAlignment): Builder<D> {
-            this.message = MessageAlertDialog.text(text = message, alignment = alignment)
+            this.message = MessageAlert.text(message, alignment)
             return this
         }
 
+
         /**
-         * Sets the message to display. With text alignment: [AlertDialog.TextAlignment.START], [AlertDialog.TextAlignment.CENTER], [AlertDialog.TextAlignment.END].
+         * Sets the message to display. With text alignment.
+         *
+         * @see [AlertDialog.TextAlignment]
          *
          * @param message The message to display in the dialog.
-         * @param alignment The message alignment. Default [AlertDialog.TextAlignment.CENTER].
+         * @param alignment The message alignment.
+         *
          * @return [Builder] object to allow for chaining of calls to set methods
+         *
          */
-        fun setMessage(
-            @StringRes message: Int,
-            alignment: AlertDialog.TextAlignment,
-        ): Builder<D> {
-            this.message =
-                MessageAlertDialog.text(text = context.getString(message), alignment = alignment)
+        fun setMessage(@StringRes message: Int, alignment: AlertDialog.TextAlignment): Builder<D> {
+            this.message = MessageAlert.text(context.getString(message), alignment)
             return this
         }
+
 
         /**
          * Sets the message to display.
          *
          * @param message The message to display in the dialog.
+         *
          * @return [Builder] object to allow for chaining of calls to set methods
+         *
          */
         fun setMessage(message: Spanned): Builder<D> {
             return setMessage(message, AlertDialog.TextAlignment.CENTER)
         }
 
+
         /**
-         * Sets the message to display. With text alignment: [AlertDialog.TextAlignment.START], [AlertDialog.TextAlignment.CENTER], [AlertDialog.TextAlignment.END].
+         * Sets the message to display. With text alignment.
+         *
+         * @see [AlertDialog.TextAlignment]
          *
          * @param message The message to display in the dialog.
-         * @param alignment The message alignment. Default [AlertDialog.TextAlignment.CENTER].
+         * @param alignment The message alignment.
+         *
          * @return [Builder] object to allow for chaining of calls to set methods
          */
         fun setMessage(message: Spanned, alignment: AlertDialog.TextAlignment): Builder<D> {
-            this.message = MessageAlertDialog.spanned(text = message, alignment = alignment)
+            this.message = MessageAlert.spanned(text = message, alignment = alignment)
             return this
         }
 
@@ -578,212 +588,355 @@ abstract class AlertDialogCenteredBase(
         }
 
         /**
-         * Set a listener to be invoked when the positive button of the dialog is pressed.
+         * Set a listener to be invoked when the negative button of the dialog is pressed.
          *
-         * @param buttonText        The text to display in positive button.
+         * - Default button text is [R.string.label_text_cancel].
+         *
          * @param onClickListener    The [MaterialDialogInterface.OnClickListener] to use.
          * @return [Builder] object to allow for chaining of calls to set methods
          */
-        fun setPositiveButton(
-            buttonText: String? = null,
-            onClickListener: MaterialDialogInterface.OnClickListener,
-        ): Builder<D> {
-            return setPositiveButton(buttonText, MATERIAL_ALERT_DIALOG_UI_NOT_ICON, onClickListener)
-        }
-
-        /**
-         * Set a listener to be invoked when the positive button of the dialog is pressed.
-         *
-         * @param buttonText        The text to display in positive button.
-         * @param onClickListener    The [MaterialDialogInterface.OnClickListener] to use.
-         * @return [Builder] object to allow for chaining of calls to set methods
-         */
-        fun setPositiveButton(
-            @StringRes buttonText: Int,
-            onClickListener: MaterialDialogInterface.OnClickListener,
-        ): Builder<D> {
-            return setPositiveButton(buttonText, MATERIAL_ALERT_DIALOG_UI_NOT_ICON, onClickListener)
-        }
-
-        /**
-         * Set a listener to be invoked when the positive button of the dialog is pressed.
-         *
-         * @param buttonText        The text to display in positive button.
-         * @param onClickListener    The [MaterialDialogInterface.OnClickListener] to use.
-         * @param icon        The [DrawableRes] to be set as an icon for the button.
-         * @return [Builder] object to allow for chaining of calls to set methods
-         */
-        fun setPositiveButton(
-            buttonText: String? = null,
-            @DrawableRes icon: Int,
-            onClickListener: MaterialDialogInterface.OnClickListener,
-        ): Builder<D> {
-            val valueText =
-                if (buttonText.isNullOrEmpty()) context.getString(R.string.label_text_accept)
-                else buttonText
-            positiveButton =
-                ButtonAlertDialog(title = valueText, icon = icon, onClickListener = onClickListener)
-            return this
-        }
-
-        /**
-         * Set a listener to be invoked when the positive button of the dialog is pressed.
-         *
-         * @param buttonText        The text to display in positive button.
-         * @param onClickListener    The [MaterialDialogInterface.OnClickListener] to use.
-         * @param icon        The [DrawableRes] to be set as an icon for the button.
-         * @return [Builder] object to allow for chaining of calls to set methods
-         */
-        fun setPositiveButton(
-            @StringRes buttonText: Int,
-            @DrawableRes icon: Int,
-            onClickListener: MaterialDialogInterface.OnClickListener,
-        ): Builder<D> {
-            positiveButton = ButtonAlertDialog(
-                title = context.getString(buttonText),
-                icon = icon,
-                onClickListener = onClickListener
+        fun setNegativeButton(onClickListener: MaterialDialogInterface.OnClickListener): Builder<D> {
+            return setNegativeButton(
+                R.string.label_text_cancel,
+                ButtonIconAlert(MATERIAL_ALERT_DIALOG_UI_NOT_ICON),
+                onClickListener
             )
-            return this
         }
 
-        /**
-         * Set a listener to be invoked when the neutral button of the dialog is pressed.
-         *
-         * @param buttonText        The text to display in neutral button.
-         * @param onClickListener    The [MaterialDialogInterface.OnClickListener] to use.
-         * @return [Builder] object to allow for chaining of calls to set methods
-         */
-        fun setNeutralButton(
-            buttonText: String? = null,
-            onClickListener: MaterialDialogInterface.OnClickListener,
-        ): Builder<D> {
-            return setNeutralButton(buttonText, MATERIAL_ALERT_DIALOG_UI_NOT_ICON, onClickListener)
-        }
 
         /**
-         * Set a listener to be invoked when the neutral button of the dialog is pressed.
+         * Set a listener to be invoked when the negative button of the dialog is pressed.
          *
-         * @param buttonText        The text to display in neutral button.
+         * @param text        The text to display in negative button.
          * @param onClickListener    The [MaterialDialogInterface.OnClickListener] to use.
-         * @return [Builder] object to allow for chaining of calls to set methods
-         */
-        fun setNeutralButton(
-            @StringRes buttonText: Int,
-            onClickListener: MaterialDialogInterface.OnClickListener,
-        ): Builder<D> {
-            return setNeutralButton(buttonText, MATERIAL_ALERT_DIALOG_UI_NOT_ICON, onClickListener)
-        }
-
-        /**
-         * Set a listener to be invoked when the neutral button of the dialog is pressed.
          *
-         * @param buttonText        The text to display in neutral button.
-         * @param onClickListener    The [MaterialDialogInterface.OnClickListener] to use.
-         * @param icon        The [DrawableRes] to be set as an icon for the button.
          * @return [Builder] object to allow for chaining of calls to set methods
-         */
-        fun setNeutralButton(
-            buttonText: String? = null,
-            @DrawableRes icon: Int,
-            onClickListener: MaterialDialogInterface.OnClickListener,
-        ): Builder<D> {
-            val valueText =
-                if (buttonText.isNullOrEmpty()) context.getString(R.string.label_text_decline)
-                else buttonText
-            neutralButton =
-                ButtonAlertDialog(title = valueText, icon = icon, onClickListener = onClickListener)
-            return this
-        }
-
-        /**
-         * Set a listener to be invoked when the neutral button of the dialog is pressed.
          *
-         * @param buttonText        The text to display in neutral button.
-         * @param onClickListener    The [MaterialDialogInterface.OnClickListener] to use.
-         * @param icon        The [DrawableRes] to be set as an icon for the button.
-         * @return [Builder] object to allow for chaining of calls to set methods
          */
-        fun setNeutralButton(
-            @StringRes buttonText: Int,
-            @DrawableRes icon: Int,
-            onClickListener: MaterialDialogInterface.OnClickListener,
+        fun setNegativeButton(
+            text: String,
+            onClickListener: MaterialDialogInterface.OnClickListener
         ): Builder<D> {
-            neutralButton = ButtonAlertDialog(
-                title = context.getString(buttonText),
-                icon = icon,
-                onClickListener = onClickListener
+            return setNegativeButton(
+                text,
+                ButtonIconAlert(MATERIAL_ALERT_DIALOG_UI_NOT_ICON),
+                onClickListener
             )
-            return this
         }
+
 
         /**
          * Set a listener to be invoked when the negative button of the dialog is pressed.
          *
-         * @param buttonText        The text to display in negative button.
+         * - Default button text is [R.string.label_text_cancel].
+         *
+         * @param icon        The [ButtonIconAlert] to be set as an icon for the button.
          * @param onClickListener    The [MaterialDialogInterface.OnClickListener] to use.
+         *
          * @return [Builder] object to allow for chaining of calls to set methods
+         *
          */
         fun setNegativeButton(
-            buttonText: String? = null,
-            onClickListener: MaterialDialogInterface.OnClickListener,
+            icon: ButtonIconAlert,
+            onClickListener: MaterialDialogInterface.OnClickListener
         ): Builder<D> {
-            return setNegativeButton(buttonText, MATERIAL_ALERT_DIALOG_UI_NOT_ICON, onClickListener)
+            return setNegativeButton(R.string.label_text_cancel, icon, onClickListener)
         }
+
 
         /**
          * Set a listener to be invoked when the negative button of the dialog is pressed.
          *
-         * @param buttonText        The text to display in negative button.
+         * @param text        The text to display in negative button.
          * @param onClickListener    The [MaterialDialogInterface.OnClickListener] to use.
-         * @return [Builder] object to allow for chaining of calls to set methods
-         */
-        fun setNegativeButton(
-            @StringRes buttonText: Int,
-            onClickListener: MaterialDialogInterface.OnClickListener,
-        ): Builder<D> {
-            return setNegativeButton(buttonText, MATERIAL_ALERT_DIALOG_UI_NOT_ICON, onClickListener)
-        }
-
-        /**
-         * Set a listener to be invoked when the negative button of the dialog is pressed.
          *
-         * @param buttonText        The text to display in negative button.
-         * @param onClickListener    The [MaterialDialogInterface.OnClickListener] to use.
-         * @param icon        The [DrawableRes] to be set as an icon for the button.
          * @return [Builder] object to allow for chaining of calls to set methods
-         */
-        fun setNegativeButton(
-            buttonText: String? = null,
-            @DrawableRes icon: Int,
-            onClickListener: MaterialDialogInterface.OnClickListener,
-        ): Builder<D> {
-            val valueText =
-                if (buttonText.isNullOrEmpty()) context.getString(R.string.label_text_cancel)
-                else buttonText
-            negativeButton =
-                ButtonAlertDialog(title = valueText, icon = icon, onClickListener = onClickListener)
-            return this
-        }
-
-        /**
-         * Set a listener to be invoked when the negative button of the dialog is pressed.
          *
-         * @param buttonText        The text to display in negative button.
-         * @param onClickListener    The [MaterialDialogInterface.OnClickListener] to use.
-         * @param icon        The [DrawableRes] to be set as an icon for the button.
-         * @return [Builder] object to allow for chaining of calls to set methods
          */
         fun setNegativeButton(
-            @StringRes buttonText: Int,
-            @DrawableRes icon: Int,
-            onClickListener: MaterialDialogInterface.OnClickListener,
+            @StringRes text: Int,
+            onClickListener: MaterialDialogInterface.OnClickListener
         ): Builder<D> {
-            negativeButton = ButtonAlertDialog(
-                title = context.getString(buttonText),
-                icon = icon,
-                onClickListener = onClickListener
+            return setNegativeButton(
+                text,
+                ButtonIconAlert(MATERIAL_ALERT_DIALOG_UI_NOT_ICON),
+                onClickListener
             )
+        }
+
+
+        /**
+         * Set a listener to be invoked when the negative button of the dialog is pressed.
+         *
+         * @param text        The text to display in negative button.
+         * @param icon        The [ButtonIconAlert] to be set as an icon for the button.
+         * @param onClickListener    The [MaterialDialogInterface.OnClickListener] to use.
+         *
+         * @return [Builder] object to allow for chaining of calls to set methods
+         *
+         */
+        fun setNegativeButton(
+            text: String,
+            icon: ButtonIconAlert,
+            onClickListener: MaterialDialogInterface.OnClickListener
+        ): Builder<D> {
+            this.negativeButton = initNegativeButton(text, icon, onClickListener)
+            return this
+        }
+
+
+        /**
+         * Set a listener to be invoked when the negative button of the dialog is pressed.
+         *
+         * @param text        The text to display in negative button.
+         * @param icon        The [ButtonIconAlert] to be set as an icon for the button.
+         * @param onClickListener    The [MaterialDialogInterface.OnClickListener] to use.
+         *
+         * @return [Builder] object to allow for chaining of calls to set methods
+         *
+         */
+        fun setNegativeButton(
+            @StringRes text: Int,
+            icon: ButtonIconAlert,
+            onClickListener: MaterialDialogInterface.OnClickListener
+        ): Builder<D> {
+            this.negativeButton = initNegativeButton(context.getString(text), icon, onClickListener)
+            return this
+        }
+
+
+        /**
+         * Set a listener to be invoked when the neutral button of the dialog is pressed.
+         *
+         * - Default button text is [R.string.label_text_decline].
+         *
+         * @param onClickListener    The [MaterialDialogInterface.OnClickListener] to use.
+         *
+         * @return [Builder] object to allow for chaining of calls to set methods
+         *
+         */
+        fun setNeutralButton(onClickListener: MaterialDialogInterface.OnClickListener): Builder<D> {
+            return setNeutralButton(
+                R.string.label_text_decline,
+                ButtonIconAlert(MATERIAL_ALERT_DIALOG_UI_NOT_ICON),
+                onClickListener
+            )
+        }
+
+
+        /**
+         * Set a listener to be invoked when the neutral button of the dialog is pressed.
+         *
+         * @param text        The text to display in neutral button.
+         * @param onClickListener    The [MaterialDialogInterface.OnClickListener] to use.
+         *
+         * @return [Builder] object to allow for chaining of calls to set methods
+         *
+         */
+        fun setNeutralButton(
+            text: String,
+            onClickListener: MaterialDialogInterface.OnClickListener
+        ): Builder<D> {
+            return setNeutralButton(
+                text,
+                ButtonIconAlert(MATERIAL_ALERT_DIALOG_UI_NOT_ICON),
+                onClickListener
+            )
+        }
+
+
+        /**
+         * Set a listener to be invoked when the neutral button of the dialog is pressed.
+         *
+         * - Default button text is [R.string.label_text_decline].
+         *
+         * @param onClickListener    The [MaterialDialogInterface.OnClickListener] to use.
+         *
+         * @return [Builder] object to allow for chaining of calls to set methods
+         *
+         */
+        fun setNeutralButton(
+            icon: ButtonIconAlert,
+            onClickListener: MaterialDialogInterface.OnClickListener
+        ): Builder<D> {
+            return setNeutralButton(R.string.label_text_decline, icon, onClickListener)
+        }
+
+
+        /**
+         * Set a listener to be invoked when the neutral button of the dialog is pressed.
+         *
+         * @param text        The text to display in neutral button.
+         * @param onClickListener    The [MaterialDialogInterface.OnClickListener] to use.
+         *
+         * @return [Builder] object to allow for chaining of calls to set methods
+         *
+         */
+        fun setNeutralButton(
+            text: String,
+            icon: ButtonIconAlert,
+            onClickListener: MaterialDialogInterface.OnClickListener
+        ): Builder<D> {
+            this.neutralButton = initNeutralButton(text, icon, onClickListener)
+            return this
+        }
+
+
+        /**
+         * Set a listener to be invoked when the neutral button of the dialog is pressed.
+         *
+         * @param text        The text to display in neutral button.
+         * @param onClickListener    The [MaterialDialogInterface.OnClickListener] to use.
+         *
+         * @return [Builder] object to allow for chaining of calls to set methods
+         *
+         */
+        fun setNeutralButton(
+            @StringRes text: Int,
+            onClickListener: MaterialDialogInterface.OnClickListener
+        ): Builder<D> {
+            return setNeutralButton(
+                text,
+                ButtonIconAlert(MATERIAL_ALERT_DIALOG_UI_NOT_ICON),
+                onClickListener
+            )
+        }
+
+
+        /**
+         * Set a listener to be invoked when the neutral button of the dialog is pressed.
+         *
+         * @param text        The text to display in neutral button.
+         * @param onClickListener    The [MaterialDialogInterface.OnClickListener] to use.
+         *
+         * @return [Builder] object to allow for chaining of calls to set methods
+         *
+         */
+        fun setNeutralButton(
+            @StringRes text: Int,
+            icon: ButtonIconAlert,
+            onClickListener: MaterialDialogInterface.OnClickListener
+        ): Builder<D> {
+            this.neutralButton = initNeutralButton(context.getString(text), icon, onClickListener)
+            return this
+        }
+
+        /**
+         * Set a listener to be invoked when the positive button of the dialog is pressed.
+         *
+         * - Default button text is [R.string.label_text_accept].
+         *
+         * @param onClickListener    The [MaterialDialogInterface.OnClickListener] to use.
+         *
+         * @return [Builder] object to allow for chaining of calls to set methods
+         *
+         */
+        fun setPositiveButton(onClickListener: MaterialDialogInterface.OnClickListener): Builder<D> {
+            return setPositiveButton(
+                R.string.label_text_accept,
+                ButtonIconAlert(MATERIAL_ALERT_DIALOG_UI_NOT_ICON),
+                onClickListener
+            )
+        }
+
+
+        /**
+         * Set a listener to be invoked when the positive button of the dialog is pressed.
+         *
+         * @param text        The text to display in positive button.
+         * @param onClickListener    The [MaterialDialogInterface.OnClickListener] to use.
+         *
+         * @return [Builder] object to allow for chaining of calls to set methods
+         *
+         */
+        fun setPositiveButton(
+            text: String,
+            onClickListener: MaterialDialogInterface.OnClickListener
+        ): Builder<D> {
+            return setPositiveButton(
+                text,
+                ButtonIconAlert(MATERIAL_ALERT_DIALOG_UI_NOT_ICON),
+                onClickListener
+            )
+        }
+
+
+        /**
+         * Set a listener to be invoked when the positive button of the dialog is pressed.
+         *
+         * - Default button text is [R.string.label_text_accept].
+         *
+         * @param icon        The [ButtonIconAlert] to be set as an icon for the button.
+         * @param onClickListener    The [MaterialDialogInterface.OnClickListener] to use.
+         *
+         * @return [Builder] object to allow for chaining of calls to set methods
+         *
+         */
+        fun setPositiveButton(
+            icon: ButtonIconAlert,
+            onClickListener: MaterialDialogInterface.OnClickListener
+        ): Builder<D> {
+            return setPositiveButton(R.string.label_text_accept, icon, onClickListener)
+        }
+
+
+        /**
+         * Set a listener to be invoked when the positive button of the dialog is pressed.
+         *
+         * @param text        The text to display in positive button.
+         * @param icon        The [ButtonIconAlert] to be set as an icon for the button.
+         * @param onClickListener    The [MaterialDialogInterface.OnClickListener] to use.
+         *
+         * @return [Builder] object to allow for chaining of calls to set methods
+         *
+         */
+        fun setPositiveButton(
+            text: String,
+            icon: ButtonIconAlert,
+            onClickListener: MaterialDialogInterface.OnClickListener
+        ): Builder<D> {
+            this.positiveButton = initPositiveButton(text, icon, onClickListener)
+            return this
+        }
+
+
+        /**
+         * Set a listener to be invoked when the positive button of the dialog is pressed.
+         *
+         * @param text        The text to display in positive button.
+         * @param onClickListener    The [MaterialDialogInterface.OnClickListener] to use.
+         *
+         * @return [Builder] object to allow for chaining of calls to set methods
+         *
+         */
+        fun setPositiveButton(
+            @StringRes text: Int,
+            onClickListener: MaterialDialogInterface.OnClickListener
+        ): Builder<D> {
+            return setPositiveButton(
+                text,
+                ButtonIconAlert(MATERIAL_ALERT_DIALOG_UI_NOT_ICON),
+                onClickListener
+            )
+        }
+
+
+        /**
+         * Set a listener to be invoked when the positive button of the dialog is pressed.
+         *
+         * @param text        The text to display in positive button.
+         * @param icon        The [ButtonIconAlert] to be set as an icon for the button.
+         * @param onClickListener    The [MaterialDialogInterface.OnClickListener] to use.
+         *
+         * @return [Builder] object to allow for chaining of calls to set methods
+         *
+         */
+        fun setPositiveButton(
+            @StringRes text: Int,
+            icon: ButtonIconAlert,
+            onClickListener: MaterialDialogInterface.OnClickListener
+        ): Builder<D> {
+            this.positiveButton = initPositiveButton(context.getString(text), icon, onClickListener)
             return this
         }
 
@@ -791,6 +944,15 @@ abstract class AlertDialogCenteredBase(
          * Creates an [MaterialAlertDialogCentered] with the arguments supplied to this builder.
          * Calling this method does not display the dialog.
          * If no additional processing is needed, [show] may be called instead to both create and display the dialog.
+         *
+         * ```kotlin
+         *
+         * val dialog = MaterialAlertDialogCentered.Builder(context)
+         *     ...
+         *     .create()
+         * dialog.show()
+         *
+         * ```
          *
          * @return [D] object to allow for chaining of calls to set methods
          */

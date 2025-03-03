@@ -82,7 +82,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/margin_spacing_min"
-            android:layout_marginTop="@dimen/paddingTop"
+            android:layout_marginTop="@dimen/dimen_12"
             android:layout_marginEnd="@dimen/margin_spacing_min"
             android:layout_marginBottom="@dimen/margin_spacing_min"
             android:contentDescription="@string/label_text_information"

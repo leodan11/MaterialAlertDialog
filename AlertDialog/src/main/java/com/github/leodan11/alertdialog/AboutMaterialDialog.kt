@@ -6,24 +6,23 @@ import android.view.View
 import com.github.leodan11.alertdialog.dist.AboutDialogBase
 import com.github.leodan11.alertdialog.io.models.ButtonAlertDialog
 import com.github.leodan11.alertdialog.io.models.ButtonCountDownTimer
-import com.github.leodan11.alertdialog.io.models.DetailsAlertDialog
-import com.github.leodan11.alertdialog.io.models.IconAlertDialog
-import com.github.leodan11.alertdialog.io.models.IconTintAlertDialog
-import com.github.leodan11.alertdialog.io.models.MessageAlertDialog
-import com.github.leodan11.alertdialog.io.models.TitleAlertDialog
+import com.github.leodan11.alertdialog.io.models.DetailsAlert
+import com.github.leodan11.alertdialog.io.models.IconAlert
+import com.github.leodan11.alertdialog.io.models.IconTintAlert
+import com.github.leodan11.alertdialog.io.models.MessageAlert
+import com.github.leodan11.alertdialog.io.models.TitleAlert
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
 class AboutMaterialDialog private constructor(
     mContext: Context,
-    icon: IconAlertDialog,
-    iconStore: IconAlertDialog,
-    backgroundIconTintColor: IconTintAlertDialog?,
+    icon: IconAlert,
+    iconStore: IconAlert,
+    backgroundIconTintColor: IconTintAlert?,
     mCountDownTimer: ButtonCountDownTimer?,
-    detailsScrollHeightSpan: Int,
-    title: TitleAlertDialog?,
-    message: MessageAlertDialog<*>?,
-    span: DetailsAlertDialog<*>?,
-    details: DetailsAlertDialog<*>?,
+    title: TitleAlert?,
+    message: MessageAlert<*>?,
+    span: DetailsAlert<*>?,
+    details: DetailsAlert<*>?,
     mCancelable: Boolean,
     mIconStore: Boolean,
     mPositiveButton: ButtonAlertDialog?,
@@ -35,7 +34,6 @@ class AboutMaterialDialog private constructor(
     iconStore = iconStore,
     backgroundIconTintColor = backgroundIconTintColor,
     countDownTimer = mCountDownTimer,
-    detailsScrollHeightSpan = detailsScrollHeightSpan,
     title = title,
     message = message,
     span = span,
@@ -72,7 +70,6 @@ class AboutMaterialDialog private constructor(
                 icon = icon,
                 iconStore = iconStore,
                 backgroundIconTintColor = backgroundIconTintColor,
-                detailsScrollHeightSpan = detailsScrollHeightSpan,
                 title = title,
                 message = message,
                 span = span,

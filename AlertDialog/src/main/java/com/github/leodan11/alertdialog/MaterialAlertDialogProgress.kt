@@ -5,21 +5,21 @@ import android.view.LayoutInflater
 import android.view.View
 import com.github.leodan11.alertdialog.dist.AlertDialogProgressBase
 import com.github.leodan11.alertdialog.io.models.ButtonAlertDialog
-import com.github.leodan11.alertdialog.io.models.IconAlertDialog
-import com.github.leodan11.alertdialog.io.models.IconTintAlertDialog
-import com.github.leodan11.alertdialog.io.models.MessageAlertDialog
-import com.github.leodan11.alertdialog.io.models.TitleAlertDialog
+import com.github.leodan11.alertdialog.io.models.IconAlert
+import com.github.leodan11.alertdialog.io.models.IconTintAlert
+import com.github.leodan11.alertdialog.io.models.MessageAlert
+import com.github.leodan11.alertdialog.io.models.TitleAlert
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
 class MaterialAlertDialogProgress private constructor(
     mContext: Context,
-    icon: IconAlertDialog?,
-    tintColor: IconTintAlertDialog?,
-    iconVectorDrawable: IconAlertDialog,
+    icon: IconAlert?,
+    tintColor: IconTintAlert?,
+    iconVectorDrawable: IconAlert,
     mAnimatedVectorDrawable: Boolean,
     mAnimatedVectorDrawableLoop: Boolean,
-    title: TitleAlertDialog?,
-    message: MessageAlertDialog<*>?,
+    title: TitleAlert?,
+    message: MessageAlert<*>?,
     mCancelable: Boolean,
     mNegativeButton: ButtonAlertDialog?,
 ) : AlertDialogProgressBase(

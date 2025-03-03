@@ -7,24 +7,23 @@ import com.github.leodan11.alertdialog.dist.AlertDialogEventsBase
 import com.github.leodan11.alertdialog.io.content.AlertDialog
 import com.github.leodan11.alertdialog.io.models.ButtonAlertDialog
 import com.github.leodan11.alertdialog.io.models.ButtonCountDownTimer
-import com.github.leodan11.alertdialog.io.models.DetailsAlertDialog
-import com.github.leodan11.alertdialog.io.models.IconAlertDialog
-import com.github.leodan11.alertdialog.io.models.MessageAlertDialog
-import com.github.leodan11.alertdialog.io.models.TitleAlertDialog
+import com.github.leodan11.alertdialog.io.models.DetailsAlert
+import com.github.leodan11.alertdialog.io.models.IconAlert
+import com.github.leodan11.alertdialog.io.models.MessageAlert
+import com.github.leodan11.alertdialog.io.models.TitleAlert
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
 class MaterialAlertDialogEvents private constructor(
     mContext: Context,
-    icon: IconAlertDialog,
+    icon: IconAlert,
     type: AlertDialog.State,
     backgroundColorSpanInt: Int?,
     backgroundColorSpanResource: Int?,
     mCountDownTimer: ButtonCountDownTimer?,
     messageSpanLengthMax: Int,
-    detailsScrollHeightSpan: Int,
-    title: TitleAlertDialog?,
-    message: MessageAlertDialog<*>?,
-    details: DetailsAlertDialog<*>?,
+    title: TitleAlert?,
+    message: MessageAlert<*>?,
+    details: DetailsAlert<*>?,
     mCancelable: Boolean,
     mPositiveButton: ButtonAlertDialog?,
     mNeutralButton: ButtonAlertDialog?,
@@ -37,7 +36,6 @@ class MaterialAlertDialogEvents private constructor(
     backgroundColorSpanResource = backgroundColorSpanResource,
     countDownTimer = mCountDownTimer,
     messageSpanLengthMax = messageSpanLengthMax,
-    detailsScrollHeightSpan = detailsScrollHeightSpan,
     title = title,
     message = message,
     details = details,
@@ -76,7 +74,6 @@ class MaterialAlertDialogEvents private constructor(
                 backgroundColorSpanResource = backgroundColorSpan,
                 mCountDownTimer = countDownTimer,
                 messageSpanLengthMax = messageSpanLengthMax,
-                detailsScrollHeightSpan = detailsScrollHeightSpan,
                 title = title,
                 message = message,
                 details = details,

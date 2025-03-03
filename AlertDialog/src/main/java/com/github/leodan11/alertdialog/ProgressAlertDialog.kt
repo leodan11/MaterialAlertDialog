@@ -4,16 +4,16 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import com.github.leodan11.alertdialog.dist.ProgressAlertDialogBase
-import com.github.leodan11.alertdialog.io.models.IconAlertDialog
-import com.github.leodan11.alertdialog.io.models.MessageAlertDialog
+import com.github.leodan11.alertdialog.io.models.IconAlert
+import com.github.leodan11.alertdialog.io.models.MessageAlert
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
 class ProgressAlertDialog private constructor(
     mContext: Context,
-    icon: IconAlertDialog,
+    icon: IconAlert,
     mAnimatedVectorDrawable: Boolean,
     mAnimatedVectorDrawableLoop: Boolean,
-    message: MessageAlertDialog<*>?,
+    message: MessageAlert<*>?,
     mCancelable: Boolean,
 ) : ProgressAlertDialogBase(
     mContext = mContext,
