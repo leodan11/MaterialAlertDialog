@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/buttonPanel"
+    style="?attr/buttonBarStyle"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:fillViewport="true"
+    android:scrollIndicators="top|bottom">
+
+    <com.github.leodan11.customview.layout.ButtonBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="bottom"
+        android:layoutDirection="locale"
+        android:orientation="horizontal"
+        android:padding="@dimen/dimen_14">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/buttonActionNegativeAlertDialog"
+            style="?attr/buttonBarNeutralButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/button_negative_speakable_text_value" />
+
+        <Space
+            android:id="@+id/spacer"
+            android:layout_width="@dimen/dimen_0"
+            android:layout_height="@dimen/dimen_0"
+            android:layout_weight="1" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/buttonActionNeutralAlertDialog"
+            style="?attr/buttonBarNegativeButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/button_neutral_speakable_text_value" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/buttonActionPositiveAlertDialog"
+            style="?attr/buttonBarPositiveButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/button_positive_speakable_text_value" />
+
+    </com.github.leodan11.customview.layout.ButtonBarLayout>
+
+</ScrollView>

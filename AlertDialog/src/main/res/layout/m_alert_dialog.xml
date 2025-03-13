@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -35,24 +34,24 @@
         style="@style/Theme.MaterialDialog.Title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/margin_spacing_min"
-        android:layout_marginEnd="@dimen/margin_spacing_min" />
+        android:layout_marginStart="?attr/dialogPreferredPadding"
+        android:layout_marginEnd="?attr/dialogPreferredPadding" />
 
     <TextView
         android:id="@+id/textViewMessageAlertDialog"
         style="@style/Theme.MaterialDialog.Message"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/margin_spacing_min"
-        android:layout_marginEnd="@dimen/margin_spacing_min" />
+        android:layout_marginStart="?attr/dialogPreferredPadding"
+        android:layout_marginEnd="?attr/dialogPreferredPadding" />
 
     <androidx.core.widget.NestedScrollView
         android:id="@+id/nestedScrollViewContainerDetails"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/margin_spacing_min"
+        android:layout_marginStart="?attr/dialogPreferredPadding"
         android:layout_marginTop="@dimen/paddingTop"
-        android:layout_marginEnd="@dimen/margin_spacing_min"
+        android:layout_marginEnd="?attr/dialogPreferredPadding"
         android:layout_marginBottom="@dimen/margin_spacing"
         android:contentDescription="@string/label_text_information"
         android:scrollbars="none"
@@ -64,53 +63,20 @@
             style="@style/Theme.MaterialDialog.Details"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="0dp" />
+            android:layout_marginTop="@dimen/dimen_0" />
 
     </androidx.core.widget.NestedScrollView>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/margin_spacing_min">
+        android:layout_height="wrap_content">
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/buttonActionNegativeAlertDialog"
-            style="?attr/buttonBarNegativeButtonStyle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:contentDescription="@string/button_negative_speakable_text_value"
-            android:fontFamily="@font/montserrat_semi_bold"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+        <include
+            android:id="@+id/events_actions"
+            layout="@layout/m_alert_dialog_actions"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
-
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/buttonActionNeutralAlertDialog"
-                style="?attr/buttonBarNeutralButtonStyle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginEnd="@dimen/margin_spacing_min"
-                android:contentDescription="@string/button_neutral_speakable_text_value"
-                android:fontFamily="@font/montserrat_semi_bold" />
-
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/buttonActionPositiveAlertDialog"
-                style="?attr/buttonBarPositiveButtonStyle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:contentDescription="@string/button_positive_speakable_text_value"
-                android:fontFamily="@font/montserrat_semi_bold" />
-
-        </LinearLayout>
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
 </LinearLayout>

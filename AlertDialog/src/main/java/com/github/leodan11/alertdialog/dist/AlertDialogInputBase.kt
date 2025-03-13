@@ -116,7 +116,7 @@ abstract class AlertDialogInputBase(
                 val mBackgroundTint: ColorStateList =
                     ColorStateList.valueOf(mContext.colorPrimary())
                 // Set Positive Button
-                buttonActionPositiveAlertDialog.apply {
+                inputActions.buttonActionPositiveAlertDialog.apply {
                     positiveButton.toButtonView(mContext, this, mBackgroundTint)
                     setOnClickListener {
                         positiveButton?.onClickInputListener?.let { listener ->
@@ -135,7 +135,7 @@ abstract class AlertDialogInputBase(
                     }
                 }
                 // Set Negative Button
-                buttonActionNegativeAlertDialog.apply {
+                inputActions.buttonActionNegativeAlertDialog.apply {
                     negativeButton.toButtonView(mContext, this, mBackgroundTint)
                     setOnClickListener {
                         negativeButton?.onClickListener?.onClick(
@@ -208,8 +208,8 @@ abstract class AlertDialogInputBase(
     @Throws(IllegalArgumentException::class)
     open fun getButton(which: AlertDialog.UI): MaterialButton {
         return when (which) {
-            AlertDialog.UI.BUTTON_POSITIVE -> binding.buttonActionPositiveAlertDialog
-            AlertDialog.UI.BUTTON_NEGATIVE -> binding.buttonActionNegativeAlertDialog
+            AlertDialog.UI.BUTTON_POSITIVE -> binding.inputActions.buttonActionPositiveAlertDialog
+            AlertDialog.UI.BUTTON_NEGATIVE -> binding.inputActions.buttonActionNegativeAlertDialog
             else -> throw IllegalArgumentException("Button type not supported")
         }
     }

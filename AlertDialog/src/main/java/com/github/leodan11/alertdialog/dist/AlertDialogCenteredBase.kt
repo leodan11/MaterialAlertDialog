@@ -75,7 +75,8 @@ abstract class AlertDialogCenteredBase(
         try {
             with(binding) {
                 // Set header layout
-                headerHolderAlertDialog.isVisible = icon != null || bitmap != null || jsonAnimation != null
+                headerHolderAlertDialog.isVisible =
+                    icon != null || bitmap != null || jsonAnimation != null
                 // Set Icon
                 icon.toImageView(imageViewIconAlertDialog, iconTint)
                 bitmap.toImageView(imageViewBitmapAlertDialog)
@@ -89,7 +90,7 @@ abstract class AlertDialogCenteredBase(
                 // Set Message
                 message.toMessageView(textViewMessageAlertDialog)
                 // Set Negative Button
-                buttonActionNegativeAlertDialog.apply {
+                centeredActions.buttonActionNegativeAlertDialog.apply {
                     mNegativeButton.toButtonView(mContext, this, mBackgroundTint)
                     setOnClickListener {
                         mNegativeButton?.onClickListener?.onClick(
@@ -99,7 +100,7 @@ abstract class AlertDialogCenteredBase(
                     }
                 }
                 // Set Neutral Button
-                buttonActionNeutralAlertDialog.apply {
+                centeredActions.buttonActionNeutralAlertDialog.apply {
                     mNeutralButton.toButtonView(mContext, this, mBackgroundTint)
                     setOnClickListener {
                         mNeutralButton?.onClickListener?.onClick(
@@ -109,7 +110,7 @@ abstract class AlertDialogCenteredBase(
                     }
                 }
                 // Set Positive Button
-                buttonActionPositiveAlertDialog.apply {
+                centeredActions.buttonActionPositiveAlertDialog.apply {
                     mPositiveButton.toButtonView(mContext, this, mBackgroundTint)
                     setOnClickListener {
                         mPositiveButton?.onClickListener?.onClick(
@@ -182,9 +183,9 @@ abstract class AlertDialogCenteredBase(
     @Throws(IllegalArgumentException::class)
     open fun getButton(which: AlertDialog.UI): MaterialButton {
         return when (which) {
-            AlertDialog.UI.BUTTON_POSITIVE -> binding.buttonActionPositiveAlertDialog
-            AlertDialog.UI.BUTTON_NEGATIVE -> binding.buttonActionNegativeAlertDialog
-            AlertDialog.UI.BUTTON_NEUTRAL -> binding.buttonActionNeutralAlertDialog
+            AlertDialog.UI.BUTTON_POSITIVE -> binding.centeredActions.buttonActionPositiveAlertDialog
+            AlertDialog.UI.BUTTON_NEGATIVE -> binding.centeredActions.buttonActionNegativeAlertDialog
+            AlertDialog.UI.BUTTON_NEUTRAL -> binding.centeredActions.buttonActionNeutralAlertDialog
         }
     }
 
@@ -438,7 +439,7 @@ abstract class AlertDialogCenteredBase(
          *
          */
         fun setTitle(title: String): Builder<D> {
-            return setTitle(title, AlertDialog.TextAlignment.START)
+            return setTitle(title, AlertDialog.TextAlignment.CENTER)
         }
 
 
@@ -451,7 +452,7 @@ abstract class AlertDialogCenteredBase(
          *
          */
         fun setTitle(@StringRes title: Int): Builder<D> {
-            return setTitle(title, AlertDialog.TextAlignment.START)
+            return setTitle(title, AlertDialog.TextAlignment.CENTER)
         }
 
 

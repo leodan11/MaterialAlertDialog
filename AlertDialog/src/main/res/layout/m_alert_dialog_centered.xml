@@ -57,65 +57,34 @@
 
         <TextView
             android:id="@+id/textViewTitleAlertDialog"
-            style="@style/Theme.MaterialDialog.Title"
+            style="@style/MaterialAlertDialog.Material3.Title.Text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/margin_spacing"
-            android:layout_marginEnd="@dimen/margin_spacing" />
+            android:layout_marginStart="@dimen/dimen_24"
+            android:layout_marginTop="@dimen/dimen_24"
+            android:layout_marginEnd="@dimen/dimen_24" />
 
         <TextView
             android:id="@+id/textViewMessageAlertDialog"
-            style="@style/Theme.MaterialDialog.Message"
+            style="@style/MaterialAlertDialog.Material3.Body.Text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/margin_spacing"
-            android:layout_marginEnd="@dimen/margin_spacing"
-            android:layout_marginBottom="@dimen/margin_spacing_medium" />
+            android:layout_marginStart="@dimen/dimen_24"
+            android:layout_marginTop="@dimen/dimen_16"
+            android:layout_marginEnd="@dimen/dimen_24" />
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <androidx.coordinatorlayout.widget.CoordinatorLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/margin_spacing">
+            android:layout_marginTop="@dimen/dimen_8">
 
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/buttonActionNegativeAlertDialog"
-                style="?attr/buttonBarNegativeButtonStyle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:contentDescription="@string/button_negative_speakable_text_value"
-                android:fontFamily="@font/montserrat_semi_bold"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+            <include
+                android:id="@+id/centered_actions"
+                layout="@layout/m_alert_dialog_actions"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
 
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
-
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/buttonActionNeutralAlertDialog"
-                    style="?attr/buttonBarNeutralButtonStyle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginEnd="@dimen/margin_spacing_min"
-                    android:contentDescription="@string/button_neutral_speakable_text_value"
-                    android:fontFamily="@font/montserrat_semi_bold" />
-
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/buttonActionPositiveAlertDialog"
-                    style="?attr/buttonBarPositiveButtonStyle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:contentDescription="@string/button_positive_speakable_text_value"
-                    android:fontFamily="@font/montserrat_semi_bold" />
-
-            </LinearLayout>
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
     </LinearLayout>
 

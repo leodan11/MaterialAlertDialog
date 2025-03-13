@@ -2,7 +2,7 @@
 appcompat = "1.7.0"
 constraintlayout = "2.2.1"
 coreKtx = "1.13.1"
-customView = "4.3.0"
+customView = "4.3.2"
 espressoCore = "3.6.1"
 kExtensions = "2.1.0"
 junit = "4.13.2"
@@ -19,6 +19,7 @@ androidx-core-ktx = { module = "androidx.core:core-ktx", version.ref = "coreKtx"
 androidx-espresso-core = { module = "androidx.test.espresso:espresso-core", version.ref = "espressoCore" }
 androidx-junit = { module = "androidx.test.ext:junit", version.ref = "junitVersion" }
 custom-view-core = { module = "com.github.leodan11.custom-view:core", version.ref = "customView" }
+custom-view-layout = { module = "com.github.leodan11.custom-view:layout", version.ref = "customView" }
 junit = { module = "junit:junit", version.ref = "junit" }
 k-extensions-color = { module = "com.github.leodan11.KExtensions:color", version.ref = "kExtensions" }
 k-extensions-context = { module = "com.github.leodan11.KExtensions:context", version.ref = "kExtensions" }

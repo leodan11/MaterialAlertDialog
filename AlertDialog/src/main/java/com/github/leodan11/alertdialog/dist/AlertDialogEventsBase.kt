@@ -28,6 +28,7 @@ import androidx.annotation.DrawableRes
 import androidx.annotation.IntRange
 import androidx.annotation.RestrictTo
 import androidx.annotation.StringRes
+import androidx.core.content.res.ResourcesCompat
 import androidx.core.widget.NestedScrollView
 import com.github.leodan11.alertdialog.MaterialAlertDialogEvents
 import com.github.leodan11.alertdialog.R
@@ -152,7 +153,8 @@ abstract class AlertDialogEventsBase(
                         )
                     })
                 // Set Positive Button
-                buttonActionPositiveAlertDialog.apply {
+                eventsActions.buttonActionPositiveAlertDialog.apply {
+                    setTypeface(ResourcesCompat.getFont(mContext, R.font.montserrat_semi_bold))
                     mPositiveButton.toButtonView(mContext, this, mBackgroundTint)
                     setOnClickListener {
                         mPositiveButton?.onClickListener?.onClick(
@@ -162,7 +164,8 @@ abstract class AlertDialogEventsBase(
                     }
                 }
                 // Set Neutral Button
-                buttonActionNeutralAlertDialog.apply {
+                eventsActions.buttonActionNeutralAlertDialog.apply {
+                    setTypeface(ResourcesCompat.getFont(mContext, R.font.montserrat_semi_bold))
                     mNeutralButton.toButtonView(mContext, this, mBackgroundTint)
                     setOnClickListener {
                         mNeutralButton?.onClickListener?.onClick(
@@ -172,7 +175,8 @@ abstract class AlertDialogEventsBase(
                     }
                 }
                 // Set Negative Button
-                buttonActionNegativeAlertDialog.apply {
+                eventsActions.buttonActionNegativeAlertDialog.apply {
+                    setTypeface(ResourcesCompat.getFont(mContext, R.font.montserrat_semi_bold))
                     mNegativeButton.toButtonView(mContext, this, mBackgroundTint)
                     setOnClickListener {
                         mNegativeButton?.onClickListener?.onClick(
@@ -247,9 +251,9 @@ abstract class AlertDialogEventsBase(
     @Throws(IllegalArgumentException::class)
     open fun getButton(which: AlertDialog.UI): MaterialButton {
         return when (which) {
-            AlertDialog.UI.BUTTON_POSITIVE -> binding.buttonActionPositiveAlertDialog
-            AlertDialog.UI.BUTTON_NEGATIVE -> binding.buttonActionNegativeAlertDialog
-            AlertDialog.UI.BUTTON_NEUTRAL -> binding.buttonActionNeutralAlertDialog
+            AlertDialog.UI.BUTTON_POSITIVE -> binding.eventsActions.buttonActionPositiveAlertDialog
+            AlertDialog.UI.BUTTON_NEGATIVE -> binding.eventsActions.buttonActionNegativeAlertDialog
+            AlertDialog.UI.BUTTON_NEUTRAL -> binding.eventsActions. buttonActionNeutralAlertDialog
         }
     }
 

@@ -95,7 +95,7 @@ abstract class AboutDialogBase protected constructor(
                     textViewDetailsAlertDialog
                 )
                 // Set Positive Button
-                buttonActionPositiveAlertDialog.apply {
+                aboutActions.buttonActionPositiveAlertDialog.apply {
                     mPositiveButton.toButtonView(mContext, this, mBackgroundTint)
                     setOnClickListener {
                         mPositiveButton?.onClickListener?.onClick(
@@ -105,7 +105,7 @@ abstract class AboutDialogBase protected constructor(
                     }
                 }
                 // Set Neutral Button
-                buttonActionNeutralAlertDialog.apply {
+                aboutActions.buttonActionNeutralAlertDialog.apply {
                     mNeutralButton.toButtonView(mContext, this, mBackgroundTint)
                     setOnClickListener {
                         mNeutralButton?.onClickListener?.onClick(
@@ -115,7 +115,7 @@ abstract class AboutDialogBase protected constructor(
                     }
                 }
                 // Set Negative Button
-                buttonActionNegativeAlertDialog.apply {
+                aboutActions.buttonActionNegativeAlertDialog.apply {
                     mNegativeButton.toButtonView(mContext, this, mBackgroundTint)
                     setOnClickListener {
                         mNegativeButton?.onClickListener?.onClick(
@@ -188,9 +188,9 @@ abstract class AboutDialogBase protected constructor(
     @Throws(IllegalArgumentException::class)
     open fun getButton(which: AlertDialog.UI): MaterialButton {
         return when (which) {
-            AlertDialog.UI.BUTTON_POSITIVE -> binding.buttonActionPositiveAlertDialog
-            AlertDialog.UI.BUTTON_NEGATIVE -> binding.buttonActionNegativeAlertDialog
-            AlertDialog.UI.BUTTON_NEUTRAL -> binding.buttonActionNeutralAlertDialog
+            AlertDialog.UI.BUTTON_POSITIVE -> binding.aboutActions.buttonActionPositiveAlertDialog
+            AlertDialog.UI.BUTTON_NEGATIVE -> binding.aboutActions.buttonActionNegativeAlertDialog
+            AlertDialog.UI.BUTTON_NEUTRAL -> binding.aboutActions.buttonActionNeutralAlertDialog
         }
     }
 

@@ -54,6 +54,7 @@ dependencies {
 
     implementation libs.lottie // Lottie for Android
     implementation libs.custom.view.core // Custom View
+    implementation libs.custom.view.layout
     implementation libs.k.extensions.core // KTX Extension
     implementation libs.k.extensions.color
     implementation libs.k.extensions.context

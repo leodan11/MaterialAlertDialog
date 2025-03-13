@@ -95,7 +95,7 @@ abstract class AlertDialogSignInBase(
                 // Set text input layout password
                 mTextInputLayoutPassword.setColorList(mContext.colorPrimary())
                 // Set Positive Button
-                buttonActionPositiveLoginDialog.apply {
+                loginActions.buttonActionPositiveAlertDialog.apply {
                     mPositiveButton.toButtonView(mContext, this, mBackgroundTint)
                     setOnClickListener {
                         mPositiveButton?.let {
@@ -117,7 +117,7 @@ abstract class AlertDialogSignInBase(
                     }
                 }
                 // Set Negative Button
-                buttonActionNegativeLoginDialog.apply {
+                loginActions.buttonActionNegativeAlertDialog.apply {
                     mNegativeButton.toButtonView(mContext, this, mBackgroundTint)
                     setOnClickListener {
                         mNegativeButton?.onClickListener?.onClick(
@@ -191,8 +191,8 @@ abstract class AlertDialogSignInBase(
     @Throws(IllegalArgumentException::class)
     open fun getButton(which: AlertDialog.UI): MaterialButton {
         return when (which) {
-            AlertDialog.UI.BUTTON_POSITIVE -> binding.buttonActionPositiveLoginDialog
-            AlertDialog.UI.BUTTON_NEGATIVE -> binding.buttonActionNegativeLoginDialog
+            AlertDialog.UI.BUTTON_POSITIVE -> binding.loginActions.buttonActionPositiveAlertDialog
+            AlertDialog.UI.BUTTON_NEGATIVE -> binding.loginActions.buttonActionNegativeAlertDialog
             else -> throw IllegalArgumentException("Button type not supported")
         }
     }
