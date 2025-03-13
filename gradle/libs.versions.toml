@@ -10,7 +10,7 @@ junitVersion = "1.2.1"
 lottie = "6.6.2"
 maskededittext = "5.0.3"
 material = "1.12.0"
-otpview = "v2.0.4"
+otpview = "v2.0.6"
 
 [libraries]
 androidx-appcompat = { module = "androidx.appcompat:appcompat", version.ref = "appcompat" }
