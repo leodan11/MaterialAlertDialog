@@ -22,6 +22,7 @@ import com.github.leodan11.alertdialog.R
 import com.github.leodan11.alertdialog.databinding.MAboutDialogBinding
 import com.github.leodan11.alertdialog.dist.base.AlertBuilder
 import com.github.leodan11.alertdialog.io.content.AlertDialog
+import com.github.leodan11.alertdialog.io.content.Config.DEFAULT_CHART_SEQUENCE_LENGTH
 import com.github.leodan11.alertdialog.io.content.Config.MATERIAL_ALERT_DIALOG_UI_NOT_ICON
 import com.github.leodan11.alertdialog.io.content.MaterialDialogInterface
 import com.github.leodan11.alertdialog.io.helpers.toButtonView
@@ -37,6 +38,7 @@ import com.github.leodan11.alertdialog.io.models.IconAlert
 import com.github.leodan11.alertdialog.io.models.IconTintAlert
 import com.github.leodan11.alertdialog.io.models.MessageAlert
 import com.github.leodan11.alertdialog.io.models.TitleAlert
+import com.github.leodan11.customview.core.ReadMoreOption
 import com.github.leodan11.k_extensions.color.colorPrimary
 import com.google.android.material.button.MaterialButton
 
@@ -50,6 +52,7 @@ abstract class AboutDialogBase protected constructor(
     protected open var message: MessageAlert<*>?,
     protected open var span: DetailsAlert<*>?,
     protected open var details: DetailsAlert<*>?,
+    protected open var maxLength: Int,
     protected open var mCancelable: Boolean,
     protected open var mIconStore: Boolean,
     protected open var mPositiveButton: ButtonAlertDialog?,
@@ -87,12 +90,16 @@ abstract class AboutDialogBase protected constructor(
                 // Set Message
                 message.toMessageView(textViewApplicationVersion)
                 // Set Span
-                span.toDetailsView(mContext, textViewApplicationLegalese)
+                span.toDetailsView(
+                    mContext,
+                    textViewApplicationLegalese,
+                    maxLength
+                )
                 // Set Details
                 details.toDetailsView(
                     mContext,
                     nestedScrollViewContainerDetails,
-                    textViewDetailsAlertDialog
+                    textViewDetailsAlertDialog, maxLength
                 )
                 // Set Positive Button
                 aboutActions.buttonActionPositiveAlertDialog.apply {
@@ -268,6 +275,7 @@ abstract class AboutDialogBase protected constructor(
         protected open var message: MessageAlert<*>? = null
         protected open var span: DetailsAlert<*>? = null
         protected open var details: DetailsAlert<*>? = null
+        protected open var maxLength: Int = DEFAULT_CHART_SEQUENCE_LENGTH
         protected open var isCancelable: Boolean = true
         protected open var isIconStore: Boolean = true
         protected open var positiveButton: ButtonAlertDialog? = null
@@ -491,6 +499,19 @@ abstract class AboutDialogBase protected constructor(
          */
         fun setApplicationLegalese(detail: Spanned): Builder<D> {
             this.span = DetailsAlert.spanned(text = detail)
+            return this
+        }
+
+
+        /**
+         * Set the maximum length of the application details to display.
+         *  - Then the option to [ReadMoreOption] is added.
+         *
+         * @param maxLength The maximum length.
+         * @return [Builder] object to allow for chaining of calls to set methods
+         */
+        fun setMaxLength(maxLength: Int): Builder<D> {
+            this.maxLength = maxLength
             return this
         }
 

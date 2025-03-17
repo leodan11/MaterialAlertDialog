@@ -269,13 +269,13 @@ fun Context.toInputSampleView(
     }
 }
 
-fun DetailsAlert<*>?.toDetailsView(context: Context, view: TextView) {
+fun DetailsAlert<*>?.toDetailsView(context: Context, view: TextView, maxLength: Int) {
     view.isVisible = this != null
     this?.let {
         view.setTextColor(context.colorOnSurface())
         val readMoreOption: ReadMoreOption = ReadMoreOption.Builder(context)
-            .textLength(6)
-            .textLengthType(ReadMoreOption.TYPE_LINE)
+            .textLength(maxLength)
+            .textLengthType(ReadMoreOption.TYPE_CHARACTER)
             .moreLabelColor(context.colorPrimary())
             .lessLabelColor(context.colorPrimary())
             .labelUnderLine(true)
@@ -288,14 +288,14 @@ fun DetailsAlert<*>?.toDetailsView(context: Context, view: TextView) {
 fun DetailsAlert<*>?.toDetailsView(
     context: Context,
     view: NestedScrollView,
-    textView: TextView
+    textView: TextView, maxLength: Int
 ) {
     view.isVisible = this != null
     this?.let {
         textView.setTextColor(context.colorOnSurface())
         val readMoreOption: ReadMoreOption = ReadMoreOption.Builder(context)
-            .textLength(6)
-            .textLengthType(ReadMoreOption.TYPE_LINE)
+            .textLength(maxLength)
+            .textLengthType(ReadMoreOption.TYPE_CHARACTER)
             .moreLabelColor(context.colorPrimary())
             .lessLabelColor(context.colorPrimary())
             .labelUnderLine(true)

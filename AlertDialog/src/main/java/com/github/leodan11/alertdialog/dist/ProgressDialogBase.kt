@@ -537,7 +537,7 @@ abstract class ProgressDialogBase(
          *
          */
         fun setMessage(message: String): Builder<D> {
-            return setMessage(message, AlertDialog.TextAlignment.CENTER)
+            return setMessage(message, AlertDialog.TextAlignment.START)
         }
 
 
@@ -550,7 +550,7 @@ abstract class ProgressDialogBase(
          *
          */
         fun setMessage(@StringRes message: Int): Builder<D> {
-            return setMessage(message, AlertDialog.TextAlignment.CENTER)
+            return setMessage(message, AlertDialog.TextAlignment.START)
         }
 
 
@@ -597,7 +597,7 @@ abstract class ProgressDialogBase(
          *
          */
         fun setMessage(message: Spanned): Builder<D> {
-            return setMessage(message, AlertDialog.TextAlignment.CENTER)
+            return setMessage(message, AlertDialog.TextAlignment.START)
         }
 
 

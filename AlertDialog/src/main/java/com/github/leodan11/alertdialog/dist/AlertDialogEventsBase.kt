@@ -36,6 +36,7 @@ import com.github.leodan11.alertdialog.databinding.MAlertDialogBinding
 import com.github.leodan11.alertdialog.dist.base.AlertBuilder
 import com.github.leodan11.alertdialog.io.content.AlertDialog
 import com.github.leodan11.alertdialog.io.content.Config.DEFAULT_CHART_SEQUENCE_LENGTH
+import com.github.leodan11.alertdialog.io.content.Config.DEFAULT_CHART_SEQUENCE_LENGTH_DETAILS
 import com.github.leodan11.alertdialog.io.content.Config.DEFAULT_RADIUS
 import com.github.leodan11.alertdialog.io.content.Config.MATERIAL_ALERT_DIALOG_UI_NOT_ICON
 import com.github.leodan11.alertdialog.io.content.MaterialDialogInterface
@@ -50,6 +51,7 @@ import com.github.leodan11.alertdialog.io.models.ButtonIconAlert
 import com.github.leodan11.alertdialog.io.models.DetailsAlert
 import com.github.leodan11.alertdialog.io.models.IconAlert
 import com.github.leodan11.alertdialog.io.models.MessageAlert
+import com.github.leodan11.alertdialog.io.models.SpanLength
 import com.github.leodan11.alertdialog.io.models.TitleAlert
 import com.github.leodan11.customview.core.ReadMoreOption
 import com.github.leodan11.k_extensions.color.colorError
@@ -66,6 +68,7 @@ abstract class AlertDialogEventsBase(
     protected open var backgroundColorSpanResource: Int?,
     protected open var countDownTimer: ButtonCountDownTimer?,
     protected open var messageSpanLengthMax: Int,
+    protected open var detailsSpanLengthMax: SpanLength,
     protected open var title: TitleAlert?,
     protected open var message: MessageAlert<*>?,
     protected open var details: DetailsAlert<*>?,
@@ -253,7 +256,7 @@ abstract class AlertDialogEventsBase(
         return when (which) {
             AlertDialog.UI.BUTTON_POSITIVE -> binding.eventsActions.buttonActionPositiveAlertDialog
             AlertDialog.UI.BUTTON_NEGATIVE -> binding.eventsActions.buttonActionNegativeAlertDialog
-            AlertDialog.UI.BUTTON_NEUTRAL -> binding.eventsActions. buttonActionNeutralAlertDialog
+            AlertDialog.UI.BUTTON_NEUTRAL -> binding.eventsActions.buttonActionNeutralAlertDialog
         }
     }
 
@@ -339,8 +342,8 @@ abstract class AlertDialogEventsBase(
         mDetailsViewContainer: NestedScrollView
     ) {
         val readMoreOption: ReadMoreOption = ReadMoreOption.Builder(mContext.applicationContext)
-            .textLength(6)
-            .textLengthType(ReadMoreOption.TYPE_LINE)
+            .textLength(detailsSpanLengthMax.maxLength)
+            .textLengthType(detailsSpanLengthMax.type)
             .moreLabelColor(getColor())
             .lessLabelColor(getColor())
             .labelUnderLine(true)
@@ -419,6 +422,8 @@ abstract class AlertDialogEventsBase(
         protected open var backgroundColorSpan: Int? = null
         protected open var countDownTimer: ButtonCountDownTimer? = null
         protected open var messageSpanLengthMax: Int = DEFAULT_CHART_SEQUENCE_LENGTH
+        protected open var detailsSpanLengthMax: SpanLength =
+            SpanLength(DEFAULT_CHART_SEQUENCE_LENGTH_DETAILS, ReadMoreOption.TYPE_CHARACTER)
         protected open var type: AlertDialog.State = AlertDialog.State.CUSTOM
         protected open var title: TitleAlert? = null
         protected open var message: MessageAlert<*>? = null
@@ -769,6 +774,34 @@ abstract class AlertDialogEventsBase(
             this.details = DetailsAlert.spanned(text = detail)
             return this
         }
+
+        /**
+         * Set the details span length max. Default [DEFAULT_CHART_SEQUENCE_LENGTH_DETAILS].
+         *  - Then the option to [ReadMoreOption] is added.
+         *
+         * @param maxCharacters
+         *
+         * @return [Builder] object to allow for chaining of calls to set methods
+         */
+        fun setDetailsSpanLengthMaxForCharacter(maxCharacters: Int): Builder<D> {
+            this.detailsSpanLengthMax = SpanLength(maxCharacters, ReadMoreOption.TYPE_CHARACTER)
+            return this
+        }
+
+
+        /**
+         * Set the details span length max.
+         *  - Then the option to [ReadMoreOption] is added.
+         *
+         * @param maxLines
+         *
+         * @return [Builder] object to allow for chaining of calls to set methods
+         */
+        fun setDetailsSpanLengthMaxForLine(maxLines: Int): Builder<D> {
+            this.detailsSpanLengthMax = SpanLength(maxLines, ReadMoreOption.TYPE_LINE)
+            return this
+        }
+
 
         /**
          * Sets whether the dialog is cancelable or not.

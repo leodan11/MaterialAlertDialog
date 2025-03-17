@@ -10,6 +10,7 @@ import com.github.leodan11.alertdialog.io.models.ButtonCountDownTimer
 import com.github.leodan11.alertdialog.io.models.DetailsAlert
 import com.github.leodan11.alertdialog.io.models.IconAlert
 import com.github.leodan11.alertdialog.io.models.MessageAlert
+import com.github.leodan11.alertdialog.io.models.SpanLength
 import com.github.leodan11.alertdialog.io.models.TitleAlert
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
@@ -24,6 +25,7 @@ class MaterialAlertDialogEvents private constructor(
     title: TitleAlert?,
     message: MessageAlert<*>?,
     details: DetailsAlert<*>?,
+    detailsSpanLengthMax: SpanLength,
     mCancelable: Boolean,
     mPositiveButton: ButtonAlertDialog?,
     mNeutralButton: ButtonAlertDialog?,
@@ -39,6 +41,7 @@ class MaterialAlertDialogEvents private constructor(
     title = title,
     message = message,
     details = details,
+    detailsSpanLengthMax = detailsSpanLengthMax,
     mCancelable = mCancelable,
     mPositiveButton = mPositiveButton,
     mNeutralButton = mNeutralButton,
@@ -77,6 +80,7 @@ class MaterialAlertDialogEvents private constructor(
                 title = title,
                 message = message,
                 details = details,
+                detailsSpanLengthMax = detailsSpanLengthMax,
                 mCancelable = isCancelable,
                 mPositiveButton = positiveButton,
                 mNeutralButton = neutralButton,
