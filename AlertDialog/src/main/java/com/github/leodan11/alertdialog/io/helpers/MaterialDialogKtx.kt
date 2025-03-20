@@ -2,10 +2,12 @@ package com.github.leodan11.alertdialog.io.helpers
 
 import android.content.Context
 import android.content.res.ColorStateList
+import android.content.res.Configuration
 import android.graphics.text.LineBreaker.JUSTIFICATION_MODE_INTER_WORD
 import android.os.Build
 import android.os.CountDownTimer
 import android.view.View
+import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
@@ -14,8 +16,14 @@ import androidx.core.view.isVisible
 import androidx.core.widget.NestedScrollView
 import com.github.leodan11.alertdialog.R
 import com.github.leodan11.alertdialog.io.content.AlertDialog
+import com.github.leodan11.alertdialog.io.content.Config.DEFAULT_LAYOUT_PARAMS_HEIGHT
+import com.github.leodan11.alertdialog.io.content.Config.DEFAULT_LAYOUT_PARAMS_HEIGHT_LANDSCAPE
+import com.github.leodan11.alertdialog.io.content.Config.DEFAULT_LAYOUT_PARAMS_HEIGHT_TABLET
+import com.github.leodan11.alertdialog.io.content.Config.DEFAULT_LAYOUT_PARAMS_HEIGHT_TABLET_LANDSCAPE
 import com.github.leodan11.alertdialog.io.content.Config.MATERIAL_ALERT_DIALOG_UI_NOT_ICON
-import com.github.leodan11.alertdialog.io.content.MaterialDialogInterface
+import com.github.leodan11.alertdialog.io.content.Config.MAX_CHART_SEQUENCE_LENGTH
+import com.github.leodan11.alertdialog.io.content.Config.MAX_CHART_SEQUENCE_LENGTH_TABLET
+import com.github.leodan11.alertdialog.io.content.MaterialAlert
 import com.github.leodan11.alertdialog.io.models.BoxCornerRadiusTextField
 import com.github.leodan11.alertdialog.io.models.ButtonAlertDialog
 import com.github.leodan11.alertdialog.io.models.ButtonCountDownTimer
@@ -169,7 +177,7 @@ fun ButtonAlertDialog?.toButtonView(
 
 
 fun ButtonAlertDialog?.toButtonView(
-    dialog: MaterialDialogInterface,
+    dialog: MaterialAlert,
     view: TextView,
     mTintColor: ColorStateList,
     which: AlertDialog.UI
@@ -181,6 +189,12 @@ fun ButtonAlertDialog?.toButtonView(
         view.setOnClickListener { onClickListener?.onClick(dialog, which) }
     }
 }
+
+
+fun Context.isTablet(): Boolean {
+    return (resources.configuration.screenLayout and Configuration.SCREENLAYOUT_SIZE_MASK) >= Configuration.SCREENLAYOUT_SIZE_LARGE
+}
+
 
 fun Context.toMessageAndDetailsViews(
     message: MessageAlert<*>?,
@@ -297,7 +311,24 @@ fun DetailsAlert<*>?.toDetailsView(
             .textLength(maxLength)
             .textLengthType(ReadMoreOption.TYPE_CHARACTER)
             .moreLabelColor(context.colorPrimary())
+            .onClickMoreListener {
+                val isTablet = context.isTablet()
+                val maxCharacters =
+                    if (isTablet) MAX_CHART_SEQUENCE_LENGTH_TABLET else MAX_CHART_SEQUENCE_LENGTH
+                val orientation = context.resources.configuration.orientation
+                view.layoutParams.height =
+                    if (this.getText().length >= maxCharacters) {
+                        if (isTablet) {
+                            if (orientation == Configuration.ORIENTATION_LANDSCAPE) DEFAULT_LAYOUT_PARAMS_HEIGHT_TABLET_LANDSCAPE else DEFAULT_LAYOUT_PARAMS_HEIGHT_TABLET
+                        } else {
+                            if (orientation == Configuration.ORIENTATION_LANDSCAPE) DEFAULT_LAYOUT_PARAMS_HEIGHT_LANDSCAPE else DEFAULT_LAYOUT_PARAMS_HEIGHT
+                        }
+                    } else ViewGroup.LayoutParams.WRAP_CONTENT
+            }
             .lessLabelColor(context.colorPrimary())
+            .onClickLessListener {
+                view.layoutParams.height = ViewGroup.LayoutParams.WRAP_CONTENT
+            }
             .labelUnderLine(true)
             .expandAnimation(true)
             .build()

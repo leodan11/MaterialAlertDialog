@@ -3,6 +3,7 @@ package com.github.leodan11.alertdialog.dist
 import android.app.Dialog
 import android.content.Context
 import android.content.res.ColorStateList
+import android.content.res.Configuration
 import android.graphics.Bitmap
 import android.graphics.Color
 import android.graphics.Paint
@@ -29,6 +30,7 @@ import androidx.annotation.IntRange
 import androidx.annotation.RestrictTo
 import androidx.annotation.StringRes
 import androidx.core.content.res.ResourcesCompat
+import androidx.core.view.isVisible
 import androidx.core.widget.NestedScrollView
 import com.github.leodan11.alertdialog.MaterialAlertDialogEvents
 import com.github.leodan11.alertdialog.R
@@ -37,10 +39,17 @@ import com.github.leodan11.alertdialog.dist.base.AlertBuilder
 import com.github.leodan11.alertdialog.io.content.AlertDialog
 import com.github.leodan11.alertdialog.io.content.Config.DEFAULT_CHART_SEQUENCE_LENGTH
 import com.github.leodan11.alertdialog.io.content.Config.DEFAULT_CHART_SEQUENCE_LENGTH_DETAILS
+import com.github.leodan11.alertdialog.io.content.Config.DEFAULT_LAYOUT_PARAMS_HEIGHT
+import com.github.leodan11.alertdialog.io.content.Config.DEFAULT_LAYOUT_PARAMS_HEIGHT_LANDSCAPE
+import com.github.leodan11.alertdialog.io.content.Config.DEFAULT_LAYOUT_PARAMS_HEIGHT_TABLET
+import com.github.leodan11.alertdialog.io.content.Config.DEFAULT_LAYOUT_PARAMS_HEIGHT_TABLET_LANDSCAPE
 import com.github.leodan11.alertdialog.io.content.Config.DEFAULT_RADIUS
 import com.github.leodan11.alertdialog.io.content.Config.MATERIAL_ALERT_DIALOG_UI_NOT_ICON
-import com.github.leodan11.alertdialog.io.content.MaterialDialogInterface
+import com.github.leodan11.alertdialog.io.content.Config.MAX_CHART_SEQUENCE_LENGTH
+import com.github.leodan11.alertdialog.io.content.Config.MAX_CHART_SEQUENCE_LENGTH_TABLET
+import com.github.leodan11.alertdialog.io.content.MaterialAlert
 import com.github.leodan11.alertdialog.io.helpers.DisplayUtil
+import com.github.leodan11.alertdialog.io.helpers.isTablet
 import com.github.leodan11.alertdialog.io.helpers.toAlertDialog
 import com.github.leodan11.alertdialog.io.helpers.toButtonView
 import com.github.leodan11.alertdialog.io.helpers.toMessageAndDetailsViews
@@ -76,15 +85,15 @@ abstract class AlertDialogEventsBase(
     protected open var mPositiveButton: ButtonAlertDialog?,
     protected open var mNeutralButton: ButtonAlertDialog?,
     protected open var mNegativeButton: ButtonAlertDialog?,
-) : MaterialDialogInterface {
+) : MaterialAlert {
 
     open val isShowing: Boolean get() = mDialog?.isShowing ?: false
     private lateinit var binding: MAlertDialogBinding
     private var mCountDownTimer: CountDownTimer? = null
     protected open var mDialog: Dialog? = null
-    protected open var mOnDismissListener: MaterialDialogInterface.OnDismissListener? = null
-    protected open var mOnCancelListener: MaterialDialogInterface.OnCancelListener? = null
-    protected open var mOnShowListener: MaterialDialogInterface.OnShowListener? = null
+    protected open var mOnDismissListener: MaterialAlert.OnDismissListener? = null
+    protected open var mOnCancelListener: MaterialAlert.OnCancelListener? = null
+    protected open var mOnShowListener: MaterialAlert.OnShowListener? = null
 
     @RestrictTo(RestrictTo.Scope.LIBRARY)
     protected open fun createView(
@@ -278,7 +287,7 @@ abstract class AlertDialogEventsBase(
      *
      * @param onCancelListener
      */
-    open fun setOnCancelListener(onCancelListener: MaterialDialogInterface.OnCancelListener) {
+    open fun setOnCancelListener(onCancelListener: MaterialAlert.OnCancelListener) {
         this.mOnCancelListener = onCancelListener
         mDialog?.setOnCancelListener { cancelCallback() }
     }
@@ -288,7 +297,7 @@ abstract class AlertDialogEventsBase(
      *
      * @param onDismissListener
      */
-    open fun setOnDismissListener(onDismissListener: MaterialDialogInterface.OnDismissListener) {
+    open fun setOnDismissListener(onDismissListener: MaterialAlert.OnDismissListener) {
         this.mOnDismissListener = onDismissListener
         mDialog?.setOnDismissListener { dismissCallback() }
     }
@@ -298,7 +307,7 @@ abstract class AlertDialogEventsBase(
      *
      * @param onShowListener
      */
-    open fun setOnShowListener(onShowListener: MaterialDialogInterface.OnShowListener) {
+    open fun setOnShowListener(onShowListener: MaterialAlert.OnShowListener) {
         this.mOnShowListener = onShowListener
         mDialog?.setOnShowListener { showCallback() }
     }
@@ -319,9 +328,7 @@ abstract class AlertDialogEventsBase(
             AlertDialog.State.INFORMATION -> mContext.colorPrimary()
             AlertDialog.State.SUCCESS -> getColorCallback(R.color.success)
             AlertDialog.State.WARNING -> getColorCallback(R.color.warning)
-            AlertDialog.State.WITHOUT_INTERNET, AlertDialog.State.WITHOUT_INTERNET_MOBILE, AlertDialog.State.WITHOUT_INTERNET_WIFI -> {
-                getColorCallback(R.color.caution)
-            }
+            AlertDialog.State.WITHOUT_INTERNET, AlertDialog.State.WITHOUT_INTERNET_MOBILE, AlertDialog.State.WITHOUT_INTERNET_WIFI -> getColorCallback(R.color.caution)
 
             else -> {
                 if (backgroundColorSpanInt != null) backgroundColorSpanInt!!
@@ -350,7 +357,26 @@ abstract class AlertDialogEventsBase(
             .expandAnimation(true)
             .build()
         readMoreOption.addReadMoreTo(mDetailsView, detailsText)
-        mDetailsViewContainer.visibility = View.VISIBLE
+        mDetailsViewContainer.apply {
+            isVisible = true
+            readMoreOption.addMoreClickListener {
+                val isTablet = mContext.isTablet()
+                val maxCharacters =
+                    if (isTablet) MAX_CHART_SEQUENCE_LENGTH_TABLET else MAX_CHART_SEQUENCE_LENGTH
+                val orientation = mContext.resources.configuration.orientation
+                layoutParams.height =
+                    if (detailsText.length >= maxCharacters) {
+                        if (isTablet) {
+                            if (orientation == Configuration.ORIENTATION_LANDSCAPE) DEFAULT_LAYOUT_PARAMS_HEIGHT_TABLET_LANDSCAPE else DEFAULT_LAYOUT_PARAMS_HEIGHT_TABLET
+                        } else {
+                            if (orientation == Configuration.ORIENTATION_LANDSCAPE) DEFAULT_LAYOUT_PARAMS_HEIGHT_LANDSCAPE else DEFAULT_LAYOUT_PARAMS_HEIGHT
+                        }
+                    } else ViewGroup.LayoutParams.WRAP_CONTENT
+            }
+            readMoreOption.addLessClickListener {
+                layoutParams.height = ViewGroup.LayoutParams.WRAP_CONTENT
+            }
+        }
     }
 
     private fun setMessageDetailsIfExists(
@@ -819,10 +845,10 @@ abstract class AlertDialogEventsBase(
          *
          * - Default button text is [R.string.label_text_cancel].
          *
-         * @param onClickListener    The [MaterialDialogInterface.OnClickListener] to use.
+         * @param onClickListener    The [MaterialAlert.OnClickListener] to use.
          * @return [Builder] object to allow for chaining of calls to set methods
          */
-        fun setNegativeButton(onClickListener: MaterialDialogInterface.OnClickListener): Builder<D> {
+        fun setNegativeButton(onClickListener: MaterialAlert.OnClickListener): Builder<D> {
             return setNegativeButton(
                 R.string.label_text_cancel,
                 ButtonIconAlert(MATERIAL_ALERT_DIALOG_UI_NOT_ICON),
@@ -835,14 +861,14 @@ abstract class AlertDialogEventsBase(
          * Set a listener to be invoked when the negative button of the dialog is pressed.
          *
          * @param text        The text to display in negative button.
-         * @param onClickListener    The [MaterialDialogInterface.OnClickListener] to use.
+         * @param onClickListener    The [MaterialAlert.OnClickListener] to use.
          *
          * @return [Builder] object to allow for chaining of calls to set methods
          *
          */
         fun setNegativeButton(
             text: String,
-            onClickListener: MaterialDialogInterface.OnClickListener
+            onClickListener: MaterialAlert.OnClickListener
         ): Builder<D> {
             return setNegativeButton(
                 text,
@@ -858,14 +884,14 @@ abstract class AlertDialogEventsBase(
          * - Default button text is [R.string.label_text_cancel].
          *
          * @param icon        The [ButtonIconAlert] to be set as an icon for the button.
-         * @param onClickListener    The [MaterialDialogInterface.OnClickListener] to use.
+         * @param onClickListener    The [MaterialAlert.OnClickListener] to use.
          *
          * @return [Builder] object to allow for chaining of calls to set methods
          *
          */
         fun setNegativeButton(
             icon: ButtonIconAlert,
-            onClickListener: MaterialDialogInterface.OnClickListener
+            onClickListener: MaterialAlert.OnClickListener
         ): Builder<D> {
             return setNegativeButton(R.string.label_text_cancel, icon, onClickListener)
         }
@@ -875,14 +901,14 @@ abstract class AlertDialogEventsBase(
          * Set a listener to be invoked when the negative button of the dialog is pressed.
          *
          * @param text        The text to display in negative button.
-         * @param onClickListener    The [MaterialDialogInterface.OnClickListener] to use.
+         * @param onClickListener    The [MaterialAlert.OnClickListener] to use.
          *
          * @return [Builder] object to allow for chaining of calls to set methods
          *
          */
         fun setNegativeButton(
             @StringRes text: Int,
-            onClickListener: MaterialDialogInterface.OnClickListener
+            onClickListener: MaterialAlert.OnClickListener
         ): Builder<D> {
             return setNegativeButton(
                 text,
@@ -897,7 +923,7 @@ abstract class AlertDialogEventsBase(
          *
          * @param text        The text to display in negative button.
          * @param icon        The [ButtonIconAlert] to be set as an icon for the button.
-         * @param onClickListener    The [MaterialDialogInterface.OnClickListener] to use.
+         * @param onClickListener    The [MaterialAlert.OnClickListener] to use.
          *
          * @return [Builder] object to allow for chaining of calls to set methods
          *
@@ -905,7 +931,7 @@ abstract class AlertDialogEventsBase(
         fun setNegativeButton(
             text: String,
             icon: ButtonIconAlert,
-            onClickListener: MaterialDialogInterface.OnClickListener
+            onClickListener: MaterialAlert.OnClickListener
         ): Builder<D> {
             this.negativeButton = initNegativeButton(text, icon, onClickListener)
             return this
@@ -917,7 +943,7 @@ abstract class AlertDialogEventsBase(
          *
          * @param text        The text to display in negative button.
          * @param icon        The [ButtonIconAlert] to be set as an icon for the button.
-         * @param onClickListener    The [MaterialDialogInterface.OnClickListener] to use.
+         * @param onClickListener    The [MaterialAlert.OnClickListener] to use.
          *
          * @return [Builder] object to allow for chaining of calls to set methods
          *
@@ -925,7 +951,7 @@ abstract class AlertDialogEventsBase(
         fun setNegativeButton(
             @StringRes text: Int,
             icon: ButtonIconAlert,
-            onClickListener: MaterialDialogInterface.OnClickListener
+            onClickListener: MaterialAlert.OnClickListener
         ): Builder<D> {
             this.negativeButton = initNegativeButton(context.getString(text), icon, onClickListener)
             return this
@@ -937,12 +963,12 @@ abstract class AlertDialogEventsBase(
          *
          * - Default button text is [R.string.label_text_decline].
          *
-         * @param onClickListener    The [MaterialDialogInterface.OnClickListener] to use.
+         * @param onClickListener    The [MaterialAlert.OnClickListener] to use.
          *
          * @return [Builder] object to allow for chaining of calls to set methods
          *
          */
-        fun setNeutralButton(onClickListener: MaterialDialogInterface.OnClickListener): Builder<D> {
+        fun setNeutralButton(onClickListener: MaterialAlert.OnClickListener): Builder<D> {
             return setNeutralButton(
                 R.string.label_text_decline,
                 ButtonIconAlert(MATERIAL_ALERT_DIALOG_UI_NOT_ICON),
@@ -955,14 +981,14 @@ abstract class AlertDialogEventsBase(
          * Set a listener to be invoked when the neutral button of the dialog is pressed.
          *
          * @param text        The text to display in neutral button.
-         * @param onClickListener    The [MaterialDialogInterface.OnClickListener] to use.
+         * @param onClickListener    The [MaterialAlert.OnClickListener] to use.
          *
          * @return [Builder] object to allow for chaining of calls to set methods
          *
          */
         fun setNeutralButton(
             text: String,
-            onClickListener: MaterialDialogInterface.OnClickListener
+            onClickListener: MaterialAlert.OnClickListener
         ): Builder<D> {
             return setNeutralButton(
                 text,
@@ -977,14 +1003,14 @@ abstract class AlertDialogEventsBase(
          *
          * - Default button text is [R.string.label_text_decline].
          *
-         * @param onClickListener    The [MaterialDialogInterface.OnClickListener] to use.
+         * @param onClickListener    The [MaterialAlert.OnClickListener] to use.
          *
          * @return [Builder] object to allow for chaining of calls to set methods
          *
          */
         fun setNeutralButton(
             icon: ButtonIconAlert,
-            onClickListener: MaterialDialogInterface.OnClickListener
+            onClickListener: MaterialAlert.OnClickListener
         ): Builder<D> {
             return setNeutralButton(R.string.label_text_decline, icon, onClickListener)
         }
@@ -994,7 +1020,7 @@ abstract class AlertDialogEventsBase(
          * Set a listener to be invoked when the neutral button of the dialog is pressed.
          *
          * @param text        The text to display in neutral button.
-         * @param onClickListener    The [MaterialDialogInterface.OnClickListener] to use.
+         * @param onClickListener    The [MaterialAlert.OnClickListener] to use.
          *
          * @return [Builder] object to allow for chaining of calls to set methods
          *
@@ -1002,7 +1028,7 @@ abstract class AlertDialogEventsBase(
         fun setNeutralButton(
             text: String,
             icon: ButtonIconAlert,
-            onClickListener: MaterialDialogInterface.OnClickListener
+            onClickListener: MaterialAlert.OnClickListener
         ): Builder<D> {
             this.neutralButton = initNeutralButton(text, icon, onClickListener)
             return this
@@ -1013,14 +1039,14 @@ abstract class AlertDialogEventsBase(
          * Set a listener to be invoked when the neutral button of the dialog is pressed.
          *
          * @param text        The text to display in neutral button.
-         * @param onClickListener    The [MaterialDialogInterface.OnClickListener] to use.
+         * @param onClickListener    The [MaterialAlert.OnClickListener] to use.
          *
          * @return [Builder] object to allow for chaining of calls to set methods
          *
          */
         fun setNeutralButton(
             @StringRes text: Int,
-            onClickListener: MaterialDialogInterface.OnClickListener
+            onClickListener: MaterialAlert.OnClickListener
         ): Builder<D> {
             return setNeutralButton(
                 text,
@@ -1034,7 +1060,7 @@ abstract class AlertDialogEventsBase(
          * Set a listener to be invoked when the neutral button of the dialog is pressed.
          *
          * @param text        The text to display in neutral button.
-         * @param onClickListener    The [MaterialDialogInterface.OnClickListener] to use.
+         * @param onClickListener    The [MaterialAlert.OnClickListener] to use.
          *
          * @return [Builder] object to allow for chaining of calls to set methods
          *
@@ -1042,7 +1068,7 @@ abstract class AlertDialogEventsBase(
         fun setNeutralButton(
             @StringRes text: Int,
             icon: ButtonIconAlert,
-            onClickListener: MaterialDialogInterface.OnClickListener
+            onClickListener: MaterialAlert.OnClickListener
         ): Builder<D> {
             this.neutralButton = initNeutralButton(context.getString(text), icon, onClickListener)
             return this
@@ -1053,12 +1079,12 @@ abstract class AlertDialogEventsBase(
          *
          * - Default button text is [R.string.label_text_accept].
          *
-         * @param onClickListener    The [MaterialDialogInterface.OnClickListener] to use.
+         * @param onClickListener    The [MaterialAlert.OnClickListener] to use.
          *
          * @return [Builder] object to allow for chaining of calls to set methods
          *
          */
-        fun setPositiveButton(onClickListener: MaterialDialogInterface.OnClickListener): Builder<D> {
+        fun setPositiveButton(onClickListener: MaterialAlert.OnClickListener): Builder<D> {
             return setPositiveButton(
                 R.string.label_text_accept,
                 ButtonIconAlert(MATERIAL_ALERT_DIALOG_UI_NOT_ICON),
@@ -1071,14 +1097,14 @@ abstract class AlertDialogEventsBase(
          * Set a listener to be invoked when the positive button of the dialog is pressed.
          *
          * @param text        The text to display in positive button.
-         * @param onClickListener    The [MaterialDialogInterface.OnClickListener] to use.
+         * @param onClickListener    The [MaterialAlert.OnClickListener] to use.
          *
          * @return [Builder] object to allow for chaining of calls to set methods
          *
          */
         fun setPositiveButton(
             text: String,
-            onClickListener: MaterialDialogInterface.OnClickListener
+            onClickListener: MaterialAlert.OnClickListener
         ): Builder<D> {
             return setPositiveButton(
                 text,
@@ -1094,14 +1120,14 @@ abstract class AlertDialogEventsBase(
          * - Default button text is [R.string.label_text_accept].
          *
          * @param icon        The [ButtonIconAlert] to be set as an icon for the button.
-         * @param onClickListener    The [MaterialDialogInterface.OnClickListener] to use.
+         * @param onClickListener    The [MaterialAlert.OnClickListener] to use.
          *
          * @return [Builder] object to allow for chaining of calls to set methods
          *
          */
         fun setPositiveButton(
             icon: ButtonIconAlert,
-            onClickListener: MaterialDialogInterface.OnClickListener
+            onClickListener: MaterialAlert.OnClickListener
         ): Builder<D> {
             return setPositiveButton(R.string.label_text_accept, icon, onClickListener)
         }
@@ -1112,7 +1138,7 @@ abstract class AlertDialogEventsBase(
          *
          * @param text        The text to display in positive button.
          * @param icon        The [ButtonIconAlert] to be set as an icon for the button.
-         * @param onClickListener    The [MaterialDialogInterface.OnClickListener] to use.
+         * @param onClickListener    The [MaterialAlert.OnClickListener] to use.
          *
          * @return [Builder] object to allow for chaining of calls to set methods
          *
@@ -1120,7 +1146,7 @@ abstract class AlertDialogEventsBase(
         fun setPositiveButton(
             text: String,
             icon: ButtonIconAlert,
-            onClickListener: MaterialDialogInterface.OnClickListener
+            onClickListener: MaterialAlert.OnClickListener
         ): Builder<D> {
             this.positiveButton = initPositiveButton(text, icon, onClickListener)
             return this
@@ -1131,14 +1157,14 @@ abstract class AlertDialogEventsBase(
          * Set a listener to be invoked when the positive button of the dialog is pressed.
          *
          * @param text        The text to display in positive button.
-         * @param onClickListener    The [MaterialDialogInterface.OnClickListener] to use.
+         * @param onClickListener    The [MaterialAlert.OnClickListener] to use.
          *
          * @return [Builder] object to allow for chaining of calls to set methods
          *
          */
         fun setPositiveButton(
             @StringRes text: Int,
-            onClickListener: MaterialDialogInterface.OnClickListener
+            onClickListener: MaterialAlert.OnClickListener
         ): Builder<D> {
             return setPositiveButton(
                 text,
@@ -1153,7 +1179,7 @@ abstract class AlertDialogEventsBase(
          *
          * @param text        The text to display in positive button.
          * @param icon        The [ButtonIconAlert] to be set as an icon for the button.
-         * @param onClickListener    The [MaterialDialogInterface.OnClickListener] to use.
+         * @param onClickListener    The [MaterialAlert.OnClickListener] to use.
          *
          * @return [Builder] object to allow for chaining of calls to set methods
          *
@@ -1161,7 +1187,7 @@ abstract class AlertDialogEventsBase(
         fun setPositiveButton(
             @StringRes text: Int,
             icon: ButtonIconAlert,
-            onClickListener: MaterialDialogInterface.OnClickListener
+            onClickListener: MaterialAlert.OnClickListener
         ): Builder<D> {
             this.positiveButton = initPositiveButton(context.getString(text), icon, onClickListener)
             return this

@@ -11,7 +11,7 @@ import androidx.annotation.RestrictTo
 import com.airbnb.lottie.LottieAnimationView
 import com.github.leodan11.alertdialog.LottieAlertDialog
 import com.github.leodan11.alertdialog.databinding.MAlertDialogLottieBinding
-import com.github.leodan11.alertdialog.io.content.MaterialDialogInterface
+import com.github.leodan11.alertdialog.io.content.MaterialAlert
 
 abstract class LottieBaseDialog protected constructor(
     protected open var mContext: Context,
@@ -23,15 +23,15 @@ abstract class LottieBaseDialog protected constructor(
     protected open var mCancelable: Boolean,
     protected open var mLayoutHeight: Int? = null,
     protected open var mTimeout: Long? = null,
-) : MaterialDialogInterface {
+) : MaterialAlert {
 
     open val isShowing: Boolean get() = mDialog?.isShowing ?: false
     private lateinit var animationView: LottieAnimationView
     private lateinit var binding: MAlertDialogLottieBinding
     protected open var mDialog: Dialog? = null
-    protected open var mOnDismissListener: MaterialDialogInterface.OnDismissListener? = null
-    protected open var mOnCancelListener: MaterialDialogInterface.OnCancelListener? = null
-    protected open var mOnShowListener: MaterialDialogInterface.OnShowListener? = null
+    protected open var mOnDismissListener: MaterialAlert.OnDismissListener? = null
+    protected open var mOnCancelListener: MaterialAlert.OnCancelListener? = null
+    protected open var mOnShowListener: MaterialAlert.OnShowListener? = null
 
     @RestrictTo(RestrictTo.Scope.LIBRARY)
     protected open fun onCreateViewDialogContent(
@@ -102,7 +102,7 @@ abstract class LottieBaseDialog protected constructor(
      *
      * @param onCancelListener
      */
-    open fun setOnCancelListener(onCancelListener: MaterialDialogInterface.OnCancelListener) {
+    open fun setOnCancelListener(onCancelListener: MaterialAlert.OnCancelListener) {
         this.mOnCancelListener = onCancelListener
         mDialog?.setOnCancelListener { cancelCallback() }
     }
@@ -112,7 +112,7 @@ abstract class LottieBaseDialog protected constructor(
      *
      * @param onDismissListener
      */
-    open fun setOnDismissListener(onDismissListener: MaterialDialogInterface.OnDismissListener) {
+    open fun setOnDismissListener(onDismissListener: MaterialAlert.OnDismissListener) {
         this.mOnDismissListener = onDismissListener
         mDialog?.setOnDismissListener { dismissCallback() }
     }
@@ -122,7 +122,7 @@ abstract class LottieBaseDialog protected constructor(
      *
      * @param onShowListener
      */
-    open fun setOnShowListener(onShowListener: MaterialDialogInterface.OnShowListener) {
+    open fun setOnShowListener(onShowListener: MaterialAlert.OnShowListener) {
         this.mOnShowListener = onShowListener
         mDialog?.setOnShowListener { showCallback() }
     }

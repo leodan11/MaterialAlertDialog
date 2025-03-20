@@ -13,7 +13,7 @@ import com.github.leodan11.alertdialog.R
 import com.github.leodan11.alertdialog.databinding.IosProgressAlertDialogBinding
 import com.github.leodan11.alertdialog.dist.base.AlertBuilder
 import com.github.leodan11.alertdialog.io.content.AlertDialog
-import com.github.leodan11.alertdialog.io.content.MaterialDialogInterface
+import com.github.leodan11.alertdialog.io.content.MaterialAlert
 import com.github.leodan11.alertdialog.io.helpers.toImageView
 import com.github.leodan11.alertdialog.io.helpers.toMessageView
 import com.github.leodan11.alertdialog.io.models.IconAlert
@@ -24,13 +24,13 @@ abstract class AlertDialogProgressIOSBase(
     protected open var mContext: Context,
     protected open var message: MessageAlert<*>?,
     protected open var mCancelable: Boolean,
-) : MaterialDialogInterface {
+) : MaterialAlert {
 
     open val isShowing: Boolean get() = mDialog?.isShowing ?: false
     protected open var mDialog: Dialog? = null
-    protected open var mOnDismissListener: MaterialDialogInterface.OnDismissListener? = null
-    protected open var mOnCancelListener: MaterialDialogInterface.OnCancelListener? = null
-    protected open var mOnShowListener: MaterialDialogInterface.OnShowListener? = null
+    protected open var mOnDismissListener: MaterialAlert.OnDismissListener? = null
+    protected open var mOnCancelListener: MaterialAlert.OnCancelListener? = null
+    protected open var mOnShowListener: MaterialAlert.OnShowListener? = null
     private val icon: IconAlert =
         IconAlert(R.drawable.ic_baseline_loader_circular_default_ios)
 
@@ -98,7 +98,7 @@ abstract class AlertDialogProgressIOSBase(
      *
      * @param onCancelListener
      */
-    open fun setOnCancelListener(onCancelListener: MaterialDialogInterface.OnCancelListener) {
+    open fun setOnCancelListener(onCancelListener: MaterialAlert.OnCancelListener) {
         this.mOnCancelListener = onCancelListener
         mDialog?.setOnCancelListener { cancelCallback() }
     }
@@ -108,7 +108,7 @@ abstract class AlertDialogProgressIOSBase(
      *
      * @param onDismissListener
      */
-    open fun setOnDismissListener(onDismissListener: MaterialDialogInterface.OnDismissListener) {
+    open fun setOnDismissListener(onDismissListener: MaterialAlert.OnDismissListener) {
         this.mOnDismissListener = onDismissListener
         mDialog?.setOnDismissListener { dismissCallback() }
     }
@@ -118,7 +118,7 @@ abstract class AlertDialogProgressIOSBase(
      *
      * @param onShowListener
      */
-    open fun setOnShowListener(onShowListener: MaterialDialogInterface.OnShowListener) {
+    open fun setOnShowListener(onShowListener: MaterialAlert.OnShowListener) {
         this.mOnShowListener = onShowListener
         mDialog?.setOnShowListener { showCallback() }
     }
