@@ -356,7 +356,7 @@ abstract class AboutDialogBase protected constructor(
          * @return [Builder] object to allow for chaining of calls to set methods
          */
         fun setApplicationName(title: String): Builder<D> {
-            return setApplicationName(title, AlertDialog.TextAlignment.CENTER)
+            return setApplicationName(title, AlertDialog.TextAlignment.START)
         }
 
         /**
@@ -366,7 +366,7 @@ abstract class AboutDialogBase protected constructor(
          * @return [Builder] object to allow for chaining of calls to set methods
          */
         fun setApplicationName(@StringRes title: Int): Builder<D> {
-            return setApplicationName(title, AlertDialog.TextAlignment.CENTER)
+            return setApplicationName(title, AlertDialog.TextAlignment.START)
         }
 
         /**
@@ -403,7 +403,7 @@ abstract class AboutDialogBase protected constructor(
          * @return [Builder] object to allow for chaining of calls to set methods
          */
         fun setApplicationVersion(message: String): Builder<D> {
-            return setApplicationVersion(message, AlertDialog.TextAlignment.CENTER)
+            return setApplicationVersion(message, AlertDialog.TextAlignment.START)
         }
 
         /**
@@ -413,7 +413,7 @@ abstract class AboutDialogBase protected constructor(
          * @return [Builder] object to allow for chaining of calls to set methods
          */
         fun setApplicationVersion(@StringRes message: Int): Builder<D> {
-            return setApplicationVersion(message, AlertDialog.TextAlignment.CENTER)
+            return setApplicationVersion(message, AlertDialog.TextAlignment.START)
         }
 
         /**
@@ -454,7 +454,7 @@ abstract class AboutDialogBase protected constructor(
          * @return [Builder] object to allow for chaining of calls to set methods
          */
         fun setApplicationVersion(message: Spanned): Builder<D> {
-            return setApplicationVersion(message, AlertDialog.TextAlignment.CENTER)
+            return setApplicationVersion(message, AlertDialog.TextAlignment.START)
         }
 
         /**

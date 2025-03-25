@@ -21,13 +21,11 @@
                 android:layout_width="@dimen/dialog_image_view_notification_icon_width"
                 android:layout_height="@dimen/dialog_image_view_notification_icon_height"
                 android:layout_alignParentStart="true"
-                android:layout_alignParentTop="true"
+                android:layout_centerInParent="true"
                 android:layout_marginStart="@dimen/margin_spacing_min"
                 android:layout_marginTop="@dimen/margin_spacing_min"
                 android:layout_marginEnd="@dimen/margin_spacing_min"
-                android:layout_marginBottom="@dimen/margin_spacing_min"
-                tools:ignore="ImageContrastCheck"
-                tools:src="@tools:sample/avatars" />
+                android:layout_marginBottom="@dimen/margin_spacing_min" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -41,20 +39,19 @@
                     android:id="@+id/textViewApplicationName"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textAppearance="@style/TextAppearance.Material3.TitleLarge" />
+                    android:textAppearance="@style/TextAppearance.Material3.TitleMedium" />
 
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/radius_min">
+                    android:layout_marginTop="@dimen/dimen_8">
 
                     <com.google.android.material.imageview.ShapeableImageView
                         android:id="@+id/imageViewApplicationVersion"
                         android:layout_width="@dimen/app_icon_size_medium"
                         android:layout_height="@dimen/app_icon_size_medium"
                         android:layout_alignParentStart="true"
-                        android:layout_centerInParent="true"
-                        tools:src="@tools:sample/avatars" />
+                        android:layout_centerInParent="true" />
 
                     <TextView
                         android:id="@+id/textViewApplicationVersion"
@@ -71,7 +68,7 @@
                     android:id="@+id/textViewApplicationLegalese"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/app_icon_size_min"
+                    android:layout_marginTop="@dimen/dimen_16"
                     android:textAppearance="@style/TextAppearance.Material3.LabelMedium" />
 
             </LinearLayout>
