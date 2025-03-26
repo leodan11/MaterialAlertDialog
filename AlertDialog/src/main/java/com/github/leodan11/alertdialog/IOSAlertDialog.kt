@@ -18,6 +18,7 @@ class IOSAlertDialog private constructor(
     mMessage: MessageAlert<*>?,
     mCountDownTimer: ButtonCountDownTimer?,
     mCancelable: Boolean,
+    mGravity: Int?,
     mPositiveButton: ButtonAlertDialog?,
     mNeutralButton: ButtonAlertDialog?,
     mNegativeButton: ButtonAlertDialog?,
@@ -43,7 +44,10 @@ class IOSAlertDialog private constructor(
         builder.setCancelable(mCancelable)
         // Create and show dialog
         mDialog = builder.create()
-        mDialog?.window?.setBackgroundDrawableResource(android.R.color.transparent)
+        mDialog?.window?.apply {
+            mGravity?.let { setGravity(it) }
+            setBackgroundDrawableResource(android.R.color.transparent)
+        }
     }
 
     /**
@@ -62,6 +66,7 @@ class IOSAlertDialog private constructor(
                 mMessage = message,
                 mCountDownTimer = countDownTimer,
                 mCancelable = isCancelable,
+                mGravity = gravity,
                 mPositiveButton = positiveButton,
                 mNeutralButton = neutralButton,
                 mNegativeButton = negativeButton

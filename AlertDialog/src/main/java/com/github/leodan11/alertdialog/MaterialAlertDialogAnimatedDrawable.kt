@@ -21,6 +21,7 @@ class MaterialAlertDialogAnimatedDrawable private constructor(
     title: TitleAlert?,
     message: MessageAlert<*>?,
     mCancelable: Boolean,
+    mGravity: Int?,
     mTimeout: Long?,
     mNegativeButton: ButtonAlertDialog?,
 ) : AnimatedVectorDrawableComponentBase(
@@ -47,6 +48,9 @@ class MaterialAlertDialogAnimatedDrawable private constructor(
         builder.setCancelable(mCancelable)
         // Create and show dialog
         mDialog = builder.create()
+        mDialog?.window?.apply {
+            mGravity?.let { setGravity(it) }
+        }
     }
 
     /**
@@ -68,6 +72,7 @@ class MaterialAlertDialogAnimatedDrawable private constructor(
                 title = title,
                 message = message,
                 mCancelable = isCancelable,
+                mGravity = gravity,
                 mTimeout = onTimeout,
                 mNegativeButton = negativeButton
             )

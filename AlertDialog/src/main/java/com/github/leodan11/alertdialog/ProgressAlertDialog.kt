@@ -21,6 +21,7 @@ class ProgressAlertDialog private constructor(
     message: MessageAlert<*>?,
     detailsLinearProgress: MessageAlert<*>?,
     mCancelable: Boolean,
+    mGravity: Int?,
     mIndeterminate: Boolean,
     mMax: Int,
     mNegativeButton: ButtonAlertDialog?,
@@ -48,6 +49,9 @@ class ProgressAlertDialog private constructor(
         builder.setCancelable(mCancelable)
         // Create and show dialog
         mDialog = builder.create()
+        mDialog?.window?.apply {
+            mGravity?.let { setGravity(it) }
+        }
     }
 
     /**
@@ -71,6 +75,7 @@ class ProgressAlertDialog private constructor(
                 message = message,
                 detailsLinearProgress = detailsLinearProgress,
                 mCancelable = isCancelable,
+                mGravity = gravity,
                 mIndeterminate = isIndeterminate,
                 mMax = max,
                 mNegativeButton = negativeButton

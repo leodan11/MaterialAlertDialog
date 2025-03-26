@@ -21,6 +21,7 @@ class SettingsAlertDialog private constructor(
     launch: ActivityResultLauncher<Intent>,
     openOnNewTask: Boolean,
     mCancelable: Boolean,
+    mGravity: Int?,
     mPositiveButton: ButtonAlertDialog?,
     mNeutralButton: ButtonAlertDialog?,
     mNegativeButton: ButtonAlertDialog?,
@@ -45,6 +46,9 @@ class SettingsAlertDialog private constructor(
         builder.setCancelable(mCancelable)
         // Create and show dialog
         mDialog = builder.create()
+        mDialog?.window?.apply {
+            mGravity?.let { setGravity(it) }
+        }
     }
 
 
@@ -83,6 +87,7 @@ class SettingsAlertDialog private constructor(
                 launch = launch,
                 openOnNewTask = openOnNewTask,
                 mCancelable = isCancelable,
+                mGravity = gravity,
                 mPositiveButton = positiveButton,
                 mNeutralButton = neutralButton,
                 mNegativeButton = negativeButton

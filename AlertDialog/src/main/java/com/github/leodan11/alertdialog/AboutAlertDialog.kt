@@ -26,6 +26,7 @@ class AboutAlertDialog private constructor(
     maxLength: Int,
     maxLengthDetails: Int,
     mCancelable: Boolean,
+    mGravity: Int?,
     mIconStore: Boolean,
     mPositiveButton: ButtonAlertDialog?,
     mNeutralButton: ButtonAlertDialog?,
@@ -58,6 +59,9 @@ class AboutAlertDialog private constructor(
         builder.setCancelable(mCancelable)
         // Create and show dialog
         mDialog = builder.create()
+        mDialog?.window?.apply {
+            mGravity?.let { setGravity(it) }
+        }
     }
 
     /**
@@ -81,6 +85,7 @@ class AboutAlertDialog private constructor(
                 maxLength = maxLength,
                 maxLengthDetails = maxLengthDetails,
                 mCountDownTimer = countDownTimer,
+                mGravity = gravity,
                 mCancelable = isCancelable,
                 mIconStore = isIconStore,
                 mPositiveButton = positiveButton,

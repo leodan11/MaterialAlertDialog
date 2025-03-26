@@ -14,6 +14,7 @@ class LottieAlertDialog private constructor(
     mAnimationSpeed: Float?,
     mAnimationUrl: String?,
     mCancelable: Boolean,
+    mGravity: Int?,
     mLayoutParams: Int?,
     mTimeout: Long?,
 ) : LottieComponentBase(
@@ -39,7 +40,10 @@ class LottieAlertDialog private constructor(
         // Create and show dialog
         mDialog = builder.create()
         // Set Background Color
-        mDialog?.window?.setBackgroundDrawableResource(android.R.color.transparent)
+        mDialog?.window?.apply {
+            mGravity?.let { setGravity(it) }
+            setBackgroundDrawableResource(android.R.color.transparent)
+        }
     }
 
     /**
@@ -59,6 +63,7 @@ class LottieAlertDialog private constructor(
                 mAnimationSpeed = lottieAnimationSpeed,
                 mAnimationUrl = lottieAnimationUrl,
                 mCancelable = isCancelable,
+                mGravity = gravity,
                 mLayoutParams = lottieLayoutHeight,
                 mTimeout = onTimeout,
             )

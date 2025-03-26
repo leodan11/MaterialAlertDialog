@@ -24,6 +24,7 @@ class MaterialAlertDialogVerificationCode private constructor(
     mBoxCornerRadius: BoxCornerRadiusTextField?,
     mCountDownTimer: ButtonCountDownTimer?,
     mCancelable: Boolean,
+    mGravity: Int?,
     mInputsContentValue: List<InputCodeExtra>,
     mPositiveButton: ButtonAlertDialog?,
     mNegativeButton: ButtonAlertDialog?,
@@ -52,6 +53,9 @@ class MaterialAlertDialogVerificationCode private constructor(
         builder.setCancelable(mCancelable)
         // Create and show dialog
         mDialog = builder.create()
+        mDialog?.window?.apply {
+            mGravity?.let { setGravity(it) }
+        }
     }
 
     /**
@@ -73,6 +77,7 @@ class MaterialAlertDialogVerificationCode private constructor(
                 mBoxCornerRadius = boxCornerRadius,
                 mCountDownTimer = countDownTimer,
                 mCancelable = isCancelable,
+                mGravity = gravity,
                 mInputsContentValue = mInputsContentValue,
                 mPositiveButton = positiveButton,
                 mNegativeButton = negativeButton

@@ -276,6 +276,7 @@ abstract class IOSComponentBase(
         protected open var message: MessageAlert<*>? = null
         protected open var countDownTimer: ButtonCountDownTimer? = null
         protected open var isCancelable: Boolean = true
+        protected open var gravity: Int? = null
         protected open var positiveButton: ButtonAlertDialog? = null
         protected open var neutralButton: ButtonAlertDialog? = null
         protected open var negativeButton: ButtonAlertDialog? = null
@@ -523,6 +524,18 @@ abstract class IOSComponentBase(
          */
         fun setCancelable(isCancelable: Boolean): Builder<D> {
             this.isCancelable = isCancelable
+            return this
+        }
+
+        /**
+         * Set gravity of the dialog
+         *
+         * @param gravity [Int] value
+         * @see [android.view.Gravity]
+         * @return [Builder] object to allow for chaining of calls to set methods
+         */
+        fun setGravity(gravity: Int): Builder<D> {
+            this.gravity = gravity
             return this
         }
 

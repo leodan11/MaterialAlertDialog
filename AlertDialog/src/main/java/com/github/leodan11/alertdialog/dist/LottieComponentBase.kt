@@ -171,6 +171,7 @@ abstract class LottieComponentBase protected constructor(
         protected open var lottieAnimationUrl: String? = null
         protected open var lottieLayoutHeight: Int? = null
         protected open var onTimeout: Long? = null
+        protected open var gravity: Int? = null
 
         /**
          * Sets the animation asset to be used in the dialog.
@@ -235,6 +236,18 @@ abstract class LottieComponentBase protected constructor(
          */
         fun setCancelable(isCancelable: Boolean): Builder<D> {
             this.isCancelable = isCancelable
+            return this
+        }
+
+        /**
+         * Set gravity of the dialog
+         *
+         * @param gravity [Int] value
+         * @see [android.view.Gravity]
+         * @return [Builder] object to allow for chaining of calls to set methods
+         */
+        fun setGravity(gravity: Int): Builder<D> {
+            this.gravity = gravity
             return this
         }
 

@@ -280,6 +280,7 @@ abstract class AboutComponentBase protected constructor(
         protected open var maxLength: Int = DEFAULT_CHART_SEQUENCE_LENGTH
         protected open var maxLengthDetails: Int = DEFAULT_CHART_SEQUENCE_LENGTH_DETAILS
         protected open var isCancelable: Boolean = true
+        protected open var gravity: Int? = null
         protected open var isIconStore: Boolean = true
         protected open var positiveButton: ButtonAlertDialog? = null
         protected open var neutralButton: ButtonAlertDialog? = null
@@ -613,6 +614,18 @@ abstract class AboutComponentBase protected constructor(
          */
         fun setCancelable(isCancelable: Boolean): Builder<D> {
             this.isCancelable = isCancelable
+            return this
+        }
+
+        /**
+         * Set gravity of the dialog
+         *
+         * @param gravity [Int] value
+         * @see [android.view.Gravity]
+         * @return [Builder] object to allow for chaining of calls to set methods
+         */
+        fun setGravity(gravity: Int): Builder<D> {
+            this.gravity = gravity
             return this
         }
 

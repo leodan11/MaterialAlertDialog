@@ -10,6 +10,7 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 class IOSProgressDialog private constructor(
     mContext: Context,
     message: MessageAlert<*>?,
+    mGravity: Int?,
     mCancelable: Boolean,
 ) : ProgressIOSComponentBase(
     mContext = mContext,
@@ -27,7 +28,10 @@ class IOSProgressDialog private constructor(
         builder.setCancelable(mCancelable)
         // Create and show dialog
         mDialog = builder.create()
-        mDialog?.window?.setBackgroundDrawableResource(android.R.color.transparent)
+        mDialog?.window?.apply {
+            mGravity?.let { setGravity(it) }
+            setBackgroundDrawableResource(android.R.color.transparent)
+        }
     }
 
     /**
@@ -43,6 +47,7 @@ class IOSProgressDialog private constructor(
             return IOSProgressDialog(
                 mContext = context,
                 message = message,
+                mGravity = gravity,
                 mCancelable = isCancelable
             )
         }

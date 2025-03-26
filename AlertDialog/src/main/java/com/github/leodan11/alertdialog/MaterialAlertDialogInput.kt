@@ -31,6 +31,7 @@ class MaterialAlertDialogInput private constructor(
     inputTextError: String?,
     inputTextDefault: String?,
     mCancelable: Boolean,
+    mGravity: Int?,
     mPositiveButton: ButtonAlertDialog?,
     mNegativeButton: ButtonAlertDialog?,
 ) : InputComponentBase(
@@ -64,6 +65,9 @@ class MaterialAlertDialogInput private constructor(
         builder.setCancelable(mCancelable)
         // Create and show dialog
         mDialog = builder.create()
+        mDialog?.window?.apply {
+            mGravity?.let { setGravity(it) }
+        }
     }
 
     /**
@@ -92,6 +96,7 @@ class MaterialAlertDialogInput private constructor(
                 inputTextError = inputTextError,
                 inputTextDefault = inputTextDefault,
                 mCancelable = isCancelable,
+                mGravity = gravity,
                 mPositiveButton = positiveButton,
                 mNegativeButton = negativeButton
             )

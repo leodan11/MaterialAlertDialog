@@ -20,6 +20,7 @@ class MaterialAlertDialogSignIn private constructor(
     mBoxCornerRadius: BoxCornerRadiusTextField?,
     mCountDownTimer: ButtonCountDownTimer?,
     mCancelable: Boolean,
+    mGravity: Int?,
     mPositiveButton: ButtonAlertDialog?,
     mNegativeButton: ButtonAlertDialog?,
 ) : SignInComponentBase(
@@ -44,6 +45,9 @@ class MaterialAlertDialogSignIn private constructor(
         builder.setCancelable(mCancelable)
         // Create and show dialog
         mDialog = builder.create()
+        mDialog?.window?.apply {
+            mGravity?.let { setGravity(it) }
+        }
     }
 
     /**
@@ -63,6 +67,7 @@ class MaterialAlertDialogSignIn private constructor(
                 mBoxCornerRadius = boxCornerRadius,
                 mCountDownTimer = countDownTimer,
                 mCancelable = isCancelable,
+                mGravity = gravity,
                 mPositiveButton = positiveButton,
                 mNegativeButton = negativeButton
             )

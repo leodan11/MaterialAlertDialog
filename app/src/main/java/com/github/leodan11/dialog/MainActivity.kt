@@ -2,6 +2,7 @@ package com.github.leodan11.dialog
 
 import android.graphics.Color
 import android.os.Bundle
+import android.view.Gravity
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
@@ -77,6 +78,7 @@ class MainActivity : AppCompatActivity() {
                     .setTitle("Lorem Ipsum")
                     .setMessage("What is Lorem Ipsum?")
                     .setCancelable(false)
+                    .setGravity(Gravity.TOP)
                     .setCountDownTimer(DialogAlertInterface.UI.BUTTON_POSITIVE, 6000)
                     .setPositiveButton { dialog, _ -> dialog.dismiss() }
                     .setNegativeButton { dialog, _ -> dialog.dismiss() }

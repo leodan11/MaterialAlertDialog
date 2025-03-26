@@ -347,6 +347,7 @@ abstract class ProgressComponentBase(
         protected open var detailsLinearProgress: MessageAlert<*>? = null
         protected open var progressType: Alert.Progress = Alert.Progress.CIRCULAR
         protected open var isCancelable: Boolean = true
+        protected open var gravity: Int? = null
         protected open var max: Int = 0
         protected open var isIndeterminate: Boolean = false
         protected open var negativeButton: ButtonAlertDialog? = null
@@ -654,6 +655,18 @@ abstract class ProgressComponentBase(
          */
         fun setCancelable(isCancelable: Boolean): Builder<D> {
             this.isCancelable = isCancelable
+            return this
+        }
+
+        /**
+         * Set gravity of the dialog
+         *
+         * @param gravity [Int] value
+         * @see [android.view.Gravity]
+         * @return [Builder] object to allow for chaining of calls to set methods
+         */
+        fun setGravity(gravity: Int): Builder<D> {
+            this.gravity = gravity
             return this
         }
 

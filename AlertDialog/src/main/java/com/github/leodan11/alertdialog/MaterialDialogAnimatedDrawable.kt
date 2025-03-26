@@ -16,6 +16,7 @@ class MaterialDialogAnimatedDrawable private constructor(
     message: MessageAlert<*>?,
     mTextSize: Float?,
     mCancelable: Boolean,
+    mGravity: Int?,
     mTimeout: Long?,
 ) : AnimatedDrawableComponentBase(
     mContext = mContext,
@@ -38,7 +39,10 @@ class MaterialDialogAnimatedDrawable private constructor(
         builder.setCancelable(mCancelable)
         // Create and show dialog
         mDialog = builder.create()
-        mDialog?.window?.setBackgroundDrawableResource(android.R.color.transparent)
+        mDialog?.window?.apply {
+            mGravity?.let { setGravity(it) }
+            setBackgroundDrawableResource(android.R.color.transparent)
+        }
     }
 
     /**
@@ -58,6 +62,7 @@ class MaterialDialogAnimatedDrawable private constructor(
                 message = message,
                 mTextSize = messageTextSize,
                 mCancelable = isCancelable,
+                mGravity = gravity,
                 mTimeout = onTimeout,
             )
         }

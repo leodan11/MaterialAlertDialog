@@ -23,6 +23,7 @@ class MaterialAlertDialogCentered private constructor(
     title: TitleAlert?,
     message: MessageAlert<*>?,
     mCancelable: Boolean,
+    mGravity: Int?,
     mPositiveButton: ButtonAlertDialog?,
     mNeutralButton: ButtonAlertDialog?,
     mNegativeButton: ButtonAlertDialog?,
@@ -50,6 +51,9 @@ class MaterialAlertDialogCentered private constructor(
         builder.setCancelable(mCancelable)
         // Create and show dialog
         mDialog = builder.create()
+        mDialog?.window?.apply {
+            mGravity?.let { setGravity(it) }
+        }
     }
 
     /**
@@ -71,6 +75,7 @@ class MaterialAlertDialogCentered private constructor(
                 message = message,
                 mCountDownTimer = countDownTimer,
                 mCancelable = isCancelable,
+                mGravity = gravity,
                 mPositiveButton = positiveButton,
                 mNeutralButton = neutralButton,
                 mNegativeButton = negativeButton

@@ -379,6 +379,7 @@ abstract class VerificationCodeComponentBase(
         protected open var countDownTimer: ButtonCountDownTimer? = null
         protected open var isNeedReason: Boolean = true
         protected open var isCancelable: Boolean = false
+        protected open var gravity: Int? = null
         protected open var mInputsContentValue: List<InputCodeExtra> = arrayListOf()
         protected open var positiveButton: ButtonAlertDialog? = null
         protected open var negativeButton: ButtonAlertDialog? = null
@@ -776,6 +777,18 @@ abstract class VerificationCodeComponentBase(
          */
         fun setCancelable(isCancelable: Boolean): Builder<D> {
             this.isCancelable = isCancelable
+            return this
+        }
+
+        /**
+         * Set gravity of the dialog
+         *
+         * @param gravity [Int] value
+         * @see [android.view.Gravity]
+         * @return [Builder] object to allow for chaining of calls to set methods
+         */
+        fun setGravity(gravity: Int): Builder<D> {
+            this.gravity = gravity
             return this
         }
 

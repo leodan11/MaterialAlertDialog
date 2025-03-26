@@ -27,6 +27,7 @@ class MaterialAlertDialogEvents private constructor(
     details: DetailsAlert<*>?,
     detailsSpanLengthMax: SpanLength,
     mCancelable: Boolean,
+    mGravity: Int?,
     mPositiveButton: ButtonAlertDialog?,
     mNeutralButton: ButtonAlertDialog?,
     mNegativeButton: ButtonAlertDialog?,
@@ -58,6 +59,9 @@ class MaterialAlertDialogEvents private constructor(
         builder.setCancelable(mCancelable)
         // Create and show dialog
         mDialog = builder.create()
+        mDialog?.window?.apply {
+            mGravity?.let { setGravity(it) }
+        }
     }
 
     /**
@@ -82,6 +86,7 @@ class MaterialAlertDialogEvents private constructor(
                 details = details,
                 detailsSpanLengthMax = detailsSpanLengthMax,
                 mCancelable = isCancelable,
+                mGravity = gravity,
                 mPositiveButton = positiveButton,
                 mNeutralButton = neutralButton,
                 mNegativeButton = negativeButton
