@@ -6,7 +6,7 @@ import android.content.Intent
 import android.net.Uri
 import android.provider.Settings
 import androidx.activity.result.ActivityResultLauncher
-import com.github.leodan11.alertdialog.dist.AlertDialogSettingsBase
+import com.github.leodan11.alertdialog.dist.SettingsComponentBase
 import com.github.leodan11.alertdialog.io.models.ButtonAlertDialog
 import com.github.leodan11.alertdialog.io.models.IconAlert
 import com.github.leodan11.alertdialog.io.models.MessageAlert
@@ -24,7 +24,7 @@ class SettingsAlertDialog private constructor(
     mPositiveButton: ButtonAlertDialog?,
     mNeutralButton: ButtonAlertDialog?,
     mNegativeButton: ButtonAlertDialog?,
-) : AlertDialogSettingsBase(
+) : SettingsComponentBase(
     mContext = mContext,
     icon = icon,
     title = title,
@@ -72,7 +72,7 @@ class SettingsAlertDialog private constructor(
      * @return [Builder] object to allow for chaining of calls to set methods
      */
     class Builder(context: Context) :
-        AlertDialogSettingsBase.Builder<SettingsAlertDialog>(context = context) {
+        SettingsComponentBase.Builder<SettingsAlertDialog>(context = context) {
 
         override fun create(): SettingsAlertDialog {
             return SettingsAlertDialog(

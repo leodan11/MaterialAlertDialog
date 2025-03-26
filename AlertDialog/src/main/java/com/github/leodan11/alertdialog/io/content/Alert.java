@@ -4,7 +4,7 @@ import android.os.Build;
 
 import androidx.annotation.RequiresApi;
 
-public abstract class AlertDialog {
+public abstract class Alert {
 
     public enum State {
         CUSTOM, DELETE, ERROR, HELP, INFORMATION, SUCCESS, WARNING, WITHOUT_INTERNET, WITHOUT_INTERNET_MOBILE, WITHOUT_INTERNET_WIFI
@@ -18,10 +18,6 @@ public abstract class AlertDialog {
 
         CENTER, END, INHERIT, @RequiresApi(Build.VERSION_CODES.Q) JUSTIFY, START
 
-    }
-
-    public enum UI {
-        BUTTON_POSITIVE, BUTTON_NEUTRAL, BUTTON_NEGATIVE
     }
 
     public enum IconGravity {

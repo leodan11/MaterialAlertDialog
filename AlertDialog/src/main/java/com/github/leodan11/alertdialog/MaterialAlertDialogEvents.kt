@@ -3,8 +3,8 @@ package com.github.leodan11.alertdialog
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
-import com.github.leodan11.alertdialog.dist.AlertDialogEventsBase
-import com.github.leodan11.alertdialog.io.content.AlertDialog
+import com.github.leodan11.alertdialog.dist.EventsComponentBase
+import com.github.leodan11.alertdialog.io.content.Alert
 import com.github.leodan11.alertdialog.io.models.ButtonAlertDialog
 import com.github.leodan11.alertdialog.io.models.ButtonCountDownTimer
 import com.github.leodan11.alertdialog.io.models.DetailsAlert
@@ -17,7 +17,7 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 class MaterialAlertDialogEvents private constructor(
     mContext: Context,
     icon: IconAlert,
-    type: AlertDialog.State,
+    type: Alert.State,
     backgroundColorSpanInt: Int?,
     backgroundColorSpanResource: Int?,
     mCountDownTimer: ButtonCountDownTimer?,
@@ -30,7 +30,7 @@ class MaterialAlertDialogEvents private constructor(
     mPositiveButton: ButtonAlertDialog?,
     mNeutralButton: ButtonAlertDialog?,
     mNegativeButton: ButtonAlertDialog?,
-) : AlertDialogEventsBase(
+) : EventsComponentBase(
     mContext = mContext,
     icon = icon,
     type = type,
@@ -66,7 +66,7 @@ class MaterialAlertDialogEvents private constructor(
      * @param context the parent context
      */
     class Builder(context: Context) :
-        AlertDialogEventsBase.Builder<MaterialAlertDialogEvents>(context = context) {
+        EventsComponentBase.Builder<MaterialAlertDialogEvents>(context = context) {
 
         override fun create(): MaterialAlertDialogEvents {
             return MaterialAlertDialogEvents(

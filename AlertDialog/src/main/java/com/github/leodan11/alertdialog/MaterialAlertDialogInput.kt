@@ -3,7 +3,7 @@ package com.github.leodan11.alertdialog
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
-import com.github.leodan11.alertdialog.dist.AlertDialogInputBase
+import com.github.leodan11.alertdialog.dist.InputComponentBase
 import com.github.leodan11.alertdialog.io.models.BoxCornerRadiusTextField
 import com.github.leodan11.alertdialog.io.models.ButtonAlertDialog
 import com.github.leodan11.alertdialog.io.models.ButtonCountDownTimer
@@ -33,7 +33,7 @@ class MaterialAlertDialogInput private constructor(
     mCancelable: Boolean,
     mPositiveButton: ButtonAlertDialog?,
     mNegativeButton: ButtonAlertDialog?,
-) : AlertDialogInputBase(
+) : InputComponentBase(
     mContext = mContext,
     icon = mIcon,
     iconTintColor = mTintColor,
@@ -72,7 +72,7 @@ class MaterialAlertDialogInput private constructor(
      * @param context the parent context
      */
     class Builder(context: Context) :
-        AlertDialogInputBase.Builder<MaterialAlertDialogInput>(context = context) {
+        InputComponentBase.Builder<MaterialAlertDialogInput>(context = context) {
 
         override fun create(): MaterialAlertDialogInput {
             return MaterialAlertDialogInput(

@@ -3,8 +3,7 @@ package com.github.leodan11.alertdialog
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
-import com.github.leodan11.alertdialog.dist.ProgressDialogBase
-import com.github.leodan11.alertdialog.io.content.AlertDialog
+import com.github.leodan11.alertdialog.dist.AnimatedVectorDrawableComponentBase
 import com.github.leodan11.alertdialog.io.models.ButtonAlertDialog
 import com.github.leodan11.alertdialog.io.models.IconAlert
 import com.github.leodan11.alertdialog.io.models.IconTintAlert
@@ -12,29 +11,29 @@ import com.github.leodan11.alertdialog.io.models.MessageAlert
 import com.github.leodan11.alertdialog.io.models.TitleAlert
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
-class ProgressMaterialDialog private constructor(
+class MaterialAlertDialogAnimatedDrawable private constructor(
     mContext: Context,
     icon: IconAlert?,
     tintColor: IconTintAlert?,
-    progressType: AlertDialog.Progress,
+    iconVectorDrawable: IconAlert,
+    mAnimatedVectorDrawable: Boolean,
+    mAnimatedVectorDrawableLoop: Boolean,
     title: TitleAlert?,
     message: MessageAlert<*>?,
-    detailsLinearProgress: MessageAlert<*>?,
     mCancelable: Boolean,
-    mIndeterminate: Boolean,
-    mMax: Int,
+    mTimeout: Long?,
     mNegativeButton: ButtonAlertDialog?,
-) : ProgressDialogBase(
+) : AnimatedVectorDrawableComponentBase(
     mContext = mContext,
     icon = icon,
     tintColor = tintColor,
-    progressType = progressType,
+    iconVectorDrawable = iconVectorDrawable,
+    mAnimatedVectorDrawable = mAnimatedVectorDrawable,
+    mAnimatedVectorDrawableLoop = mAnimatedVectorDrawableLoop,
     title = title,
     message = message,
-    detailsLinearProgress = detailsLinearProgress,
-    mMax = mMax,
     mCancelable = mCancelable,
-    mIndeterminate = mIndeterminate,
+    mTimeout = mTimeout,
     mNegativeButton = mNegativeButton
 ) {
 
@@ -51,28 +50,25 @@ class ProgressMaterialDialog private constructor(
     }
 
     /**
-     * Creates a builder for a circular progress alert dialog
-     * that uses the default alert dialog theme.
+     * Creates a builder for a progress alert dialog that uses the default alert dialog theme.
      * The default alert dialog theme is defined by [android.R.attr.alertDialogTheme] within the parent context's theme.
-     *
      * @param context the parent context
-     *
      */
     class Builder(context: Context) :
-        ProgressDialogBase.Builder<ProgressMaterialDialog>(context) {
+        AnimatedVectorDrawableComponentBase.Builder<MaterialAlertDialogAnimatedDrawable>(context = context) {
 
-        override fun create(): ProgressMaterialDialog {
-            return ProgressMaterialDialog(
+        override fun create(): MaterialAlertDialogAnimatedDrawable {
+            return MaterialAlertDialogAnimatedDrawable(
                 mContext = context,
                 icon = icon,
-                tintColor = iconTint,
-                progressType = progressType,
+                tintColor = tintColor,
+                iconVectorDrawable = iconVectorDrawable,
+                mAnimatedVectorDrawable = isAnimatedVectorDrawable,
+                mAnimatedVectorDrawableLoop = isAnimatedVectorDrawableLoop,
                 title = title,
                 message = message,
-                detailsLinearProgress = detailsLinearProgress,
                 mCancelable = isCancelable,
-                mIndeterminate = isIndeterminate,
-                mMax = max,
+                mTimeout = onTimeout,
                 mNegativeButton = negativeButton
             )
         }

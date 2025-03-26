@@ -3,7 +3,7 @@ package com.github.leodan11.alertdialog
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
-import com.github.leodan11.alertdialog.dist.AlertDialogProgressIOSBase
+import com.github.leodan11.alertdialog.dist.ProgressIOSComponentBase
 import com.github.leodan11.alertdialog.io.models.MessageAlert
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
@@ -11,7 +11,7 @@ class IOSProgressDialog private constructor(
     mContext: Context,
     message: MessageAlert<*>?,
     mCancelable: Boolean,
-) : AlertDialogProgressIOSBase(
+) : ProgressIOSComponentBase(
     mContext = mContext,
     message = message,
     mCancelable = mCancelable
@@ -37,7 +37,7 @@ class IOSProgressDialog private constructor(
      * @param context the parent context
      */
     class Builder(context: Context) :
-        AlertDialogProgressIOSBase.Builder<IOSProgressDialog>(context = context) {
+        ProgressIOSComponentBase.Builder<IOSProgressDialog>(context = context) {
 
         override fun create(): IOSProgressDialog {
             return IOSProgressDialog(

@@ -5,7 +5,7 @@ import android.text.TextUtils
 import android.view.View
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import com.github.leodan11.alertdialog.dist.base.MaterialAlertDialogFragment
+import com.github.leodan11.alertdialog.dist.base.AlertDialogFragment
 import com.github.leodan11.dialog.databinding.FragmentBlankBinding
 
 /**
@@ -13,7 +13,7 @@ import com.github.leodan11.dialog.databinding.FragmentBlankBinding
  * Use the [BlankFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-class BlankFragment : MaterialAlertDialogFragment<FragmentBlankBinding>() {
+class BlankFragment : AlertDialogFragment<FragmentBlankBinding>() {
 
     override val layoutId: Int
         get() = R.layout.fragment_blank

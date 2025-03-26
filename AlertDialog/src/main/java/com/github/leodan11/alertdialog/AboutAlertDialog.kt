@@ -3,7 +3,7 @@ package com.github.leodan11.alertdialog
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
-import com.github.leodan11.alertdialog.dist.AboutDialogBase
+import com.github.leodan11.alertdialog.dist.AboutComponentBase
 import com.github.leodan11.alertdialog.io.models.ButtonAlertDialog
 import com.github.leodan11.alertdialog.io.models.ButtonCountDownTimer
 import com.github.leodan11.alertdialog.io.models.DetailsAlert
@@ -13,7 +13,7 @@ import com.github.leodan11.alertdialog.io.models.MessageAlert
 import com.github.leodan11.alertdialog.io.models.TitleAlert
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
-class AboutMaterialDialog private constructor(
+class AboutAlertDialog private constructor(
     mContext: Context,
     icon: IconAlert,
     iconStore: IconAlert,
@@ -30,7 +30,7 @@ class AboutMaterialDialog private constructor(
     mPositiveButton: ButtonAlertDialog?,
     mNeutralButton: ButtonAlertDialog?,
     mNegativeButton: ButtonAlertDialog?,
-) : AboutDialogBase(
+) : AboutComponentBase(
     mContext = mContext,
     icon = icon,
     iconStore = iconStore,
@@ -66,10 +66,10 @@ class AboutMaterialDialog private constructor(
      * @param context the parent context
      */
     class Builder(context: Context) :
-        AboutDialogBase.Builder<AboutMaterialDialog>(context = context) {
+        AboutComponentBase.Builder<AboutAlertDialog>(context = context) {
 
-        override fun create(): AboutMaterialDialog {
-            return AboutMaterialDialog(
+        override fun create(): AboutAlertDialog {
+            return AboutAlertDialog(
                 mContext = context,
                 icon = icon,
                 iconStore = iconStore,

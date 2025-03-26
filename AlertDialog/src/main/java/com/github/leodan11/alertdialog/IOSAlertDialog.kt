@@ -3,7 +3,7 @@ package com.github.leodan11.alertdialog
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
-import com.github.leodan11.alertdialog.dist.AlertDialogIOSBase
+import com.github.leodan11.alertdialog.dist.IOSComponentBase
 import com.github.leodan11.alertdialog.io.content.IOSDialog.Orientation
 import com.github.leodan11.alertdialog.io.models.ButtonAlertDialog
 import com.github.leodan11.alertdialog.io.models.ButtonCountDownTimer
@@ -21,7 +21,7 @@ class IOSAlertDialog private constructor(
     mPositiveButton: ButtonAlertDialog?,
     mNeutralButton: ButtonAlertDialog?,
     mNegativeButton: ButtonAlertDialog?,
-) : AlertDialogIOSBase(
+) : IOSComponentBase(
     mContext = mContext,
     orientationButton = mOrientationButton,
     title = mTitle,
@@ -52,7 +52,7 @@ class IOSAlertDialog private constructor(
      * @param context the parent context
      */
     class Builder(context: Context) :
-        AlertDialogIOSBase.Builder<IOSAlertDialog>(context = context) {
+        IOSComponentBase.Builder<IOSAlertDialog>(context = context) {
 
         override fun create(): IOSAlertDialog {
             return IOSAlertDialog(

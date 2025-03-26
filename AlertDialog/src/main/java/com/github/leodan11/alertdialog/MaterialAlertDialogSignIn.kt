@@ -3,7 +3,7 @@ package com.github.leodan11.alertdialog
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
-import com.github.leodan11.alertdialog.dist.AlertDialogSignInBase
+import com.github.leodan11.alertdialog.dist.SignInComponentBase
 import com.github.leodan11.alertdialog.io.models.BoxCornerRadiusTextField
 import com.github.leodan11.alertdialog.io.models.ButtonAlertDialog
 import com.github.leodan11.alertdialog.io.models.ButtonCountDownTimer
@@ -22,7 +22,7 @@ class MaterialAlertDialogSignIn private constructor(
     mCancelable: Boolean,
     mPositiveButton: ButtonAlertDialog?,
     mNegativeButton: ButtonAlertDialog?,
-) : AlertDialogSignInBase(
+) : SignInComponentBase(
     mContext = mContext,
     icon = icon,
     tintColor = tintColor,
@@ -52,7 +52,7 @@ class MaterialAlertDialogSignIn private constructor(
      * @param context the parent context
      */
     class Builder(context: Context) :
-        AlertDialogSignInBase.Builder<MaterialAlertDialogSignIn>(context = context) {
+        SignInComponentBase.Builder<MaterialAlertDialogSignIn>(context = context) {
 
         override fun create(): MaterialAlertDialogSignIn {
             return MaterialAlertDialogSignIn(

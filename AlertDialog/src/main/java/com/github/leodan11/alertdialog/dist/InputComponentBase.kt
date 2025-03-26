@@ -23,9 +23,9 @@ import com.github.leodan11.alertdialog.MaterialAlertDialogInput
 import com.github.leodan11.alertdialog.R
 import com.github.leodan11.alertdialog.databinding.MAlertDialogInputBinding
 import com.github.leodan11.alertdialog.dist.base.AlertBuilder
-import com.github.leodan11.alertdialog.io.content.AlertDialog
+import com.github.leodan11.alertdialog.io.content.Alert
+import com.github.leodan11.alertdialog.io.content.DialogAlertInterface
 import com.github.leodan11.alertdialog.io.content.Config.MATERIAL_ALERT_DIALOG_UI_NOT_ICON
-import com.github.leodan11.alertdialog.io.content.MaterialAlert
 import com.github.leodan11.alertdialog.io.helpers.toButtonView
 import com.github.leodan11.alertdialog.io.helpers.toImageView
 import com.github.leodan11.alertdialog.io.helpers.toInputSampleView
@@ -46,7 +46,7 @@ import com.google.android.material.textfield.TextInputLayout
 import com.vicmikhailau.maskededittext.MaskedFormatter
 import com.vicmikhailau.maskededittext.MaskedWatcher
 
-abstract class AlertDialogInputBase(
+abstract class InputComponentBase(
     protected open var mContext: Context,
     protected open var icon: IconAlert?,
     protected open var iconTintColor: IconTintAlert?,
@@ -65,15 +65,15 @@ abstract class AlertDialogInputBase(
     protected open var isCancelable: Boolean,
     protected open var positiveButton: ButtonAlertDialog?,
     protected open var negativeButton: ButtonAlertDialog?,
-) : MaterialAlert {
+) : DialogAlertInterface {
 
     open val isShowing: Boolean get() = mDialog?.isShowing ?: false
     private lateinit var binding: MAlertDialogInputBinding
     private var mCountDownTimer: CountDownTimer? = null
     protected open var mDialog: Dialog? = null
-    protected open var mOnDismissListener: MaterialAlert.OnDismissListener? = null
-    protected open var mOnCancelListener: MaterialAlert.OnCancelListener? = null
-    protected open var mOnShowListener: MaterialAlert.OnShowListener? = null
+    protected open var mOnDismissListener: DialogAlertInterface.OnDismissListener? = null
+    protected open var mOnCancelListener: DialogAlertInterface.OnCancelListener? = null
+    protected open var mOnShowListener: DialogAlertInterface.OnShowListener? = null
 
     @RestrictTo(RestrictTo.Scope.LIBRARY)
     protected open fun createView(
@@ -127,7 +127,7 @@ abstract class AlertDialogInputBase(
                                 )
                             ) {
                                 listener.onClick(
-                                    this@AlertDialogInputBase,
+                                    this@InputComponentBase,
                                     textInputEditTextAlert.text.toString()
                                 )
                             }
@@ -139,8 +139,8 @@ abstract class AlertDialogInputBase(
                     negativeButton.toButtonView(mContext, this, mBackgroundTint)
                     setOnClickListener {
                         negativeButton?.onClickListener?.onClick(
-                            this@AlertDialogInputBase,
-                            AlertDialog.UI.BUTTON_NEGATIVE
+                            this@InputComponentBase,
+                            DialogAlertInterface.UI.BUTTON_NEGATIVE
                         )
                     }
                 }
@@ -206,10 +206,10 @@ abstract class AlertDialogInputBase(
      *
      */
     @Throws(IllegalArgumentException::class)
-    open fun getButton(which: AlertDialog.UI): MaterialButton {
+    open fun getButton(which: DialogAlertInterface.UI): MaterialButton {
         return when (which) {
-            AlertDialog.UI.BUTTON_POSITIVE -> binding.inputActions.buttonActionPositiveAlertDialog
-            AlertDialog.UI.BUTTON_NEGATIVE -> binding.inputActions.buttonActionNegativeAlertDialog
+            DialogAlertInterface.UI.BUTTON_POSITIVE -> binding.inputActions.buttonActionPositiveAlertDialog
+            DialogAlertInterface.UI.BUTTON_NEGATIVE -> binding.inputActions.buttonActionNegativeAlertDialog
             else -> throw IllegalArgumentException("Button type not supported")
         }
     }
@@ -220,7 +220,7 @@ abstract class AlertDialogInputBase(
      *
      * @param onCancelListener
      */
-    open fun setOnCancelListener(onCancelListener: MaterialAlert.OnCancelListener) {
+    open fun setOnCancelListener(onCancelListener: DialogAlertInterface.OnCancelListener) {
         this.mOnCancelListener = onCancelListener
         mDialog?.setOnCancelListener { cancelCallback() }
     }
@@ -230,7 +230,7 @@ abstract class AlertDialogInputBase(
      *
      * @param onDismissListener
      */
-    open fun setOnDismissListener(onDismissListener: MaterialAlert.OnDismissListener) {
+    open fun setOnDismissListener(onDismissListener: DialogAlertInterface.OnDismissListener) {
         this.mOnDismissListener = onDismissListener
         mDialog?.setOnDismissListener { dismissCallback() }
     }
@@ -240,7 +240,7 @@ abstract class AlertDialogInputBase(
      *
      * @param onShowListener
      */
-    open fun setOnShowListener(onShowListener: MaterialAlert.OnShowListener) {
+    open fun setOnShowListener(onShowListener: DialogAlertInterface.OnShowListener) {
         this.mOnShowListener = onShowListener
         mDialog?.setOnShowListener { showCallback() }
     }
@@ -282,7 +282,7 @@ abstract class AlertDialogInputBase(
      * The default alert dialog theme is defined by [android.R.attr.alertDialogTheme] within the parent context's theme.
      * @param context – the parent context
      */
-    abstract class Builder<D : AlertDialogInputBase>(protected val context: Context) :
+    abstract class Builder<D : InputComponentBase>(protected val context: Context) :
         AlertBuilder() {
 
         protected open var icon: IconAlert? = null
@@ -413,7 +413,7 @@ abstract class AlertDialogInputBase(
          *
          */
         fun setTitle(title: String): Builder<D> {
-            return setTitle(title, AlertDialog.TextAlignment.START)
+            return setTitle(title, Alert.TextAlignment.START)
         }
 
 
@@ -426,14 +426,14 @@ abstract class AlertDialogInputBase(
          *
          */
         fun setTitle(@StringRes title: Int): Builder<D> {
-            return setTitle(title, AlertDialog.TextAlignment.START)
+            return setTitle(title, Alert.TextAlignment.START)
         }
 
 
         /**
          * Set the title displayed in the dialog. With text alignment.
          *
-         * @see [AlertDialog.TextAlignment]
+         * @see [Alert.TextAlignment]
          *
          * @param title The title to display in the dialog.
          * @param alignment The message alignment.
@@ -441,7 +441,7 @@ abstract class AlertDialogInputBase(
          * @return [Builder] object to allow for chaining of calls to set methods
          *
          */
-        fun setTitle(title: String, alignment: AlertDialog.TextAlignment): Builder<D> {
+        fun setTitle(title: String, alignment: Alert.TextAlignment): Builder<D> {
             this.title = TitleAlert(title, alignment)
             return this
         }
@@ -450,7 +450,7 @@ abstract class AlertDialogInputBase(
         /**
          * Set the title displayed in the dialog. With text alignment.
          *
-         * @see [AlertDialog.TextAlignment]
+         * @see [Alert.TextAlignment]
          *
          * @param title The title to display in the dialog.
          * @param alignment The message alignment.
@@ -458,7 +458,7 @@ abstract class AlertDialogInputBase(
          * @return [Builder] object to allow for chaining of calls to set methods
          *
          */
-        fun setTitle(@StringRes title: Int, alignment: AlertDialog.TextAlignment): Builder<D> {
+        fun setTitle(@StringRes title: Int, alignment: Alert.TextAlignment): Builder<D> {
             this.title = TitleAlert(context.getString(title), alignment)
             return this
         }
@@ -472,7 +472,7 @@ abstract class AlertDialogInputBase(
          *
          */
         fun setMessage(message: String): Builder<D> {
-            return setMessage(message, AlertDialog.TextAlignment.START)
+            return setMessage(message, Alert.TextAlignment.START)
         }
 
 
@@ -485,14 +485,14 @@ abstract class AlertDialogInputBase(
          *
          */
         fun setMessage(@StringRes message: Int): Builder<D> {
-            return setMessage(message, AlertDialog.TextAlignment.START)
+            return setMessage(message, Alert.TextAlignment.START)
         }
 
 
         /**
          * Sets the message to display. With text alignment.
          *
-         * @see [AlertDialog.TextAlignment]
+         * @see [Alert.TextAlignment]
          *
          * @param message The message to display in the dialog.
          * @param alignment The message alignment.
@@ -500,7 +500,7 @@ abstract class AlertDialogInputBase(
          * @return [Builder] object to allow for chaining of calls to set methods
          *
          */
-        fun setMessage(message: String, alignment: AlertDialog.TextAlignment): Builder<D> {
+        fun setMessage(message: String, alignment: Alert.TextAlignment): Builder<D> {
             this.message = MessageAlert.text(message, alignment)
             return this
         }
@@ -509,7 +509,7 @@ abstract class AlertDialogInputBase(
         /**
          * Sets the message to display. With text alignment.
          *
-         * @see [AlertDialog.TextAlignment]
+         * @see [Alert.TextAlignment]
          *
          * @param message The message to display in the dialog.
          * @param alignment The message alignment.
@@ -517,7 +517,7 @@ abstract class AlertDialogInputBase(
          * @return [Builder] object to allow for chaining of calls to set methods
          *
          */
-        fun setMessage(@StringRes message: Int, alignment: AlertDialog.TextAlignment): Builder<D> {
+        fun setMessage(@StringRes message: Int, alignment: Alert.TextAlignment): Builder<D> {
             this.message = MessageAlert.text(context.getString(message), alignment)
             return this
         }
@@ -532,21 +532,21 @@ abstract class AlertDialogInputBase(
          *
          */
         fun setMessage(message: Spanned): Builder<D> {
-            return setMessage(message, AlertDialog.TextAlignment.START)
+            return setMessage(message, Alert.TextAlignment.START)
         }
 
 
         /**
          * Sets the message to display. With text alignment.
          *
-         * @see [AlertDialog.TextAlignment]
+         * @see [Alert.TextAlignment]
          *
          * @param message The message to display in the dialog.
          * @param alignment The message alignment.
          *
          * @return [Builder] object to allow for chaining of calls to set methods
          */
-        fun setMessage(message: Spanned, alignment: AlertDialog.TextAlignment): Builder<D> {
+        fun setMessage(message: Spanned, alignment: Alert.TextAlignment): Builder<D> {
             this.message = MessageAlert.spanned(text = message, alignment = alignment)
             return this
         }
@@ -565,13 +565,13 @@ abstract class AlertDialogInputBase(
         /**
          * Set count down timer. Default interval `1000`
          *
-         * @param button [AlertDialog.UI] `AlertDialog.UI.BUTTON_POSITIVE`, `AlertDialog.UI.BUTTON_NEGATIVE` or `AlertDialog.UI.BUTTON_NEUTRAL`
+         * @param button [DialogAlertInterface.UI] `AlertDialog.UI.BUTTON_POSITIVE`, `AlertDialog.UI.BUTTON_NEGATIVE` or `AlertDialog.UI.BUTTON_NEUTRAL`
          * @param millis [Long] time in milliseconds.
          *
          * @return [Builder] object to allow for chaining of calls to set methods
          *
          */
-        fun setCountDownTimer(button: AlertDialog.UI, millis: Long): Builder<D> {
+        fun setCountDownTimer(button: DialogAlertInterface.UI, millis: Long): Builder<D> {
             this.countDownTimer = ButtonCountDownTimer(button, millis)
             return this
         }
@@ -579,14 +579,18 @@ abstract class AlertDialogInputBase(
         /**
          * Set count down timer. Default interval `1000`
          *
-         * @param button [AlertDialog.UI] `AlertDialog.UI.BUTTON_POSITIVE`, `AlertDialog.UI.BUTTON_NEGATIVE` or `AlertDialog.UI.BUTTON_NEUTRAL`
+         * @param button [DialogAlertInterface.UI] `AlertDialog.UI.BUTTON_POSITIVE`, `AlertDialog.UI.BUTTON_NEGATIVE` or `AlertDialog.UI.BUTTON_NEUTRAL`
          * @param millis [Long] time in milliseconds.
          * @param format the format of the countdown timer. Default `%s (%d)`
          *
          * @return [Builder] object to allow for chaining of calls to set methods
          *
          */
-        fun setCountDownTimer(button: AlertDialog.UI, millis: Long, format: String): Builder<D> {
+        fun setCountDownTimer(
+            button: DialogAlertInterface.UI,
+            millis: Long,
+            format: String
+        ): Builder<D> {
             this.countDownTimer = ButtonCountDownTimer(button, millis, format = format)
             return this
         }
@@ -595,14 +599,14 @@ abstract class AlertDialogInputBase(
         /**
          * Set count down timer.
          *
-         * @param button [AlertDialog.UI] `AlertDialog.UI.BUTTON_POSITIVE`, `AlertDialog.UI.BUTTON_NEGATIVE` or `AlertDialog.UI.BUTTON_NEUTRAL`
+         * @param button [DialogAlertInterface.UI] `AlertDialog.UI.BUTTON_POSITIVE`, `AlertDialog.UI.BUTTON_NEGATIVE` or `AlertDialog.UI.BUTTON_NEUTRAL`
          * @param millis [Long] time in milliseconds.
          * @param countInterval [Long] time in milliseconds.
          *
          * @return [Builder] object to allow for chaining of calls to set methods
          */
         fun setCountDownTimer(
-            button: AlertDialog.UI,
+            button: DialogAlertInterface.UI,
             millis: Long,
             countInterval: Long
         ): Builder<D> {
@@ -614,7 +618,7 @@ abstract class AlertDialogInputBase(
         /**
          * Set count down timer.
          *
-         * @param button [AlertDialog.UI] `AlertDialog.UI.BUTTON_POSITIVE`, `AlertDialog.UI.BUTTON_NEGATIVE` or `AlertDialog.UI.BUTTON_NEUTRAL`
+         * @param button [DialogAlertInterface.UI] `AlertDialog.UI.BUTTON_POSITIVE`, `AlertDialog.UI.BUTTON_NEGATIVE` or `AlertDialog.UI.BUTTON_NEUTRAL`
          * @param millis [Long] time in milliseconds.
          * @param countInterval [Long] time in milliseconds.
          * @param format the format of the countdown timer. Default `%s (%d)`
@@ -622,7 +626,7 @@ abstract class AlertDialogInputBase(
          * @return [Builder] object to allow for chaining of calls to set methods
          */
         fun setCountDownTimer(
-            button: AlertDialog.UI,
+            button: DialogAlertInterface.UI,
             millis: Long,
             countInterval: Long,
             format: String
@@ -842,10 +846,10 @@ abstract class AlertDialogInputBase(
          *
          * - Default button text is [R.string.label_text_cancel].
          *
-         * @param onClickListener    The [MaterialAlert.OnClickListener] to use.
+         * @param onClickListener    The [DialogAlertInterface.OnClickListener] to use.
          * @return [Builder] object to allow for chaining of calls to set methods
          */
-        fun setNegativeButton(onClickListener: MaterialAlert.OnClickListener): Builder<D> {
+        fun setNegativeButton(onClickListener: DialogAlertInterface.OnClickListener): Builder<D> {
             return setNegativeButton(
                 R.string.label_text_cancel,
                 ButtonIconAlert(MATERIAL_ALERT_DIALOG_UI_NOT_ICON),
@@ -858,14 +862,14 @@ abstract class AlertDialogInputBase(
          * Set a listener to be invoked when the negative button of the dialog is pressed.
          *
          * @param text        The text to display in negative button.
-         * @param onClickListener    The [MaterialAlert.OnClickListener] to use.
+         * @param onClickListener    The [DialogAlertInterface.OnClickListener] to use.
          *
          * @return [Builder] object to allow for chaining of calls to set methods
          *
          */
         fun setNegativeButton(
             text: String,
-            onClickListener: MaterialAlert.OnClickListener
+            onClickListener: DialogAlertInterface.OnClickListener
         ): Builder<D> {
             return setNegativeButton(
                 text,
@@ -881,14 +885,14 @@ abstract class AlertDialogInputBase(
          * - Default button text is [R.string.label_text_cancel].
          *
          * @param icon        The [ButtonIconAlert] to be set as an icon for the button.
-         * @param onClickListener    The [MaterialAlert.OnClickListener] to use.
+         * @param onClickListener    The [DialogAlertInterface.OnClickListener] to use.
          *
          * @return [Builder] object to allow for chaining of calls to set methods
          *
          */
         fun setNegativeButton(
             icon: ButtonIconAlert,
-            onClickListener: MaterialAlert.OnClickListener
+            onClickListener: DialogAlertInterface.OnClickListener
         ): Builder<D> {
             return setNegativeButton(R.string.label_text_cancel, icon, onClickListener)
         }
@@ -898,14 +902,14 @@ abstract class AlertDialogInputBase(
          * Set a listener to be invoked when the negative button of the dialog is pressed.
          *
          * @param text        The text to display in negative button.
-         * @param onClickListener    The [MaterialAlert.OnClickListener] to use.
+         * @param onClickListener    The [DialogAlertInterface.OnClickListener] to use.
          *
          * @return [Builder] object to allow for chaining of calls to set methods
          *
          */
         fun setNegativeButton(
             @StringRes text: Int,
-            onClickListener: MaterialAlert.OnClickListener
+            onClickListener: DialogAlertInterface.OnClickListener
         ): Builder<D> {
             return setNegativeButton(
                 text,
@@ -920,7 +924,7 @@ abstract class AlertDialogInputBase(
          *
          * @param text        The text to display in negative button.
          * @param icon        The [ButtonIconAlert] to be set as an icon for the button.
-         * @param onClickListener    The [MaterialAlert.OnClickListener] to use.
+         * @param onClickListener    The [DialogAlertInterface.OnClickListener] to use.
          *
          * @return [Builder] object to allow for chaining of calls to set methods
          *
@@ -928,7 +932,7 @@ abstract class AlertDialogInputBase(
         fun setNegativeButton(
             text: String,
             icon: ButtonIconAlert,
-            onClickListener: MaterialAlert.OnClickListener
+            onClickListener: DialogAlertInterface.OnClickListener
         ): Builder<D> {
             this.negativeButton = initNegativeButton(text, icon, onClickListener)
             return this
@@ -940,7 +944,7 @@ abstract class AlertDialogInputBase(
          *
          * @param text        The text to display in negative button.
          * @param icon        The [ButtonIconAlert] to be set as an icon for the button.
-         * @param onClickListener    The [MaterialAlert.OnClickListener] to use.
+         * @param onClickListener    The [DialogAlertInterface.OnClickListener] to use.
          *
          * @return [Builder] object to allow for chaining of calls to set methods
          *
@@ -948,7 +952,7 @@ abstract class AlertDialogInputBase(
         fun setNegativeButton(
             @StringRes text: Int,
             icon: ButtonIconAlert,
-            onClickListener: MaterialAlert.OnClickListener
+            onClickListener: DialogAlertInterface.OnClickListener
         ): Builder<D> {
             this.negativeButton = initNegativeButton(context.getString(text), icon, onClickListener)
             return this
@@ -960,12 +964,12 @@ abstract class AlertDialogInputBase(
          *
          * - Default button text is [R.string.label_text_accept].
          *
-         * @param onClickListener    The [MaterialAlert.OnClickInputListener] to use.
+         * @param onClickListener    The [DialogAlertInterface.OnClickInputListener] to use.
          *
          * @return [Builder] object to allow for chaining of calls to set methods
          *
          */
-        fun setPositiveButton(onClickListener: MaterialAlert.OnClickInputListener): Builder<D> {
+        fun setPositiveButton(onClickListener: DialogAlertInterface.OnClickInputListener): Builder<D> {
             return setPositiveButton(
                 R.string.label_text_accept,
                 ButtonIconAlert(MATERIAL_ALERT_DIALOG_UI_NOT_ICON),
@@ -979,14 +983,14 @@ abstract class AlertDialogInputBase(
          *
          * - Default button text is [R.string.label_text_accept].
          *
-         * @param onClickListener    The [MaterialAlert.OnClickInputListener] to use.
+         * @param onClickListener    The [DialogAlertInterface.OnClickInputListener] to use.
          *
          * @return [Builder] object to allow for chaining of calls to set methods
          *
          */
         fun setPositiveButton(
             icon: ButtonIconAlert,
-            onClickListener: MaterialAlert.OnClickInputListener
+            onClickListener: DialogAlertInterface.OnClickInputListener
         ): Builder<D> {
             return setPositiveButton(R.string.label_text_accept, icon, onClickListener)
         }
@@ -996,14 +1000,14 @@ abstract class AlertDialogInputBase(
          * Set a listener to be invoked when the positive button of the dialog is pressed.
          *
          * @param text        The text to display in positive button.
-         * @param onClickListener    The [MaterialAlert.OnClickInputListener] to use.
+         * @param onClickListener    The [DialogAlertInterface.OnClickInputListener] to use.
          *
          * @return [Builder] object to allow for chaining of calls to set methods
          *
          */
         fun setPositiveButton(
             text: String,
-            onClickListener: MaterialAlert.OnClickInputListener
+            onClickListener: DialogAlertInterface.OnClickInputListener
         ): Builder<D> {
             return setPositiveButton(
                 text,
@@ -1018,7 +1022,7 @@ abstract class AlertDialogInputBase(
          *
          * @param text        The text to display in positive button.
          * @param icon        The [ButtonIconAlert] to be set as an icon for the button.
-         * @param onClickListener    The [MaterialAlert.OnClickInputListener] to use.
+         * @param onClickListener    The [DialogAlertInterface.OnClickInputListener] to use.
          *
          * @return [Builder] object to allow for chaining of calls to set methods
          *
@@ -1026,7 +1030,7 @@ abstract class AlertDialogInputBase(
         fun setPositiveButton(
             text: String,
             icon: ButtonIconAlert,
-            onClickListener: MaterialAlert.OnClickInputListener
+            onClickListener: DialogAlertInterface.OnClickInputListener
         ): Builder<D> {
             this.positiveButton =
                 initPositiveButton(text, icon, contentValueListener = onClickListener)
@@ -1038,14 +1042,14 @@ abstract class AlertDialogInputBase(
          * Set a listener to be invoked when the positive button of the dialog is pressed.
          *
          * @param text        The text to display in positive button.
-         * @param onClickListener    The [MaterialAlert.OnClickInputListener] to use.
+         * @param onClickListener    The [DialogAlertInterface.OnClickInputListener] to use.
          *
          * @return [Builder] object to allow for chaining of calls to set methods
          *
          */
         fun setPositiveButton(
             @StringRes text: Int,
-            onClickListener: MaterialAlert.OnClickInputListener
+            onClickListener: DialogAlertInterface.OnClickInputListener
         ): Builder<D> {
             return setPositiveButton(
                 text,
@@ -1060,7 +1064,7 @@ abstract class AlertDialogInputBase(
          *
          * @param text        The text to display in positive button.
          * @param icon        The [ButtonIconAlert] to be set as an icon for the button.
-         * @param onClickListener    The [MaterialAlert.OnClickInputListener] to use.
+         * @param onClickListener    The [DialogAlertInterface.OnClickInputListener] to use.
          *
          * @return [Builder] object to allow for chaining of calls to set methods
          *
@@ -1068,7 +1072,7 @@ abstract class AlertDialogInputBase(
         fun setPositiveButton(
             @StringRes text: Int,
             icon: ButtonIconAlert,
-            onClickListener: MaterialAlert.OnClickInputListener
+            onClickListener: DialogAlertInterface.OnClickInputListener
         ): Builder<D> {
             this.positiveButton = initPositiveButton(
                 context.getString(text),

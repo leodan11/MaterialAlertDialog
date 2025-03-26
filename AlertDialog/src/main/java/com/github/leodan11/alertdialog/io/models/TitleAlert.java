@@ -3,7 +3,7 @@ package com.github.leodan11.alertdialog.io.models;
 import androidx.annotation.NonNull;
 import androidx.annotation.RestrictTo;
 
-import com.github.leodan11.alertdialog.io.content.AlertDialog;
+import com.github.leodan11.alertdialog.io.content.Alert;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -14,14 +14,14 @@ public class TitleAlert {
     private final String title;
 
     @NotNull
-    private final AlertDialog.TextAlignment textAlignment;
+    private final Alert.TextAlignment textAlignment;
 
     public TitleAlert(@NonNull String title) {
         this.title = title;
-        this.textAlignment = AlertDialog.TextAlignment.START;
+        this.textAlignment = Alert.TextAlignment.START;
     }
 
-    public TitleAlert(@NonNull String title, @NonNull AlertDialog.TextAlignment textAlignment) {
+    public TitleAlert(@NonNull String title, @NonNull Alert.TextAlignment textAlignment) {
         this.title = title;
         this.textAlignment = textAlignment;
     }
@@ -32,7 +32,7 @@ public class TitleAlert {
     }
 
     @NonNull
-    public AlertDialog.TextAlignment getTextAlignment() {
+    public Alert.TextAlignment getTextAlignment() {
         return textAlignment;
     }
 

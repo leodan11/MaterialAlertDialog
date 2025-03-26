@@ -3,7 +3,7 @@ package com.github.leodan11.alertdialog
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
-import com.github.leodan11.alertdialog.dist.AlertDialogVerificationCodeBase
+import com.github.leodan11.alertdialog.dist.VerificationCodeComponentBase
 import com.github.leodan11.alertdialog.io.models.BoxCornerRadiusTextField
 import com.github.leodan11.alertdialog.io.models.ButtonAlertDialog
 import com.github.leodan11.alertdialog.io.models.ButtonCountDownTimer
@@ -27,7 +27,7 @@ class MaterialAlertDialogVerificationCode private constructor(
     mInputsContentValue: List<InputCodeExtra>,
     mPositiveButton: ButtonAlertDialog?,
     mNegativeButton: ButtonAlertDialog?,
-) : AlertDialogVerificationCodeBase(
+) : VerificationCodeComponentBase(
     mContext = mContext,
     icon = icon,
     tintColor = tintColor,
@@ -60,7 +60,7 @@ class MaterialAlertDialogVerificationCode private constructor(
      * @param context the parent context
      */
     class Builder(context: Context) :
-        AlertDialogVerificationCodeBase.Builder<MaterialAlertDialogVerificationCode>(context = context) {
+        VerificationCodeComponentBase.Builder<MaterialAlertDialogVerificationCode>(context = context) {
 
         override fun create(): MaterialAlertDialogVerificationCode {
             return MaterialAlertDialogVerificationCode(

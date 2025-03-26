@@ -1,9 +1,11 @@
 package com.github.leodan11.alertdialog.io.models
 
-import com.github.leodan11.alertdialog.io.content.AlertDialog
+import androidx.annotation.RestrictTo
+import com.github.leodan11.alertdialog.io.content.DialogAlertInterface
 
+@RestrictTo(RestrictTo.Scope.LIBRARY)
 data class ButtonCountDownTimer(
-    val button: AlertDialog.UI,
+    val button: DialogAlertInterface.UI,
     val millis: Long,
     val countInterval: Long = 1000L,
     val format: String = "%s (%d)"

@@ -3,36 +3,29 @@ package com.github.leodan11.alertdialog
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
-import com.github.leodan11.alertdialog.dist.AlertDialogProgressBase
-import com.github.leodan11.alertdialog.io.models.ButtonAlertDialog
+import com.github.leodan11.alertdialog.dist.AnimatedDrawableComponentBase
 import com.github.leodan11.alertdialog.io.models.IconAlert
-import com.github.leodan11.alertdialog.io.models.IconTintAlert
 import com.github.leodan11.alertdialog.io.models.MessageAlert
-import com.github.leodan11.alertdialog.io.models.TitleAlert
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
-class MaterialAlertDialogProgress private constructor(
+class MaterialDialogAnimatedDrawable private constructor(
     mContext: Context,
-    icon: IconAlert?,
-    tintColor: IconTintAlert?,
-    iconVectorDrawable: IconAlert,
+    icon: IconAlert,
     mAnimatedVectorDrawable: Boolean,
     mAnimatedVectorDrawableLoop: Boolean,
-    title: TitleAlert?,
     message: MessageAlert<*>?,
+    mTextSize: Float?,
     mCancelable: Boolean,
-    mNegativeButton: ButtonAlertDialog?,
-) : AlertDialogProgressBase(
+    mTimeout: Long?,
+) : AnimatedDrawableComponentBase(
     mContext = mContext,
     icon = icon,
-    tintColor = tintColor,
-    iconVectorDrawable = iconVectorDrawable,
     mAnimatedVectorDrawable = mAnimatedVectorDrawable,
     mAnimatedVectorDrawableLoop = mAnimatedVectorDrawableLoop,
-    title = title,
     message = message,
     mCancelable = mCancelable,
-    mNegativeButton = mNegativeButton
+    mTextSize = mTextSize,
+    mTimeout = mTimeout
 ) {
 
     // Init Dialog
@@ -45,6 +38,7 @@ class MaterialAlertDialogProgress private constructor(
         builder.setCancelable(mCancelable)
         // Create and show dialog
         mDialog = builder.create()
+        mDialog?.window?.setBackgroundDrawableResource(android.R.color.transparent)
     }
 
     /**
@@ -53,20 +47,18 @@ class MaterialAlertDialogProgress private constructor(
      * @param context the parent context
      */
     class Builder(context: Context) :
-        AlertDialogProgressBase.Builder<MaterialAlertDialogProgress>(context = context) {
+        AnimatedDrawableComponentBase.Builder<MaterialDialogAnimatedDrawable>(context = context) {
 
-        override fun create(): MaterialAlertDialogProgress {
-            return MaterialAlertDialogProgress(
+        override fun create(): MaterialDialogAnimatedDrawable {
+            return MaterialDialogAnimatedDrawable(
                 mContext = context,
                 icon = icon,
-                tintColor = tintColor,
-                iconVectorDrawable = iconVectorDrawable,
                 mAnimatedVectorDrawable = isAnimatedVectorDrawable,
                 mAnimatedVectorDrawableLoop = isAnimatedVectorDrawableLoop,
-                title = title,
                 message = message,
+                mTextSize = messageTextSize,
                 mCancelable = isCancelable,
-                mNegativeButton = negativeButton
+                mTimeout = onTimeout,
             )
         }
 

@@ -2,41 +2,37 @@ package com.github.leodan11.alertdialog.dist
 
 import android.app.Dialog
 import android.content.Context
-import android.graphics.drawable.Drawable
 import android.text.Spanned
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.annotation.DrawableRes
 import androidx.annotation.RestrictTo
 import androidx.annotation.StringRes
-import com.github.leodan11.alertdialog.ProgressAlertDialog
+import com.github.leodan11.alertdialog.IOSProgressDialog
 import com.github.leodan11.alertdialog.R
-import com.github.leodan11.alertdialog.databinding.MDialogProgressSmallBinding
+import com.github.leodan11.alertdialog.databinding.IosProgressAlertDialogBinding
 import com.github.leodan11.alertdialog.dist.base.AlertBuilder
-import com.github.leodan11.alertdialog.io.content.AlertDialog
-import com.github.leodan11.alertdialog.io.content.MaterialAlert
+import com.github.leodan11.alertdialog.io.content.Alert
+import com.github.leodan11.alertdialog.io.content.DialogAlertInterface
 import com.github.leodan11.alertdialog.io.helpers.toImageView
 import com.github.leodan11.alertdialog.io.helpers.toMessageView
 import com.github.leodan11.alertdialog.io.models.IconAlert
 import com.github.leodan11.alertdialog.io.models.MessageAlert
-import com.github.leodan11.k_extensions.view.startAnimatedVectorDrawable
 import com.github.leodan11.k_extensions.view.startAnimatedVectorDrawableLoop
 
-abstract class ProgressAlertDialogBase(
+abstract class ProgressIOSComponentBase(
     protected open var mContext: Context,
-    protected open var icon: IconAlert,
-    protected open var mAnimatedVectorDrawable: Boolean,
-    protected open var mAnimatedVectorDrawableLoop: Boolean,
     protected open var message: MessageAlert<*>?,
     protected open var mCancelable: Boolean,
-) : MaterialAlert {
+) : DialogAlertInterface {
 
     open val isShowing: Boolean get() = mDialog?.isShowing ?: false
     protected open var mDialog: Dialog? = null
-    protected open var mOnDismissListener: MaterialAlert.OnDismissListener? = null
-    protected open var mOnCancelListener: MaterialAlert.OnCancelListener? = null
-    protected open var mOnShowListener: MaterialAlert.OnShowListener? = null
+    protected open var mOnDismissListener: DialogAlertInterface.OnDismissListener? = null
+    protected open var mOnCancelListener: DialogAlertInterface.OnCancelListener? = null
+    protected open var mOnShowListener: DialogAlertInterface.OnShowListener? = null
+    private val icon: IconAlert =
+        IconAlert(R.drawable.ic_baseline_loader_circular_default_ios)
 
     @RestrictTo(RestrictTo.Scope.LIBRARY)
     protected open fun createView(
@@ -45,18 +41,15 @@ abstract class ProgressAlertDialogBase(
     ): View {
         // Inflate and set the layout for the dialog
         // Pass null as the parent view because it's going in the dialog layout
-        val binding: MDialogProgressSmallBinding =
-            MDialogProgressSmallBinding.inflate(layoutInflater, container, false)
+        val binding: IosProgressAlertDialogBinding =
+            IosProgressAlertDialogBinding.inflate(layoutInflater, container, false)
         // Initialize Views
         try {
             with(binding) {
                 // Set icon
                 imageViewIconLogoDialogProgress.apply {
                     icon.toImageView(this)
-                    if (mAnimatedVectorDrawable) {
-                        if (mAnimatedVectorDrawableLoop) startAnimatedVectorDrawableLoop()
-                        else startAnimatedVectorDrawable()
-                    }
+                    startAnimatedVectorDrawableLoop()
                 }
                 // Set Message
                 message.toMessageView(textViewMessagesDialogProgress)
@@ -105,7 +98,7 @@ abstract class ProgressAlertDialogBase(
      *
      * @param onCancelListener
      */
-    open fun setOnCancelListener(onCancelListener: MaterialAlert.OnCancelListener) {
+    open fun setOnCancelListener(onCancelListener: DialogAlertInterface.OnCancelListener) {
         this.mOnCancelListener = onCancelListener
         mDialog?.setOnCancelListener { cancelCallback() }
     }
@@ -115,7 +108,7 @@ abstract class ProgressAlertDialogBase(
      *
      * @param onDismissListener
      */
-    open fun setOnDismissListener(onDismissListener: MaterialAlert.OnDismissListener) {
+    open fun setOnDismissListener(onDismissListener: DialogAlertInterface.OnDismissListener) {
         this.mOnDismissListener = onDismissListener
         mDialog?.setOnDismissListener { dismissCallback() }
     }
@@ -125,7 +118,7 @@ abstract class ProgressAlertDialogBase(
      *
      * @param onShowListener
      */
-    open fun setOnShowListener(onShowListener: MaterialAlert.OnShowListener) {
+    open fun setOnShowListener(onShowListener: DialogAlertInterface.OnShowListener) {
         this.mOnShowListener = onShowListener
         mDialog?.setOnShowListener { showCallback() }
     }
@@ -151,65 +144,11 @@ abstract class ProgressAlertDialogBase(
      * The default alert dialog theme is defined by [android.R.attr.alertDialogTheme] within the parent context's theme.
      * @param context – the parent context
      */
-    abstract class Builder<D : ProgressAlertDialogBase>(protected open val context: Context) :
+    abstract class Builder<D : ProgressIOSComponentBase>(protected open val context: Context) :
         AlertBuilder() {
 
-        protected open var icon: IconAlert =
-            IconAlert(R.drawable.ic_baseline_animated_morphing_animals)
-        protected open var isAnimatedVectorDrawable: Boolean = true
-        protected open var isAnimatedVectorDrawableLoop: Boolean = false
         protected open var message: MessageAlert<*>? = null
         protected open var isCancelable: Boolean = true
-
-        /**
-         * Set the [Drawable] to be used in the title.
-         *
-         * @param icon Drawable to use as the icon.
-         *
-         * @return [Builder] object to allow for chaining of calls to set methods
-         *
-         */
-        fun setIcon(icon: Drawable): Builder<D> {
-            this.icon = IconAlert(icon)
-            return this
-        }
-
-
-        /**
-         * Set the [DrawableRes] to be used in the title.
-         *
-         * @param icon Drawable to use as the icon.
-         *
-         * @return [Builder] object to allow for chaining of calls to set methods
-         *
-         */
-        fun setIcon(@DrawableRes icon: Int): Builder<D> {
-            this.icon = IconAlert(icon)
-            return this
-        }
-
-
-        /**
-         * Set animated vector [DrawableRes] to be used as progress.
-         *
-         * @param isAnimated value [Boolean]. Default value true.
-         * @return [Builder] object to allow for chaining of calls to set methods
-         */
-        fun setAnimatedVectorDrawable(isAnimated: Boolean): Builder<D> {
-            this.isAnimatedVectorDrawable = isAnimated
-            return this
-        }
-
-        /**
-         * Set animated vector loop [DrawableRes] to be used as progress.
-         *
-         * @param isAnimatedLoop value [Boolean]. Default value false.
-         * @return [Builder] object to allow for chaining of calls to set methods
-         */
-        fun setLoopAnimatedVectorDrawable(isAnimatedLoop: Boolean): Builder<D> {
-            this.isAnimatedVectorDrawableLoop = isAnimatedLoop
-            return this
-        }
 
         /**
          * Sets the message to display.
@@ -220,7 +159,7 @@ abstract class ProgressAlertDialogBase(
          *
          */
         fun setMessage(message: String): Builder<D> {
-            return setMessage(message, AlertDialog.TextAlignment.CENTER)
+            return setMessage(message, Alert.TextAlignment.CENTER)
         }
 
 
@@ -233,14 +172,14 @@ abstract class ProgressAlertDialogBase(
          *
          */
         fun setMessage(@StringRes message: Int): Builder<D> {
-            return setMessage(message, AlertDialog.TextAlignment.CENTER)
+            return setMessage(message, Alert.TextAlignment.CENTER)
         }
 
 
         /**
          * Sets the message to display. With text alignment.
          *
-         * @see [AlertDialog.TextAlignment]
+         * @see [Alert.TextAlignment]
          *
          * @param message The message to display in the dialog.
          * @param alignment The message alignment.
@@ -248,7 +187,7 @@ abstract class ProgressAlertDialogBase(
          * @return [Builder] object to allow for chaining of calls to set methods
          *
          */
-        fun setMessage(message: String, alignment: AlertDialog.TextAlignment): Builder<D> {
+        fun setMessage(message: String, alignment: Alert.TextAlignment): Builder<D> {
             this.message = MessageAlert.text(message, alignment)
             return this
         }
@@ -257,7 +196,7 @@ abstract class ProgressAlertDialogBase(
         /**
          * Sets the message to display. With text alignment.
          *
-         * @see [AlertDialog.TextAlignment]
+         * @see [Alert.TextAlignment]
          *
          * @param message The message to display in the dialog.
          * @param alignment The message alignment.
@@ -265,7 +204,7 @@ abstract class ProgressAlertDialogBase(
          * @return [Builder] object to allow for chaining of calls to set methods
          *
          */
-        fun setMessage(@StringRes message: Int, alignment: AlertDialog.TextAlignment): Builder<D> {
+        fun setMessage(@StringRes message: Int, alignment: Alert.TextAlignment): Builder<D> {
             this.message = MessageAlert.text(context.getString(message), alignment)
             return this
         }
@@ -280,21 +219,21 @@ abstract class ProgressAlertDialogBase(
          *
          */
         fun setMessage(message: Spanned): Builder<D> {
-            return setMessage(message, AlertDialog.TextAlignment.CENTER)
+            return setMessage(message, Alert.TextAlignment.CENTER)
         }
 
 
         /**
          * Sets the message to display. With text alignment.
          *
-         * @see [AlertDialog.TextAlignment]
+         * @see [Alert.TextAlignment]
          *
          * @param message The message to display in the dialog.
          * @param alignment The message alignment.
          *
          * @return [Builder] object to allow for chaining of calls to set methods
          */
-        fun setMessage(message: Spanned, alignment: AlertDialog.TextAlignment): Builder<D> {
+        fun setMessage(message: Spanned, alignment: Alert.TextAlignment): Builder<D> {
             this.message = MessageAlert.spanned(text = message, alignment = alignment)
             return this
         }
@@ -311,9 +250,18 @@ abstract class ProgressAlertDialogBase(
         }
 
         /**
-         * Creates an [ProgressAlertDialog] with the arguments supplied to this builder.
+         * Creates an [IOSProgressDialog] with the arguments supplied to this builder.
          * Calling this method does not display the dialog.
          * If no additional processing is needed, [show] may be called instead to both create and display the dialog.
+         *
+         * ```kotlin
+         *
+         * val dialog = IOSProgressDialog.Builder(context)
+         *     ...
+         *     .create()
+         * dialog.show()
+         *
+         * ```
          *
          * @return [D] object to allow for chaining of calls to set methods
          */

@@ -11,9 +11,9 @@ import androidx.annotation.RestrictTo
 import com.airbnb.lottie.LottieAnimationView
 import com.github.leodan11.alertdialog.LottieAlertDialog
 import com.github.leodan11.alertdialog.databinding.MAlertDialogLottieBinding
-import com.github.leodan11.alertdialog.io.content.MaterialAlert
+import com.github.leodan11.alertdialog.io.content.DialogAlertInterface
 
-abstract class LottieBaseDialog protected constructor(
+abstract class LottieComponentBase protected constructor(
     protected open var mContext: Context,
     protected open var mAnimationAsset: String?,
     protected open var mAnimationRaw: Int?,
@@ -23,15 +23,15 @@ abstract class LottieBaseDialog protected constructor(
     protected open var mCancelable: Boolean,
     protected open var mLayoutHeight: Int? = null,
     protected open var mTimeout: Long? = null,
-) : MaterialAlert {
+) : DialogAlertInterface {
 
     open val isShowing: Boolean get() = mDialog?.isShowing ?: false
     private lateinit var animationView: LottieAnimationView
     private lateinit var binding: MAlertDialogLottieBinding
     protected open var mDialog: Dialog? = null
-    protected open var mOnDismissListener: MaterialAlert.OnDismissListener? = null
-    protected open var mOnCancelListener: MaterialAlert.OnCancelListener? = null
-    protected open var mOnShowListener: MaterialAlert.OnShowListener? = null
+    protected open var mOnDismissListener: DialogAlertInterface.OnDismissListener? = null
+    protected open var mOnCancelListener: DialogAlertInterface.OnCancelListener? = null
+    protected open var mOnShowListener: DialogAlertInterface.OnShowListener? = null
 
     @RestrictTo(RestrictTo.Scope.LIBRARY)
     protected open fun onCreateViewDialogContent(
@@ -102,7 +102,7 @@ abstract class LottieBaseDialog protected constructor(
      *
      * @param onCancelListener
      */
-    open fun setOnCancelListener(onCancelListener: MaterialAlert.OnCancelListener) {
+    open fun setOnCancelListener(onCancelListener: DialogAlertInterface.OnCancelListener) {
         this.mOnCancelListener = onCancelListener
         mDialog?.setOnCancelListener { cancelCallback() }
     }
@@ -112,7 +112,7 @@ abstract class LottieBaseDialog protected constructor(
      *
      * @param onDismissListener
      */
-    open fun setOnDismissListener(onDismissListener: MaterialAlert.OnDismissListener) {
+    open fun setOnDismissListener(onDismissListener: DialogAlertInterface.OnDismissListener) {
         this.mOnDismissListener = onDismissListener
         mDialog?.setOnDismissListener { dismissCallback() }
     }
@@ -122,7 +122,7 @@ abstract class LottieBaseDialog protected constructor(
      *
      * @param onShowListener
      */
-    open fun setOnShowListener(onShowListener: MaterialAlert.OnShowListener) {
+    open fun setOnShowListener(onShowListener: DialogAlertInterface.OnShowListener) {
         this.mOnShowListener = onShowListener
         mDialog?.setOnShowListener { showCallback() }
     }
@@ -161,7 +161,7 @@ abstract class LottieBaseDialog protected constructor(
      * The default alert dialog theme is defined by [android.R.attr.alertDialogTheme] within the parent context's theme.
      * @param context – the parent context
      */
-    abstract class Builder<D : LottieBaseDialog>(protected val context: Context) {
+    abstract class Builder<D : LottieComponentBase>(protected val context: Context) {
 
         protected open var isCancelable: Boolean = true
         protected open var lottieAnimationAsset: String? = null

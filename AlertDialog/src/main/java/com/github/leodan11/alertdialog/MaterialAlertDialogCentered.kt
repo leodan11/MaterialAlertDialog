@@ -3,7 +3,7 @@ package com.github.leodan11.alertdialog
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
-import com.github.leodan11.alertdialog.dist.AlertDialogCenteredBase
+import com.github.leodan11.alertdialog.dist.CenteredComponentBase
 import com.github.leodan11.alertdialog.io.models.ButtonAlertDialog
 import com.github.leodan11.alertdialog.io.models.ButtonCountDownTimer
 import com.github.leodan11.alertdialog.io.models.IconAlert
@@ -26,7 +26,7 @@ class MaterialAlertDialogCentered private constructor(
     mPositiveButton: ButtonAlertDialog?,
     mNeutralButton: ButtonAlertDialog?,
     mNegativeButton: ButtonAlertDialog?,
-) : AlertDialogCenteredBase(
+) : CenteredComponentBase(
     mContext = mContext,
     icon = icon,
     bitmap = image,
@@ -58,7 +58,7 @@ class MaterialAlertDialogCentered private constructor(
      * @param context the parent context
      */
     class Builder(context: Context) :
-        AlertDialogCenteredBase.Builder<MaterialAlertDialogCentered>(context = context) {
+        CenteredComponentBase.Builder<MaterialAlertDialogCentered>(context = context) {
 
         override fun create(): MaterialAlertDialogCentered {
             return MaterialAlertDialogCentered(

@@ -2,22 +2,23 @@ package com.github.leodan11.alertdialog.io.models
 
 import android.text.Spanned
 import androidx.annotation.RestrictTo
-import com.github.leodan11.alertdialog.io.content.AlertDialog
+import com.github.leodan11.alertdialog.io.content.Alert
 
 @RestrictTo(RestrictTo.Scope.LIBRARY)
-abstract class MessageAlert<T: CharSequence>(val textAlignment: AlertDialog.TextAlignment){
+abstract class MessageAlert<T : CharSequence>(val textAlignment: Alert.TextAlignment) {
 
-    companion object{
+    companion object {
         @JvmStatic
-        fun spanned(text: Spanned, alignment: AlertDialog.TextAlignment) = SpannedMessage(text, alignment)
+        fun spanned(text: Spanned, alignment: Alert.TextAlignment) = SpannedMessage(text, alignment)
 
         @JvmStatic
-        fun text(text: String, alignment: AlertDialog.TextAlignment) = TextMessage(text, alignment)
+        fun text(text: String, alignment: Alert.TextAlignment) = TextMessage(text, alignment)
     }
 
     abstract fun getText(): T
 
-    class SpannedMessage(private val text: Spanned, textAlignment: AlertDialog.TextAlignment) : MessageAlert<Spanned>(textAlignment) {
+    class SpannedMessage(private val text: Spanned, textAlignment: Alert.TextAlignment) :
+        MessageAlert<Spanned>(textAlignment) {
 
         override fun getText(): Spanned {
             return text
@@ -25,7 +26,8 @@ abstract class MessageAlert<T: CharSequence>(val textAlignment: AlertDialog.Text
 
     }
 
-    class TextMessage(private val text: String, textAlignment: AlertDialog.TextAlignment): MessageAlert<String>(textAlignment) {
+    class TextMessage(private val text: String, textAlignment: Alert.TextAlignment) :
+        MessageAlert<String>(textAlignment) {
 
         override fun getText(): String {
             return text

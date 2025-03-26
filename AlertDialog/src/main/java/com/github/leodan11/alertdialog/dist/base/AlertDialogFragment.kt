@@ -16,7 +16,7 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
-abstract class MaterialAlertDialogFragment<ViewBinding : ViewDataBinding> : DialogFragment() {
+abstract class AlertDialogFragment<ViewBinding : ViewDataBinding> : DialogFragment() {
 
     private var _binding: ViewBinding? = null
 

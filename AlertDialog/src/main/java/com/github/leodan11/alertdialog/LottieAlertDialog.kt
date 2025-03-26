@@ -3,7 +3,7 @@ package com.github.leodan11.alertdialog
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
-import com.github.leodan11.alertdialog.dist.LottieBaseDialog
+import com.github.leodan11.alertdialog.dist.LottieComponentBase
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
 class LottieAlertDialog private constructor(
@@ -16,7 +16,7 @@ class LottieAlertDialog private constructor(
     mCancelable: Boolean,
     mLayoutParams: Int?,
     mTimeout: Long?,
-) : LottieBaseDialog(
+) : LottieComponentBase(
     mContext = mContext,
     mAnimationAsset = mAnimationAsset,
     mAnimationRaw = mAnimationRaw,
@@ -48,7 +48,7 @@ class LottieAlertDialog private constructor(
      * @param context the parent context
      */
     class Builder(context: Context) :
-        LottieBaseDialog.Builder<LottieAlertDialog>(context = context) {
+        LottieComponentBase.Builder<LottieAlertDialog>(context = context) {
 
         override fun create(): LottieAlertDialog {
             return LottieAlertDialog(

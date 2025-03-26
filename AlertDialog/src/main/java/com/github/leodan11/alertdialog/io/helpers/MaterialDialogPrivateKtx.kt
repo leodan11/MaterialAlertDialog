@@ -11,11 +11,13 @@ import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.annotation.RestrictTo
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.core.widget.NestedScrollView
 import com.github.leodan11.alertdialog.R
-import com.github.leodan11.alertdialog.io.content.AlertDialog
+import com.github.leodan11.alertdialog.io.content.Alert
+import com.github.leodan11.alertdialog.io.content.DialogAlertInterface
 import com.github.leodan11.alertdialog.io.content.Config.DEFAULT_LAYOUT_PARAMS_HEIGHT
 import com.github.leodan11.alertdialog.io.content.Config.DEFAULT_LAYOUT_PARAMS_HEIGHT_LANDSCAPE
 import com.github.leodan11.alertdialog.io.content.Config.DEFAULT_LAYOUT_PARAMS_HEIGHT_TABLET
@@ -23,7 +25,6 @@ import com.github.leodan11.alertdialog.io.content.Config.DEFAULT_LAYOUT_PARAMS_H
 import com.github.leodan11.alertdialog.io.content.Config.MATERIAL_ALERT_DIALOG_UI_NOT_ICON
 import com.github.leodan11.alertdialog.io.content.Config.MAX_CHART_SEQUENCE_LENGTH
 import com.github.leodan11.alertdialog.io.content.Config.MAX_CHART_SEQUENCE_LENGTH_TABLET
-import com.github.leodan11.alertdialog.io.content.MaterialAlert
 import com.github.leodan11.alertdialog.io.models.BoxCornerRadiusTextField
 import com.github.leodan11.alertdialog.io.models.ButtonAlertDialog
 import com.github.leodan11.alertdialog.io.models.ButtonCountDownTimer
@@ -44,50 +45,50 @@ import com.google.android.material.textfield.TextInputLayout
 import java.util.Locale
 import java.util.concurrent.TimeUnit
 
-
-fun AlertDialog.State.toAlertDialog(mContext: Context, view: ImageView, defaultIcon: IconAlert) {
+@RestrictTo(RestrictTo.Scope.LIBRARY)
+fun Alert.State.toAlertDialog(mContext: Context, view: ImageView, defaultIcon: IconAlert) {
     when (this) {
-        AlertDialog.State.DELETE -> view.apply {
+        Alert.State.DELETE -> view.apply {
             setImageResource(R.drawable.ic_baseline_delete)
             imageTintList = ColorStateList.valueOf(mContext.colorSurface())
         }
 
-        AlertDialog.State.ERROR -> view.apply {
+        Alert.State.ERROR -> view.apply {
             setImageResource(R.drawable.ic_baseline_error)
             imageTintList = ColorStateList.valueOf(mContext.colorSurface())
         }
 
-        AlertDialog.State.HELP -> view.apply {
+        Alert.State.HELP -> view.apply {
             setImageResource(R.drawable.ic_baseline_help)
             imageTintList = ColorStateList.valueOf(mContext.colorSurface())
         }
 
-        AlertDialog.State.INFORMATION -> view.apply {
+        Alert.State.INFORMATION -> view.apply {
             setImageResource(R.drawable.ic_baseline_information)
             imageTintList = ColorStateList.valueOf(mContext.colorSurface())
         }
 
-        AlertDialog.State.SUCCESS -> view.apply {
+        Alert.State.SUCCESS -> view.apply {
             setImageResource(R.drawable.ic_baseline_success)
             imageTintList = ColorStateList.valueOf(mContext.colorSurface())
         }
 
-        AlertDialog.State.WARNING -> view.apply {
+        Alert.State.WARNING -> view.apply {
             setImageResource(R.drawable.ic_baseline_warning)
             imageTintList = ColorStateList.valueOf(mContext.colorSurface())
         }
 
-        AlertDialog.State.WITHOUT_INTERNET -> view.apply {
+        Alert.State.WITHOUT_INTERNET -> view.apply {
             setImageResource(R.drawable.ic_baseline_cloud)
             imageTintList = ColorStateList.valueOf(mContext.colorSurface())
         }
 
-        AlertDialog.State.WITHOUT_INTERNET_MOBILE -> view.apply {
+        Alert.State.WITHOUT_INTERNET_MOBILE -> view.apply {
             setImageResource(R.drawable.ic_baseline_mobile_alert)
             imageTintList = ColorStateList.valueOf(mContext.colorSurface())
         }
 
-        AlertDialog.State.WITHOUT_INTERNET_WIFI -> view.apply {
+        Alert.State.WITHOUT_INTERNET_WIFI -> view.apply {
             setImageResource(R.drawable.ic_baseline_wifi_alert)
             imageTintList = ColorStateList.valueOf(mContext.colorSurface())
         }
@@ -99,6 +100,8 @@ fun AlertDialog.State.toAlertDialog(mContext: Context, view: ImageView, defaultI
     }
 }
 
+
+@RestrictTo(RestrictTo.Scope.LIBRARY)
 fun ButtonCountDownTimer.toButtonView(view: MaterialButton): CountDownTimer {
     val buttonText = view.text
     val countTimer = object : CountDownTimer(millis, countInterval) {
@@ -128,6 +131,8 @@ fun ButtonCountDownTimer.toButtonView(view: MaterialButton): CountDownTimer {
     return countTimer
 }
 
+
+@RestrictTo(RestrictTo.Scope.LIBRARY)
 fun ButtonCountDownTimer.toButtonView(view: TextView): CountDownTimer {
     val buttonText = view.text
     val countTimer = object : CountDownTimer(millis, countInterval) {
@@ -158,6 +163,7 @@ fun ButtonCountDownTimer.toButtonView(view: TextView): CountDownTimer {
 }
 
 
+@RestrictTo(RestrictTo.Scope.LIBRARY)
 fun ButtonAlertDialog?.toButtonView(
     context: Context,
     view: MaterialButton,
@@ -176,11 +182,12 @@ fun ButtonAlertDialog?.toButtonView(
 }
 
 
+@RestrictTo(RestrictTo.Scope.LIBRARY)
 fun ButtonAlertDialog?.toButtonView(
-    dialog: MaterialAlert,
+    dialog: DialogAlertInterface,
     view: TextView,
     mTintColor: ColorStateList,
-    which: AlertDialog.UI
+    which: DialogAlertInterface.UI
 ) {
     view.isVisible = this != null
     this?.let {
@@ -196,6 +203,7 @@ fun Context.isTablet(): Boolean {
 }
 
 
+@RestrictTo(RestrictTo.Scope.LIBRARY)
 fun Context.toMessageAndDetailsViews(
     message: MessageAlert<*>?,
     messageView: TextView,
@@ -235,6 +243,8 @@ fun Context.toMessageAndDetailsViews(
     }
 }
 
+
+@RestrictTo(RestrictTo.Scope.LIBRARY)
 fun Context.toInputSampleView(
     layout: TextInputLayout,
     hintText: String,
@@ -283,6 +293,8 @@ fun Context.toInputSampleView(
     }
 }
 
+
+@RestrictTo(RestrictTo.Scope.LIBRARY)
 fun DetailsAlert<*>?.toDetailsView(context: Context, view: TextView, maxLength: Int) {
     view.isVisible = this != null
     this?.let {
@@ -299,6 +311,8 @@ fun DetailsAlert<*>?.toDetailsView(context: Context, view: TextView, maxLength: 
     }
 }
 
+
+@RestrictTo(RestrictTo.Scope.LIBRARY)
 fun DetailsAlert<*>?.toDetailsView(
     context: Context,
     view: NestedScrollView,
@@ -336,6 +350,8 @@ fun DetailsAlert<*>?.toDetailsView(
     }
 }
 
+
+@RestrictTo(RestrictTo.Scope.LIBRARY)
 fun InputCodeExtra?.toInputEditText(context: Context, layout: TextInputLayout, editText: EditText) {
     layout.isVisible = this != null
     this?.let {
@@ -357,6 +373,8 @@ fun InputCodeExtra?.toInputEditText(context: Context, layout: TextInputLayout, e
     }
 }
 
+
+@RestrictTo(RestrictTo.Scope.LIBRARY)
 fun IconAlert?.toImageView(view: ImageView, tint: IconTintAlert? = null) {
     view.isVisible = this != null
     this?.let {
@@ -366,6 +384,8 @@ fun IconAlert?.toImageView(view: ImageView, tint: IconTintAlert? = null) {
     }
 }
 
+
+@RestrictTo(RestrictTo.Scope.LIBRARY)
 fun IconTintAlert.toTintColor(view: ImageView) {
     this.tintColorInt?.let { color ->
         view.setColorFilter(color)
@@ -378,6 +398,8 @@ fun IconTintAlert.toTintColor(view: ImageView) {
     }
 }
 
+
+@RestrictTo(RestrictTo.Scope.LIBRARY)
 fun OtpTextView.isValidOtp(): Boolean {
     if (otp.isNullOrEmpty()) {
         showError()
@@ -390,11 +412,15 @@ fun OtpTextView.isValidOtp(): Boolean {
     return false
 }
 
+
+@RestrictTo(RestrictTo.Scope.LIBRARY)
 fun TextInputLayout.setColorList(color: Int) {
     this.boxStrokeColor = color
     this.hintTextColor = ColorStateList.valueOf(color)
 }
 
+
+@RestrictTo(RestrictTo.Scope.LIBRARY)
 fun MessageAlert<*>?.toMessageView(view: TextView) {
     view.isVisible = this != null
     this?.let {
@@ -404,41 +430,44 @@ fun MessageAlert<*>?.toMessageView(view: TextView) {
     }
 }
 
+
+@RestrictTo(RestrictTo.Scope.LIBRARY)
 fun TitleAlert?.toTitleView(view: TextView) {
     view.isVisible = this != null
     this?.let {
         view.text = it.title
         view.setTextColor(view.context.colorOnSurface())
         view.toAlignmentTextView(it.textAlignment)
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q && it.textAlignment == AlertDialog.TextAlignment.JUSTIFY) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q && it.textAlignment == Alert.TextAlignment.JUSTIFY) {
             view.justificationMode = JUSTIFICATION_MODE_INTER_WORD
         }
     }
 }
 
 
-internal fun MaterialButton.toGravityButton(gravity: AlertDialog.IconGravity) {
+internal fun MaterialButton.toGravityButton(gravity: Alert.IconGravity) {
     when (gravity) {
-        AlertDialog.IconGravity.END -> this.iconGravity = MaterialButton.ICON_GRAVITY_END
-        AlertDialog.IconGravity.TEXT_END -> this.iconGravity =
+        Alert.IconGravity.END -> this.iconGravity = MaterialButton.ICON_GRAVITY_END
+        Alert.IconGravity.TEXT_END -> this.iconGravity =
             MaterialButton.ICON_GRAVITY_TEXT_END
 
-        AlertDialog.IconGravity.TEXT_START -> this.iconGravity =
+        Alert.IconGravity.TEXT_START -> this.iconGravity =
             MaterialButton.ICON_GRAVITY_TEXT_START
 
-        AlertDialog.IconGravity.TEXT_TOP -> this.iconGravity =
+        Alert.IconGravity.TEXT_TOP -> this.iconGravity =
             MaterialButton.ICON_GRAVITY_TEXT_TOP
 
-        AlertDialog.IconGravity.TOP -> this.iconGravity = MaterialButton.ICON_GRAVITY_TOP
+        Alert.IconGravity.TOP -> this.iconGravity = MaterialButton.ICON_GRAVITY_TOP
         else -> this.iconGravity = MaterialButton.ICON_GRAVITY_START
     }
 }
 
-internal fun TextView.toAlignmentTextView(alignment: AlertDialog.TextAlignment) {
+
+internal fun TextView.toAlignmentTextView(alignment: Alert.TextAlignment) {
     when (alignment) {
-        AlertDialog.TextAlignment.CENTER -> this.textAlignment = View.TEXT_ALIGNMENT_CENTER
-        AlertDialog.TextAlignment.END -> this.textAlignment = View.TEXT_ALIGNMENT_TEXT_END
-        AlertDialog.TextAlignment.INHERIT -> this.textAlignment = View.TEXT_ALIGNMENT_INHERIT
+        Alert.TextAlignment.CENTER -> this.textAlignment = View.TEXT_ALIGNMENT_CENTER
+        Alert.TextAlignment.END -> this.textAlignment = View.TEXT_ALIGNMENT_TEXT_END
+        Alert.TextAlignment.INHERIT -> this.textAlignment = View.TEXT_ALIGNMENT_INHERIT
         else -> this.textAlignment = View.TEXT_ALIGNMENT_TEXT_START
     }
 }
