@@ -15,6 +15,7 @@ import com.github.leodan11.alertdialog.MaterialAlertDialogVerificationCode
 import com.github.leodan11.alertdialog.MaterialDialogAnimatedDrawable
 import com.github.leodan11.alertdialog.ProgressAlertDialog
 import com.github.leodan11.alertdialog.SettingsAlertDialog
+import com.github.leodan11.alertdialog.chroma.MaterialChromaDialog
 
 /**
  * Creates an [AboutAlertDialog] with the arguments supplied to this builder.
@@ -559,4 +560,26 @@ inline fun Fragment.progressAlertDialog(init: ProgressAlertDialog.Builder.() -> 
  */
 inline fun Fragment.settingsAlertDialog(init: SettingsAlertDialog.Builder.() -> Unit): SettingsAlertDialog {
     return this.requireActivity().settingsAlertDialog(init)
+}
+
+
+/**
+ * Creates an [MaterialChromaDialog] with the arguments supplied to this builder.
+ *
+ * ```kotlin
+ *
+ *  val dialog = materialChromaDialog {
+ *      ...
+ *  }
+ *  dialog.show()
+ *
+ * ```
+ *
+ * See [wiki](https://github.com/leodan11/MaterialAlertDialog/wiki/MaterialChromaDialog)
+ *
+ */
+inline fun materialChromaDialog(init: MaterialChromaDialog.Builder.() -> Unit): MaterialChromaDialog {
+    val dialog = MaterialChromaDialog.Builder()
+    dialog.init()
+    return dialog.create()
 }
