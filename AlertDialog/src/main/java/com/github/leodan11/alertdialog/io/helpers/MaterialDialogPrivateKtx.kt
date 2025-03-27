@@ -218,7 +218,6 @@ fun Context.toMessageAndDetailsViews(
         messageView.setTextColor(this.colorOnSurface())
         messageView.toAlignmentTextView(it.textAlignment)
     }
-    detailsView.isVisible = details != null
     details?.let {
         detailsView.setTextColor(this.colorOnSurface())
     }
@@ -229,17 +228,21 @@ fun Context.toMessageAndDetailsViews(
             messageView.text = message.getText()
             onlyDetails.invoke(details.getText())
         }
+        detailsView.isVisible = true
     } else if (message != null) {
         if (message.getText().length > maxLength) {
             messageDetails.invoke(
                 this.getString(R.string.label_text_details_are_specified_below),
                 message.getText()
             )
+            detailsView.isVisible = true
         } else {
             messageView.text = message.getText()
+            detailsView.isVisible = false
         }
     } else if (details != null) {
         onlyDetails.invoke(details.getText())
+        detailsView.isVisible = true
     }
 }
 
