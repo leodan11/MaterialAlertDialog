@@ -22,6 +22,7 @@ import com.github.leodan11.alertdialog.R
 import com.github.leodan11.alertdialog.databinding.MAlertDialogInputCodeBinding
 import com.github.leodan11.alertdialog.dist.base.AlertBuilder
 import com.github.leodan11.alertdialog.io.content.Alert
+import com.github.leodan11.alertdialog.io.content.Config.DEFAULT_MASKED
 import com.github.leodan11.alertdialog.io.content.DialogAlertInterface
 import com.github.leodan11.alertdialog.io.content.Config.MATERIAL_ALERT_DIALOG_UI_NOT_ICON
 import com.github.leodan11.alertdialog.io.helpers.isValidOtp
@@ -55,6 +56,9 @@ abstract class VerificationCodeComponentBase(
     protected open var boxCornerRadius: BoxCornerRadiusTextField?,
     protected open var countDownTimer: ButtonCountDownTimer?,
     protected open var mInputsContentValue: List<InputCodeExtra>,
+    protected open var mShowInputCode: Boolean,
+    protected open var mInputCodeLength: Int,
+    protected open var mInputCodeMask: String,
     protected open var mNeedReason: Boolean,
     protected open var mCancelable: Boolean,
     protected open var mPositiveButton: ButtonAlertDialog?,
@@ -88,6 +92,12 @@ abstract class VerificationCodeComponentBase(
                 title.toTitleView(textViewTitleDialogCodeAlert)
                 // Set Message
                 message.toMessageView(textViewMessageDialogCodeAlert)
+                // Set Input Code
+                otpTextView.apply {
+                    setPinCount(mInputCodeLength)
+                    setPinMask(mInputCodeMask)
+                    setTextVisible(mShowInputCode)
+                }
                 // Set Background Tint
                 val mBackgroundTint: ColorStateList =
                     ColorStateList.valueOf(mContext.colorPrimary())
@@ -115,8 +125,8 @@ abstract class VerificationCodeComponentBase(
                 buttonActionPositiveAlertDialogCode.apply {
                     mPositiveButton.toButtonView(mContext, this, mBackgroundTint)
                     setOnClickListener {
-                        if (otpTextView.isValidOtp()) {
-                            val code = otpTextView.otp.orEmpty()
+                        if (otpTextView.isValidOtp(mContext, mInputCodeLength)) {
+                            val code = otpTextView.text.orEmpty()
                             val reason = getReasonIfNeeded(
                                 textInputLayoutCodeReason,
                                 textInputEditTextCodeReason
@@ -379,7 +389,10 @@ abstract class VerificationCodeComponentBase(
         protected open var countDownTimer: ButtonCountDownTimer? = null
         protected open var isNeedReason: Boolean = true
         protected open var isCancelable: Boolean = false
+        protected open var isShowInputCode: Boolean = true
         protected open var gravity: Int? = null
+        protected open var inputCodeLength: Int = 4
+        protected open var inputCodeMask: String = DEFAULT_MASKED
         protected open var mInputsContentValue: List<InputCodeExtra> = arrayListOf()
         protected open var positiveButton: ButtonAlertDialog? = null
         protected open var negativeButton: ButtonAlertDialog? = null
@@ -772,11 +785,22 @@ abstract class VerificationCodeComponentBase(
         /**
          * Sets whether the dialog is cancelable or not.
          *
-         * @param isCancelable is [Boolean] value. Default is false.
+         * @param isCancelable is [Boolean] value. Default is `false`.
          * @return [Builder] object to allow for chaining of calls to set methods
          */
         fun setCancelable(isCancelable: Boolean): Builder<D> {
             this.isCancelable = isCancelable
+            return this
+        }
+
+        /**
+         * Sets whether text input code is visible or not.
+         *
+         * @param isVisible is [Boolean] value. Default is `true`.
+         * @return [Builder] object to allow for chaining of calls to set methods
+         */
+        fun setInputCodeTextVisible(isVisible: Boolean): Builder<D> {
+            this.isShowInputCode = isVisible
             return this
         }
 
@@ -789,6 +813,28 @@ abstract class VerificationCodeComponentBase(
          */
         fun setGravity(gravity: Int): Builder<D> {
             this.gravity = gravity
+            return this
+        }
+
+        /**
+         * Set input code length. Default is 4.
+         *
+         * @param inputCodeLength [Int] value
+         * @return [Builder] object to allow for chaining of calls to set methods
+         */
+        fun setInputCodeLength(inputCodeLength: Int): Builder<D> {
+            this.inputCodeLength = inputCodeLength
+            return this
+        }
+
+        /**
+         * Set input code mask. Default is [DEFAULT_MASKED].
+         *
+         * @param inputCodeMask [String] value
+         * @return [Builder] object to allow for chaining of calls to set methods
+         */
+        fun setInputCodeMask(inputCodeMask: String): Builder<D> {
+            this.inputCodeMask = inputCodeMask
             return this
         }
 

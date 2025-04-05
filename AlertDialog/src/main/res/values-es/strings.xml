@@ -18,6 +18,7 @@
     <string name="label_text_got_it">Entendido</string>
     <string name="label_text_charging">Cargando…</string>
     <string name="label_text_charging_please">Cargando. Espere por favor…</string>
+    <string name="label_text_otp_incomplete">El código está incompleto</string>
     <string name="button_positive_speakable_text_value">Opción positiva del diálogo</string>
     <string name="button_neutral_speakable_text_value">Opción neutral del diálogo</string>
     <string name="button_negative_speakable_text_value">Opción negativa del diálogo</string>
@@ -43,4 +44,5 @@
     <string name="label_text_rationale_ask">❖ Es posible que esta aplicación no funcione correctamente sin los permisos solicitados.</string>
     <string name="label_text_rationale_ask_again">❖ Es posible que esta aplicación no funcione correctamente sin los permisos solicitados.\n❖ Abra la pantalla de configuración de la aplicación para modificar los permisos de la aplicación.</string>
     <string name="label_text_title_settings_dialog">Permisos requeridos</string>
+    <string name="label_text_error_otp">El código es nulo</string>
 </resources>

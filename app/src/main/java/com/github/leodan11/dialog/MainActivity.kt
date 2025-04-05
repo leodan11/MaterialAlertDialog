@@ -106,6 +106,7 @@ class MainActivity : AppCompatActivity() {
                 MaterialAlertDialogVerificationCode.Builder(this@MainActivity)
                     .setIcon(R.drawable.ic_baseline_light_mode)
                     .setTitle("Lorem Ipsum")
+                    .setInputCodeLength(2)
                     .setMessage("What is Lorem Ipsum?")
                     .setCancelable(false)
                     .setCountDownTimer(DialogAlertInterface.UI.BUTTON_POSITIVE, 2000)

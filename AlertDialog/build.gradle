@@ -55,12 +55,12 @@ dependencies {
     implementation libs.lottie // Lottie for Android
     implementation libs.custom.view.core // Custom View
     implementation libs.custom.view.layout
+    implementation libs.custom.view.widget
     implementation libs.k.extensions.core // KTX Extension
     implementation libs.k.extensions.color
     implementation libs.k.extensions.context
     implementation libs.k.extensions.number
     implementation libs.k.extensions.views
-    implementation libs.otpview // OtpView
     implementation libs.maskededittext // MaskedEditText
 
     testImplementation libs.junit

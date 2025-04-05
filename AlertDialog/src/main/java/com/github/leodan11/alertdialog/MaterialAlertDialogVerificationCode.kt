@@ -26,6 +26,9 @@ class MaterialAlertDialogVerificationCode private constructor(
     mCancelable: Boolean,
     mGravity: Int?,
     mInputsContentValue: List<InputCodeExtra>,
+    mShowInputCode: Boolean,
+    mInputCodeLength: Int,
+    mInputCodeMask: String,
     mPositiveButton: ButtonAlertDialog?,
     mNegativeButton: ButtonAlertDialog?,
 ) : VerificationCodeComponentBase(
@@ -39,6 +42,9 @@ class MaterialAlertDialogVerificationCode private constructor(
     countDownTimer = mCountDownTimer,
     mCancelable = mCancelable,
     mInputsContentValue = mInputsContentValue,
+    mShowInputCode = mShowInputCode,
+    mInputCodeLength = mInputCodeLength,
+    mInputCodeMask = mInputCodeMask,
     mPositiveButton = mPositiveButton,
     mNegativeButton = mNegativeButton
 ) {
@@ -79,6 +85,9 @@ class MaterialAlertDialogVerificationCode private constructor(
                 mCancelable = isCancelable,
                 mGravity = gravity,
                 mInputsContentValue = mInputsContentValue,
+                mShowInputCode = isShowInputCode,
+                mInputCodeLength = inputCodeLength,
+                mInputCodeMask = inputCodeMask,
                 mPositiveButton = positiveButton,
                 mNegativeButton = negativeButton
             )

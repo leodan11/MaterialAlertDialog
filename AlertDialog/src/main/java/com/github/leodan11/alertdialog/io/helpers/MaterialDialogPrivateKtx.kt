@@ -11,13 +11,13 @@ import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.annotation.RestrictTo
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.core.widget.NestedScrollView
 import com.github.leodan11.alertdialog.R
 import com.github.leodan11.alertdialog.io.content.Alert
-import com.github.leodan11.alertdialog.io.content.DialogAlertInterface
 import com.github.leodan11.alertdialog.io.content.Config.DEFAULT_LAYOUT_PARAMS_HEIGHT
 import com.github.leodan11.alertdialog.io.content.Config.DEFAULT_LAYOUT_PARAMS_HEIGHT_LANDSCAPE
 import com.github.leodan11.alertdialog.io.content.Config.DEFAULT_LAYOUT_PARAMS_HEIGHT_TABLET
@@ -25,6 +25,7 @@ import com.github.leodan11.alertdialog.io.content.Config.DEFAULT_LAYOUT_PARAMS_H
 import com.github.leodan11.alertdialog.io.content.Config.MATERIAL_ALERT_DIALOG_UI_NOT_ICON
 import com.github.leodan11.alertdialog.io.content.Config.MAX_CHART_SEQUENCE_LENGTH
 import com.github.leodan11.alertdialog.io.content.Config.MAX_CHART_SEQUENCE_LENGTH_TABLET
+import com.github.leodan11.alertdialog.io.content.DialogAlertInterface
 import com.github.leodan11.alertdialog.io.models.BoxCornerRadiusTextField
 import com.github.leodan11.alertdialog.io.models.ButtonAlertDialog
 import com.github.leodan11.alertdialog.io.models.ButtonCountDownTimer
@@ -36,10 +37,10 @@ import com.github.leodan11.alertdialog.io.models.InputCodeExtra
 import com.github.leodan11.alertdialog.io.models.MessageAlert
 import com.github.leodan11.alertdialog.io.models.TitleAlert
 import com.github.leodan11.customview.core.ReadMoreOption
+import com.github.leodan11.customview.widget.pin.PinView
 import com.github.leodan11.k_extensions.color.colorOnSurface
 import com.github.leodan11.k_extensions.color.colorPrimary
 import com.github.leodan11.k_extensions.color.colorSurface
-import com.github.leodan11.otptextview.OtpTextView
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.textfield.TextInputLayout
 import java.util.Locale
@@ -403,13 +404,15 @@ fun IconTintAlert.toTintColor(view: ImageView) {
 
 
 @RestrictTo(RestrictTo.Scope.LIBRARY)
-fun OtpTextView.isValidOtp(): Boolean {
-    if (otp.isNullOrEmpty()) {
-        showError()
+fun PinView.isValidOtp(mContext: Context, length: Int): Boolean {
+    if (text.isNullOrEmpty()) {
+        Toast.makeText(mContext, R.string.label_text_error_otp, Toast.LENGTH_SHORT).show()
         return false
-    } else if (otp != null) {
-        val result = otp!!.length == 6
-        if (result) showSuccess() else showError()
+    } else if (text != null) {
+        val result = text!!.length == length
+        if (!result) {
+            Toast.makeText(mContext, R.string.label_text_otp_incomplete, Toast.LENGTH_SHORT).show()
+        }
         return result
     }
     return false
