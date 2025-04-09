@@ -12,7 +12,6 @@ import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
-import androidx.annotation.RestrictTo
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.core.widget.NestedScrollView
@@ -26,6 +25,7 @@ import com.github.leodan11.alertdialog.io.content.Config.MATERIAL_ALERT_DIALOG_U
 import com.github.leodan11.alertdialog.io.content.Config.MAX_CHART_SEQUENCE_LENGTH
 import com.github.leodan11.alertdialog.io.content.Config.MAX_CHART_SEQUENCE_LENGTH_TABLET
 import com.github.leodan11.alertdialog.io.content.DialogAlertInterface
+import com.github.leodan11.alertdialog.io.content.isTablet
 import com.github.leodan11.alertdialog.io.models.BoxCornerRadiusTextField
 import com.github.leodan11.alertdialog.io.models.ButtonAlertDialog
 import com.github.leodan11.alertdialog.io.models.ButtonCountDownTimer
@@ -46,8 +46,7 @@ import com.google.android.material.textfield.TextInputLayout
 import java.util.Locale
 import java.util.concurrent.TimeUnit
 
-@RestrictTo(RestrictTo.Scope.LIBRARY)
-fun Alert.State.toAlertDialog(mContext: Context, view: ImageView, defaultIcon: IconAlert) {
+internal fun Alert.State.toAlertDialog(mContext: Context, view: ImageView, defaultIcon: IconAlert) {
     when (this) {
         Alert.State.DELETE -> view.apply {
             setImageResource(R.drawable.ic_baseline_delete)
@@ -102,8 +101,7 @@ fun Alert.State.toAlertDialog(mContext: Context, view: ImageView, defaultIcon: I
 }
 
 
-@RestrictTo(RestrictTo.Scope.LIBRARY)
-fun ButtonCountDownTimer.toButtonView(view: MaterialButton): CountDownTimer {
+internal fun ButtonCountDownTimer.toButtonView(view: MaterialButton): CountDownTimer {
     val buttonText = view.text
     val countTimer = object : CountDownTimer(millis, countInterval) {
 
@@ -133,8 +131,7 @@ fun ButtonCountDownTimer.toButtonView(view: MaterialButton): CountDownTimer {
 }
 
 
-@RestrictTo(RestrictTo.Scope.LIBRARY)
-fun ButtonCountDownTimer.toButtonView(view: TextView): CountDownTimer {
+internal fun ButtonCountDownTimer.toButtonView(view: TextView): CountDownTimer {
     val buttonText = view.text
     val countTimer = object : CountDownTimer(millis, countInterval) {
 
@@ -164,8 +161,7 @@ fun ButtonCountDownTimer.toButtonView(view: TextView): CountDownTimer {
 }
 
 
-@RestrictTo(RestrictTo.Scope.LIBRARY)
-fun ButtonAlertDialog?.toButtonView(
+internal fun ButtonAlertDialog?.toButtonView(
     context: Context,
     view: MaterialButton,
     mTintColor: ColorStateList
@@ -183,8 +179,7 @@ fun ButtonAlertDialog?.toButtonView(
 }
 
 
-@RestrictTo(RestrictTo.Scope.LIBRARY)
-fun ButtonAlertDialog?.toButtonView(
+internal fun ButtonAlertDialog?.toButtonView(
     dialog: DialogAlertInterface,
     view: TextView,
     mTintColor: ColorStateList,
@@ -199,13 +194,7 @@ fun ButtonAlertDialog?.toButtonView(
 }
 
 
-fun Context.isTablet(): Boolean {
-    return (resources.configuration.screenLayout and Configuration.SCREENLAYOUT_SIZE_MASK) >= Configuration.SCREENLAYOUT_SIZE_LARGE
-}
-
-
-@RestrictTo(RestrictTo.Scope.LIBRARY)
-fun Context.toMessageAndDetailsViews(
+internal fun Context.toMessageAndDetailsViews(
     message: MessageAlert<*>?,
     messageView: TextView,
     details: DetailsAlert<*>?,
@@ -248,8 +237,7 @@ fun Context.toMessageAndDetailsViews(
 }
 
 
-@RestrictTo(RestrictTo.Scope.LIBRARY)
-fun Context.toInputSampleView(
+internal fun Context.toInputSampleView(
     layout: TextInputLayout,
     hintText: String,
     helper: String?,
@@ -298,8 +286,7 @@ fun Context.toInputSampleView(
 }
 
 
-@RestrictTo(RestrictTo.Scope.LIBRARY)
-fun DetailsAlert<*>?.toDetailsView(context: Context, view: TextView, maxLength: Int) {
+internal fun DetailsAlert<*>?.toDetailsView(context: Context, view: TextView, maxLength: Int) {
     view.isVisible = this != null
     this?.let {
         view.setTextColor(context.colorOnSurface())
@@ -316,8 +303,7 @@ fun DetailsAlert<*>?.toDetailsView(context: Context, view: TextView, maxLength: 
 }
 
 
-@RestrictTo(RestrictTo.Scope.LIBRARY)
-fun DetailsAlert<*>?.toDetailsView(
+internal fun DetailsAlert<*>?.toDetailsView(
     context: Context,
     view: NestedScrollView,
     textView: TextView, maxLength: Int
@@ -355,8 +341,7 @@ fun DetailsAlert<*>?.toDetailsView(
 }
 
 
-@RestrictTo(RestrictTo.Scope.LIBRARY)
-fun InputCodeExtra?.toInputEditText(context: Context, layout: TextInputLayout, editText: EditText) {
+internal fun InputCodeExtra?.toInputEditText(context: Context, layout: TextInputLayout, editText: EditText) {
     layout.isVisible = this != null
     this?.let {
         layout.hint = textHide
@@ -378,8 +363,7 @@ fun InputCodeExtra?.toInputEditText(context: Context, layout: TextInputLayout, e
 }
 
 
-@RestrictTo(RestrictTo.Scope.LIBRARY)
-fun IconAlert?.toImageView(view: ImageView, tint: IconTintAlert? = null) {
+internal fun IconAlert?.toImageView(view: ImageView, tint: IconTintAlert? = null) {
     view.isVisible = this != null
     this?.let {
         it.drawableResId?.let { id -> view.setImageResource(id) }
@@ -389,8 +373,7 @@ fun IconAlert?.toImageView(view: ImageView, tint: IconTintAlert? = null) {
 }
 
 
-@RestrictTo(RestrictTo.Scope.LIBRARY)
-fun IconTintAlert.toTintColor(view: ImageView) {
+internal fun IconTintAlert.toTintColor(view: ImageView) {
     this.tintColorInt?.let { color ->
         view.setColorFilter(color)
     }
@@ -403,8 +386,7 @@ fun IconTintAlert.toTintColor(view: ImageView) {
 }
 
 
-@RestrictTo(RestrictTo.Scope.LIBRARY)
-fun PinView.isValidOtp(mContext: Context, length: Int): Boolean {
+internal fun PinView.isValidOtp(mContext: Context, length: Int): Boolean {
     if (text.isNullOrEmpty()) {
         Toast.makeText(mContext, R.string.label_text_error_otp, Toast.LENGTH_SHORT).show()
         return false
@@ -419,15 +401,13 @@ fun PinView.isValidOtp(mContext: Context, length: Int): Boolean {
 }
 
 
-@RestrictTo(RestrictTo.Scope.LIBRARY)
-fun TextInputLayout.setColorList(color: Int) {
+internal fun TextInputLayout.setColorList(color: Int) {
     this.boxStrokeColor = color
     this.hintTextColor = ColorStateList.valueOf(color)
 }
 
 
-@RestrictTo(RestrictTo.Scope.LIBRARY)
-fun MessageAlert<*>?.toMessageView(view: TextView) {
+internal fun MessageAlert<*>?.toMessageView(view: TextView) {
     view.isVisible = this != null
     this?.let {
         view.text = it.getText()
@@ -437,8 +417,7 @@ fun MessageAlert<*>?.toMessageView(view: TextView) {
 }
 
 
-@RestrictTo(RestrictTo.Scope.LIBRARY)
-fun TitleAlert?.toTitleView(view: TextView) {
+internal fun TitleAlert?.toTitleView(view: TextView) {
     view.isVisible = this != null
     this?.let {
         view.text = it.title

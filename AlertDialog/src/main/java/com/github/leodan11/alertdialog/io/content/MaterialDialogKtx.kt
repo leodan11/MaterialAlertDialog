@@ -1,6 +1,7 @@
 package com.github.leodan11.alertdialog.io.content
 
 import android.content.Context
+import android.content.res.Configuration
 import androidx.fragment.app.Fragment
 import com.github.leodan11.alertdialog.AboutAlertDialog
 import com.github.leodan11.alertdialog.IOSAlertDialog
@@ -80,6 +81,18 @@ inline fun Context.iOSProgressDialog(init: IOSProgressDialog.Builder.() -> Unit)
     val dialog = IOSProgressDialog.Builder(this)
     dialog.init()
     return dialog.create()
+}
+
+
+/**
+ * This function will check if the device is a tablet
+ *
+ * @receiver [Context] of the application
+ *
+ * @return `true` if the device is a tablet
+ */
+fun Context.isTablet(): Boolean {
+    return (resources.configuration.screenLayout and Configuration.SCREENLAYOUT_SIZE_MASK) >= Configuration.SCREENLAYOUT_SIZE_LARGE
 }
 
 
@@ -360,6 +373,18 @@ inline fun Fragment.iOSAlertDialog(init: IOSAlertDialog.Builder.() -> Unit): IOS
  */
 inline fun Fragment.iOSProgressDialog(init: IOSProgressDialog.Builder.() -> Unit): IOSProgressDialog {
     return this.requireActivity().iOSProgressDialog(init)
+}
+
+
+/**
+ * This function will check if the device is a tablet
+ *
+ * @receiver [Fragment] or class that extends `Fragment`
+ *
+ * @return `true` if the device is a tablet
+ */
+fun Fragment.isTablet(): Boolean {
+    return this.requireActivity().isTablet()
 }
 
 
