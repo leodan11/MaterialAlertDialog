@@ -32,13 +32,14 @@ abstract class BottomSheetAlertDialogFragment<ViewBinding : ViewDataBinding> :
         savedInstanceState: Bundle?
     ): View {
         _binding = DataBindingUtil.inflate(inflater, layoutId, container, false)
-        setInitDataInViewBinding()
+        onInstancePendingBindings()
         binding.lifecycleOwner = viewLifecycleOwner
         return binding.root
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
+        executeInOnDestroyView()
         _binding = null
     }
 
@@ -62,9 +63,21 @@ abstract class BottomSheetAlertDialogFragment<ViewBinding : ViewDataBinding> :
     }
 
     /**
-     * Initialize data inside data binding when inflating XML
+     *
+     * Any code that runs in the destruction view before the [binding] is set to `null`.
+     *
+     * @see [onDestroyView]
+     * @see [ViewDataBinding]
      *
      */
-    open fun setInitDataInViewBinding(): Unit = Unit
+    open fun executeInOnDestroyView(): Unit = Unit
+
+    /**
+     * Initialize data inside data [binding] when inflating XML
+     *
+     * @see [ViewDataBinding]
+     *
+     */
+    open fun onInstancePendingBindings(): Unit = Unit
 
 }
