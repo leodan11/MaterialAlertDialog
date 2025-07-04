@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
@@ -9,36 +8,39 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        app:contentPadding="@dimen/dimen_20">
+        android:layout_margin="@dimen/dimen_8">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <LinearLayout
             android:id="@+id/layout_content_body_dialog_progress"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/dimen_6">
+            android:layout_marginStart="@dimen/dimen_16"
+            android:layout_marginTop="@dimen/dimen_10"
+            android:layout_marginEnd="@dimen/dimen_16"
+            android:layout_marginBottom="@dimen/dimen_10"
+            android:orientation="vertical"
+            tools:ignore="UseCompoundDrawables">
 
             <ImageView
                 android:id="@+id/imageViewIconLogoDialogProgress"
-                android:layout_width="@dimen/dialog_image_view_notification_icon_width_medium"
-                android:layout_height="@dimen/dialog_image_view_notification_icon_height_medium"
+                android:layout_width="@dimen/dialog_image_view_notification_icon_width"
+                android:layout_height="@dimen/dialog_image_view_notification_icon_height"
+                android:layout_gravity="center"
+                android:layout_margin="@dimen/dimen_12"
                 android:contentDescription="@string/label_text_charging"
-                android:src="@drawable/ic_baseline_animated_morphing_animals"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:ignore="ImageContrastCheck" />
+                tools:ignore="ImageContrastCheck"
+                tools:src="@drawable/ic_baseline_animated_morphing_animals" />
 
             <TextView
                 android:id="@+id/text_view_messages_dialog_progress"
                 style="@style/Theme.MaterialDialog.Message"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/dimen_20"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/imageViewIconLogoDialogProgress" />
+                android:layout_gravity="center"
+                android:layout_marginTop="@dimen/dimen_4"
+                android:textAlignment="center" />
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+        </LinearLayout>
 
     </com.google.android.material.card.MaterialCardView>
 
