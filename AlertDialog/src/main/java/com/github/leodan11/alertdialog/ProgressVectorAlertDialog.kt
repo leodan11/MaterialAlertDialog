@@ -3,7 +3,7 @@ package com.github.leodan11.alertdialog
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
-import com.github.leodan11.alertdialog.dist.AnimatedVectorDrawableComponentBase
+import com.github.leodan11.alertdialog.dist.ProgressVectorComponentBase
 import com.github.leodan11.alertdialog.io.models.ButtonAlertDialog
 import com.github.leodan11.alertdialog.io.models.IconAlert
 import com.github.leodan11.alertdialog.io.models.IconTintAlert
@@ -11,7 +11,7 @@ import com.github.leodan11.alertdialog.io.models.MessageAlert
 import com.github.leodan11.alertdialog.io.models.TitleAlert
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
-class MaterialAlertDialogAnimatedDrawable private constructor(
+class ProgressVectorAlertDialog private constructor(
     mContext: Context,
     icon: IconAlert?,
     tintColor: IconTintAlert?,
@@ -24,7 +24,7 @@ class MaterialAlertDialogAnimatedDrawable private constructor(
     mGravity: Int?,
     mTimeout: Long?,
     mNegativeButton: ButtonAlertDialog?,
-) : AnimatedVectorDrawableComponentBase(
+) : ProgressVectorComponentBase(
     mContext = mContext,
     icon = icon,
     tintColor = tintColor,
@@ -59,10 +59,10 @@ class MaterialAlertDialogAnimatedDrawable private constructor(
      * @param context the parent context
      */
     class Builder(context: Context) :
-        AnimatedVectorDrawableComponentBase.Builder<MaterialAlertDialogAnimatedDrawable>(context = context) {
+        ProgressVectorComponentBase.Builder<ProgressVectorAlertDialog>(context = context) {
 
-        override fun create(): MaterialAlertDialogAnimatedDrawable {
-            return MaterialAlertDialogAnimatedDrawable(
+        override fun create(): ProgressVectorAlertDialog {
+            return ProgressVectorAlertDialog(
                 mContext = context,
                 icon = icon,
                 tintColor = tintColor,

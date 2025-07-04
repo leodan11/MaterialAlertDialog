@@ -10,10 +10,10 @@ import com.github.leodan11.alertdialog.LottieAlertDialog
 import com.github.leodan11.alertdialog.MaterialAlertDialogCentered
 import com.github.leodan11.alertdialog.MaterialAlertDialogEvents
 import com.github.leodan11.alertdialog.MaterialAlertDialogInput
-import com.github.leodan11.alertdialog.MaterialAlertDialogAnimatedDrawable
+import com.github.leodan11.alertdialog.ProgressVectorAlertDialog
 import com.github.leodan11.alertdialog.MaterialAlertDialogSignIn
 import com.github.leodan11.alertdialog.MaterialAlertDialogVerificationCode
-import com.github.leodan11.alertdialog.MaterialDialogAnimatedDrawable
+import com.github.leodan11.alertdialog.MaterialAlertDialogVector
 import com.github.leodan11.alertdialog.ProgressAlertDialog
 import com.github.leodan11.alertdialog.SettingsAlertDialog
 import com.github.leodan11.alertdialog.chroma.MaterialChromaDialog
@@ -185,22 +185,22 @@ inline fun Context.materialAlertDialogInput(init: MaterialAlertDialogInput.Build
 
 
 /**
- * Creates an [MaterialAlertDialogAnimatedDrawable] with the arguments supplied to this builder.
+ * Creates an [ProgressVectorAlertDialog] with the arguments supplied to this builder.
  *
  * ```kotlin
  *
- *  val dialog = materialAlertDialogAnimatedDrawable {
+ *  val dialog = progressVectorAlertDialog {
  *      ...
  *  }
  *  dialog.show()
  *
  * ```
  *
- * See [wiki](https://github.com/leodan11/MaterialAlertDialog/wiki/MaterialAlertDialogAnimatedDrawable)
+ * See [wiki](https://github.com/leodan11/MaterialAlertDialog/wiki/ProgressVectorAlertDialog)
  *
  */
-inline fun Context.materialAlertDialogAnimatedDrawable(init: MaterialAlertDialogAnimatedDrawable.Builder.() -> Unit): MaterialAlertDialogAnimatedDrawable {
-    val dialog = MaterialAlertDialogAnimatedDrawable.Builder(this)
+inline fun Context.progressVectorAlertDialog(init: ProgressVectorAlertDialog.Builder.() -> Unit): ProgressVectorAlertDialog {
+    val dialog = ProgressVectorAlertDialog.Builder(this)
     dialog.init()
     return dialog.create()
 }
@@ -251,22 +251,22 @@ inline fun Context.materialAlertDialogVerificationCode(init: MaterialAlertDialog
 
 
 /**
- * Creates an [MaterialDialogAnimatedDrawable] with the arguments supplied to this builder.
+ * Creates an [MaterialAlertDialogVector] with the arguments supplied to this builder.
  *
  * ```kotlin
  *
- *  val dialog = materialDialogAnimatedDrawable {
+ *  val dialog = materialAlertDialogVector {
  *      ...
  *  }
  *  dialog.show()
  *
  * ```
  *
- * See [wiki](https://github.com/leodan11/MaterialAlertDialog/wiki/MaterialDialogAnimatedDrawable)
+ * See [wiki](https://github.com/leodan11/MaterialAlertDialog/wiki/MaterialAlertDialogVector)
  *
  */
-inline fun Context.materialDialogAnimatedDrawable(init: MaterialDialogAnimatedDrawable.Builder.() -> Unit): MaterialDialogAnimatedDrawable {
-    val dialog = MaterialDialogAnimatedDrawable.Builder(this)
+inline fun Context.materialAlertDialogVector(init: MaterialAlertDialogVector.Builder.() -> Unit): MaterialAlertDialogVector {
+    val dialog = MaterialAlertDialogVector.Builder(this)
     dialog.init()
     return dialog.create()
 }
@@ -469,22 +469,22 @@ inline fun Fragment.materialAlertDialogInput(init: MaterialAlertDialogInput.Buil
 
 
 /**
- * Creates an [MaterialAlertDialogAnimatedDrawable] with the arguments supplied to this builder.
+ * Creates an [ProgressVectorAlertDialog] with the arguments supplied to this builder.
  *
  * ```kotlin
  *
- *  val dialog = materialAlertDialogAnimatedDrawable {
+ *  val dialog = progressVectorAlertDialog {
  *      ...
  *  }
  *  dialog.show()
  *
  * ```
  *
- * See [wiki](https://github.com/leodan11/MaterialAlertDialog/wiki/MaterialAlertDialogAnimatedDrawable)
+ * See [wiki](https://github.com/leodan11/MaterialAlertDialog/wiki/ProgressVectorAlertDialog)
  *
  */
-inline fun Fragment.materialAlertDialogAnimatedDrawable(init: MaterialAlertDialogAnimatedDrawable.Builder.() -> Unit): MaterialAlertDialogAnimatedDrawable {
-    return this.requireActivity().materialAlertDialogAnimatedDrawable(init)
+inline fun Fragment.progressVectorAlertDialog(init: ProgressVectorAlertDialog.Builder.() -> Unit): ProgressVectorAlertDialog {
+    return this.requireActivity().progressVectorAlertDialog(init)
 }
 
 
@@ -529,22 +529,22 @@ inline fun Fragment.materialAlertDialogVerificationCode(init: MaterialAlertDialo
 
 
 /**
- * Creates an [MaterialDialogAnimatedDrawable] with the arguments supplied to this builder.
+ * Creates an [MaterialAlertDialogVector] with the arguments supplied to this builder.
  *
  * ```kotlin
  *
- *  val dialog = materialDialogAnimatedDrawable {
+ *  val dialog = materialAlertDialogVector {
  *      ...
  *  }
  *  dialog.show()
  *
  * ```
  *
- * See [wiki](https://github.com/leodan11/MaterialAlertDialog/wiki/MaterialDialogAnimatedDrawable)
+ * See [wiki](https://github.com/leodan11/MaterialAlertDialog/wiki/MaterialAlertDialogVector)
  *
  */
-inline fun Fragment.materialDialogAnimatedDrawable(init: MaterialDialogAnimatedDrawable.Builder.() -> Unit): MaterialDialogAnimatedDrawable {
-    return this.requireActivity().materialDialogAnimatedDrawable(init)
+inline fun Fragment.materialAlertDialogVector(init: MaterialAlertDialogVector.Builder.() -> Unit): MaterialAlertDialogVector {
+    return this.requireActivity().materialAlertDialogVector(init)
 }
 
 

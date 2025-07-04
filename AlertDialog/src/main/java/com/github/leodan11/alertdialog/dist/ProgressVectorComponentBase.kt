@@ -17,7 +17,7 @@ import androidx.annotation.IntRange
 import androidx.annotation.RestrictTo
 import androidx.annotation.StringRes
 import androidx.core.view.isVisible
-import com.github.leodan11.alertdialog.MaterialAlertDialogAnimatedDrawable
+import com.github.leodan11.alertdialog.ProgressVectorAlertDialog
 import com.github.leodan11.alertdialog.R
 import com.github.leodan11.alertdialog.databinding.MDialogProgressBinding
 import com.github.leodan11.alertdialog.dist.base.AlertBuilder
@@ -39,7 +39,7 @@ import com.github.leodan11.k_extensions.view.startAnimatedVectorDrawable
 import com.github.leodan11.k_extensions.view.startAnimatedVectorDrawableLoop
 import com.google.android.material.button.MaterialButton
 
-abstract class AnimatedVectorDrawableComponentBase(
+abstract class ProgressVectorComponentBase(
     protected open var mContext: Context,
     protected open var icon: IconAlert?,
     protected open var tintColor: IconTintAlert?,
@@ -97,7 +97,7 @@ abstract class AnimatedVectorDrawableComponentBase(
                     mNegativeButton.toButtonView(mContext, this, mBackgroundTint)
                     setOnClickListener {
                         mNegativeButton?.onClickListener?.onClick(
-                            this@AnimatedVectorDrawableComponentBase,
+                            this@ProgressVectorComponentBase,
                             DialogAlertInterface.UI.BUTTON_NEGATIVE
                         )
                     }
@@ -223,7 +223,7 @@ abstract class AnimatedVectorDrawableComponentBase(
      * The default alert dialog theme is defined by [android.R.attr.alertDialogTheme] within the parent context's theme.
      * @param context – the parent context
      */
-    abstract class Builder<D : AnimatedVectorDrawableComponentBase>(protected open val context: Context) :
+    abstract class Builder<D : ProgressVectorComponentBase>(protected open val context: Context) :
         AlertBuilder() {
 
         protected open var icon: IconAlert? = null
@@ -671,7 +671,7 @@ abstract class AnimatedVectorDrawableComponentBase(
         }
 
         /**
-         * Creates an [MaterialAlertDialogAnimatedDrawable] with the arguments supplied to this builder.
+         * Creates an [ProgressVectorAlertDialog] with the arguments supplied to this builder.
          * Calling this method does not display the dialog.
          * If no additional processing is needed, [show] may be called instead to both create and display the dialog.
          *

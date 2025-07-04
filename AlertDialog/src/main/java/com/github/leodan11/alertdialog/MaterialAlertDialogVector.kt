@@ -3,12 +3,12 @@ package com.github.leodan11.alertdialog
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
-import com.github.leodan11.alertdialog.dist.AnimatedDrawableComponentBase
+import com.github.leodan11.alertdialog.dist.VectorComponentBase
 import com.github.leodan11.alertdialog.io.models.IconAlert
 import com.github.leodan11.alertdialog.io.models.MessageAlert
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
-class MaterialDialogAnimatedDrawable private constructor(
+class MaterialAlertDialogVector private constructor(
     mContext: Context,
     icon: IconAlert,
     mAnimatedVectorDrawable: Boolean,
@@ -18,7 +18,7 @@ class MaterialDialogAnimatedDrawable private constructor(
     mCancelable: Boolean,
     mGravity: Int?,
     mTimeout: Long?,
-) : AnimatedDrawableComponentBase(
+) : VectorComponentBase(
     mContext = mContext,
     icon = icon,
     mAnimatedVectorDrawable = mAnimatedVectorDrawable,
@@ -51,10 +51,10 @@ class MaterialDialogAnimatedDrawable private constructor(
      * @param context the parent context
      */
     class Builder(context: Context) :
-        AnimatedDrawableComponentBase.Builder<MaterialDialogAnimatedDrawable>(context = context) {
+        VectorComponentBase.Builder<MaterialAlertDialogVector>(context = context) {
 
-        override fun create(): MaterialDialogAnimatedDrawable {
-            return MaterialDialogAnimatedDrawable(
+        override fun create(): MaterialAlertDialogVector {
+            return MaterialAlertDialogVector(
                 mContext = context,
                 icon = icon,
                 mAnimatedVectorDrawable = isAnimatedVectorDrawable,

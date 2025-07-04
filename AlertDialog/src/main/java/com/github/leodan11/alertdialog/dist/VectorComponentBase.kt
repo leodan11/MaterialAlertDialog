@@ -12,7 +12,7 @@ import android.view.ViewGroup
 import androidx.annotation.DrawableRes
 import androidx.annotation.RestrictTo
 import androidx.annotation.StringRes
-import com.github.leodan11.alertdialog.MaterialDialogAnimatedDrawable
+import com.github.leodan11.alertdialog.MaterialAlertDialogVector
 import com.github.leodan11.alertdialog.R
 import com.github.leodan11.alertdialog.databinding.MDialogProgressSmallBinding
 import com.github.leodan11.alertdialog.dist.base.AlertBuilder
@@ -25,7 +25,7 @@ import com.github.leodan11.alertdialog.io.models.MessageAlert
 import com.github.leodan11.k_extensions.view.startAnimatedVectorDrawable
 import com.github.leodan11.k_extensions.view.startAnimatedVectorDrawableLoop
 
-abstract class AnimatedDrawableComponentBase(
+abstract class VectorComponentBase(
     protected open var mContext: Context,
     protected open var icon: IconAlert,
     protected open var mAnimatedVectorDrawable: Boolean,
@@ -174,7 +174,7 @@ abstract class AnimatedDrawableComponentBase(
      * The default alert dialog theme is defined by [android.R.attr.alertDialogTheme] within the parent context's theme.
      * @param context – the parent context
      */
-    abstract class Builder<D : AnimatedDrawableComponentBase>(protected open val context: Context) :
+    abstract class Builder<D : VectorComponentBase>(protected open val context: Context) :
         AlertBuilder() {
 
         protected open var icon: IconAlert =
@@ -377,7 +377,7 @@ abstract class AnimatedDrawableComponentBase(
         }
 
         /**
-         * Creates an [MaterialDialogAnimatedDrawable] with the arguments supplied to this builder.
+         * Creates an [MaterialAlertDialogVector] with the arguments supplied to this builder.
          * Calling this method does not display the dialog.
          * If no additional processing is needed, [show] may be called instead to both create and display the dialog.
          *
