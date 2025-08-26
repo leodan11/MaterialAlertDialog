@@ -42,12 +42,13 @@ import com.google.android.material.textfield.TextInputLayout
 
 abstract class SignInComponentBase(
     protected open var mContext: Context,
-    protected open var icon: IconAlert?,
+    protected open var icon: IconAlert,
     protected open var tintColor: IconTintAlert?,
     protected open var title: TitleAlert?,
     protected open var boxCornerRadius: BoxCornerRadiusTextField?,
     protected open var countDownTimer: ButtonCountDownTimer?,
     protected open var mCancelable: Boolean,
+    protected open var mShowIcon: Boolean,
     protected open var mPositiveButton: ButtonAlertDialog?,
     protected open var mNegativeButton: ButtonAlertDialog?,
 ) : DialogAlertInterface {
@@ -80,9 +81,9 @@ abstract class SignInComponentBase(
         try {
             with(binding) {
                 // Set header layout
-                layoutContentHeaderLoginDialog.isVisible = title != null || icon != null
+                layoutContentHeaderLoginDialog.isVisible = title != null
                 // Set icon
-                icon.toImageView(imageViewIconLoginDialog, tintColor)
+                icon.toImageView(imageViewIconLoginDialog, mShowIcon, tintColor)
                 // Set title
                 title.toTitleView(textViewTitleDialogLogin)
                 // Set Background Tint
@@ -283,12 +284,13 @@ abstract class SignInComponentBase(
     abstract class Builder<D : SignInComponentBase>(protected open val context: Context) :
         AlertBuilder() {
 
-        protected open var icon: IconAlert? = null
+        protected open var icon: IconAlert = IconAlert(context.applicationInfo.icon)
         protected open var tintColor: IconTintAlert? = null
         protected open var title: TitleAlert? = null
         protected open var boxCornerRadius: BoxCornerRadiusTextField? = null
         protected open var countDownTimer: ButtonCountDownTimer? = null
         protected open var isCancelable: Boolean = false
+        protected open var isShowIcon: Boolean = true
         protected open var gravity: Int? = null
         protected open var positiveButton: ButtonAlertDialog? = null
         protected open var negativeButton: ButtonAlertDialog? = null
@@ -574,6 +576,17 @@ abstract class SignInComponentBase(
          */
         fun setGravity(gravity: Int): Builder<D> {
             this.gravity = gravity
+            return this
+        }
+
+        /**
+         * Sets whether the dialog icon should be displayed.
+         *
+         * @param isShow `true` to show the icon, `false` to hide it.
+         * @return This [Builder] instance for chaining.
+         */
+        fun setShowIcon(isShow: Boolean): Builder<D> {
+            this.isShowIcon = isShow
             return this
         }
 

@@ -14,12 +14,13 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
 class MaterialAlertDialogSignIn private constructor(
     mContext: Context,
-    icon: IconAlert?,
+    icon: IconAlert,
     tintColor: IconTintAlert?,
     title: TitleAlert?,
     mBoxCornerRadius: BoxCornerRadiusTextField?,
     mCountDownTimer: ButtonCountDownTimer?,
     mCancelable: Boolean,
+    mShowIcon: Boolean,
     mGravity: Int?,
     mPositiveButton: ButtonAlertDialog?,
     mNegativeButton: ButtonAlertDialog?,
@@ -31,6 +32,7 @@ class MaterialAlertDialogSignIn private constructor(
     boxCornerRadius = mBoxCornerRadius,
     countDownTimer = mCountDownTimer,
     mCancelable = mCancelable,
+    mShowIcon = mShowIcon,
     mPositiveButton = mPositiveButton,
     mNegativeButton = mNegativeButton
 ) {
@@ -67,6 +69,7 @@ class MaterialAlertDialogSignIn private constructor(
                 mBoxCornerRadius = boxCornerRadius,
                 mCountDownTimer = countDownTimer,
                 mCancelable = isCancelable,
+                mShowIcon = isShowIcon,
                 mGravity = gravity,
                 mPositiveButton = positiveButton,
                 mNegativeButton = negativeButton

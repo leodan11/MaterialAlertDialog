@@ -373,6 +373,16 @@ internal fun IconAlert?.toImageView(view: ImageView, tint: IconTintAlert? = null
 }
 
 
+internal fun IconAlert.toImageView(view: ImageView, isVisible: Boolean, tint: IconTintAlert? = null) {
+    view.isVisible = isVisible
+    this.let {
+        it.drawableResId?.let { id -> view.setImageResource(id) }
+        it.drawable?.let { drawable -> view.setImageDrawable(drawable) }
+        tint?.toTintColor(view)
+    }
+}
+
+
 internal fun IconTintAlert.toTintColor(view: ImageView) {
     this.tintColorInt?.let { color ->
         view.setColorFilter(color)

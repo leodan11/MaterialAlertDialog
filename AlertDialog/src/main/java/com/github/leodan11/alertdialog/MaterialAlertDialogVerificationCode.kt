@@ -16,7 +16,7 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
 class MaterialAlertDialogVerificationCode private constructor(
     mContext: Context,
-    icon: IconAlert?,
+    icon: IconAlert,
     tintColor: IconTintAlert?,
     title: TitleAlert?,
     message: MessageAlert<*>?,
@@ -29,6 +29,7 @@ class MaterialAlertDialogVerificationCode private constructor(
     mInputsContentValue: List<InputCodeExtra>,
     mShowInputCode: Boolean,
     mShowMessageCode: Boolean,
+    mShowIcon: Boolean,
     mInputCodeLength: Int,
     mInputCodeMask: String,
     mPositiveButton: ButtonAlertDialog?,
@@ -47,6 +48,7 @@ class MaterialAlertDialogVerificationCode private constructor(
     mInputsContentValue = mInputsContentValue,
     mShowInputCode = mShowInputCode,
     mShowMessageCode = mShowMessageCode,
+    mShowIcon = mShowIcon,
     mInputCodeLength = mInputCodeLength,
     mInputCodeMask = mInputCodeMask,
     mPositiveButton = mPositiveButton,
@@ -92,6 +94,7 @@ class MaterialAlertDialogVerificationCode private constructor(
                 mInputsContentValue = mInputsContentValue,
                 mShowInputCode = isShowInputCode,
                 mShowMessageCode = isShowMessageCode,
+                mShowIcon = isShowIcon,
                 mInputCodeLength = inputCodeLength,
                 mInputCodeMask = inputCodeMask,
                 mPositiveButton = positiveButton,

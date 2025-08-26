@@ -49,7 +49,7 @@ import com.google.android.material.textfield.TextInputLayout
 
 abstract class VerificationCodeComponentBase(
     protected open var mContext: Context,
-    protected open var icon: IconAlert?,
+    protected open var icon: IconAlert,
     protected open var tintColor: IconTintAlert?,
     protected open var title: TitleAlert?,
     protected open var message: MessageAlert<*>?,
@@ -63,6 +63,7 @@ abstract class VerificationCodeComponentBase(
     protected open var mInputCodeMask: String,
     protected open var mNeedReason: Boolean,
     protected open var mCancelable: Boolean,
+    protected open var mShowIcon: Boolean,
     protected open var mPositiveButton: ButtonAlertDialog?,
     protected open var mNegativeButton: ButtonAlertDialog?,
 ) : DialogAlertInterface {
@@ -87,9 +88,9 @@ abstract class VerificationCodeComponentBase(
         try {
             with(binding) {
                 // Set header layout
-                layoutContentHeaderCodeAlertDialog.isVisible = title != null || icon != null
+                layoutContentHeaderCodeAlertDialog.isVisible = title != null
                 // Set icon
-                icon.toImageView(imageViewIconCodeAlertDialog, tintColor)
+                icon.toImageView(imageViewIconCodeAlertDialog, mShowIcon, tintColor)
                 // Set title
                 title.toTitleView(textViewTitleDialogCodeAlert)
                 // Set Message
@@ -387,7 +388,7 @@ abstract class VerificationCodeComponentBase(
     abstract class Builder<D : VerificationCodeComponentBase>(protected open val context: Context) :
         AlertBuilder() {
 
-        protected open var icon: IconAlert? = null
+        protected open var icon: IconAlert = IconAlert(context.applicationInfo.icon)
         protected open var tintColor: IconTintAlert? = null
         protected open var title: TitleAlert? = null
         protected open var message: MessageAlert<*>? = null
@@ -396,6 +397,7 @@ abstract class VerificationCodeComponentBase(
         protected open var countDownTimer: ButtonCountDownTimer? = null
         protected open var isNeedReason: Boolean = true
         protected open var isCancelable: Boolean = false
+        protected open var isShowIcon: Boolean = true
         protected open var isShowInputCode: Boolean = true
         protected open var isShowMessageCode: Boolean = true
         protected open var gravity: Int? = null
@@ -942,6 +944,18 @@ abstract class VerificationCodeComponentBase(
          */
         fun setInputCodeMask(inputCodeMask: String): Builder<D> {
             this.inputCodeMask = inputCodeMask
+            return this
+        }
+
+        /**
+         * Sets whether the dialog icon should be displayed.
+         *
+         *
+         * @param isShow `true` to show the icon, `false` to hide it.
+         * @return This [Builder] instance for chaining.
+         */
+        fun setShowIcon(isShow: Boolean): Builder<D> {
+            this.isShowIcon = isShow
             return this
         }
 
