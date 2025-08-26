@@ -24,8 +24,8 @@ import com.github.leodan11.alertdialog.R
 import com.github.leodan11.alertdialog.databinding.MAlertDialogInputBinding
 import com.github.leodan11.alertdialog.dist.base.AlertBuilder
 import com.github.leodan11.alertdialog.io.content.Alert
-import com.github.leodan11.alertdialog.io.content.DialogAlertInterface
 import com.github.leodan11.alertdialog.io.content.Config.MATERIAL_ALERT_DIALOG_UI_NOT_ICON
+import com.github.leodan11.alertdialog.io.content.DialogAlertInterface
 import com.github.leodan11.alertdialog.io.helpers.toButtonView
 import com.github.leodan11.alertdialog.io.helpers.toImageView
 import com.github.leodan11.alertdialog.io.helpers.toInputSampleView
@@ -40,11 +40,11 @@ import com.github.leodan11.alertdialog.io.models.IconInputDialog
 import com.github.leodan11.alertdialog.io.models.IconTintAlert
 import com.github.leodan11.alertdialog.io.models.MessageAlert
 import com.github.leodan11.alertdialog.io.models.TitleAlert
+import com.github.leodan11.customview.textfield.content.MaskedWatcher
+import com.github.leodan11.customview.textfield.model.MaskedFormatter
 import com.github.leodan11.k_extensions.color.colorPrimary
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.textfield.TextInputLayout
-import com.vicmikhailau.maskededittext.MaskedFormatter
-import com.vicmikhailau.maskededittext.MaskedWatcher
 
 abstract class InputComponentBase(
     protected open var mContext: Context,
@@ -296,7 +296,7 @@ abstract class InputComponentBase(
         protected open var startIcon: IconInputDialog? = null
         protected open var endIcon: IconInputDialog? = null
         protected open var inputTextHide: String =
-            context.getString(R.string.label_text_enter_a_value_below)
+            context.getString(R.string.label_text_enter_a_value)
         protected open var inputTextHelper: String? = null
         protected open var inputTextError: String? = null
         protected open var inputTextDefault: String? = null

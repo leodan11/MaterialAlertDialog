@@ -1,14 +1,15 @@
 [versions]
+agp = "8.12.1"
 appcompat = "1.7.1"
 constraintlayout = "2.2.1"
 coreKtx = "1.16.0"
-customView = "4.3.14"
-espressoCore = "3.6.1"
-kExtensions = "2.1.2"
+customView = "5.0.0.1"
+espressoCore = "3.7.0"
+kExtensions = "2.1.7"
 junit = "4.13.2"
-junitVersion = "1.2.1"
+junitVersion = "1.3.0"
+kotlin = "2.1.10"
 lottie = "6.6.7"
-maskededittext = "5.0.3"
 material = "1.12.0"
 
 [libraries]
@@ -19,6 +20,7 @@ androidx-espresso-core = { module = "androidx.test.espresso:espresso-core", vers
 androidx-junit = { module = "androidx.test.ext:junit", version.ref = "junitVersion" }
 custom-view-core = { module = "com.github.leodan11.custom-view:core", version.ref = "customView" }
 custom-view-layout = { module = "com.github.leodan11.custom-view:layout", version.ref = "customView" }
+custom-view-textfield = { module = "com.github.leodan11.custom-view:textfield", version.ref = "customView" }
 custom-view-widget = { module = "com.github.leodan11.custom-view:widget", version.ref = "customView" }
 junit = { module = "junit:junit", version.ref = "junit" }
 k-extensions-color = { module = "com.github.leodan11.KExtensions:color", version.ref = "kExtensions" }
@@ -27,5 +29,9 @@ k-extensions-core = { module = "com.github.leodan11.KExtensions:core", version.r
 k-extensions-number = { module = "com.github.leodan11.KExtensions:number", version.ref = "kExtensions" }
 k-extensions-views = { module = "com.github.leodan11.KExtensions:views", version.ref = "kExtensions" }
 lottie = { module = "com.airbnb.android:lottie", version.ref = "lottie" }
-maskededittext = { module = "io.github.vicmikhailau:MaskedEditText", version.ref = "maskededittext" }
 material = { module = "com.google.android.material:material", version.ref = "material" }
+
+[plugins]
+android-application = { id = "com.android.application", version.ref = "agp" }
+android-library = { id = "com.android.library", version.ref = "agp" }
+kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }

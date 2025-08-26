@@ -1,7 +1,6 @@
 plugins {
-    id 'com.android.library'
-    id 'org.jetbrains.kotlin.android'
-    id 'org.jetbrains.kotlin.kapt'
+    alias(libs.plugins.android.library)
+    alias(libs.plugins.kotlin.android)
     id 'maven-publish'
 }
 
@@ -38,6 +37,7 @@ android {
     }
     buildFeatures {
         buildConfig = true
+        //noinspection DataBindingWithoutKapt
         dataBinding = true
         viewBinding = true
     }
@@ -55,13 +55,13 @@ dependencies {
     implementation libs.lottie // Lottie for Android
     implementation libs.custom.view.core // Custom View
     implementation libs.custom.view.layout
+    implementation libs.custom.view.textfield
     implementation libs.custom.view.widget
     implementation libs.k.extensions.core // KTX Extension
     implementation libs.k.extensions.color
     implementation libs.k.extensions.context
     implementation libs.k.extensions.number
     implementation libs.k.extensions.views
-    implementation libs.maskededittext // MaskedEditText
 
     testImplementation libs.junit
     androidTestImplementation libs.androidx.junit

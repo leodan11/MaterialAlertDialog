@@ -41,8 +41,8 @@
     <public name="label_text_got_it" type="string" />
     <public name="label_text_charging" type="string" />
     <public name="label_text_charging_please" type="string" />
-    <public name="label_text_enter_a_value_below" type="string" />
-    <public name="label_text_enter_the_code_below" type="string" />
+    <public name="label_text_enter_a_value" type="string" />
+    <public name="label_text_enter_the_code" type="string" />
     <public name="label_text_this_field_is_required" type="string" />
     <public name="label_text_reason_hint" type="string" />
     <public name="label_text_reason_helper" type="string" />
@@ -91,6 +91,7 @@
     <public name="dialog_image_view_notification_icon_width_large" type="dimen" />
     <public name="text_title_size" type="dimen" />
     <public name="text_message_size" type="dimen" />
+    <public name="text_message_code_size" type="dimen" />
     <public name="color_view_height" type="dimen" />
     <public name="color_view_width" type="dimen" />
     <public name="chroma_dialog_width" type="dimen" />

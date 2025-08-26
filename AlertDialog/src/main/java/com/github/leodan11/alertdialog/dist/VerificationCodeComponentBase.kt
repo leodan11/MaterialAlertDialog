@@ -53,10 +53,12 @@ abstract class VerificationCodeComponentBase(
     protected open var tintColor: IconTintAlert?,
     protected open var title: TitleAlert?,
     protected open var message: MessageAlert<*>?,
+    protected open var messageXcode: MessageAlert<*>,
     protected open var boxCornerRadius: BoxCornerRadiusTextField?,
     protected open var countDownTimer: ButtonCountDownTimer?,
     protected open var mInputsContentValue: List<InputCodeExtra>,
     protected open var mShowInputCode: Boolean,
+    protected open var mShowMessageCode: Boolean,
     protected open var mInputCodeLength: Int,
     protected open var mInputCodeMask: String,
     protected open var mNeedReason: Boolean,
@@ -92,6 +94,10 @@ abstract class VerificationCodeComponentBase(
                 title.toTitleView(textViewTitleDialogCodeAlert)
                 // Set Message
                 message.toMessageView(textViewMessageDialogCodeAlert)
+                // Set Message Code
+                textViewTitleCodeDialogCodeAlert.apply {
+                    messageXcode.toMessageView(this, mShowMessageCode)
+                }
                 // Set Input Code
                 otpTextView.apply {
                     setPinCount(mInputCodeLength)
@@ -385,11 +391,13 @@ abstract class VerificationCodeComponentBase(
         protected open var tintColor: IconTintAlert? = null
         protected open var title: TitleAlert? = null
         protected open var message: MessageAlert<*>? = null
+        protected open var messageXcode: MessageAlert<*> = MessageAlert.text(context.getString(R.string.label_text_enter_the_code), Alert.TextAlignment.CENTER)
         protected open var boxCornerRadius: BoxCornerRadiusTextField? = null
         protected open var countDownTimer: ButtonCountDownTimer? = null
         protected open var isNeedReason: Boolean = true
         protected open var isCancelable: Boolean = false
         protected open var isShowInputCode: Boolean = true
+        protected open var isShowMessageCode: Boolean = true
         protected open var gravity: Int? = null
         protected open var inputCodeLength: Int = 4
         protected open var inputCodeMask: String = DEFAULT_MASKED
@@ -642,6 +650,94 @@ abstract class VerificationCodeComponentBase(
         }
 
         /**
+         * Sets the message to be displayed in the title, before the OTP code.
+         *
+         * @param message The message to display in the dialog.
+         *
+         * @return [Builder] object to allow for chaining of calls to set methods
+         *
+         */
+        fun setMessageOTP(message: String): Builder<D> {
+            return setMessageOTP(message, Alert.TextAlignment.CENTER)
+        }
+
+
+        /**
+         * Sets the message to be displayed in the title, before the OTP code.
+         *
+         * @param message The message to display in the dialog.
+         *
+         * @return [Builder] object to allow for chaining of calls to set methods
+         *
+         */
+        fun setMessageOTP(@StringRes message: Int): Builder<D> {
+            return setMessageOTP(message, Alert.TextAlignment.CENTER)
+        }
+
+
+        /**
+         * Sets the message to be displayed in the title, before the OTP code. With text alignment.
+         *
+         * @see [Alert.TextAlignment]
+         *
+         * @param message The message to display in the dialog.
+         * @param alignment The message alignment.
+         *
+         * @return [Builder] object to allow for chaining of calls to set methods
+         *
+         */
+        fun setMessageOTP(message: String, alignment: Alert.TextAlignment): Builder<D> {
+            this.messageXcode = MessageAlert.text(message, alignment)
+            return this
+        }
+
+
+        /**
+         * Sets the message to be displayed in the title, before the OTP code. With text alignment.
+         *
+         * @see [Alert.TextAlignment]
+         *
+         * @param message The message to display in the dialog.
+         * @param alignment The message alignment.
+         *
+         * @return [Builder] object to allow for chaining of calls to set methods
+         *
+         */
+        fun setMessageOTP(@StringRes message: Int, alignment: Alert.TextAlignment): Builder<D> {
+            this.messageXcode = MessageAlert.text(context.getString(message), alignment)
+            return this
+        }
+
+
+        /**
+         * Sets the message to be displayed in the title, before the OTP code.
+         *
+         * @param message The message to display in the dialog.
+         *
+         * @return [Builder] object to allow for chaining of calls to set methods
+         *
+         */
+        fun setMessageOTP(message: Spanned): Builder<D> {
+            return setMessageOTP(message, Alert.TextAlignment.CENTER)
+        }
+
+
+        /**
+         * Sets the message to be displayed in the title, before the OTP code. With text alignment.
+         *
+         * @see [Alert.TextAlignment]
+         *
+         * @param message The message to display in the dialog.
+         * @param alignment The message alignment.
+         *
+         * @return [Builder] object to allow for chaining of calls to set methods
+         */
+        fun setMessageOTP(message: Spanned, alignment: Alert.TextAlignment): Builder<D> {
+            this.messageXcode = MessageAlert.spanned(text = message, alignment = alignment)
+            return this
+        }
+
+        /**
          * Set input first to be displayed.
          *
          * @param inputStream Use class [InputCodeExtra].
@@ -801,6 +897,17 @@ abstract class VerificationCodeComponentBase(
          */
         fun setInputCodeTextVisible(isVisible: Boolean): Builder<D> {
             this.isShowInputCode = isVisible
+            return this
+        }
+
+        /**
+         * Sets whether the OTP code message is visible or not.
+         *
+         * @param isVisible is [Boolean] value. Default is `true`.
+         * @return [Builder] object to allow for chaining of calls to set methods
+         */
+        fun setMessageOTPVisible(isVisible: Boolean): Builder<D> {
+            this.isShowMessageCode = isVisible
             return this
         }
 

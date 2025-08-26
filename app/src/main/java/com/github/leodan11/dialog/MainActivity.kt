@@ -109,6 +109,7 @@ class MainActivity : AppCompatActivity() {
                     .setInputCodeLength(2)
                     .setMessage("What is Lorem Ipsum?")
                     .setCancelable(false)
+                    .setMessageOTP("Enter code below")
                     .setCountDownTimer(DialogAlertInterface.UI.BUTTON_POSITIVE, 2000)
                     .setPositiveButton { dialog, code, reason, firstInput, secondInput ->
                         Toast.makeText(

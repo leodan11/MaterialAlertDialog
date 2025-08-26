@@ -4,36 +4,39 @@
     <string name="label_value_screenplay" translatable="false">-</string>
 
     <string name="label_text_username">Username</string>
-    <string name="label_text_username_helper">Username provided (<b>e.g., joe$Doe</b>)</string>
-    <string name="label_text_username_helper_with_args">Username provided by %1$s (<b>e.g., doe$Joe</b>)</string>
-    <string name="label_text_username_error">Enter a username</string>
+    <string name="label_text_username_helper">Your username (e.g., <b>joe$Doe</b>)</string>
+    <string name="label_text_username_helper_with_args">%1$s provided your username (e.g., <b>doe$Joe</b>)</string>
+    <string name="label_text_username_error">Please enter a username</string>
+
     <string name="label_text_password">Password</string>
-    <string name="label_text_password_helper">Six or more characters, with at least one lowercase and one uppercase letter</string>
-    <string name="label_text_password_error">Enter a password</string>
+    <string name="label_text_password_helper">At least six characters, with one lowercase and one uppercase letter</string>
+    <string name="label_text_password_error">Please enter a password</string>
+
     <string name="label_text_login">Login</string>
-    <string name="label_text_login_in">Login In</string>
+    <string name="label_text_login_in">Log In</string>
     <string name="label_text_sign_in_value">Sign in to %1$s</string>
 
     <string name="label_text_error">Error</string>
-    <string name="label_text_unknown_error">Unknown error occurred</string>
-    <string name="label_text_details_are_specified_below">Details are specified below</string>
-    <string name="label_text_additional_details">Additional details</string>
+    <string name="label_text_unknown_error">An unknown error occurred</string>
+    <string name="label_text_details_are_specified_below">See details below</string>
+    <string name="label_text_additional_details">More details</string>
     <string name="label_text_help">Help</string>
     <string name="label_text_information">Information</string>
     <string name="label_text_success">Success</string>
     <string name="label_text_warning">Warning</string>
 
     <string name="label_text_yes">Yes</string>
-    <string name="label_text_not">Not</string>
+    <string name="label_text_not">No</string>
     <string name="label_text_cancel">Cancel</string>
     <string name="label_text_accept">Accept</string>
     <string name="label_text_close">Close</string>
     <string name="label_text_later">Later</string>
     <string name="label_text_decline">Decline</string>
     <string name="label_text_discard">Discard</string>
-    <string name="label_text_got_it">Got It</string>
+    <string name="label_text_got_it">Got it</string>
+
     <string name="label_text_charging">Charging…</string>
-    <string name="label_text_charging_please">Charging. Please wait…</string>
+    <string name="label_text_charging_please">Charging, please wait…</string>
 
     <string name="channel_alpha" translatable="false">A</string>
     <string name="channel_red" translatable="false">R</string>
@@ -44,24 +47,25 @@
     <string name="channel_saturation" translatable="false">S</string>
     <string name="channel_value" translatable="false">V</string>
 
-    <string name="label_text_enter_a_value_below">Enter a value below</string>
-    <string name="label_text_enter_the_code_below">Enter the code below</string>
-    <string name="label_text_this_field_is_required">The field is required</string>
-    <string name="label_text_reason_hint">Share additional details</string>
-    <string name="label_text_reason_helper">Specify the reasons why this action is performed</string>
-    <string name="label_text_reason_error">You cannot leave this field empty</string>
-    <string name="label_text_code_error">You must enter or complete the code</string>
+    <string name="label_text_enter_the_code">Enter the code</string>
+    <string name="label_text_enter_a_value">Enter a value</string>
+    <string name="label_text_this_field_is_required">This field is required</string>
+
+    <string name="label_text_reason_hint">Add more context (optional)</string>
+    <string name="label_text_reason_helper">Explain why this action is being taken</string>
+    <string name="label_text_reason_error">This field cannot be empty</string>
+    <string name="label_text_code_error">Please enter or complete the code</string>
     <string name="label_text_unknown_input_type">Unknown input type</string>
 
-    <string name="label_text_rationale_ask">❖ This app may not work correctly without the requested permissions.</string>
-    <string name="label_text_rationale_ask_again">❖ This app may not work correctly without the requested permissions.\n❖ Open the app settings screen to modify app permissions.</string>
-    <string name="label_text_title_settings_dialog">Permissions Required</string>
+    <string name="label_text_rationale_ask">❖ The app may not work correctly without the requested permissions.</string>
+    <string name="label_text_rationale_ask_again">❖ The app may not work correctly without the requested permissions.\n❖ Open the app settings to adjust permissions.</string>
+    <string name="label_text_title_settings_dialog">Permissions Needed</string>
 
-    <string name="label_text_error_otp">Code is null</string>
+    <string name="label_text_error_otp">Code is missing</string>
     <string name="label_text_otp_incomplete">Code is incomplete</string>
 
-    <string name="button_positive_speakable_text_value">Positive choice of dialogue</string>
-    <string name="button_neutral_speakable_text_value">Dialogue neutral option</string>
-    <string name="button_negative_speakable_text_value">Negative option of the dialogue</string>
+    <string name="button_positive_speakable_text_value">Confirm</string>
+    <string name="button_neutral_speakable_text_value">Later</string>
+    <string name="button_negative_speakable_text_value">Cancel</string>
 
 </resources>

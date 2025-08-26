@@ -13,7 +13,7 @@
         android:gravity="bottom"
         android:layoutDirection="locale"
         android:orientation="horizontal"
-        android:padding="@dimen/dimen_14">
+        android:padding="@dimen/dimen_12">
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/buttonActionNegativeAlertDialog"

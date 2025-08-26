@@ -59,12 +59,11 @@
         app:boxCornerRadiusTopEnd="@dimen/dimen_10"
         app:boxCornerRadiusTopStart="@dimen/dimen_10">
 
-        <com.vicmikhailau.maskededittext.MaskedEditText
+        <com.github.leodan11.customview.textfield.InputMaskedEditText
             android:id="@+id/text_input_edit_text_alert"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:imeOptions="actionDone"
-            tools:ignore="VisualLintTextFieldSize,SpeakableTextPresentCheck,TouchTargetSizeCheck" />
+            android:imeOptions="actionDone" />
 
     </com.google.android.material.textfield.TextInputLayout>
 

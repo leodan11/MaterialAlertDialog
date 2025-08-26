@@ -1,48 +1,60 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="label_text_error">Error</string>
-    <string name="label_text_unknown_error">Se produjo un error desconocido</string>
-    <string name="label_text_details_are_specified_below">Los detalles se especifican a continuación</string>
-    <string name="label_text_additional_details">Detalles adicionales</string>
+    <string name="label_text_unknown_error">Ocurrió un error desconocido</string>
+    <string name="label_text_details_are_specified_below">Consulta los detalles a continuación</string>
+    <string name="label_text_additional_details">Más detalles</string>
     <string name="label_text_help">Ayuda</string>
     <string name="label_text_information">Información</string>
     <string name="label_text_success">Éxito</string>
     <string name="label_text_warning">Advertencia</string>
-    <string name="label_text_yes">Si</string>
+
+    <string name="label_text_yes">Sí</string>
     <string name="label_text_not">No</string>
     <string name="label_text_cancel">Cancelar</string>
     <string name="label_text_accept">Aceptar</string>
-    <string name="label_text_later">Luego</string>
+    <string name="label_text_close">Cerrar</string>
+    <string name="label_text_later">Más tarde</string>
     <string name="label_text_decline">Rechazar</string>
-    <string name="label_text_discard">Desechar</string>
+    <string name="label_text_discard">Descartar</string>
     <string name="label_text_got_it">Entendido</string>
+
     <string name="label_text_charging">Cargando…</string>
-    <string name="label_text_charging_please">Cargando. Espere por favor…</string>
+    <string name="label_text_charging_please">Cargando, por favor espera…</string>
+
     <string name="label_text_otp_incomplete">El código está incompleto</string>
-    <string name="button_positive_speakable_text_value">Opción positiva del diálogo</string>
-    <string name="button_neutral_speakable_text_value">Opción neutral del diálogo</string>
-    <string name="button_negative_speakable_text_value">Opción negativa del diálogo</string>
-    <string name="label_text_enter_the_code_below">Ingrese el código a continuación</string>
-    <string name="label_text_reason_helper">Especifique los motivos por los que se realiza esta acción</string>
-    <string name="label_text_reason_hint">Comparte detalles adicionales</string>
-    <string name="label_text_this_field_is_required">El campo es obligatorio</string>
+    <string name="label_text_error_otp">El código no está disponible</string>
+
+    <string name="button_positive_speakable_text_value">Confirmar</string>
+    <string name="button_neutral_speakable_text_value">Después</string>
+    <string name="button_negative_speakable_text_value">Cancelar</string>
+
+    <string name="label_text_enter_the_code">Ingresa el código</string>
+    <string name="label_text_enter_a_value">Ingresa un valor</string>
+
+    <string name="label_text_reason_helper">Explica por qué estás realizando esta acción</string>
+    <string name="label_text_reason_hint">Agrega detalles adicionales</string>
+    <string name="label_text_reason_error">Este campo no puede quedar vacío</string>
+
+    <string name="label_text_this_field_is_required">Este campo es obligatorio</string>
+
     <string name="label_text_username">Nombre de usuario</string>
+    <string name="label_text_username_error">Ingresa un nombre de usuario</string>
+    <string name="label_text_username_helper">Nombre de usuario (por ejemplo: <b>joe$Doe</b>)</string>
+    <string name="label_text_username_helper_with_args">Nombre de usuario proporcionado por %1$s (por ejemplo: <b>doe$Joe</b>)</string>
+
     <string name="label_text_password">Contraseña</string>
-    <string name="label_text_login">Inicio de sesión</string>
+    <string name="label_text_password_error">Ingresa una contraseña</string>
+    <string name="label_text_password_helper">Al menos seis caracteres, con una letra minúscula y una mayúscula</string>
+
+    <string name="label_text_login">Iniciar sesión</string>
     <string name="label_text_login_in">Acceder</string>
     <string name="label_text_sign_in_value">Iniciar sesión en %1$s</string>
-    <string name="label_text_username_error">Introduzca un nombre de usuario</string>
-    <string name="label_text_password_error">Ingrese una contraseña</string>
-    <string name="label_text_username_helper">Nombre de usuario proporcionado (<b>por ejemplo, joe$Doe</b>)</string>
-    <string name="label_text_username_helper_with_args">Nombre de usuario proporcionado por %1$s (<b>por ejemplo, doe$Joe</b>)</string>
-    <string name="label_text_password_helper">Seis o más caracteres, con al menos una letra minúscula y una mayúscula</string>
-    <string name="label_text_reason_error">No puede dejar este campo vacío</string>
+
     <string name="label_text_code_error">Debes ingresar o completar el código</string>
     <string name="label_text_unknown_input_type">Tipo de entrada desconocido</string>
-    <string name="label_text_close">Cerrar</string>
-    <string name="label_text_enter_a_value_below">Ingrese un valor a continuación</string>
-    <string name="label_text_rationale_ask">❖ Es posible que esta aplicación no funcione correctamente sin los permisos solicitados.</string>
-    <string name="label_text_rationale_ask_again">❖ Es posible que esta aplicación no funcione correctamente sin los permisos solicitados.\n❖ Abra la pantalla de configuración de la aplicación para modificar los permisos de la aplicación.</string>
-    <string name="label_text_title_settings_dialog">Permisos requeridos</string>
-    <string name="label_text_error_otp">El código es nulo</string>
+
+    <string name="label_text_rationale_ask">❖ La aplicación puede no funcionar correctamente sin los permisos solicitados.</string>
+    <string name="label_text_rationale_ask_again">❖ La aplicación puede no funcionar correctamente sin los permisos solicitados.\n❖ Abre la configuración de la aplicación para modificar los permisos.</string>
+    <string name="label_text_title_settings_dialog">Permisos necesarios</string>
 </resources>

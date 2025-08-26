@@ -44,13 +44,12 @@
         style="@style/Theme.MaterialDialog.Title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="start"
         android:paddingLeft="0dp"
         android:paddingEnd="0dp"
-        android:text="@string/label_text_enter_the_code_below"
-        android:textAlignment="textStart" />
+        android:textSize="@dimen/text_message_code_size"
+        tools:text="@string/label_text_enter_the_code" />
 
-    <com.github.leodan11.customview.widget.pin.PinView
+    <com.github.leodan11.customview.widget.PinView
         android:id="@+id/otpTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -138,29 +137,36 @@
 
     </LinearLayout>
 
-    <androidx.coordinatorlayout.widget.CoordinatorLayout
+    <com.github.leodan11.customview.layout.ButtonBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/margin_spacing_min">
+        android:gravity="bottom"
+        android:layoutDirection="locale"
+        android:orientation="horizontal"
+        android:paddingTop="@dimen/dimen_10"
+        android:paddingBottom="@dimen/dimen_4">
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/button_action_negative_alert_dialog_code"
             style="?attr/buttonBarNegativeButtonStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="start|center"
             android:contentDescription="@string/button_negative_speakable_text_value"
             android:fontFamily="@font/montserrat_semi_bold" />
+
+        <Space
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/button_action_positive_alert_dialog_code"
             style="?attr/buttonBarPositiveButtonStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="end|center"
             android:contentDescription="@string/button_positive_speakable_text_value"
             android:fontFamily="@font/montserrat_semi_bold" />
 
-    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+    </com.github.leodan11.customview.layout.ButtonBarLayout>
 
 </LinearLayout>

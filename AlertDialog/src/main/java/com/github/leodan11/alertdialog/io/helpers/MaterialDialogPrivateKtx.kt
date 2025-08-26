@@ -37,7 +37,7 @@ import com.github.leodan11.alertdialog.io.models.InputCodeExtra
 import com.github.leodan11.alertdialog.io.models.MessageAlert
 import com.github.leodan11.alertdialog.io.models.TitleAlert
 import com.github.leodan11.customview.core.ReadMoreOption
-import com.github.leodan11.customview.widget.pin.PinView
+import com.github.leodan11.customview.widget.PinView
 import com.github.leodan11.k_extensions.color.colorOnSurface
 import com.github.leodan11.k_extensions.color.colorPrimary
 import com.github.leodan11.k_extensions.color.colorSurface
@@ -410,6 +410,15 @@ internal fun TextInputLayout.setColorList(color: Int) {
 internal fun MessageAlert<*>?.toMessageView(view: TextView) {
     view.isVisible = this != null
     this?.let {
+        view.text = it.getText()
+        view.setTextColor(view.context.colorOnSurface())
+        view.toAlignmentTextView(it.textAlignment)
+    }
+}
+
+internal fun MessageAlert<*>.toMessageView(view: TextView, isVisible: Boolean) {
+    view.isVisible = isVisible
+    this.let {
         view.text = it.getText()
         view.setTextColor(view.context.colorOnSurface())
         view.toAlignmentTextView(it.textAlignment)
