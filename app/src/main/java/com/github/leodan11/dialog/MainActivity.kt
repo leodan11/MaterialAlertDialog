@@ -41,7 +41,9 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        with(binding) {
+        setSupportActionBar(binding.toolbar)
+
+        with(binding.included) {
 
             buttonActionAbout.setOnClickListener {
                 AboutAlertDialog.Builder(this@MainActivity)

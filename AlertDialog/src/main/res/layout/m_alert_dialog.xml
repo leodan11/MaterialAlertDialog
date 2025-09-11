@@ -1,16 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical">
+    android:layout_height="wrap_content">
 
     <LinearLayout
         android:id="@+id/llTop"
-        android:layout_width="match_parent"
+        android:layout_width="@dimen/dimen_0"
         android:layout_height="@dimen/dialog_image_view_notification_icon_height_medium"
         android:gravity="center"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/imageViewIconAlertDialog"
@@ -23,31 +26,40 @@
 
     <LinearLayout
         android:id="@+id/topLayout"
-        android:layout_width="match_parent"
+        android:layout_width="@dimen/dimen_0"
         android:layout_height="@dimen/margin_spacing"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/llTop">
 
     </LinearLayout>
 
     <TextView
         android:id="@+id/textViewTitleAlertDialog"
         style="@style/Theme.MaterialDialog.Title"
-        android:layout_width="match_parent"
+        android:layout_width="@dimen/dimen_0"
         android:layout_height="wrap_content"
         android:layout_marginStart="?attr/dialogPreferredPadding"
-        android:layout_marginEnd="?attr/dialogPreferredPadding" />
+        android:layout_marginEnd="?attr/dialogPreferredPadding"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/topLayout" />
 
     <TextView
         android:id="@+id/textViewMessageAlertDialog"
         style="@style/Theme.MaterialDialog.Message"
-        android:layout_width="match_parent"
+        android:layout_width="@dimen/dimen_0"
         android:layout_height="wrap_content"
         android:layout_marginStart="?attr/dialogPreferredPadding"
-        android:layout_marginEnd="?attr/dialogPreferredPadding" />
+        android:layout_marginEnd="?attr/dialogPreferredPadding"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textViewTitleAlertDialog" />
 
     <androidx.core.widget.NestedScrollView
         android:id="@+id/nestedScrollViewContainerDetails"
-        android:layout_width="match_parent"
+        android:layout_width="@dimen/dimen_0"
         android:layout_height="wrap_content"
         android:layout_marginStart="?attr/dialogPreferredPadding"
         android:layout_marginTop="@dimen/paddingTop"
@@ -56,6 +68,9 @@
         android:contentDescription="@string/label_text_information"
         android:scrollbars="none"
         android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textViewMessageAlertDialog"
         tools:visibility="visible">
 
         <TextView
@@ -68,8 +83,12 @@
     </androidx.core.widget.NestedScrollView>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_width="@dimen/dimen_0"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/nestedScrollViewContainerDetails">
 
         <include
             android:id="@+id/events_actions"
@@ -79,4 +98,4 @@
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

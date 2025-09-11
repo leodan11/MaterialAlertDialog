@@ -1,6 +1,5 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
-
-    <style name="Theme.MaterialAlertDialog" parent="Theme.Material3.DayNight">
+    <style name="Theme.MaterialAlertDialog" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Transparent system bars for edge-to-edge. -->
         <item name="android:navigationBarColor">@android:color/transparent</item>
         <item name="android:statusBarColor">@android:color/transparent</item>

@@ -1,139 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
     tools:context=".MainActivity">
 
-    <LinearLayout
-        android:layout_width="wrap_content"
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_margin="@dimen/margin_spacing"
-        android:fitsSystemWindows="true"
-        android:gravity="center"
-        android:orientation="vertical">
+        android:fitsSystemWindows="true">
 
-        <Button
-            android:id="@+id/buttonActionAbout"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/radius_min"
-            android:text="Example Alert About!"
-            tools:ignore="HardcodedText" />
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize" />
 
-        <Button
-            android:id="@+id/buttonActionAlert"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/radius_min"
-            android:text="Example Alert Dialog Centered!"
-            tools:ignore="HardcodedText" />
+    </com.google.android.material.appbar.AppBarLayout>
 
-        <Button
-            android:id="@+id/buttonActionAlertIOS"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/radius_min"
-            android:text="Example Alert Dialog IOS!"
-            tools:ignore="HardcodedText" />
+    <include
+        android:id="@+id/included"
+        layout="@layout/content_main" />
 
-        <Button
-            android:id="@+id/buttonActionAlertPlus"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/radius_min"
-            android:text="Example Alert Dialog !!"
-            tools:ignore="HardcodedText" />
-
-        <Button
-            android:id="@+id/buttonActionLogin"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/radius_min"
-            android:text="Example Login Dialog!"
-            tools:ignore="HardcodedText" />
-
-        <Button
-            android:id="@+id/buttonActionCode"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/radius_min"
-            android:text="Example Code Dialog!"
-            tools:ignore="HardcodedText" />
-
-        <Button
-            android:id="@+id/buttonActionProgress"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/radius_min"
-            android:text="Example Progress VectorDialog!"
-            tools:ignore="HardcodedText" />
-
-        <Button
-            android:id="@+id/buttonActionProgressIOS"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/radius_min"
-            android:text="Example Progress Dialog IOS!"
-            tools:ignore="HardcodedText" />
-
-        <Button
-            android:id="@+id/buttonActionProgresLottie"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/radius_min"
-            android:text="Example Progress Dialog Lottie!"
-            tools:ignore="HardcodedText" />
-
-        <Button
-            android:id="@+id/buttonActionProgressSmall"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/radius_min"
-            android:text="Example Progress Dialog Small!"
-            tools:ignore="HardcodedText" />
-
-        <Button
-            android:id="@+id/buttonActionCircularProgress"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/radius_min"
-            android:text="Example Progress Dialog!"
-            tools:ignore="HardcodedText" />
-
-        <Button
-            android:id="@+id/buttonActionInput"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/radius_min"
-            android:text="Example Simple Input Dialog!"
-            tools:ignore="HardcodedText" />
-
-        <Button
-            android:id="@+id/buttonActionFragment"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/radius_min"
-            android:text="Example Simple Fragment Dialog!"
-            tools:ignore="HardcodedText" />
-
-        <Button
-            android:id="@+id/buttonActionSettings"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/radius_min"
-            android:text="Example Simple Settings Dialog!"
-            tools:ignore="HardcodedText" />
-
-        <Button
-            android:id="@+id/buttonActionChroma"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/radius_min"
-            android:text="Example Simple Chroma Dialog!"
-            tools:ignore="HardcodedText" />
-
-    </LinearLayout>
-
-</androidx.core.widget.NestedScrollView>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

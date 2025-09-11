@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -8,12 +8,15 @@
 
     <RelativeLayout
         android:id="@+id/layout_content_header_input_alert_dialog"
-        android:layout_width="match_parent"
+        android:layout_width="@dimen/dimen_0"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/dimen_24"
         android:layout_marginTop="@dimen/dimen_24"
         android:layout_marginEnd="@dimen/dimen_24"
         android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         tools:visibility="visible">
 
         <com.google.android.material.imageview.ShapeableImageView
@@ -40,24 +43,29 @@
     <TextView
         android:id="@+id/text_view_message_dialog_input_alert"
         style="@style/Theme.MaterialDialog.Message"
-        android:layout_width="match_parent"
+        android:layout_width="@dimen/dimen_0"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/dimen_24"
         android:layout_marginTop="@dimen/dimen_24"
-        android:layout_marginEnd="@dimen/dimen_24" />
+        android:layout_marginEnd="@dimen/dimen_24"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/layout_content_header_input_alert_dialog" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/text_input_layout_alert"
-        android:layout_width="match_parent"
+        android:layout_width="@dimen/dimen_0"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/dimen_24"
         android:layout_marginTop="@dimen/dimen_18"
         android:layout_marginEnd="@dimen/dimen_24"
-        android:layout_marginBottom="@dimen/dimen_8"
         app:boxCornerRadiusBottomEnd="@dimen/dimen_10"
         app:boxCornerRadiusBottomStart="@dimen/dimen_10"
         app:boxCornerRadiusTopEnd="@dimen/dimen_10"
-        app:boxCornerRadiusTopStart="@dimen/dimen_10">
+        app:boxCornerRadiusTopStart="@dimen/dimen_10"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/text_view_message_dialog_input_alert">
 
         <com.github.leodan11.customview.textfield.InputMaskedEditText
             android:id="@+id/text_input_edit_text_alert"
@@ -68,8 +76,13 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_width="@dimen/dimen_0"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dimen_8"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/text_input_layout_alert">
 
         <include
             android:id="@+id/input_actions"
@@ -79,4 +92,4 @@
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
