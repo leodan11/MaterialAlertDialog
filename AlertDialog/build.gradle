@@ -6,11 +6,11 @@ plugins {
 
 android {
     namespace 'com.github.leodan11.alertdialog'
-    compileSdk 35
+    compileSdk 36
 
     defaultConfig {
         minSdk 23
-        targetSdk 35
+        targetSdk 36
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles "consumer-rules.pro"
@@ -76,7 +76,7 @@ afterEvaluate {
                 from components.release
                 groupId = 'com.github.leodan11'
                 artifactId = 'MaterialAlertDialog'
-                version = '1.14.8'
+                version = '1.14.10'
 
                 pom {
                     name = "MaterialAlertDialog"
