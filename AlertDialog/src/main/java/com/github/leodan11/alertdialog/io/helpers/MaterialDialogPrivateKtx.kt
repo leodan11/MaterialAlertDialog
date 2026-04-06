@@ -341,7 +341,7 @@ internal fun DetailsAlert<*>?.toDetailsView(
 }
 
 
-internal fun InputCodeExtra?.toInputEditText(context: Context, layout: TextInputLayout, editText: EditText) {
+internal fun InputCodeExtra?.toInputEditText(context: Context, layout: TextInputLayout, editText: EditText, requiredFocus: Boolean = true) {
     layout.isVisible = this != null
     this?.let {
         layout.hint = textHide
@@ -357,7 +357,7 @@ internal fun InputCodeExtra?.toInputEditText(context: Context, layout: TextInput
             editText.setText(textDefaultValue)
         }
         editText.isEnabled = enabled
-        editText.requestFocus()
+        if (requiredFocus) { editText.requestFocus() }
         editText.inputType = this.inputType
     }
 }

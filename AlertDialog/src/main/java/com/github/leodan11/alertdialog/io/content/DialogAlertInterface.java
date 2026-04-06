@@ -1,7 +1,6 @@
 package com.github.leodan11.alertdialog.io.content;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 
 public interface DialogAlertInterface {
 
@@ -16,7 +15,7 @@ public interface DialogAlertInterface {
     }
 
     interface OnClickVerificationCodeListener {
-        void onClick(@NonNull DialogAlertInterface dialog, @NonNull String code, @Nullable String reason, @Nullable String firstInput, @Nullable String secondInput);
+        void onClick(@NonNull DialogAlertInterface dialog, @NonNull String code, @NonNull String reason, @NonNull String firstInput, @NonNull String secondInput);
     }
 
     interface OnClickSignInListener {

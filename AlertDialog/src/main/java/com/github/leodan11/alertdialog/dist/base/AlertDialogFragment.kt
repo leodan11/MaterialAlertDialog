@@ -14,8 +14,8 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
+
 
 /**
  * Base [DialogFragment] class that handles view binding using Android Data Binding.
@@ -39,7 +39,7 @@ abstract class AlertDialogFragment<ViewBinding : ViewDataBinding> : DialogFragme
      *
      * This property is only valid between [onCreateView] and [onDestroyView].
      *
-     * @throws IllegalStateException if accessed outside of the valid lifecycle window.
+     * @throws IllegalStateException if accessed outside the valid lifecycle window.
      */
     val binding get() = _binding!!
 
@@ -58,7 +58,6 @@ abstract class AlertDialogFragment<ViewBinding : ViewDataBinding> : DialogFragme
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        initializeBinding()
         binding.lifecycleOwner = viewLifecycleOwner
         executeOnCreateView()
         return binding.root
@@ -71,8 +70,6 @@ abstract class AlertDialogFragment<ViewBinding : ViewDataBinding> : DialogFragme
     }
 
     /**
-     * Collects data from a Kotlin [Flow] scoped to the [viewLifecycleOwner]'s lifecycle.
-     *
      * This utility function launches a coroutine in the lifecycle scope of the fragment's view,
      * and repeats the collection when the lifecycle is at least at the specified [state].
      *
@@ -81,14 +78,14 @@ abstract class AlertDialogFragment<ViewBinding : ViewDataBinding> : DialogFragme
      *
      * @see Lifecycle
      * @see Lifecycle.State
-     * @see androidx.lifecycle.LifecycleOwner.lifecycleScope
-     * @see androidx.lifecycle.LifecycleOwner.repeatOnLifecycle
+     * @see lifecycleScope
+     * @see repeatOnLifecycle
      *
-     * @since 1.10.10
+     * @since 1.14.12
      */
-    protected fun collectDataFlow(
+    protected inline fun launchOnLifecycle(
         state: Lifecycle.State = Lifecycle.State.STARTED,
-        block: suspend CoroutineScope.() -> Unit
+        crossinline block: suspend CoroutineScope.() -> Unit
     ) {
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(state) {
@@ -119,14 +116,4 @@ abstract class AlertDialogFragment<ViewBinding : ViewDataBinding> : DialogFragme
      */
     protected open fun executeOnCreateView(): Unit = Unit
 
-    /**
-     * Initializes data inside the [binding] when inflating the XML layout.
-     *
-     * Override this method to set binding variables such as view models or handlers.
-     *
-     * Default implementation is a no-op.
-     *
-     * @since 1.14.10
-     */
-    protected open fun initializeBinding(): Unit = Unit
 }

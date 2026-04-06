@@ -110,6 +110,7 @@ abstract class VerificationCodeComponentBase(
                     ColorStateList.valueOf(mContext.colorPrimary())
                 // Set Inputs Layout
                 containerInputs.isVisible = mNeedReason || mInputsContentValue.isNotEmpty()
+                textInputLayoutCodeReason.isVisible = mNeedReason
                 textInputLayoutCodeReason.setColorList(mContext.colorPrimary())
                 setInputsInContent(binding)
                 // Set InputsLayout Box Corner Radius
@@ -134,24 +135,26 @@ abstract class VerificationCodeComponentBase(
                     setOnClickListener {
                         if (otpTextView.isValidOtp(mContext, mInputCodeLength)) {
                             val code = otpTextView.text.orEmpty()
-                            val reason = getReasonIfNeeded(
-                                textInputLayoutCodeReason,
-                                textInputEditTextCodeReason
-                            )
-                            val firstField = mInputsContentValue.getOrNull(0)?.let {
-                                getInputFirst(
-                                    textInputLayoutCodeDecimalNumber,
-                                    textInputEditTextCodeDecimalNumber
-                                )
+                            var reason = String()
+                            var firstField = String()
+                            var lastField = String()
+                            mInputsContentValue.getOrNull(0)?.let {
+                                if (!getIfNeeded(textInputLayoutCodeDecimalNumber, textInputEditTextCodeDecimalNumber)) {
+                                    return@setOnClickListener
+                                }
+                                firstField = textInputEditTextCodeDecimalNumber.text.toString()
                             }
-                            val lastField = mInputsContentValue.getOrNull(1)?.let {
-                                getInputLast(
-                                    textInputLayoutCodePercentage,
-                                    textInputEditTextCodePercentage
-                                )
+                            mInputsContentValue.getOrNull(1)?.let {
+                                if (!getIfNeeded(textInputLayoutCodePercentage, textInputEditTextCodePercentage)) {
+                                    return@setOnClickListener
+                                }
+                                lastField = textInputEditTextCodePercentage.text.toString()
                             }
-                            if (mNeedReason && reason.isNullOrEmpty()) {
-                                return@setOnClickListener
+                            if (mNeedReason) {
+                                if (!getIfNeeded(textInputLayoutCodeReason, textInputEditTextCodeReason)) {
+                                    return@setOnClickListener
+                                }
+                                reason = textInputEditTextCodeReason.text.toString()
                             }
                             mPositiveButton?.onClickVerificationCodeListener?.onClick(
                                 this@VerificationCodeComponentBase,
@@ -318,7 +321,8 @@ abstract class VerificationCodeComponentBase(
                             it.toInputEditText(
                                 mContext,
                                 textInputLayoutCodeDecimalNumber,
-                                textInputEditTextCodeDecimalNumber
+                                textInputEditTextCodeDecimalNumber,
+                                false
                             )
                             textInputLayoutCodeDecimalNumber.setColorList(mContext.colorPrimary())
                         }
@@ -327,7 +331,8 @@ abstract class VerificationCodeComponentBase(
                             it.toInputEditText(
                                 mContext,
                                 textInputLayoutCodePercentage,
-                                textInputEditTextCodePercentage
+                                textInputEditTextCodePercentage,
+                                false
                             )
                             textInputLayoutCodePercentage.setColorList(mContext.colorPrimary())
                         }
@@ -345,39 +350,8 @@ abstract class VerificationCodeComponentBase(
     }
 
 
-    private fun getReasonIfNeeded(layout: TextInputLayout, editText: TextInputEditText): String? {
-        return if (mNeedReason) {
-            if (mContext.validateTextField(layout, editText, R.string.label_text_reason_error)) {
-                editText.text.toString()
-            } else null
-        } else null
-    }
-
-    private fun getInputFirst(layout: TextInputLayout, editText: TextInputEditText): String? {
-        return getInputValue(
-            mInputsContentValue.first(),
-            layout,
-            editText
-        )
-    }
-
-    private fun getInputLast(layout: TextInputLayout, editText: TextInputEditText): String? {
-        return getInputValue(
-            mInputsContentValue.last(),
-            layout,
-            editText
-        )
-    }
-
-    private fun getInputValue(
-        inputFilter: InputCodeExtra,
-        layout: TextInputLayout,
-        editText: TextInputEditText
-    ): String? {
-        val error = inputFilter.textError ?: mContext.getString(inputFilter.textErrorRes)
-        return if (mContext.validateTextField(layout, editText, error)) {
-            editText.text.toString()
-        } else null
+    private fun getIfNeeded(layout: TextInputLayout, editText: TextInputEditText): Boolean {
+        return mContext.validateTextField(layout, editText, R.string.label_text_reason_error)
     }
 
     /**

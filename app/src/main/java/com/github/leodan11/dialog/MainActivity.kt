@@ -10,13 +10,13 @@ import com.github.leodan11.alertdialog.AboutAlertDialog
 import com.github.leodan11.alertdialog.IOSAlertDialog
 import com.github.leodan11.alertdialog.IOSProgressDialog
 import com.github.leodan11.alertdialog.LottieAlertDialog
-import com.github.leodan11.alertdialog.ProgressVectorAlertDialog
 import com.github.leodan11.alertdialog.MaterialAlertDialogCentered
 import com.github.leodan11.alertdialog.MaterialAlertDialogEvents
 import com.github.leodan11.alertdialog.MaterialAlertDialogInput
-import com.github.leodan11.alertdialog.MaterialAlertDialogVerificationCode
 import com.github.leodan11.alertdialog.MaterialAlertDialogVector
+import com.github.leodan11.alertdialog.MaterialAlertDialogVerificationCode
 import com.github.leodan11.alertdialog.ProgressAlertDialog
+import com.github.leodan11.alertdialog.ProgressVectorAlertDialog
 import com.github.leodan11.alertdialog.SettingsAlertDialog
 import com.github.leodan11.alertdialog.chroma.ColorMode
 import com.github.leodan11.alertdialog.chroma.ColorSelectListener

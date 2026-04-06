@@ -12,8 +12,8 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
+
 
 /**
  * Base [BottomSheetDialogFragment] class that manages view binding using Android Data Binding.
@@ -28,7 +28,8 @@ import kotlinx.coroutines.launch
  *
  * @since 1.10.10
  */
-abstract class BottomSheetAlertDialogFragment<ViewBinding : ViewDataBinding> : BottomSheetDialogFragment() {
+abstract class BottomSheetAlertDialogFragment<ViewBinding : ViewDataBinding> :
+    BottomSheetDialogFragment() {
 
     private var _binding: ViewBinding? = null
 
@@ -37,7 +38,7 @@ abstract class BottomSheetAlertDialogFragment<ViewBinding : ViewDataBinding> : B
      *
      * This property is only valid between [onCreateView] and [onDestroyView].
      *
-     * @throws IllegalStateException if accessed outside of the valid lifecycle window.
+     * @throws IllegalStateException if accessed outside the valid lifecycle window.
      */
     val binding get() = _binding!!
 
@@ -50,7 +51,6 @@ abstract class BottomSheetAlertDialogFragment<ViewBinding : ViewDataBinding> : B
         savedInstanceState: Bundle?
     ): View {
         _binding = DataBindingUtil.inflate(inflater, layoutId, container, false)
-        initializeBinding()
         binding.lifecycleOwner = viewLifecycleOwner
         executeOnCreateView()
         return binding.root
@@ -63,8 +63,6 @@ abstract class BottomSheetAlertDialogFragment<ViewBinding : ViewDataBinding> : B
     }
 
     /**
-     * Collects data from a Kotlin [Flow] scoped to the [viewLifecycleOwner]'s lifecycle.
-     *
      * This utility method launches a coroutine in the lifecycle scope of the fragment's view,
      * and repeats the collection when the lifecycle is at least at the specified [state].
      *
@@ -73,14 +71,14 @@ abstract class BottomSheetAlertDialogFragment<ViewBinding : ViewDataBinding> : B
      *
      * @see Lifecycle
      * @see Lifecycle.State
-     * @see androidx.lifecycle.LifecycleOwner.lifecycleScope
-     * @see androidx.lifecycle.LifecycleOwner.repeatOnLifecycle
+     * @see lifecycleScope
+     * @see repeatOnLifecycle
      *
-     * @since 1.10.10
+     * @since 1.14.12
      */
-    protected fun collectDataFlow(
+    protected inline fun launchOnLifecycle(
         state: Lifecycle.State = Lifecycle.State.STARTED,
-        block: suspend CoroutineScope.() -> Unit
+        crossinline block: suspend CoroutineScope.() -> Unit
     ) {
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(state) {
@@ -110,16 +108,5 @@ abstract class BottomSheetAlertDialogFragment<ViewBinding : ViewDataBinding> : B
      * @since 1.14.10
      */
     protected open fun executeOnCreateView(): Unit = Unit
-
-    /**
-     * Initializes data inside the [binding] when inflating the XML layout.
-     *
-     * Override this method to set binding variables such as view models or handlers.
-     *
-     * Default implementation is a no-op.
-     *
-     * @since 1.14.10
-     */
-    protected open fun initializeBinding(): Unit = Unit
 
 }

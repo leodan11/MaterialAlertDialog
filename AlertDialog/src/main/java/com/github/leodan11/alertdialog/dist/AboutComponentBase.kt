@@ -22,10 +22,10 @@ import com.github.leodan11.alertdialog.R
 import com.github.leodan11.alertdialog.databinding.MAboutDialogBinding
 import com.github.leodan11.alertdialog.dist.base.AlertBuilder
 import com.github.leodan11.alertdialog.io.content.Alert
-import com.github.leodan11.alertdialog.io.content.DialogAlertInterface
 import com.github.leodan11.alertdialog.io.content.Config.DEFAULT_CHART_SEQUENCE_LENGTH
 import com.github.leodan11.alertdialog.io.content.Config.DEFAULT_CHART_SEQUENCE_LENGTH_DETAILS
 import com.github.leodan11.alertdialog.io.content.Config.MATERIAL_ALERT_DIALOG_UI_NOT_ICON
+import com.github.leodan11.alertdialog.io.content.DialogAlertInterface
 import com.github.leodan11.alertdialog.io.helpers.toButtonView
 import com.github.leodan11.alertdialog.io.helpers.toDetailsView
 import com.github.leodan11.alertdialog.io.helpers.toImageView
