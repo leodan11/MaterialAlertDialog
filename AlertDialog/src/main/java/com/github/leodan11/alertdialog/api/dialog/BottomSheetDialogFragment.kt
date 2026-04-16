@@ -1,10 +1,11 @@
-package com.github.leodan11.alertdialog.dist.base
+package com.github.leodan11.alertdialog.api.dialog
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.LayoutRes
+import androidx.annotation.MainThread
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.Lifecycle
@@ -22,25 +23,29 @@ import kotlinx.coroutines.launch
  * handling the binding lifecycle and providing convenient extension points for subclasses to
  * initialize bindings and handle lifecycle events.
  *
- * @param ViewBinding The specific type of [ViewDataBinding] generated for the layout.
+ * @param VB The specific type of [ViewDataBinding] generated for the layout.
  *
  * @property layoutId The resource ID of the layout to inflate and bind.
  *
  * @since 1.10.10
  */
-abstract class BottomSheetAlertDialogFragment<ViewBinding : ViewDataBinding> :
-    BottomSheetDialogFragment() {
-
-    private var _binding: ViewBinding? = null
+abstract class BottomSheetDialogFragment<VB : ViewDataBinding> : BottomSheetDialogFragment() {
 
     /**
-     * The binding instance associated with this fragment's view.
-     *
-     * This property is only valid between [onCreateView] and [onDestroyView].
-     *
-     * @throws IllegalStateException if accessed outside the valid lifecycle window.
+     * The view binding for the fragment. This property is only valid between `onCreateView`
+     * and `onDestroyView`. It provides access to the views in the layout file.
      */
-    val binding get() = _binding!!
+    private var _binding: VB? = null
+
+    /**
+     * The view binding for this fragment.
+     *
+     * This is a **non-null** getter that returns the inflated binding object. The binding is only valid
+     * between `onCreateView` and `onDestroyView`. If accessed outside this range, it will throw an exception.
+     */
+    protected open val binding
+        get() = _binding
+            ?: error("ViewBinding is only valid between onCreateView and onDestroyView")
 
     @get:LayoutRes
     abstract val layoutId: Int
@@ -52,14 +57,26 @@ abstract class BottomSheetAlertDialogFragment<ViewBinding : ViewDataBinding> :
     ): View {
         _binding = DataBindingUtil.inflate(inflater, layoutId, container, false)
         binding.lifecycleOwner = viewLifecycleOwner
-        executeOnCreateView()
+        onViewSetup()
         return binding.root
     }
 
+    /**
+     * Cleans up resources when the fragment's view is destroyed.
+     *
+     * This method is called during the fragment's lifecycle when the view is destroyed.
+     * It nullifies the binding and executes any additional cleanup defined by the subclass.
+     *
+     * **Important:** This method should NOT be overridden. Instead, use `executeOnDestroyView()` to implement
+     * any custom logic or resource cleanup specific to the subclass.
+     *
+     * This method is provided by the base class to ensure that resources are properly cleaned up
+     * and that the binding is set to null when the fragment's view is destroyed.
+     */
     final override fun onDestroyView() {
-        super.onDestroyView()
-        executeOnDestroyView()
+        onViewDestroyed()
         _binding = null
+        super.onDestroyView()
     }
 
     /**
@@ -88,25 +105,20 @@ abstract class BottomSheetAlertDialogFragment<ViewBinding : ViewDataBinding> :
     }
 
     /**
-     * Called during [onDestroyView], before the binding is cleared.
+     * Called when the view has been created and the binding is ready.
      *
-     * Override this method to execute any cleanup logic tied to the view's lifecycle.
-     *
-     * Default implementation is a no-op.
-     *
-     * @since 1.14.10
+     * This is the main entry point for initializing UI components.
+     * @since 2.0.0
      */
-    protected open fun executeOnDestroyView(): Unit = Unit
+    @MainThread
+    protected open fun onViewSetup() = Unit
 
     /**
-     * Called during [onCreateView] after the binding is initialized and the lifecycle owner is set.
+     * Called when the view is about to be destroyed.
      *
-     * Override this method to perform additional view setup or initialization.
-     *
-     * Default implementation is a no-op.
-     *
-     * @since 1.14.10
+     * Use this method to clean up resources tied to the view lifecycle.
+     * @since 2.0.0
      */
-    protected open fun executeOnCreateView(): Unit = Unit
-
+    @MainThread
+    protected open fun onViewDestroyed() = Unit
 }

@@ -5,7 +5,7 @@ import android.text.TextUtils
 import android.view.View
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import com.github.leodan11.alertdialog.dist.base.AlertDialogFragment
+import com.github.leodan11.alertdialog.api.dialog.AlertDialogFragment
 import com.github.leodan11.dialog.databinding.FragmentBlankBinding
 
 /**
