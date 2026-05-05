@@ -18,9 +18,9 @@ import com.github.leodan11.alertdialog.MaterialAlertDialogVerificationCode
 import com.github.leodan11.alertdialog.ProgressAlertDialog
 import com.github.leodan11.alertdialog.ProgressVectorAlertDialog
 import com.github.leodan11.alertdialog.SettingsAlertDialog
-import com.github.leodan11.alertdialog.chroma.ColorMode
-import com.github.leodan11.alertdialog.chroma.ColorSelectListener
-import com.github.leodan11.alertdialog.chroma.MaterialChromaDialog
+import com.github.leodan11.alertdialog.api.chroma.ColorMode
+import com.github.leodan11.alertdialog.api.chroma.ColorSelectListener
+import com.github.leodan11.alertdialog.api.chroma.MaterialChromaDialog
 import com.github.leodan11.alertdialog.io.content.Alert
 import com.github.leodan11.alertdialog.io.content.DialogAlertInterface
 import com.github.leodan11.alertdialog.io.content.materialAlertDialogSignIn

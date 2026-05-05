@@ -16,7 +16,7 @@ import com.github.leodan11.alertdialog.MaterialAlertDialogVerificationCode
 import com.github.leodan11.alertdialog.MaterialAlertDialogVector
 import com.github.leodan11.alertdialog.ProgressAlertDialog
 import com.github.leodan11.alertdialog.SettingsAlertDialog
-import com.github.leodan11.alertdialog.chroma.MaterialChromaDialog
+import com.github.leodan11.alertdialog.api.chroma.MaterialChromaDialog
 
 /**
  * Creates an [AboutAlertDialog] with the arguments supplied to this builder.

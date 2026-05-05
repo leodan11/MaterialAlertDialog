@@ -1,4 +1,4 @@
-package com.github.leodan11.alertdialog.chroma
+package com.github.leodan11.alertdialog.api.chroma
 
 import android.graphics.Color
 import com.github.leodan11.alertdialog.R

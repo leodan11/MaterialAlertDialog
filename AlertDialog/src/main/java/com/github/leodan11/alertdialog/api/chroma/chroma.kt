@@ -1,6 +1,6 @@
 @file:Suppress("DEPRECATION")
 
-package com.github.leodan11.alertdialog.chroma
+package com.github.leodan11.alertdialog.api.chroma
 
 import android.content.Context
 import android.graphics.Color

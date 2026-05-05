@@ -1,4 +1,4 @@
-package com.github.leodan11.alertdialog.chroma.internal
+package com.github.leodan11.alertdialog.api.chroma.internal
 
 import android.content.Context
 import android.graphics.Color
@@ -9,7 +9,7 @@ import android.widget.LinearLayout
 import android.widget.RelativeLayout
 import androidx.annotation.ColorInt
 import com.github.leodan11.alertdialog.R
-import com.github.leodan11.alertdialog.chroma.ColorMode
+import com.github.leodan11.alertdialog.api.chroma.ColorMode
 
 internal class ChromaView : RelativeLayout {
 

@@ -1,4 +1,4 @@
-package com.github.leodan11.alertdialog.chroma
+package com.github.leodan11.alertdialog.api.chroma
 
 import android.app.AlertDialog
 import android.app.Dialog
@@ -8,7 +8,7 @@ import android.view.WindowManager
 import androidx.annotation.ColorInt
 import androidx.fragment.app.DialogFragment
 import com.github.leodan11.alertdialog.R
-import com.github.leodan11.alertdialog.chroma.internal.ChromaView
+import com.github.leodan11.alertdialog.api.chroma.internal.ChromaView
 import kotlin.properties.Delegates
 
 class MaterialChromaDialog : DialogFragment() {

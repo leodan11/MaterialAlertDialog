@@ -2,56 +2,121 @@ package com.github.leodan11.alertdialog.api.dialog
 
 import android.app.Dialog
 import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import androidx.annotation.LayoutRes
 import androidx.annotation.MainThread
+import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
-import com.github.leodan11.alertdialog.internal.base.BaseBindingDialogFragment
+import androidx.fragment.app.DialogFragment
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.launch
 
 
 /**
- * DialogFragment implementation that displays a Material AlertDialog
- * using ViewDataBinding as its content view.
+ * Base [DialogFragment] class that handles view binding using Android Data Binding.
  *
- * This class extends [BaseBindingDialogFragment] and delegates
- * binding creation to the subclass implementation.
+ * This abstract class simplifies the usage of Data Binding in dialog fragments by managing
+ * the binding lifecycle automatically and providing hooks for subclasses to customize behavior
+ * during view creation and destruction.
  *
- * The view is attached manually to a [MaterialAlertDialogBuilder].
+ * @param ViewBinding The type of [ViewDataBinding] generated for the layout.
  *
- * ## Lifecycle behavior
- * - Binding is created during [onCreateDialog]
- * - [onCreateView] is not part of the main UI inflation flow
- * - The view is attached directly to the dialog instance
- *
- * ## Usage
- * Use [onCreateDialogSetup] to configure the dialog before creation.
- *
- * @param VB The type of ViewDataBinding used for the dialog layout.
+ * @property layoutId The layout resource ID to be inflated and bound.
  *
  * @since 1.10.10
  */
-abstract class AlertDialogFragment<VB : ViewDataBinding> : BaseBindingDialogFragment<VB>() {
+abstract class AlertDialogFragment<ViewBinding : ViewDataBinding> : DialogFragment() {
+
+    private var _binding: ViewBinding? = null
+
+    /**
+     * The binding instance associated with this fragment's view.
+     *
+     * This property is only valid between [onCreateView] and [onDestroyView].
+     *
+     * @throws IllegalStateException if accessed outside the valid lifecycle window.
+     */
+    val binding get() = _binding!!
+
+    @get:LayoutRes
+    abstract val layoutId: Int
 
     final override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         val builder = MaterialAlertDialogBuilder(requireActivity())
-        onCreateBinding(inflater = layoutInflater, container = null)
+        _binding = DataBindingUtil.inflate(layoutInflater, layoutId, null, false)
         builder.setView(binding.root)
-        onCreateDialogSetup(builder)
         return builder.create()
     }
 
+    final override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        binding.lifecycleOwner = viewLifecycleOwner
+        executeOnCreateView()
+        return binding.root
+    }
+
+    final override fun onDestroyView() {
+        super.onDestroyView()
+        executeOnDestroyView()
+        _binding = null
+    }
+
     /**
-     * Allows customization of the [MaterialAlertDialogBuilder] before the dialog is created.
+     * This utility function launches a coroutine in the lifecycle scope of the fragment's view,
+     * and repeats the collection when the lifecycle is at least at the specified [state].
      *
-     * This method is invoked inside [onCreateDialog] before calling `create()`.
+     * @param state The minimum [Lifecycle.State] at which collection starts. Defaults to [Lifecycle.State.STARTED].
+     * @param block The suspend lambda containing the code to collect from the flow.
      *
-     * ## Important
-     * - Only configure the builder here.
-     * - Do not interact with the Dialog instance yet.
+     * @see Lifecycle
+     * @see Lifecycle.State
+     * @see lifecycleScope
+     * @see repeatOnLifecycle
      *
-     * @param builder Dialog builder instance.
-     * @since 2.0.0
+     * @since 1.14.12
+     */
+    protected inline fun launchOnLifecycle(
+        state: Lifecycle.State = Lifecycle.State.STARTED,
+        crossinline block: suspend CoroutineScope.() -> Unit
+    ) {
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(state) {
+                block()
+            }
+        }
+    }
+
+    /**
+     * Called during [onDestroyView], before the binding is cleared.
+     *
+     * Override this method to execute any cleanup logic tied to the view's lifecycle.
+     *
+     * Default implementation is a no-op.
+     *
+     * @since 1.14.10
      */
     @MainThread
-    protected open fun onCreateDialogSetup(builder: MaterialAlertDialogBuilder): Unit = Unit
+    protected open fun executeOnDestroyView(): Unit = Unit
+
+    /**
+     * Called during [onCreateView] after the binding is initialized and the lifecycle owner is set.
+     *
+     * Override this method to perform additional view setup or initialization.
+     *
+     * Default implementation is a no-op.
+     *
+     * @since 1.14.10
+     */
+    @MainThread
+    protected open fun executeOnCreateView(): Unit = Unit
 
 }

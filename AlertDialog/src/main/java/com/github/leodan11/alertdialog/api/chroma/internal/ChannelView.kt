@@ -1,4 +1,4 @@
-package com.github.leodan11.alertdialog.chroma.internal
+package com.github.leodan11.alertdialog.api.chroma.internal
 
 import android.annotation.SuppressLint
 import android.content.Context
@@ -8,7 +8,7 @@ import android.widget.SeekBar
 import android.widget.TextView
 import androidx.annotation.ColorInt
 import com.github.leodan11.alertdialog.R
-import com.github.leodan11.alertdialog.chroma.ColorMode
+import com.github.leodan11.alertdialog.api.chroma.ColorMode
 
 @SuppressLint("ViewConstructor")
 internal class ChannelView(

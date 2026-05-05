@@ -1,4 +1,4 @@
-package com.github.leodan11.alertdialog.chroma
+package com.github.leodan11.alertdialog.api.chroma
 
 import androidx.annotation.ColorInt
 
