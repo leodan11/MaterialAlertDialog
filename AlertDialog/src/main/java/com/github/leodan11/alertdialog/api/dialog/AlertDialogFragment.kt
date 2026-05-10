@@ -48,10 +48,10 @@ abstract class AlertDialogFragment<ViewBinding : ViewDataBinding> : DialogFragme
     abstract val layoutId: Int
 
     final override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-        val builder = MaterialAlertDialogBuilder(requireActivity())
+        val builder: MaterialAlertDialogBuilder = createBuilder()
         _binding = DataBindingUtil.inflate(layoutInflater, layoutId, null, false)
         builder.setView(binding.root)
-        return builder.create()
+        return setConfiguration(builder).create()
     }
 
     final override fun onCreateView(
@@ -96,6 +96,45 @@ abstract class AlertDialogFragment<ViewBinding : ViewDataBinding> : DialogFragme
     }
 
     /**
+     * Creates the base instance of [MaterialAlertDialogBuilder] used to construct
+     * the dialog for this fragment.
+     *
+     * This method defines the **global configuration point** for all dialogs
+     * within the base implementation. It is intended to be overridden when
+     * a consistent dialog style, behavior, or theme is required across multiple dialogs.
+     *
+     * ## Purpose
+     * - Centralize dialog builder creation
+     * - Apply global styling or behavior (e.g., cancelability, theming)
+     * - Allow subclasses to customize the base builder behavior
+     *
+     * ## Default Behavior
+     * The default implementation returns a plain [MaterialAlertDialogBuilder]
+     * using the current fragment context.
+     *
+     * ## Example Usage
+     * ```kotlin
+     * override fun createBuilder(): MaterialAlertDialogBuilder {
+     *     return super.createBuilder()
+     *         .setCancelable(false)
+     *         .setBackgroundInsetStart(24)
+     *         .setBackgroundInsetEnd(24)
+     * }
+     * ```
+     *
+     * ## Notes
+     * - This method is part of a template method pattern.
+     * - Should only be overridden for **global dialog configuration**, not per-dialog logic.
+     *
+     * @return a configured instance of [MaterialAlertDialogBuilder]
+     * @since 1.14.16
+     */
+    @MainThread
+    protected open fun createBuilder(): MaterialAlertDialogBuilder {
+        return MaterialAlertDialogBuilder(requireContext())
+    }
+
+    /**
      * Called during [onDestroyView], before the binding is cleared.
      *
      * Override this method to execute any cleanup logic tied to the view's lifecycle.
@@ -118,5 +157,46 @@ abstract class AlertDialogFragment<ViewBinding : ViewDataBinding> : DialogFragme
      */
     @MainThread
     protected open fun executeOnCreateView(): Unit = Unit
+
+    /**
+     * Applies dialog-specific configuration to the provided [MaterialAlertDialogBuilder].
+     *
+     * This method is called after [createBuilder] and before dialog creation.
+     * It is intended for **per-dialog customization**, such as:
+     *
+     * - Setting title or message
+     * - Configuring buttons
+     * - Applying custom views
+     *
+     * ## Purpose
+     * - Provide a safe extension point for dialog customization
+     * - Separate base builder creation from dialog-specific configuration
+     * - Encourage clean and maintainable dialog structure
+     *
+     * ## Default Behavior
+     * The default implementation returns the builder unchanged.
+     *
+     * ## Example Usage
+     * ```kotlin
+     * override fun setConfiguration(
+     *     builder: MaterialAlertDialogBuilder
+     * ): MaterialAlertDialogBuilder {
+     *     return builder.apply {
+     *         setTitle("Delete item")
+     *         setMessage("Are you sure you want to delete this item?")
+     *         setPositiveButton("Yes") { _, _ -> deleteItem() }
+     *         setNegativeButton("Cancel", null)
+     *     }
+     * }
+     * ```
+     *
+     * @param builder the base [MaterialAlertDialogBuilder] created by [createBuilder]
+     * @return the modified or original builder instance
+     * @since 1.14.16
+     */
+    @MainThread
+    protected open fun setConfiguration(builder: MaterialAlertDialogBuilder): MaterialAlertDialogBuilder {
+        return builder
+    }
 
 }
